@@ -1,0 +1,297 @@
+<configs>
+<config name="recipes">
+<append xpath="/recipes">
+	<recipe name="762mmBulletPL" count="500" scrapable="True" craft_area="ScienceStation" craft_tool="radiationGloves">
+		<ingredient name="762mmBullet" count="500" />
+		<ingredient name="depletedUranium" count="2" />
+	</recipe>
+</append>	  
+</config>
+<config name="items">
+<append xpath="/items">
+	<item id="" name="plutonium">
+		<property name="DescriptionKey" value="plutoniumDesc" />
+		<property name="Meshfile" value="Items/Crafting/rock_small" />
+		<property name="Material" value="metal" />
+		<property name="HoldType" value="21" />
+		<property name="Stacknumber" value="10" />
+		<property name="FuelValue" value="200" />
+		<property name="DropScale" value="8" />
+		<property name="Group" value="Resources" />
+		<property name="CraftingIngredientTime" value="1" />
+		<property class="Preview">
+			<property name="Zoom" value="28" />
+			<property name="Pos" value="0,-0.05" />
+			<property name="Rot" value="90,45,0" />
+		</property>
+	</item>
+	<item id="" name="depletedUranium">
+		<property name="DescriptionKey" value="depletedUraniumDesc" />
+		<property name="Meshfile" value="Items/Crafting/rock_small" />
+		<property name="Material" value="metal" />
+		<property name="HoldType" value="21" />
+		<property name="Stacknumber" value="10" />
+		<property name="FuelValue" value="200" />
+		<property name="DropScale" value="8" />
+		<property name="Group" value="Resources" />
+		<property name="CraftingIngredientTime" value="1" />
+		<property class="Preview">
+			<property name="Zoom" value="28" />
+			<property name="Pos" value="0,-0.05" />
+			<property name="Rot" value="90,45,0" />
+		</property>
+	</item>
+	<item id="" name="762mmBulletPL">
+		<property name="DescriptionKey" value="762mmBulletPLDesc" />
+		<property name="Meshfile" value="Items/Weapons/Ranged/HuntingRifle/762mm_bulletPrefab" />
+		<property name="Material" value="brass" />
+		<property name="HoldType" value="21" />
+		<property name="Stacknumber" value="500" />
+		<property class="Attributes">
+			<property name="GetQualityFromWeapon" value="true" />
+			<property name="EntityDamage" value="25, 45" />
+			<property name="BlockDamage" value="20,40" />
+			<property name="ApplyBuff" value="1, 1" param1="radiation1" />
+			<property name="Buff" value="radiation1" />
+			<property name="Buff_chance" value=".8" />
+		</property>
+		<property name="Group" value="Ammo/Weapons" />
+		<property name="CraftingSkillGroup" value="Gun Smithing" />
+	</item>
+	<item id="" name="enrichedUranium">
+		<property name="DescriptionKey" value="enrichedUraniumDesc" />
+		<property name="Meshfile" value="Items/Crafting/rock_small" />
+		<property name="Material" value="metal" />
+		<property name="HoldType" value="21" />
+		<property name="Stacknumber" value="10" />
+		<property name="FuelValue" value="200" />
+		<property name="DropScale" value="8" />
+		<property name="Group" value="Resources" />
+		<property name="CraftingIngredientTime" value="1" />
+		<property class="Preview">
+			<property name="Zoom" value="28" />
+			<property name="Pos" value="0,-0.05" />
+			<property name="Rot" value="90,45,0" />
+		</property>
+	</item>
+</append>
+</config>
+<config name="blocks">	
+<append xpath="/blocks">
+	<!-- TRUCKS TOP LOOT -->
+	<block id="1198" name="TruckMilitary">
+		<property name="Class" value="Spawner, Mods" />
+		<property name="Material" value="Mmetal_hard" />
+		<property name="Shape" value="ModelEntity" />
+		<property name="Model" value="#DecoVehiclesPrefabs?Guntruck" />
+		<!-- this determines how fast zombies are spawned, in seconds -->
+		<property name="TickRate" value="5" />
+		<!-- this is the spawn trigger area -->
+		<!-- if a player gets inside this are it starts spawning -->
+		<property name="SpawnRadius" value="15" />
+		<!-- spawning area it will try to spawn the entities inside this area only -->
+		<property name="SpawnArea" value="5" />		
+		<!-- If you dont want it to make radiation damage, set this values to 0 -->
+		<property name="RadiationArea" value="0" />
+		<property name="RadiationDamage" value="0" />
+		<!-- If you want any buff to be applied inside the radiation area, uncomment next line -->
+		<!-- <property name="Buffs" value="radiation1" /> -->
+		<!-- spawns a maximum of 4 zombies at a time -->
+		<property name="NumberToSpawn" value="4" />
+		<!-- Maximum zombies allowed inside the spawnarea -->
+		<property name="MaxSpawned" value="8" />
+		<!-- area to check for max spawned -->
+		<property name="CheckArea" value="20" />
+		<!-- Time to Pause spawning, in minutes, after the total number of spawned zombies have reached NumberToPause -->
+		<!-- If this number is >= 999, the spawning will stop forever -->
+		<!-- this WILL NOT STOP radiation damage and buffs -->
+		<property name="PauseTime" value="5" />
+		<!-- Total number of zombies to pause the spawning. -->
+		<property name="NumberToPause" value="16" />
+		<!-- EntityGroup used to choose the entity to spawn -->
+		<property name="EntityGroup" value="ZombieSoldierGroup" />
+		<!-- Lootable -->
+		<property name="Lootable" value="true" />
+		<property name="LootList" value="89" /> <!-- asign to 10 if it's not lootable -->
+		<!-- What to do to particles when the nest is stopped -->
+		<!-- None, Start particles, Stop particles -->
+		<property name="ParticleAction" value="Start" />
+		<property name="LPHardnessScale" value="8" />
+		<property name="Group" value="Decor" />
+		<drop event="Destroy" count="0" />
+		<property name="debug" value="false" />
+	</block>
+	<block id="1247" name="TruckScience">
+		<property name="Class" value="Spawner, Mods" />
+		<property name="Material" value="Mmetal_hard" />
+		<property name="Shape" value="ModelEntity" />
+		<property name="Model" value="#DecoVehiclesPrefabs?military_truck" />
+		<!-- this determines how fast zombies are spawned, in seconds -->
+		<property name="TickRate" value="5" />
+		<!-- this is the spawn trigger area -->
+		<!-- if a player gets inside this are it starts spawning -->
+		<property name="SpawnRadius" value="15" />
+		<!-- spawning area it will try to spawn the entities inside this area only -->
+		<property name="SpawnArea" value="5" />		
+		<!-- If you dont want it to make radiation damage, set this values to 0 -->
+		<property name="RadiationArea" value="8" />
+		<property name="RadiationDamage" value="4" />
+		<!-- If you want any buff to be applied inside the radiation area, uncomment next line -->
+		<property name="Buffs" value="radiation1" />
+		<!-- spawns a maximum of 4 zombies at a time -->
+		<property name="NumberToSpawn" value="4" />
+		<!-- Maximum zombies allowed inside the spawnarea -->
+		<property name="MaxSpawned" value="8" />
+		<!-- area to check for max spawned -->
+		<property name="CheckArea" value="20" />
+		<!-- Time to Pause spawning, in minutes, after the total number of spawned zombies have reached NumberToPause -->
+		<!-- If this number is >= 999, the spawning will stop forever -->
+		<!-- this WILL NOT STOP radiation damage and buffs -->
+		<property name="PauseTime" value="5" />
+		<!-- Total number of zombies to pause the spawning. -->
+		<property name="NumberToPause" value="8" />
+		<!-- EntityGroup used to choose the entity to spawn -->
+		<property name="EntityGroup" value="ZombiesScience" />
+		<!-- Lootable -->
+		<property name="Lootable" value="true" />
+		<property name="LootList" value="90" /> <!-- asign to 10 if it's not lootable -->
+		<!-- What to do to particles when the nest is stopped -->
+		<!-- None, Start particles, Stop particles -->
+		<property name="ParticleAction" value="Start" />
+		<property name="LPHardnessScale" value="8" />
+		<property name="Group" value="Decor" />
+		<drop event="Destroy" count="0" />
+		<property name="debug" value="false" />
+	</block>
+	<block id="1256" name="TruckMedic">
+		<property name="Class" value="Spawner, Mods" />
+		<property name="Material" value="Mmetal_hard" />
+		<property name="Shape" value="ModelEntity" />
+		<property name="Model" value="#DecoVehiclesPrefabs?AmbulanceUSFBX" />
+		<!-- this determines how fast zombies are spawned, in seconds -->
+		<property name="TickRate" value="5" />
+		<!-- this is the spawn trigger area -->
+		<!-- if a player gets inside this are it starts spawning -->
+		<property name="SpawnRadius" value="15" />
+		<!-- spawning area it will try to spawn the entities inside this area only -->
+		<property name="SpawnArea" value="5" />		
+		<!-- If you dont want it to make radiation damage, set this values to 0 -->
+		<property name="RadiationArea" value="0" />
+		<property name="RadiationDamage" value="0" />
+		<!-- If you want any buff to be applied inside the radiation area, uncomment next line -->
+		<!-- <property name="Buffs" value="radiation1" /> -->
+		<!-- spawns a maximum of 4 zombies at a time -->
+		<property name="NumberToSpawn" value="2" />
+		<!-- Maximum zombies allowed inside the spawnarea -->
+		<property name="MaxSpawned" value="4" />
+		<!-- area to check for max spawned -->
+		<property name="CheckArea" value="20" />
+		<!-- Time to Pause spawning, in minutes, after the total number of spawned zombies have reached NumberToPause -->
+		<!-- If this number is >= 999, the spawning will stop forever -->
+		<!-- this WILL NOT STOP radiation damage and buffs -->
+		<property name="PauseTime" value="2" />
+		<!-- Total number of zombies to pause the spawning. -->
+		<property name="NumberToPause" value="12" />
+		<!-- EntityGroup used to choose the entity to spawn -->
+		<property name="EntityGroup" value="ZombiesMed" />
+		<!-- Lootable -->
+		<property name="Lootable" value="true" />
+		<property name="LootList" value="91" /> <!-- asign to 10 if it's not lootable -->
+		<!-- What to do to particles when the nest is stopped -->
+		<!-- None, Start particles, Stop particles -->
+		<property name="ParticleAction" value="Start" />
+		<property name="LPHardnessScale" value="8" />
+		<property name="Group" value="Decor" />
+		<drop event="Destroy" count="0" />
+		<property name="debug" value="false" />
+	</block>
+	<block id="1257" name="TruckMilitaryOld">
+		<property name="Class" value="Spawner, Mods" />
+		<property name="Material" value="Mmetal_hard" />
+		<property name="Shape" value="ModelEntity" />
+		<property name="Model" value="#DecoVehiclesPrefabs?oldArmyTruck" />
+		<!-- this determines how fast zombies are spawned, in seconds -->
+		<property name="TickRate" value="5" />
+		<!-- this is the spawn trigger area -->
+		<!-- if a player gets inside this are it starts spawning -->
+		<property name="SpawnRadius" value="15" />
+		<!-- spawning area it will try to spawn the entities inside this area only -->
+		<property name="SpawnArea" value="4" />		
+		<!-- If you dont want it to make radiation damage, set this values to 0 -->
+		<property name="RadiationArea" value="10" />
+		<property name="RadiationDamage" value="3" />
+		<!-- If you want any buff to be applied inside the radiation area, uncomment next line -->
+		<property name="Buffs" value="radiation1" />
+		<!-- spawns a maximum of 4 zombies at a time -->
+		<property name="NumberToSpawn" value="2" />
+		<!-- Maximum zombies allowed inside the spawnarea -->
+		<property name="MaxSpawned" value="8" />
+		<!-- area to check for max spawned -->
+		<property name="CheckArea" value="20" />
+		<!-- Time to Pause spawning, in minutes, after the total number of spawned zombies have reached NumberToPause -->
+		<!-- If this number is >= 999, the spawning will stop forever -->
+		<!-- this WILL NOT STOP radiation damage and buffs -->
+		<property name="PauseTime" value="2" />
+		<!-- Total number of zombies to pause the spawning. -->
+		<property name="NumberToPause" value="12" />
+		<!-- EntityGroup used to choose the entity to spawn -->
+		<property name="EntityGroup" value="ZombieSoldierGroup" />
+		<!-- Lootable -->
+		<property name="Lootable" value="true" />
+		<property name="LootList" value="92" /> <!-- asign to 10 if it's not lootable -->
+		<!-- What to do to particles when the nest is stopped -->
+		<!-- None, Start particles, Stop particles -->
+		<property name="ParticleAction" value="Start" />
+		<property name="LPHardnessScale" value="8" />
+		<property name="Group" value="Decor" />
+		<drop event="Destroy" count="0" />
+		<property name="debug" value="false" />
+	</block>	
+	<!-- TRUCKS TOP LOOT -->	
+</append>
+</config>
+<config name="loot">
+<append xpath="/lootcontainers/lootplaceholders/placeholder[@name='lootStreet']">
+		<block name="TruckMilitary" prob="0.009" />
+		<block name="TruckMedic" prob="0.009" />
+</append>
+<append xpath="/lootcontainers">
+	<!-- TRUCKS -->	
+	<!-- MILITARY TRUCK -->	
+	<lootcontainer id="89" count="1,3" size="8,4" sound_open="UseActions/open_chest" sound_close="UseActions/close_chest" open_time="15" loot_quality_template="baseTemplate">		
+		<item group="militaryammo" prob="1" />
+		<item group="militaryguns+ammo" prob="0.5" />
+		<item group="specialGuns" prob="0.4" />
+		<item group="attachments" prob="0.3" />
+		<item group="militaryArmor" prob="0.2" />			
+		<item group="hazmatGear" prob="0.1" />
+		<item name="ammoWorkbench" prob="0.1" />
+		<item name="depletedUranium" count="2,4" prob="0.05" />
+	</lootcontainer>
+	<!-- SCIENCE TRUCK -->
+	<lootcontainer id="90" count="1,3" size="8,4" sound_open="UseActions/open_chest" sound_close="UseActions/close_chest" open_time="15" loot_quality_template="baseTemplate">		
+		<item group="militaryammo" prob="1" />		
+		<item name="depletedUranium" count="2,4" prob="0.8" />
+		<item name="gasCentrifuge" prob="0.65" />
+		<item name="enrichedUranium" count="4,10" prob="0.6" />
+		<item group="specialGuns" prob="0.4" />
+		<item group="attachments" prob="0.25" />
+		<item group="hazmatGear" prob="0.1" />
+		<item group="militaryArmor" prob="0.1" />									
+		<item name="plutonium" prob="0.05" />		
+	</lootcontainer>
+	<!-- MEDICAL TRUCK -->
+	<lootcontainer id="91" count="1,2" size="8,4" sound_open="UseActions/open_chest" sound_close="UseActions/close_chest" open_time="15" loot_quality_template="baseTemplate">
+		<item group="medicine" prob="1" />
+		<item group="rareMedicine" prob="0.5" />
+		<item name="gasCentrifuge" prob="0.3" />
+		<item group="hazmatGear" prob="0.1" />				
+	</lootcontainer>
+	<!-- OLD MILITARY TRUCK (STATION POI) -->
+	<lootcontainer id="92" count="1" size="8,4" sound_open="UseActions/open_chest" sound_close="UseActions/close_chest" open_time="15" loot_quality_template="baseTemplate">				
+		<item group="nuclearLoot" prob="1" />
+	</lootcontainer>
+	<!-- TRUCKS -->
+</append>
+</config>
+</configs>

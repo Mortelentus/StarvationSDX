@@ -1,0 +1,461 @@
+<configs>
+<config name="recipes">
+<append xpath="/recipes">
+	<recipe name="scrapBrass" count="1" scrapable="False" craft_area="forge1" material_based="true" craft_time="1" craft_exp_gain="0">
+		<ingredient name="unit_zinc" count="5" />
+		<ingredient name="unit_copper" count="10" />
+	</recipe>
+	<recipe name="garlicSap" count="1" scrapable="False">
+		<ingredient name="garlic" count="5" />		
+	</recipe>
+	<recipe name="insectBiteAntidote" count="1" scrapable="False" craft_area="ScienceStation">
+		<ingredient name="garlicSap" count="1" />
+		<ingredient name="potassiumHydroxide" count="1" />
+		<ingredient name="grainAlcohol" count="2" />
+	</recipe>
+	<recipe name="snakePoison" count="5" scrapable="False" craft_area="ScienceStation" craft_tool="SurgicalCalipers">
+		<ingredient name="snakeTrap" count="1" />
+	</recipe>
+	<recipe name="snakeBiteAntidote" count="10" scrapable="False" craft_area="ScienceStation">
+		<ingredient name="snakePoison" count="20" />
+		<ingredient name="pigMaleItem" count="1" />
+		<ingredient name="grainAlcohol" count="2" />
+	</recipe>
+	<recipe name="snakeBiteAntidote" count="10" scrapable="False" craft_area="ScienceStation">
+		<ingredient name="snakePoison" count="20" />
+		<ingredient name="pigFemaleItem" count="1" />
+		<ingredient name="grainAlcohol" count="2" />
+	</recipe>
+	<recipe name="salt" count="20" scrapable="False" craft_area="ScienceStation">
+		<ingredient name="saltOre" count="1" />
+	</recipe>
+</append>	  
+</config>
+<!--			Blocks			-->
+<config name="blocks">	
+<append xpath="/blocks">
+	<!-- Animal Traps -->
+	<block id="1184" name="scorpionTrap">
+		<!-- triggered trap -->
+		<!-- its an animal, so it autoresets -->
+		<property name="DescriptionKey" value="scorpionTrapDesc" />
+		<property name="Class" value="TrapMorte, Mods" />
+		<property name="Material" value="organic" />		
+		<property name="Shape" value="ModelEntity" />
+		<property name="Model" value="#scorpion?ScorpionPrefab" />
+		<property name="Collide" value="movement,bullet,rocket,melee" />
+		<property name="FuelValue" value="36" />
+		<property name="KillChance" value="0" />
+		<property name="DamageDone" value="5" />
+		<property name="HitLegs" value="false" />
+		<property name="Baited" value="false" />
+		<!-- if set to true, if the trap kills an entity (not player), it will imediatly disapear -->
+		<property name="DestroyOnDeath" value="false" />
+		<property name="OpenSound" value="scorpion_trigger" />
+		<property name="CloseSound" value="scorpion_trigger" />		
+		<property name="AutoReset" value="true" />
+		<property name="Buffs" value="scorpionPoisoning" />
+		<!-- until better solution this is just to allow interaction -->
+		<property name="CanPickup" value="true" />
+		<drop event="Destroy" count="0" />
+		<property name="Group" value="Tools/Traps" />
+		<property name="debug" value="false" />
+		<property name="ModelOffset" value="0,0.2,0" />
+	</block>
+	<block id="1185" name="spiderTrap">
+		<!-- triggered trap -->
+		<!-- its an animal, so it autoresets -->
+		<property name="DescriptionKey" value="spiderTrapDesc" />
+		<property name="Class" value="TrapMorte, Mods" />
+		<property name="Material" value="organic" />		
+		<property name="Shape" value="ModelEntity" />
+		<property name="Model" value="#scorpion?SpiderPrefab" />
+		<property name="Collide" value="movement,bullet,rocket,melee" />
+		<property name="FuelValue" value="36" />
+		<property name="KillChance" value="0" />
+		<property name="DamageDone" value="5" />
+		<property name="HitLegs" value="false" />
+		<property name="Baited" value="false" />
+		<!-- if set to true, if the trap kills an entity (not player), it will imediatly disapear -->
+		<property name="DestroyOnDeath" value="false" />
+		<property name="OpenSound" value="scorpion_trigger" />
+		<property name="CloseSound" value="scorpion_trigger" />		
+		<property name="AutoReset" value="true" />
+		<property name="Buffs" value="spiderPoisoning" />
+		<!-- until better solution this is just to allow interaction -->
+		<property name="CanPickup" value="true" />
+		<drop event="Destroy" count="0" />
+		<property name="Group" value="Tools/Traps" />
+		<property name="debug" value="false" />
+		<property name="ModelOffset" value="0,0.2,0" />
+	</block>
+	<block id="1186" name="snakeTrap">
+		<!-- triggered trap -->
+		<!-- its an animal, so it autoresets -->
+		<property name="DescriptionKey" value="snakeTrapDesc" />
+		<property name="Class" value="TrapMorte, Mods" />
+		<property name="Material" value="organic" />		
+		<property name="Shape" value="ModelEntity" />
+		<property name="Model" value="#scorpion?SnakePrefab" />
+		<property name="Collide" value="movement,bullet,rocket,melee" />
+		<property name="FuelValue" value="36" />
+		<property name="KillChance" value="0" />
+		<property name="DamageDone" value="10" />
+		<property name="HitLegs" value="false" />
+		<property name="Baited" value="false" />
+		<!-- if set to true, if the trap kills an entity (not player), it will imediatly disapear -->
+		<property name="DestroyOnDeath" value="false" />
+		<property name="OpenSound" value="scorpion_trigger" />
+		<property name="CloseSound" value="scorpion_trigger" />		
+		<property name="AutoReset" value="true" />
+		<property name="Buffs" value="snakePoisoning" />
+		<property name="CritBuffs" value="severeSnakePoisoning" />
+		<!-- until better solution this is just to allow interaction -->
+		<property name="CanPickup" value="true" />
+		<drop event="Destroy" name="snakeTrap" count="1" prob="0.5" />
+		<property name="Group" value="Tools/Traps" />
+		<property name="debug" value="false" />
+		<property name="ModelOffset" value="0,0.1,0" />
+	</block>
+	<block id="1187" name="piranhaTrap">
+		<!-- triggered trap -->
+		<!-- its an animal, so it autoresets -->		
+		<property name="Class" value="TrapMorte, Mods" />
+		<property name="Material" value="water" />		
+		<property name="Shape" value="ModelEntity" />
+		<property name="Model" value="#scorpion?PiranhaPrefab" />	
+		<property name="FuelValue" value="36" />
+		<property name="KillChance" value="0" />
+		<property name="DamageDone" value="10" />
+		<property name="HitLegs" value="false" />
+		<property name="Baited" value="false" />
+		<!-- if set to true, if the trap kills an entity (not player), it will imediatly disapear -->
+		<property name="DestroyOnDeath" value="false" />
+		<property name="OpenSound" value="scorpion_trigger" />
+		<property name="CloseSound" value="scorpion_trigger" />		
+		<property name="AutoReset" value="true" />	
+		<!-- until better solution this is just to allow interaction -->
+		<property name="CanPickup" value="true" />
+		<drop event="Destroy" count="0" />
+		<property name="Group" value="Tools/Traps" />
+		<property name="debug" value="false" />		
+	</block>
+	<!-- Animal Traps -->	
+	<!-- New Ores -->
+	<block id="1188" name="saltOre">
+		<property name="DescriptionKey" value="saltOreDesc" />
+		<property name="Material" value="Msalt" />
+		<property name="Shape" value="Terrain" />
+		<property name="Mesh" value="terrain" />
+		<property name="Texture" value="178" />
+		<property name="Weight" value="50" />
+		<property name="DropScale" value="2" />
+		<drop event="Harvest" name="saltOre" count="10" />
+		<drop event="Destroy" name="saltOre" count="5" prob="1.0" />
+		<drop event="Fall" name="saltOre" count="10" prob=".5" stick_chance="0" />
+		<property name="CanMobsSpawnOn" value="true" />
+	</block>
+	<block id="1189" name="copperOre">
+		<property name="DescriptionKey" value="copperOreDesc" />
+		<property name="Material" value="copper" />
+		<property name="Shape" value="Terrain" />
+		<property name="Mesh" value="terrain" />
+		<property name="Texture" value="96" />
+		<property name="Weight" value="100" />
+		<property name="DropScale" value="2" />
+		<drop event="Harvest" name="scrapCopper" count="10" />
+		<drop event="Destroy" name="scrapCopper" count="5" prob="1.0" />
+		<drop event="Fall" name="scrapCopper" count="10" prob=".5" stick_chance="0" />
+		<property name="CanMobsSpawnOn" value="true" />
+	</block>
+	<block id="1190" name="zincOre">
+		<property name="Material" value="zinc" />
+		<property name="Shape" value="Terrain" />
+		<property name="Mesh" value="terrain" />
+		<property name="Texture" value="314" />
+		<property name="Weight" value="100" />
+		<property name="DropScale" value="2" />
+		<drop event="Harvest" name="scrapZinc" count="10" />
+		<drop event="Destroy" name="scrapZinc" count="5" prob="1.0" />
+		<drop event="Fall" name="scrapZinc" count="10" prob=".5" stick_chance="0" />
+		<property name="CanMobsSpawnOn" value="true" />
+	</block>
+	<!-- New Ores -->
+</append>
+</config>
+<config name="items">
+<append xpath="/items">
+	<item id="" name="scrapCopper">
+		<property name="DescriptionKey" value="scrapCopperDesc" />
+		<property name="Meshfile" value="Items/Misc/sackPrefab" />
+		<property name="DropMeshfile" value="Items/Misc/sack_droppedPrefab" />
+		<property name="Material" value="copper" />
+		<property name="HoldType" value="45" />
+		<property name="Stacknumber" value="1000" />
+		<!-- STK resource -->
+		<property name="Weight" value="5" />
+		<property name="Group" value="Resources" />
+	</item>
+	<item id="" name="salt">
+		<property name="DescriptionKey" value="saltDesc" />
+		<property name="Meshfile" value="Items/Food/cornmealPrefab" />
+		<property name="Material" value="organic" />
+		<property name="HoldType" value="21" />
+		<property name="Stacknumber" value="1000" />
+		<!-- STK resource -->
+		<property name="Group" value="Resources" />
+		<property name="CraftingIngredientTime" value="2" />
+	</item>
+	<item id="" name="scrapZinc">
+		<property name="DescriptionKey" value="scrapZincDesc" />
+		<property name="Meshfile" value="Items/Misc/sackPrefab" />
+		<property name="DropMeshfile" value="Items/Misc/sack_droppedPrefab" />
+		<property name="Material" value="zinc" />
+		<property name="HoldType" value="45" />
+		<property name="Stacknumber" value="1000" />
+		<!-- STK resource -->
+		<property name="Weight" value="5" />
+		<property name="Group" value="Resources" />
+	</item>
+	<item id="" name="unit_copper">
+		<property name="Extends" value="unit_iron" />
+		<property name="CustomIcon" value="scrapCopper" />
+		<property name="Material" value="copper" />
+		<property name="IsDeveloper" value="true" />
+	</item>
+	<item id="" name="unit_zinc">
+		<property name="Extends" value="unit_iron" />
+		<property name="CustomIcon" value="scrapZinc" />
+		<property name="Material" value="zinc" />
+		<property name="IsDeveloper" value="true" />
+	</item>
+	<item id="" name="garlicSap">
+		<property name="DescriptionKey" value="garlicSapDesc" />
+		<property name="Meshfile" value="Items/Misc/sackPrefab" />
+		<property name="DropMeshfile" value="Items/Misc/sack_droppedPrefab" />
+		<property name="HoldType" value="45" />
+		<property name="Material" value="organic" />
+		<property name="Weight" value="5" />
+		<property name="Stacknumber" value="10" /> <!-- STK loot -->
+		<property name="Group" value="Resources" />
+		<property name="ActionSkillGroup" value="Medicine" />
+		<property name="CraftingSkillGroup" value="Science"/>
+	</item>
+	<item id="" name="insectBiteAntidote">
+		<property name="DescriptionKey" value="insectBiteAntidoteDesc" />
+		<property name="CustomIconTint" value="b0ffb0" />
+		<property name="Meshfile" value="Items/Health/painkillersPrefab" />
+		<property name="Material" value="organic" />
+		<property name="HoldType" value="16" />
+		<property name="Stacknumber" value="10" />
+		<!-- STK loot -->
+		<property class="Action0">
+			<property name="Class" value="UseOther" />
+			<property name="Delay" value="1.0" />
+			<property name="Use_time" value="..." />
+			<property name="Gain_health" value="0" />
+			<property name="Gain_food" value="0" />
+			<property name="Gain_water" value="0" />
+			<property name="Gain_wellness" value="0" />
+			<property name="Sound_start" value="UseActions/player_painkillers" />
+			<property name="Debuff" value="scorpionPoisoning,spiderPoisoning" />
+		</property>
+		<property class="Action1">
+			<property name="Class" value="Eat" />
+			<property name="Delay" value="1.0" />
+			<property name="Use_time" value="..." />
+			<property name="Gain_health" value="0" />
+			<property name="Gain_food" value="0" />
+			<property name="Gain_water" value="0" />
+			<property name="Gain_wellness" value="0" />
+			<property name="Sound_start" value="UseActions/player_painkillers" />
+			<property name="Debuff" value="scorpionPoisoning,spiderPoisoning" />
+		</property>
+		<property name="ActionSkillGroup" value="Medicine" />
+		<property name="CraftingSkillGroup" value="Science" />
+		<property name="Group" value="Medicine" />
+		<property name="ActionExp" value="10" />
+	</item>
+	<item id="" name="snakePoison">
+		<property name="DescriptionKey" value="snakePoisonDesc" />
+		<property name="Meshfile" value="Items/Misc/sackPrefab" />
+		<property name="DropMeshfile" value="Items/Misc/sack_droppedPrefab" />
+		<property name="HoldType" value="45" />
+		<property name="Material" value="organic" />
+		<property name="Weight" value="5" />
+		<property name="Stacknumber" value="20" /> <!-- STK loot -->
+		<property name="Group" value="Resources" />
+		<property name="ActionSkillGroup" value="Medicine" />
+		<property name="CraftingSkillGroup" value="Science"/>
+	</item>
+	<item id="" name="snakeBiteAntidote">
+		<property name="DescriptionKey" value="snakeBiteAntidoteDesc" />
+		<property name="Meshfile" value="#ChemTable?SyringePrefab" />
+		<property name="DropMeshfile" value="#ChemTable?SyringePrefab" />		
+		<property name="Material" value="organic" />
+		<property name="HoldType" value="23" />
+		<property name="Material" value="organic" />
+		<property name="Weight" value="5" />
+		<property name="Stacknumber" value="10" /> <!-- STK loot -->
+		<!-- STK loot -->
+		<property class="Action0">
+			<property name="Class" value="UseOther" />
+			<property name="Delay" value="1.0" />
+			<property name="Use_time" value="..." />
+			<property name="Gain_health" value="0" />
+			<property name="Gain_food" value="0" />
+			<property name="Gain_water" value="0" />
+			<property name="Gain_wellness" value="0" />
+			<property name="Sound_start" value="UseActions/player_firstAidKit" />
+			<property name="Debuff" value="snakePoisoning,severeSnakePoisoning" />
+		</property>
+		<property class="Action1">
+			<property name="Class" value="Eat" />
+			<property name="Delay" value="1.0" />
+			<property name="Use_time" value="..." />
+			<property name="Gain_health" value="0" />
+			<property name="Gain_food" value="0" />
+			<property name="Gain_water" value="0" />
+			<property name="Gain_wellness" value="0" />
+			<property name="Sound_start" value="UseActions/player_firstAidKit" />
+			<property name="Debuff" value="snakePoisoning,severeSnakePoisoning" />
+		</property>
+		<property name="ActionSkillGroup" value="Medicine" />
+		<property name="CraftingSkillGroup" value="Science" />
+		<property name="Group" value="Medicine" />
+		<property name="ActionExp" value="10" />
+	</item>	
+</append>
+</config>
+<config name="materials">
+<append xpath="/materials">
+	<material id="zinc">
+		<property name="damage_category" value="metal" />
+		<property name="surface_category" value="metal" />
+		<property name="forge_category" value="zinc" />
+		<property name="Hardness" type="float" value="1" />
+		<property name="stepsound" value="metal" />
+		<property name="stability_glue" value="400" />
+		<property name="Mass" type="int" value="12" />
+		<property name="MaxDamage" value="1250" />
+	</material>
+	<material id="copper">
+		<property name="damage_category" value="metal" />
+		<property name="surface_category" value="metal" />
+		<property name="forge_category" value="copper" />
+		<property name="Hardness" type="float" value="1" />
+		<property name="stepsound" value="metal" />
+		<property name="stability_glue" value="400" />
+		<property name="Mass" type="int" value="12" />
+		<property name="MaxDamage" value="1250" />
+	</material>
+	<material id="Msalt">
+		<property name="damage_category" value="stone" />
+		<property name="surface_category" value="stone" />
+		<property name="Hardness" type="float" value="1" />
+		<property name="stepsound" value="stone" />
+		<property name="stability_glue" value="72" />
+		<property name="Mass" type="int" value="12" />
+		<property name="MaxDamage" value="500" />
+	</material>
+</append>
+</config>
+<config name="sounds">
+<append xpath="/Sounds">
+	<!-- Animal Traps -->
+	<SoundDataNode name="scorpion_trigger">
+		<AudioSource name="Sounds/AudioSource_UseAction" />
+		<Noise range="20" prio="1" time="1" muffled_when_crouched="0.5" />
+		<AudioClip ClipName="#animalSounds?scorpion" />
+		<LocalCrouchVolumeScale name="0.5" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.01" />
+	</SoundDataNode>
+	<SoundDataNode name="spider_trigger">
+		<AudioSource name="Sounds/AudioSource_UseAction" />
+		<Noise range="20" prio="1" time="1" muffled_when_crouched="0.5" />
+		<AudioClip ClipName="#animalSounds?spider" />
+		<LocalCrouchVolumeScale name="0.5" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.01" />
+	</SoundDataNode>
+	<SoundDataNode name="snake_trigger">
+		<AudioSource name="Sounds/AudioSource_UseAction" />
+		<Noise range="20" prio="1" time="1" muffled_when_crouched="0.5" />
+		<AudioClip ClipName="#animalSounds?snake" />
+		<LocalCrouchVolumeScale name="0.5" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.01" />
+	</SoundDataNode>
+	<!-- Animal Traps -->
+</append>
+</config>
+<config name="biomes">
+<append xpath="/worldgeneration/biomes/biome[@name='forest']/decorations">
+		<decoration type="block" blockname="SpiderNest" prob="0.00001" />
+		<decoration type="block" blockname="snakeTrap" prob="0.00015" />
+		<decoration type="block" blockname="scorpionTrap" prob="0.00001" />
+</append>
+<append xpath="/worldgeneration/biomes/biome[@name='pine_forest']/decorations">
+		<decoration type="block" blockname="SpiderNest" prob="0.00001" />
+		<decoration type="block" blockname="snakeTrap" prob="0.00010" />
+		<decoration type="block" blockname="scorpionTrap" prob="0.00001" />
+</append>
+<append xpath="/worldgeneration/biomes/biome[@name='plains']/decorations">
+		<decoration type="block" blockname="SpiderNest" prob="0.00001" />
+		<decoration type="block" blockname="snakeTrap" prob="0.00030" />
+		<decoration type="block" blockname="scorpionTrap" prob="0.00005" />
+</append>
+<append xpath="/worldgeneration/biomes/biome[@name='desert']/decorations">
+		<decoration type="block" blockname="SpiderNest" prob="0.00001" />
+		<decoration type="block" blockname="snakeTrap" prob="0.00025" />
+		<decoration type="block" blockname="scorpionTrap" prob="0.00030" />
+</append>
+<append xpath="/worldgeneration/biomes/biome[@name='wasteland']/decorations">
+		<decoration type="block" blockname="SpiderNest" prob="0.00001" />
+		<decoration type="block" blockname="snakeTrap" prob="0.00001" />
+</append>
+<append xpath="/worldgeneration/biomes/biome[@name='caveFloor']/decorations">
+		<decoration type="block" blockname="SpiderNest" prob="0.00001" />
+</append>
+<append xpath="/worldgeneration/biomes/biome[@name='forest']/layers/layer[@depth='*']">
+		<resource blockname="saltOre" cluster="2" prob="0.1" rwgGenerationType="all" />
+		<resource blockname="copperOre" cluster="2" prob="0.15" rwgGenerationType="all" />
+</append>
+<append xpath="/worldgeneration/biomes/biome[@name='pine_forest']/layers/layer[@depth='*']">
+		<resource blockname="saltOre" cluster="2" prob="0.1" rwgGenerationType="all" />
+		<resource blockname="copperOre" cluster="2" prob="0.15" rwgGenerationType="all" />
+</append>
+<append xpath="/worldgeneration/biomes/biome[@name='plains']/layers/layer[@depth='*']">
+		<resource blockname="saltOre" cluster="2" prob="0.1" rwgGenerationType="all" />
+		<resource blockname="zincOre" cluster="2" prob="0.15" rwgGenerationType="all" />
+</append>
+</config>
+<config name="buffs">		
+<append xpath="/buffs">
+	<buff id="scorpionPoisoning" duration="1800" actions="increment(@wellness, -.2, 30, 0, 0)" type="sickness" icon="ui_game_symbol_scorpion" name_key="scorpionPoisoning" description_key="scorpionPoisoningDesc">
+	  <modify id="0" stat="stamina" amount="-5" rate="1" />
+	</buff>
+	<buff id="spiderPoisoning" duration="1800" actions="increment(@wellness, -.1, 30, 0, 0)" type="sickness" icon="ui_game_symbol_insectbite" name_key="spiderPoisoning" description_key="spiderPoisoningDesc">
+	  <modify id="0" stat="stamina" amount="-3" rate="1" />
+	</buff>
+	<buff id="severeSnakePoisoning" duration="0" actions="increment(@wellness, -.3, 30, 0, 0)" type="sickness" icon="ui_game_symbol_snakebite1" name_key="severeSnakePoisoning" description_key="severeSnakePoisoningDesc">
+	  <modify id="0" stat="stamina" amount="-7" rate="1" />
+	  <modify id="1" stat="health" amount="-2" rate="30" />
+	</buff>
+	<buff id="snakePoisoning" duration="1500" actions="increment(@wellness, -.1, 30, 0, 0)" type="sickness" icon="ui_game_symbol_snakebite" name_key="snakePoisoning" description_key="snakePoisoningDesc">
+	  <modify id="0" stat="stamina" amount="-5" rate="1" />
+	  <modify id="1" stat="health" amount="-1" rate="30" />
+	</buff>
+</append>
+</config>
+</configs>

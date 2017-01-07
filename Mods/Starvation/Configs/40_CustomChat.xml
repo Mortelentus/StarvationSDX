@@ -1,0 +1,36 @@
+<configs>
+<config name="items">
+<append xpath="/items">
+	<item id="" name="MegaPhone">
+		<property name="Meshfile" value="#cbradio?MegaP" />		
+		<property name="Material" value="metal" />
+		<property name="RepairTools" value="repairKit" />
+		<property name="DegradationBreaksAfter" value="false" />
+		<property name="Weight" value="5" />
+		<property name="HoldType" value="3" />
+		<property name="Stacknumber" value="1" />				
+	</item>	
+	<item id="" name="WalkyTalky">
+		<property name="Class" value="ItemClassRadio, Mods" />
+		<property name="Meshfile" value="#cbradio?WT" />		
+		<property name="Material" value="metal" />
+		<property name="RepairTools" value="repairKit" />
+		<property name="DegradationBreaksAfter" value="false" />
+		<property class="Attributes">
+			<property name="DegradationMax" value="20,600" />
+			<property name="DegradationRate" value="3,1" />
+		</property>
+		<property name="Weight" value="5" />
+		<property name="HoldType" value="3" />
+		<property name="Stacknumber" value="1" />				
+	</item>	
+</append>	  
+</config>
+
+<config name="loot">
+<append xpath="/lootcontainers/lootgroup[@name='rareTools']">
+		<item name="MegaPhone" prob="0.04" />
+		<item name="WalkyTalky" prob="0.01" />
+</append>
+</config>
+</configs>

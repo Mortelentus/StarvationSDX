@@ -1,0 +1,1351 @@
+<configs>
+<config name="items">
+<append xpath="/items">
+<item id="" name="handPoliceZombie">
+	<property name="Extends" value="handMaster" />
+	<property name="IsDeveloper" value="true" />
+	<property class="Action0"> <!-- AttackAction -->
+		<property name="DamageEntity" value="15" />
+		<property name="DamageBlock" value="20" />
+		<property name="Buff" value="infection,stunned" />
+		<property name="Buff_chance" value="0.04,1" />
+	</property>
+</item>
+<item id="" name="handAxeZombie">
+	<property name="Extends" value="handMaster" />
+	<property name="IsDeveloper" value="true" />
+	<property class="Action0"> <!-- AttackAction -->
+		<property name="DamageEntity" value="15" />
+		<property name="DamageBlock" value="20" />
+		<property name="Buff" value="bleeding,infection,stunned" />
+		<property name="Buff_chance" value="0.5,0.04,1" />
+	</property>	
+</item>
+<item id="" name="PoliceBaton">
+			<property name="Meshfile" value="#Baton?Baton" />	
+			<property name="DescriptionKey" value="HooliganToolDesc" />
+				<property name="Material" value="metal" />
+				<property name="HoldType" value="2" />
+				<property name="Stacknumber" value="1" />
+				<property name="RepairTools" value="scrapIron" />
+				<property name="Degradation" value="350" param1="true" />
+				<property name="FuelValue" value="4" />
+				<property name="SoundDestroy" value="metaldestroy1" />
+				<property name="Weight" value="120" />
+				<property class="Action0">
+					<property name="Class" value="Melee" />
+					<property name="Delay" value="1" />
+					<property name="Range" value="2.5" />
+					<property name="Sphere" value="0.8" />					
+					<property name="DamageBlock" value="1" />
+					<property name="Sound_start" value="swoosh" />
+					<property name="Stamina_usage" value="3" />		
+					<property name="Buff" value="stunned" />
+					<property name="Buff_chance" value="1" />
+					<property name="DamageBonus.head" value="25" />
+					<property name="DamageBonus.glass" value="25" />
+					<property name="DamageBonus.plants" value="25" />
+					<property name="DamageBonus.leaves" value="25" />
+					<property name="ActionExp" value="5" />
+					<property name="ActionExpBonusMultiplier" value="5" />
+				</property>				 
+				<property class="Attributes">
+					<property name="EntityDamage" value="10,20" />					
+					<property name="DegradationMax" value="100,250" />
+					<property name="DegradationRate" value="2,1" />
+				</property>
+				<property name="CritChance" value=".25" />
+				<property name="Group" value="Ammo/Weapons,Basics" />			
+				
+				<property name="ActionSkillGroup" value="Blunt Weapons" />
+				<property name="CraftingSkillGroup" value="Weapon Smithing" /> 
+</item>			 
+<item id="" name="Tomahawk">				
+	<property name="Extends" value="fireaxeIron" />	
+	<property name="HoldType" value="2" />	
+	<property name="Meshfile" value="#ZdWeapons?Tomahawk" />
+	<property name="RepairTools" value="forgedSteel" />
+	<property class="Action0">
+		<property name="Buff" value="stunned,internalBleeding" />
+		<property name="Buff_chance" value="1,1" />
+	</property>
+	<property class="Attributes">
+		<property name="EntityDamage" value="20,28" />
+		<property name="BlockDamage" value="30,72" />
+		<property name="DegradationMax" value="500,1400" />
+	</property>
+</item>
+<item id="" name="handDocZombie">
+	<property name="Extends" value="handMaster" />
+	<property name="IsDeveloper" value="true" />
+	<property class="Action0"> <!-- AttackAction -->
+		<property name="DamageEntity" value="25" />
+		<property name="DamageBlock" value="20" />
+		<property name="Buff" value="infection,stunned" />
+		<property name="Buff_chance" value="1,1" />
+	</property>
+</item>
+</append>	  
+	</config>
+<config name="entityclasses">
+<append xpath="/entity_classes"> 
+<entity_class name="TalkingHead">
+		<!-- This one decides for scoring -->
+		<property name="EntityType" value="Player" />
+		<!-- Mesh and class properties -->
+		<property name="Mesh" value="#talkinghead?TalkingHead1" />
+		<property name="Class" value="EntityAnimalClown, Mods" />
+		<property name="AvatarController" value="BipedAnimations, Mods" />
+		<property name="ModelType" value="Standard" />
+		<property name="HasRagdoll" value="false" />
+		<property name="Prefab" value="NPC" />
+		<property name="Parent" value="Players" />
+		<!-- <property name="PhysicsBody" value="zombieStandard" /> -->
+		<!-- AI properties -->
+		<property name="AITask-1" value="Territorial" param1="1" />	
+		<property name="AITarget-1" value="SetNearestEntityAsTarget" param1="EntityPlayer" />	
+		<!--property name="AITask-5" value="ApproachAndAttackTarget" param1="EntityAnimalBear" /-->
+		<!--property name="AITask-6" value="ApproachAndAttackTarget" param1="EntityAnimalStag" /-->		
+		<!--property name="AITarget-4" value="SetNearestEntityAsTarget" param1="EntityAnimalBear" /-->
+		<!--property name="AITarget-5" value="SetNearestEntityAsTarget" param1="EntityAnimalStag" /-->
+		<!-- General entity properties -->
+		<property name="MaxHealth" value="500" />
+		<property name="MaxViewAngle" value="360" />
+		<property name="HandItem" value="handAxeZombie" />
+		<property name="Weight" value="7000" />
+		<property name="Immunity" value="sickness;disease;bleeding;wellness" />
+		<property name="WanderSpeed" value="0.00" />
+		<property name="ApproachSpeed" value="0.0" />
+		<property name="NightWanderSpeed" value="0" />
+		<property name="NightApproachSpeed" value="0" />
+		<property name="PanicSpeed" value="0" />
+		<property name="CanClimbLadders" value="false" />
+		<property name="IsEnemyEntity" value="false" />
+		<!-- This decides on the particle effect played on hit -->
+		<property name="SurfaceCategory" value="organic" />
+		<property name="WalkType" value="7" />
+		<property name="ParticleOnDeath" value="blood_death" />
+		<property name="SoundRandomTime" value="60.0" />
+		<!-- It will play the roam every 60/30 seconds -->
+		<property name="SoundRandom" value="headrandom" />
+		<property name="SoundAlertTime" value="220.0" />
+		<!-- It will play the roam every 25/12.5 seconds-->
+		<property name="SoundAlert" value="headalert" />
+		<property name="SoundSense" value="headsense" />
+		<property name="SoundHurt" value="headhurt" />
+		<property name="SoundDeath" value="headDeath" />
+		<property name="SoundAttack" value="Enemies/Base_Zombie_Male/zombiemaleattack" />
+		<property name="TimeStayAfterDeath" value="8" />
+		<property name="AttackTimeoutDay" value="1.5" />
+		<!-- in s -->
+		<property name="AttackTimeoutNight" value="1.1" />
+		<property name="LootListAlive" value="103" />
+		<property name="LootListAliveMP" value="103" />
+		<property name="CorpseBlock" value="GoreBlock1Prefab" />
+		<property name="CorpseBlockChance" value="0" />
+		<property name="ExperienceGain" value="0" />
+		<property name="DeadBodyHitPoints" value="0" />
+		<!-- For harvesting -->
+		<property name="RootMotion" value="false" />
+		<property name="HasDeathAnim" value="true" />
+		<property name="ExperienceGain" value="100" />
+	</entity_class>
+	<entity_class name="FirefighterZd">
+		<!-- This one decides for scoring -->
+		<property name="EntityType" value="Zombie" />
+		<!-- Mesh and class properties -->
+		<property name="Mesh" value="#zds?FirefighterZd1" />
+		<property name="Class" value="EntityAnimalClown, Mods" />
+		<property name="AvatarController" value="BipedAnimations, Mods" />
+		<property name="ModelType" value="Standard" />
+		<property name="HasRagdoll" value="false" />
+		<property name="Prefab" value="NPC" />
+		<property name="Parent" value="Enemies" />
+		<!-- <property name="PhysicsBody" value="zombieStandard" /> -->
+		<!-- AI properties -->
+		<property name="AITask-1" value="ApproachSpot" />
+		<property name="AITask-2" value="BreakBlock" />
+		<property name="AITask-3" value="Territorial" param1="10" />
+		<property name="AITask-4" value="ApproachAndAttackTarget" param1="EntityPlayer" />
+		<!--property name="AITask-5" value="ApproachAndAttackTarget" param1="EntityAnimalBear" /-->
+		<!--property name="AITask-6" value="ApproachAndAttackTarget" param1="EntityAnimalStag" /-->
+		<property name="AITask-5" value="ApproachSpot" />
+		<property name="AITask-6" value="Wander" />
+		<property name="AITarget-1" value="SetAsTargetIfHurt" param1="EntityPlayer" />
+		<property name="AITarget-2" value="BlockingTargetTask" />
+		<property name="AITarget-3" value="SetNearestCorpseAsTarget" param1="EntityPlayer" />
+		<property name="AITarget-4" value="SetNearestEntityAsTarget" param1="EntityPlayer" />
+		<!--property name="AITarget-4" value="SetNearestEntityAsTarget" param1="EntityAnimalBear" /-->
+		<!--property name="AITarget-5" value="SetNearestEntityAsTarget" param1="EntityAnimalStag" /-->
+		<!-- General entity properties -->
+		<property name="MaxHealth" value="500" />
+		<property name="MaxViewAngle" value="180" />
+		<property name="HandItem" value="handAxeZombie" />
+		<property name="Weight" value="70" />
+		<property name="Immunity" value="sickness;disease;bleeding;wellness" />
+		<property name="WanderSpeed" value="0.08" />
+		<property name="ApproachSpeed" value="0.2" />
+		<property name="NightWanderSpeed" value="0.08" />
+		<property name="NightApproachSpeed" value="1.1" />
+		<property name="PanicSpeed" value="0.55" />
+		<property name="CanClimbLadders" value="true" />
+		<property name="IsEnemyEntity" value="true" />
+		<!-- This decides on the particle effect played on hit -->
+		<property name="SurfaceCategory" value="organic" />
+		<property name="WalkType" value="7" />
+		<property name="ParticleOnDeath" value="blood_death" />
+		<property name="SoundRandomTime" value="60.0" />
+		<!-- It will play the roam every 60/30 seconds -->
+		<property name="SoundRandom" value="Enemies/Base_Zombie_Male/zombiemaleroam" />
+		<property name="SoundAlertTime" value="25.0" />
+		<!-- It will play the roam every 25/12.5 seconds-->
+		<property name="SoundAlert" value="Enemies/Base_Zombie_Male/zombiemalealert" />
+		<property name="SoundSense" value="Enemies/Base_Zombie_Male/zombiemalesense" />
+		<property name="SoundHurt" value="Enemies/Base_Zombie_Male/zombiemalepain" />
+		<property name="SoundDeath" value="Enemies/Base_Zombie_Male/zombiemaledeath" />
+		<property name="SoundAttack" value="Enemies/Base_Zombie_Male/zombiemaleattack" />
+		<property name="TimeStayAfterDeath" value="300" />
+		<property name="AttackTimeoutDay" value="1.5" />
+		<!-- in s -->
+		<property name="AttackTimeoutNight" value="1.1" />
+		<property name="LootListOnDeath" value="93" />
+		<property name="CorpseBlock" value="GoreBlock1Prefab" />
+		<property name="CorpseBlockChance" value="1" />
+		<property name="ExperienceGain" value="100" />
+		<property name="DeadBodyHitPoints" value="150" />
+		<!-- For harvesting -->
+		<property name="RootMotion" value="false" />
+		<property name="HasDeathAnim" value="true" />
+		<property name="ExperienceGain" value="100" />
+	</entity_class>
+	<entity_class name="PoliceZd">
+		<!-- This one decides for scoring -->
+		<property name="EntityType" value="Zombie" />
+		<!-- Mesh and class properties -->
+		<property name="Mesh" value="#zds?PoliceZd1" />
+		<property name="Class" value="EntityAnimalClown, Mods" />
+		<property name="AvatarController" value="BipedAnimations, Mods" />
+		<property name="ModelType" value="Standard" />
+		<property name="HasRagdoll" value="false" />
+		<property name="Prefab" value="NPC" />
+		<property name="Parent" value="Enemies" />
+		<!-- <property name="PhysicsBody" value="zombieStandard" /> -->
+		<!-- AI properties -->
+		<property name="AITask-1" value="ApproachSpot" />
+		<property name="AITask-2" value="BreakBlock" />
+		<property name="AITask-3" value="Territorial" param1="10" />
+		<property name="AITask-4" value="ApproachAndAttackTarget" param1="EntityPlayer" />
+		<!--property name="AITask-5" value="ApproachAndAttackTarget" param1="EntityAnimalBear" /-->
+		<!--property name="AITask-6" value="ApproachAndAttackTarget" param1="EntityAnimalStag" /-->
+		<property name="AITask-5" value="ApproachSpot" />
+		<property name="AITask-6" value="Wander" />
+		<property name="AITarget-1" value="SetAsTargetIfHurt" param1="EntityPlayer" />
+		<property name="AITarget-2" value="BlockingTargetTask" />
+		<property name="AITarget-3" value="SetNearestCorpseAsTarget" param1="EntityPlayer" />
+		<property name="AITarget-4" value="SetNearestEntityAsTarget" param1="EntityPlayer" />
+		<!--property name="AITarget-4" value="SetNearestEntityAsTarget" param1="EntityAnimalBear" /-->
+		<!--property name="AITarget-5" value="SetNearestEntityAsTarget" param1="EntityAnimalStag" /-->
+		<!-- General entity properties -->
+		<property name="MaxHealth" value="800" />
+		<property name="MaxViewAngle" value="180" />
+		<property name="HandItem" value="handPoliceZombie" />
+		<property name="Weight" value="70" />
+		<property name="Immunity" value="sickness;disease;bleeding;wellness" />
+		<property name="WanderSpeed" value="0.09" />
+		<property name="ApproachSpeed" value="0.4" />
+		<property name="NightWanderSpeed" value="0.1" />
+		<property name="NightApproachSpeed" value="1.4" />
+		<property name="PanicSpeed" value="0.55" />	
+		<property name="CanClimbLadders" value="true" />
+		<property name="IsEnemyEntity" value="true" />
+		<!-- This decides on the particle effect played on hit -->
+		<property name="SurfaceCategory" value="organic" />
+		<property name="WalkType" value="7" />
+		<property name="ParticleOnDeath" value="blood_death" />
+		<property name="SoundRandomTime" value="60.0" />
+		<!-- It will play the roam every 60/30 seconds -->
+		<property name="SoundRandom" value="Enemies/Base_Zombie_Male/zombiemaleroam" />
+		<property name="SoundAlertTime" value="25.0" />
+		<!-- It will play the roam every 25/12.5 seconds-->
+		<property name="SoundAlert" value="Enemies/Base_Zombie_Male/zombiemalealert" />
+		<property name="SoundSense" value="Enemies/Base_Zombie_Male/zombiemalesense" />
+		<property name="SoundHurt" value="Enemies/Base_Zombie_Male/zombiemalepain" />
+		<property name="SoundDeath" value="Enemies/Base_Zombie_Male/zombiemaledeath" />
+		<property name="SoundAttack" value="Enemies/Base_Zombie_Male/zombiemaleattack" />
+		<property name="TimeStayAfterDeath" value="300" />
+		<property name="AttackTimeoutDay" value="1.5" />
+		<!-- in s -->
+		<property name="AttackTimeoutNight" value="1.1" />
+		<property name="LootListOnDeath" value="94" />
+		<property name="CorpseBlock" value="GoreBlock1Prefab" />
+		<property name="CorpseBlockChance" value="1" />
+		<property name="ExperienceGain" value="100" />
+		<property name="DeadBodyHitPoints" value="150" />
+		<!-- For harvesting -->
+		<property name="RootMotion" value="false" />
+		<property name="HasDeathAnim" value="true" />
+		<property name="ExperienceGain" value="100" />
+	</entity_class>
+	<entity_class name="MilitaryZd">
+		<!-- This one decides for scoring -->
+		<property name="EntityType" value="Zombie" />
+		<!-- Mesh and class properties -->
+		<property name="Mesh" value="#zds?MilitaryZd1" />
+		<property name="Class" value="EntityAnimalClown, Mods" />
+		<property name="AvatarController" value="BipedAnimations, Mods" />
+		<property name="ModelType" value="Standard" />
+		<property name="HasRagdoll" value="false" />
+		<property name="Prefab" value="NPC" />
+		<property name="Parent" value="Enemies" />
+		<!-- <property name="PhysicsBody" value="zombieStandard" /> -->
+		<!-- AI properties -->
+		<property name="AITask-1" value="ApproachSpot" />
+		<property name="AITask-2" value="BreakBlock" />
+		<property name="AITask-3" value="Territorial" param1="10" />
+		<property name="AITask-4" value="ApproachAndAttackTarget" param1="EntityPlayer" />
+		<!--property name="AITask-5" value="ApproachAndAttackTarget" param1="EntityAnimalBear" /-->
+		<!--property name="AITask-6" value="ApproachAndAttackTarget" param1="EntityAnimalStag" /-->
+		<property name="AITask-5" value="ApproachSpot" />
+		<property name="AITask-6" value="Wander" />
+		<property name="AITarget-1" value="SetAsTargetIfHurt" param1="EntityPlayer" />
+		<property name="AITarget-2" value="BlockingTargetTask" />
+		<property name="AITarget-3" value="SetNearestCorpseAsTarget" param1="EntityPlayer" />
+		<property name="AITarget-4" value="SetNearestEntityAsTarget" param1="EntityPlayer" />
+		<!--property name="AITarget-4" value="SetNearestEntityAsTarget" param1="EntityAnimalBear" /-->
+		<!--property name="AITarget-5" value="SetNearestEntityAsTarget" param1="EntityAnimalStag" /-->
+		<!-- General entity properties -->
+		<property name="MaxHealth" value="1000" />
+		<property name="MaxViewAngle" value="180" />
+		<property name="HandItem" value="handAxeZombie" />
+		<property name="Weight" value="70" />
+		<property name="Immunity" value="sickness;disease;bleeding;wellness" />
+			<property name="WanderSpeed" value="0.09" />
+		<property name="ApproachSpeed" value="0.4" />
+		<property name="NightWanderSpeed" value="0.1" />
+		<property name="NightApproachSpeed" value="1.4" />
+		<property name="PanicSpeed" value="0.55" />				
+		<property name="CanClimbLadders" value="true" />
+		<property name="IsEnemyEntity" value="true" />
+		<!-- This decides on the particle effect played on hit -->
+		<property name="SurfaceCategory" value="organic" />
+		<property name="WalkType" value="7" />
+		<property name="ParticleOnDeath" value="blood_death" />
+		<property name="SoundRandomTime" value="60.0" />
+		<!-- It will play the roam every 60/30 seconds -->
+		<property name="SoundRandom" value="Enemies/Base_Zombie_Male/zombiemaleroam" />
+		<property name="SoundAlertTime" value="25.0" />
+		<!-- It will play the roam every 25/12.5 seconds-->
+		<property name="SoundAlert" value="Enemies/Base_Zombie_Male/zombiemalealert" />
+		<property name="SoundSense" value="Enemies/Base_Zombie_Male/zombiemalesense" />
+		<property name="SoundHurt" value="Enemies/Base_Zombie_Male/zombiemalepain" />
+		<property name="SoundDeath" value="Enemies/Base_Zombie_Male/zombiemaledeath" />
+		<property name="SoundAttack" value="Enemies/Base_Zombie_Male/zombiemaleattack" />
+		<property name="TimeStayAfterDeath" value="300" />
+		<property name="AttackTimeoutDay" value="1.5" />
+		<!-- in s -->
+		<property name="AttackTimeoutNight" value="1.1" />
+		<property name="LootListOnDeath" value="95" />
+		<property name="CorpseBlock" value="GoreBlock1Prefab" />
+		<property name="CorpseBlockChance" value="1" />
+		<property name="ExperienceGain" value="100" />
+		<property name="DeadBodyHitPoints" value="150" />
+		<!-- For harvesting -->
+		<property name="RootMotion" value="false" />
+		<property name="HasDeathAnim" value="true" />
+		<property name="ExperienceGain" value="100" />
+	</entity_class>			
+	<entity_class name="BikiniZd">
+		<!-- This one decides for scoring -->
+		<property name="EntityType" value="Zombie" />
+		<!-- Mesh and class properties -->
+		<property name="Mesh" value="#zds?BikiniZd" />
+		<property name="Class" value="EntityAnimalClown, Mods" />
+		<property name="AvatarController" value="BipedAnimations, Mods" />
+		<property name="ModelType" value="Standard" />
+		<property name="HasRagdoll" value="false" />
+		<property name="Prefab" value="NPC" />
+		<property name="Parent" value="Enemies" />
+		<!-- <property name="PhysicsBody" value="zombieStandard" /> -->
+		<!-- AI properties -->
+		<property name="AITask-1" value="ApproachSpot" />
+		<property name="AITask-2" value="BreakBlock" />
+		<property name="AITask-3" value="Territorial" param1="10" />
+		<property name="AITask-4" value="ApproachAndAttackTarget" param1="EntityPlayer" />
+		<!--property name="AITask-5" value="ApproachAndAttackTarget" param1="EntityAnimalBear" /-->
+		<!--property name="AITask-6" value="ApproachAndAttackTarget" param1="EntityAnimalStag" /-->
+		<property name="AITask-5" value="ApproachSpot" />
+		<property name="AITask-6" value="Wander" />
+		<property name="AITarget-1" value="SetAsTargetIfHurt" param1="EntityPlayer" />
+		<property name="AITarget-2" value="BlockingTargetTask" />
+		<property name="AITarget-3" value="SetNearestCorpseAsTarget" param1="EntityPlayer" />
+		<property name="AITarget-4" value="SetNearestEntityAsTarget" param1="EntityPlayer" />
+		<!--property name="AITarget-4" value="SetNearestEntityAsTarget" param1="EntityAnimalBear" /-->
+		<!--property name="AITarget-5" value="SetNearestEntityAsTarget" param1="EntityAnimalStag" /-->
+		<!-- General entity properties -->
+		<property name="MaxHealth" value="1300" />
+		<property name="MaxViewAngle" value="180" />
+		<property name="HandItem" value="handStrongZombie" />
+		<property name="Weight" value="70" />
+		<property name="Immunity" value="sickness;disease;bleeding;wellness" />
+		<property name="WanderSpeed" value="0.09" />
+		<property name="ApproachSpeed" value="0.6" />
+		<property name="NightWanderSpeed" value="0.1" />
+		<property name="NightApproachSpeed" value="1.4" />
+		<property name="PanicSpeed" value="0.55" />
+		<property name="CanClimbLadders" value="true" />
+		<property name="IsEnemyEntity" value="true" />
+		<!-- This decides on the particle effect played on hit -->
+		<property name="SurfaceCategory" value="organic" />
+		<property name="WalkType" value="7" />
+		<property name="ParticleOnDeath" value="blood_death" />
+		<property name="SoundRandomTime" value="60.0" />
+		<!-- It will play the roam every 60/30 seconds -->
+		<property name="SoundRandom" value="Enemies/Base_Zombie_Male/zombiemaleroam" />
+		<property name="SoundAlertTime" value="25.0" />
+		<!-- It will play the roam every 25/12.5 seconds-->
+		<property name="SoundAlert" value="Enemies/Base_Zombie_Male/zombiemalealert" />
+		<property name="SoundSense" value="Enemies/Base_Zombie_Male/zombiemalesense" />
+		<property name="SoundHurt" value="Enemies/Base_Zombie_Male/zombiemalepain" />
+		<property name="SoundDeath" value="Enemies/Base_Zombie_Male/zombiemaledeath" />
+		<property name="SoundAttack" value="Enemies/Base_Zombie_Male/zombiemaleattack" />
+		<property name="TimeStayAfterDeath" value="300" />
+		<property name="AttackTimeoutDay" value="1.5" />
+		<!-- in s -->
+		<property name="AttackTimeoutNight" value="1.1" />
+		<property name="LootListOnDeath" value="15" />
+		<property name="CorpseBlock" value="GoreBlock1Prefab" />
+		<property name="CorpseBlockChance" value="1" />
+		<property name="ExperienceGain" value="100" />
+		<property name="DeadBodyHitPoints" value="150" />
+		<!-- For harvesting -->
+		<property name="RootMotion" value="false" />
+		<property name="HasDeathAnim" value="true" />
+		<property name="ExperienceGain" value="100" />
+	</entity_class>
+   
+ 
+
+	  <entity_class name="RadBoss" extends="zombieUMA" >
+		<property name="Archetype" value="WillieZD"/>
+		<property name="Class" value="EntityZombieCop" />
+		<property name="HandItem" value="handRadBoss" />
+		<property name="RightHandJointName" value="Jaw" />
+		<property name="AITask-1" value="BreakDoor" />
+		<property name="AITask-2" value="BreakBlock" />
+		<!-- param1: 0 == attack action, 1 == use action, param2: attack length in s -->
+		<property name="AITask-3" value="RangedAttackTarget" param1="1" param2="5" />
+		<property name="AITask-4" value="ApproachAndAttackTarget" param1="EntityPlayer" />
+		<property name="AITask-5" value="ApproachAndAttackTarget" param1="EntityAnimalStag" />
+		<property name="AITask-6" value="ApproachSpot" />
+		<property name="AITask-7" value="Wander" />				
+		<!-- It will play the roam every 60/30 seconds -->
+		<property name="SoundRandom" value="Enemies/Feral_Zombie/zombieferalroam" />
+		<property name="SoundAlertTime" value="25.0" />
+		<!-- It will play the roam every 25/12.5 seconds-->
+		<property name="SoundAlert" value="Enemies/Feral_Zombie/zombieferalalert" />
+		<property name="SoundAttack" value="Enemies/Feral_Zombie/zombieferalattack" />
+		<property name="SoundHurt" value="Enemies/Feral_Zombie/zombieferalpain" />
+		<property name="SoundDeath" value="Enemies/Feral_Zombie/zombieferaldeath" />
+		<property name="SoundSense" value="Enemies/Feral_Zombie/zombieferalsense" />
+		<property name="SoundFootstepModifier" value="Enemies/Feral_Zombie/zombieferalfootstep" />
+		<property name="ApproachSpeed" value="1.0" />
+		<property name="NightApproachSpeed" value="1.35" />
+		<property name="MaxHealth" value="3600" />
+		<property name="ExperienceGain" value="1000" />
+		<property name="LootListOnDeath" value="97" />
+	</entity_class>	
+	 <entity_class name="RadBossOld" extends="zombieUMA" >
+		<property name="Archetype" value="RadBossOld"/>
+		<property name="Class" value="EntityZombieCop" />
+		<property name="HandItem" value="handRadBoss" />
+		<property name="RightHandJointName" value="Jaw" />
+		<property name="AITask-1" value="BreakDoor" />
+		<property name="AITask-2" value="BreakBlock" />
+		<!-- param1: 0 == attack action, 1 == use action, param2: attack length in s -->
+		<property name="AITask-3" value="RangedAttackTarget" param1="1" param2="5" />
+		<property name="AITask-4" value="ApproachAndAttackTarget" param1="EntityPlayer" />
+		<property name="AITask-5" value="ApproachAndAttackTarget" param1="EntityAnimalStag" />
+		<property name="AITask-6" value="ApproachSpot" />
+		<property name="AITask-7" value="Wander" />			
+		<!-- It will play the roam every 60/30 seconds -->
+		<property name="SoundRandom" value="Enemies/Feral_Zombie/zombieferalroam" />
+		<property name="SoundAlertTime" value="25.0" />
+		<!-- It will play the roam every 25/12.5 seconds-->
+		<property name="SoundAlert" value="Enemies/Feral_Zombie/zombieferalalert" />
+		<property name="SoundAttack" value="Enemies/Feral_Zombie/zombieferalattack" />
+		<property name="SoundHurt" value="Enemies/Feral_Zombie/zombieferalpain" />
+		<property name="SoundDeath" value="Enemies/Feral_Zombie/zombieferaldeath" />
+		<property name="SoundSense" value="Enemies/Feral_Zombie/zombieferalsense" />
+		<property name="SoundFootstepModifier" value="Enemies/Feral_Zombie/zombieferalfootstep" />
+		<property name="ApproachSpeed" value="1.0" />
+		<property name="NightApproachSpeed" value="1.35" />
+		<property name="MaxHealth" value="3600" />
+		<property name="ExperienceGain" value="1000" />
+		<property name="LootListOnDeath" value="97" />
+	</entity_class>	
+	<entity_class name="DocZd">
+		<!-- This one decides for scoring -->
+		<property name="EntityType" value="Zombie" />
+		<!-- Mesh and class properties -->
+		<property name="Mesh" value="#DoctorZd1?DoctorZd1" />
+		<property name="Class" value="EntityAnimalClown, Mods" />
+		<property name="AvatarController" value="BipedAnimations, Mods" />
+		<property name="ModelType" value="Standard" />
+		<property name="HasRagdoll" value="false" />
+		<property name="Prefab" value="NPC" />
+		<property name="Parent" value="Enemies" />
+		<!-- <property name="PhysicsBody" value="zombieStandard" /> -->
+		<!-- AI properties -->
+		<property name="AITask-1" value="ApproachSpot" />
+		<property name="AITask-2" value="BreakBlock" />
+		<property name="AITask-3" value="Territorial" param1="10" />
+		<property name="AITask-4" value="ApproachAndAttackTarget" param1="EntityPlayer" />
+		<!--property name="AITask-5" value="ApproachAndAttackTarget" param1="EntityAnimalBear" /-->
+		<!--property name="AITask-6" value="ApproachAndAttackTarget" param1="EntityAnimalStag" /-->
+		<property name="AITask-5" value="ApproachSpot" />
+		<property name="AITask-6" value="Wander" />
+		<property name="AITarget-1" value="SetAsTargetIfHurt" param1="EntityPlayer" />
+		<property name="AITarget-2" value="BlockingTargetTask" />
+		<property name="AITarget-3" value="SetNearestCorpseAsTarget" param1="EntityPlayer" />
+		<property name="AITarget-4" value="SetNearestEntityAsTarget" param1="EntityPlayer" />
+		<!--property name="AITarget-4" value="SetNearestEntityAsTarget" param1="EntityAnimalBear" /-->
+		<!--property name="AITarget-5" value="SetNearestEntityAsTarget" param1="EntityAnimalStag" /-->
+		<!-- General entity properties -->
+		<property name="MaxHealth" value="2500" />
+		<property name="MaxViewAngle" value="180" />
+		<property name="HandItem" value="handDocZombie" />
+		<property name="Weight" value="70" />
+		<property name="Immunity" value="sickness;disease;bleeding;wellness" />
+		<property name="WanderSpeed" value="0.09" />
+		<property name="ApproachSpeed" value="0.4" />
+		<property name="NightWanderSpeed" value="0.1" />
+		<property name="NightApproachSpeed" value="1.4" />
+		<property name="PanicSpeed" value="0.55" />	
+		<property name="CanClimbLadders" value="true" />
+		<property name="IsEnemyEntity" value="true" />
+		<!-- This decides on the particle effect played on hit -->
+		<property name="SurfaceCategory" value="organic" />
+		<property name="WalkType" value="7" />
+		<property name="ParticleOnDeath" value="blood_death" />
+		<property name="SoundRandomTime" value="60.0" />
+		<!-- It will play the roam every 60/30 seconds -->
+		<property name="SoundRandom" value="docRoam" />
+		<property name="SoundAlertTime" value="25.0" />
+		<!-- It will play the roam every 25/12.5 seconds-->
+		<property name="SoundAlert" value="docAlert" />
+		<property name="SoundSense" value="docSense" />
+		<property name="SoundHurt" value="docHurt" />
+		<property name="SoundDeath" value="docDeath" />
+		<property name="SoundAttack" value="docAttack" />
+		<property name="TimeStayAfterDeath" value="300" />
+		<property name="AttackTimeoutDay" value="1.5" />
+		<!-- in s -->
+		<property name="AttackTimeoutNight" value="1.1" />
+		<property name="LootListOnDeath" value="96" />
+		<property name="CorpseBlock" value="GoreBlock1Prefab" />
+		<property name="CorpseBlockChance" value="1" />
+		<property name="ExperienceGain" value="100" />
+		<property name="DeadBodyHitPoints" value="150" />
+		<!-- For harvesting -->
+		<property name="RootMotion" value="false" />
+		<property name="HasDeathAnim" value="true" />
+		<property name="ExperienceGain" value="100" />
+	</entity_class>	
+	<entity_class name="GirlZd">
+		  <!-- This one decides for scoring -->
+		  <property name="EntityType" value="Zombie" />
+		  <!-- Mesh and class properties -->
+		  <property name="Mesh" value="#girlZd1?girlzd1" />
+		  <property name="Class" value="EntityAnimalClown, Mods" />
+		  <property name="AvatarController" value="BipedAnimations, Mods" />
+		  <property name="ModelType" value="Standard" />
+		  <property name="HasRagdoll" value="false" />
+		  <property name="Prefab" value="NPC" />
+		  <property name="Parent" value="Enemies" />
+		  <!-- <property name="PhysicsBody" value="zombieStandard" /> -->
+		  <!-- AI properties -->
+		  <property name="AITask-1" value="ApproachSpot" />
+		  <property name="AITask-2" value="BreakBlock" />
+		  <property name="AITask-3" value="Territorial" param1="10" />
+		  <property name="AITask-4" value="ApproachAndAttackTarget" param1="EntityPlayer" />
+		  <!--property name="AITask-5" value="ApproachAndAttackTarget" param1="EntityAnimalBear" /-->
+		  <!--property name="AITask-6" value="ApproachAndAttackTarget" param1="EntityAnimalStag" /-->
+		  <property name="AITask-5" value="ApproachSpot" />
+		  <property name="AITask-6" value="Wander" />
+		  <property name="AITarget-1" value="SetAsTargetIfHurt" param1="EntityPlayer" />
+		  <property name="AITarget-2" value="BlockingTargetTask" />
+		  <property name="AITarget-3" value="SetNearestCorpseAsTarget" param1="EntityPlayer" />
+		  <property name="AITarget-4" value="SetNearestEntityAsTarget" param1="EntityPlayer" />
+		  <!--property name="AITarget-4" value="SetNearestEntityAsTarget" param1="EntityAnimalBear" /-->
+		  <!--property name="AITarget-5" value="SetNearestEntityAsTarget" param1="EntityAnimalStag" /-->
+		  <!-- General entity properties -->
+		  <property name="MaxHealth" value="1500" />
+		  <property name="MaxViewAngle" value="180" />
+		  <property name="HandItem" value="handStrongZombie" />
+		  <property name="Weight" value="70" />
+		  <property name="Immunity" value="sickness;disease;bleeding;wellness" />
+		  <property name="WanderSpeed" value="0.05" />
+		  <property name="ApproachSpeed" value="0.4" />
+		  <property name="NightWanderSpeed" value="0.1" />
+		  <property name="NightApproachSpeed" value="1.2" />
+		  <property name="PanicSpeed" value="0.45" />
+		  <property name="CanClimbLadders" value="true" />
+		  <property name="IsEnemyEntity" value="true" />
+		  <!-- This decides on the particle effect played on hit -->
+		  <property name="SurfaceCategory" value="organic" />
+		  <property name="WalkType" value="7" />
+		  <property name="ParticleOnDeath" value="blood_death" />
+		  <property name="SoundRandomTime" value="60.0" />
+		  <!-- It will play the roam every 60/30 seconds -->
+		  <property name="SoundRandom" value="girlroam" />
+		  <property name="SoundAlertTime" value="25.0" />
+		  <!-- It will play the roam every 25/12.5 seconds-->
+		  <property name="SoundAlert" value="girlalert" />
+		  <property name="SoundSense" value="girlsense" />
+		  <property name="SoundHurt" value="girlhurt" />
+		  <property name="SoundDeath" value="girldeath" />
+		  <property name="SoundAttack" value="girlattack" />
+		  <property name="TimeStayAfterDeath" value="300" />
+		  <property name="AttackTimeoutDay" value="1.5" />
+		  <!-- in s -->
+		  <property name="AttackTimeoutNight" value="1.1" />
+		  <property name="LootListOnDeath" value="15" />
+		  <property name="CorpseBlock" value="GoreBlock1Prefab" />
+		  <property name="CorpseBlockChance" value="1" />
+		  <property name="ExperienceGain" value="100" />
+		  <property name="DeadBodyHitPoints" value="150" />
+		  <!-- For harvesting -->
+		  <property name="RootMotion" value="false" />
+		  <property name="HasDeathAnim" value="true" />
+		  <property name="ExperienceGain" value="100" />
+	</entity_class>   
+	<entity_class name="RadSpider" extends="Spider">		
+		<property name="MaxHealth" value="2600" />		
+		<property name="HandItem" value="handRadSpider" />
+		<property name="Mesh" value="#RadSpider?RadSpider" />
+	</entity_class>
+	<entity_class name="RadSpiderSmall" extends="SpiderSmall">		
+		<property name="MaxHealth" value="1000" />		
+		<property name="Mesh" value="#RadSpider?RadSpider" />
+		<property name="MeshScale" value="0.5,0.5" />
+		<property name="HandItem" value="handRadSpiderSmall" />
+	</entity_class>
+	
+</append>
+</config>
+<config name="loot">
+<append xpath="/lootcontainers">
+<lootcontainer id="93" count="1,2" size="4,4" destroy_on_close="true" sound_open="UseActions/open_corpse" sound_close="UseActions/close_corpse" loot_quality_template="baseTemplate">	
+	<item name="fireaxeSteel"  />	
+</lootcontainer>
+<lootcontainer id="94" count="1,2" size="4,4" destroy_on_close="true" sound_open="UseActions/open_corpse" sound_close="UseActions/close_corpse" loot_quality_template="baseTemplate">
+	<item name="PoliceBaton"  />
+	<item group="revolver+ammo" prob="0.02" />
+</lootcontainer>
+<lootcontainer id="95" count="1" size="4,4" destroy_on_close="true" sound_open="UseActions/open_corpse" sound_close="UseActions/close_corpse" loot_quality_template="baseTemplate">
+	<item name="Tomahawk" prob="0.8"   />
+	<item group="military" prob="0.02" />
+	<item group="specialGuns" prob="0.01" />
+</lootcontainer>
+<lootcontainer id="96" count="1,1" size="4,4" destroy_on_close="true" sound_open="UseActions/open_corpse" sound_close="UseActions/close_corpse" loot_quality_template="baseTemplate"> 
+	<item name="RadSyringe"  /> 
+</lootcontainer>
+</append>
+</config>
+<config name="entitygroups">
+	<append xpath="/entitygroups/entitygroup[@name='ZombiesAll']">
+		<entity name="PoliceZd" prob="0.02" />
+		<entity name="FirefighterZd" prob="0.02" />
+		<entity name="MilitaryZd" prob="0.02" />
+		<entity name="GirlZd" prob="0.02" />
+	</append>
+	<append xpath="/entitygroups/entitygroup[@name='ZombiesNight']">
+		<entity name="PoliceZd" prob="0.03" />
+		<entity name="FirefighterZd" prob="0.03" />
+		<entity name="MilitaryZd" prob="0.03" />
+		<entity name="GirlZd" prob="0.03" />
+	</append>
+	<append xpath="/entitygroups/entitygroup[@name='ZombiesBurntForest']">
+		<entity name="PoliceZd" prob="0.3" />
+		<entity name="FirefighterZd" prob="0.3" />
+		<entity name="MilitaryZd" prob="0.3" />
+		<entity name="GirlZd" prob="0.2" />
+		<entity name="zombieBear" prob="0.01" />
+	</append>	
+	<append xpath="/entitygroups/entitygroup[@name='ZombieSoldierGroup']">
+		<entity name="MilitaryZd" />
+		<entity name="PoliceZd" prob="0.02" />
+		<entity name="FirefighterZd" prob="0.02" />		
+	</append>
+	<append xpath="/entitygroups">
+		<entitygroup name="ZombiesRad">
+			<entity name="BikiniZd" />
+			<entity name="zombieMaleHazmat" prob="0.35" />
+			<entity name="zombieFemaleHazmat" prob="0.35" />
+			<entity name="GirlZd" prob="0.25" />
+			<entity name="ZombieSoldier" prob="0.25" />
+			<entity name="MilitaryZd" prob="0.2" />
+			<entity name="FirefighterZd" prob="0.2" />
+			<entity name="DocZd" prob="0.2" />
+			<entity name="zombieferal" prob="0.15"/>			
+			<entity name="zombieBear" prob="0.1" />
+			<entity name="RadBoss" prob="0.02" />														
+		</entitygroup>
+		<entitygroup name="RadBoss">
+			<entity name="RadBoss" prob="0.2"/>
+			<entity name="Hyena1" prob="0.4"/>
+			<entity name="Hyena" prob="0.4"/>
+		</entitygroup>
+		<entitygroup name="RadBossOld">
+			<entity name="RadBossOld" prob="0.3"/>
+			<entity name="Hyena1" prob="0.35"/>
+			<entity name="Hyena" prob="0.35"/>
+		</entitygroup>
+		<entitygroup name="ZombiesRadNight">
+			<entity name="BikiniZd" />			
+			<entity name="zombieBear" />
+			<entity name="zombieferal" />
+			<entity name="GirlZd" />
+			<entity name="FirefighterZd" />
+			<entity name="DocZd" />
+			<entity name="RadBoss" prob="0.2" />
+			<entity name="zombieMaleHazmat" prob="0.15" />
+			<entity name="zombieFemaleHazmat" prob="0.15" />									
+			<entity name="ZombieSoldier" prob="0.04" />
+			<entity name="MilitaryZd" prob="0.04" />						
+		</entitygroup>
+		<entitygroup name="ZombiesMed">
+			<entity name="zombieNurse" />
+			<entity name="FirefighterZd" />
+			<entity name="zombieMaleHazmat" prob="0.35" />
+			<entity name="zombieFemaleHazmat" prob="0.35" />
+			<entity name="PoliceZd" prob="0.02" />					
+		</entitygroup>
+		<entitygroup name="ZombiesScience">
+			<entity name="zombieNurse" />			
+			<entity name="zombieMaleHazmat" prob="0.4" />
+			<entity name="zombieFemaleHazmat" prob="0.4" />
+			<entity name="DocZd" prob="0.25" />
+			<entity name="BikiniZd" prob="0.02" />					
+		</entitygroup>
+		<entitygroup name="RadSpiders">
+		  <entity name="RadSpider" prob="0.3"/>
+		  <entity name="RadSpiderSmall" prob="0.7"/>
+		</entitygroup>
+	</append>
+</config>	
+<config name="spawning">
+	<remove xpath="/spawning/biome[@name='burnt_forest']" />
+	<append xpath="/spawning">
+		<biome name="burnt_forest">
+			<spawn maxcount="1" respawndelay="4" time="Any" entitygroup="ZombiesBurntForest" />
+			<spawn maxcount="2" respawndelay="4" time="Any" entitygroup="AnimalHyenas" />
+			<spawn maxcount="1" respawndelay="4" time="Any" entitygroup="RadBossOld" />
+		</biome>
+		<biome name="radiated">
+			<spawn maxcount="1" respawndelay="4" time="Day" entitygroup="ZombiesRad" />
+			<spawn maxcount="1" respawndelay="4" time="Night" entitygroup="ZombiesRadNight" />
+			<spawn maxcount="1" respawndelay="4" time="Any" entitygroup="RadBoss" />
+		</biome>
+	</append>	
+</config>
+<config name="sounds">
+<append xpath="/Sounds">
+	<!-- STARVATION ZEDS -->
+	<SoundDataNode name="bikiniAlert">
+		<AudioSource name="Sounds/AudioSource_Pain" />
+		<AudioClip ClipName="#zedSounds?bikiniAlert" />
+		<LocalCrouchVolumeScale name="1.0" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="10" />
+		<MaxRepeatRate name="3" />
+	</SoundDataNode>
+	<SoundDataNode name="bikiniAttack">
+		<AudioSource name="Sounds/AudioSource_Creatures" />
+		<AudioClip ClipName="#zedSounds?bikiniAttack" />
+		<LocalCrouchVolumeScale name="1.0" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="10" />
+		<MaxRepeatRate name="3" />
+	</SoundDataNode>
+	<SoundDataNode name="bikiniRoam">
+		<AudioSource name="Sounds/AudioSource_Creatures" />
+		<AudioClip ClipName="#zedSounds?bikiniRoam" />
+		<LocalCrouchVolumeScale name="1.0" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="10" />
+		<MaxRepeatRate name="3" />
+	</SoundDataNode>
+	<SoundDataNode name="bikiniSense">
+		<AudioSource name="Sounds/AudioSource_Pain" />
+		<AudioClip ClipName="#zedSounds?bikiniSense" />
+		<LocalCrouchVolumeScale name="1.0" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="10" />
+		<MaxRepeatRate name="3" />
+	</SoundDataNode>
+	<SoundDataNode name="docAlert">
+		<AudioSource name="Sounds/AudioSource_Pain" />
+		<AudioClip ClipName="#zedSounds?docAlert" />
+		<LocalCrouchVolumeScale name="1.0" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="10" />
+		<MaxRepeatRate name="3" />
+	</SoundDataNode>
+	<SoundDataNode name="docAttack">
+		<AudioSource name="Sounds/AudioSource_Creatures" />
+		<AudioClip ClipName="#zedSounds?docAttack" />
+		<LocalCrouchVolumeScale name="1.0" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="10" />
+		<MaxRepeatRate name="3" />
+	</SoundDataNode>
+	<SoundDataNode name="docDeath">
+		<AudioSource name="Sounds/AudioSource_Pain" />
+		<AudioClip ClipName="#zedSounds?docDeath" />
+		<LocalCrouchVolumeScale name="1.0" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="10" />
+		<MaxRepeatRate name="3" />
+	</SoundDataNode>
+	<SoundDataNode name="docHurt">
+		<AudioSource name="Sounds/AudioSource_Pain" />
+		<AudioClip ClipName="#zedSounds?docHurt" />
+		<LocalCrouchVolumeScale name="1.0" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="10" />
+		<MaxRepeatRate name="3" />
+	</SoundDataNode>
+	<SoundDataNode name="docSense">
+		<AudioSource name="Sounds/AudioSource_Pain" />
+		<AudioClip ClipName="#zedSounds?docSense" />
+		<LocalCrouchVolumeScale name="1.0" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="10" />
+		<MaxRepeatRate name="3" />
+	</SoundDataNode>
+	<SoundDataNode name="docRoam">
+		<AudioSource name="Sounds/AudioSource_Creatures" />
+		<AudioClip ClipName="#zedSounds?docRoam" />
+		<LocalCrouchVolumeScale name="1.0" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="10" />
+		<MaxRepeatRate name="3" />
+	</SoundDataNode>	
+	<SoundDataNode name="girlalert">
+		<AudioSource name="Sounds/AudioSource_Pain" />
+		<AudioClip ClipName="#zedSounds?girlalert" />
+		<LocalCrouchVolumeScale name="1.0" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="10" />
+		<MaxRepeatRate name="3" />
+	</SoundDataNode>
+	<SoundDataNode name="girlattack">
+		<AudioSource name="Sounds/AudioSource_Creatures" />
+		<AudioClip ClipName="#zedSounds?girlattack" />
+		<LocalCrouchVolumeScale name="1.0" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="10" />
+		<MaxRepeatRate name="3" />
+	</SoundDataNode>
+	<SoundDataNode name="girldeath">
+		<AudioSource name="Sounds/AudioSource_Pain" />
+		<AudioClip ClipName="#zedSounds?girldeath" />
+		<LocalCrouchVolumeScale name="1.0" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="10" />
+		<MaxRepeatRate name="3" />
+	</SoundDataNode>
+	<SoundDataNode name="girlhurt">
+		<AudioSource name="Sounds/AudioSource_Pain" />
+		<AudioClip ClipName="#zedSounds?girlhurt" />
+		<LocalCrouchVolumeScale name="1.0" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="10" />
+		<MaxRepeatRate name="3" />
+	</SoundDataNode>
+	<SoundDataNode name="girlsense">
+		<AudioSource name="Sounds/AudioSource_Pain" />
+		<AudioClip ClipName="#zedSounds?girlsense" />
+		<LocalCrouchVolumeScale name="1.0" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="10" />
+		<MaxRepeatRate name="3" />
+	</SoundDataNode>
+	<SoundDataNode name="girlroam">
+		<AudioSource name="Sounds/AudioSource_Creatures" />
+		<AudioClip ClipName="#zedSounds?girlroam" />
+		<LocalCrouchVolumeScale name="1.0" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="10" />
+		<MaxRepeatRate name="3" />
+	</SoundDataNode>
+	<SoundDataNode name="headalert">
+		<AudioSource name="Sounds/AudioSource_Creatures" />
+		<AudioClip ClipName="#talkinghead?Theyre-coming-for-you_01" />
+		<LocalCrouchVolumeScale name="1.0" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="10" />
+		<MaxRepeatRate name="3" />
+	</SoundDataNode>	
+	<SoundDataNode name="headhurt">
+		<AudioSource name="Sounds/AudioSource_Pain" />
+		<AudioClip ClipName="#talkinghead?firearm" />
+		<AudioClip ClipName="#talkinghead?beautyscar_01" />
+		<AudioClip ClipName="#talkinghead?hurtmyhead" />
+		<LocalCrouchVolumeScale name="1.0" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="10" />
+		<MaxRepeatRate name="3" />
+	</SoundDataNode>
+	<SoundDataNode name="headsense">
+		<AudioSource name="Sounds/AudioSource_Creatures" />
+		<AudioClip ClipName="#talkinghead?hell_01" />
+		<AudioClip ClipName="#talkinghead?barkbite_01" />
+		<AudioClip ClipName="#talkinghead?die_01" />
+		<LocalCrouchVolumeScale name="1.0" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="10" />
+		<MaxRepeatRate name="30" />
+	</SoundDataNode>
+	<SoundDataNode name="headrandom">
+		<AudioSource name="Sounds/AudioSource_Creatures" />
+		<AudioClip ClipName="#talkinghead?kill" />
+		<AudioClip ClipName="#talkinghead?Theyre-coming-for-you_01" />
+		<LocalCrouchVolumeScale name="1.0" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="10" />
+		<MaxRepeatRate name="3" />
+	</SoundDataNode>
+	<SoundDataNode name="headDeath">
+		<AudioSource name="Sounds/AudioSource_Creatures" />
+		<AudioClip ClipName="#talkinghead?afterlife_01" />
+		<AudioClip ClipName="#talkinghead?7back" />	
+		<LocalCrouchVolumeScale name="1.0" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="10" />
+		<MaxRepeatRate name="3" />
+	</SoundDataNode>
+	<!-- STARVATION ZEDS -->
+</append>
+</config>
+<config name="archetypes">
+<append xpath="/archetypes">
+<archetype name="WillieZD" male="true" hair_color="33,2,2" eye_color="40,30,24" skin_color="52,208,50" type="Player" stance="Like" voice_set="trader">
+		<base_mesh_parts>
+			<part slot="head" layer="base" mesh="male_base_face">
+				<texture name="male_head_zombie" color="skin"/>
+				<texture name="male_hair_overlay" color="hair"/>
+				<texture name="male_eyebrow_round" color="hair"/>
+				<texture name="male_head_beard" color="hair"/>
+				<texture name="male_head_wound" color="246,74,4,255"/>
+				<texture name="unisex_tattoo_tribal" color="15,20,25"/>
+				<texture name="unisex_face_dirt_overlay" color="244,5,5,255"/>
+			</part>
+			<part slot="head" layer="outer" mesh="unisex_aviator_goggles">
+				<texture name="unisex_aviator_goggles" color="14,11,11,255"/>
+				<texture name="unisex_face_dirt_overlay" color="236,13,19,255"/>
+			</part>
+			<part slot="head" layer="inner" mesh="unisex_hair_dreads">
+				<texture name="unisex_hair_dreads" color="hair"/>
+			</part>
+			<part slot="eyes" layer="base" mesh="male_base_eyes">
+				<texture name="unisex_eye_bloodshot" color="255,255,255"/>
+			</part>
+			<part slot="hands" layer="base" mesh="male_base_hands">
+				<texture name="male_hands" color="skin"/>
+				<texture name="unisex_face_dirt_overlay" color="247,12,12,255"/>
+			</part>
+			<part slot="hands" layer="inner" mesh="male_plant_fiber_gloves">
+			</part>
+			<part slot="chest" layer="base" mesh="male_base_chest">
+				<texture name="male_torso" color="skin"/>
+				<texture name="male_torso_wound" color="251,32,2,255"/>
+				<texture name="unisex_face_dirt_overlay" color="245,9,9,255"/>
+				<texture name="unisex_tattoo_tribal" color="15,20,25"/>
+			</part>
+			<part slot="legs" layer="base" mesh="male_clothes_army_pants">
+				<texture name="unisex_clothes_army_pants" color="194,178,165,255"/>
+				<texture name="unisex_face_dirt_overlay" color="78,15,15,255"/>
+			</part>			
+			<part slot="feet" layer="base" mesh="male_armor_kevlar_boots">
+				<texture name="unisex_armor_kevlar_boots" color="80,80,80"/>
+				<texture name="unisex_face_dirt_overlay" color="78,15,15,255"/>
+			</part>
+		</base_mesh_parts>
+		<preview_mesh_parts>
+		</preview_mesh_parts>
+		<expression blink="true" blink_duration="0.15" blink_min_delay="5" blink_max_delay="15" saccades="true">
+			<gene name="neckUp_Down" value="0"/>
+			<gene name="neckLeft_Right" value="0"/>
+			<gene name="neckTiltLeft_Right" value="0"/>
+			<gene name="headUp_Down" value="0"/>
+			<gene name="headLeft_Right" value="0"/>
+			<gene name="headTiltLeft_Right" value="0"/>
+			<gene name="jawOpen_Close" value="0"/>
+			<gene name="jawForward_Back" value="0"/>
+			<gene name="jawLeft_Right" value="0"/>
+			<gene name="mouthLeft_Right" value="0"/>
+			<gene name="mouthUp_Down" value="0"/>
+			<gene name="mouthNarrow_Pucker" value="0"/>
+			<gene name="tongueOut" value="0"/>
+			<gene name="tongueCurl" value="0"/>
+			<gene name="tongueUp_Down" value="0"/>
+			<gene name="tongueLeft_Right" value="0"/>
+			<gene name="tongueWide_Narrow" value="0"/>
+			<gene name="leftMouthSmile_Frown" value="0"/>
+			<gene name="rightMouthSmile_Frown" value="0"/>
+			<gene name="leftLowerLipUp_Down" value="0"/>
+			<gene name="rightLowerLipUp_Down" value="0"/>
+			<gene name="leftUpperLipUp_Down" value="0"/>
+			<gene name="rightUpperLipUp_Down" value="0"/>
+			<gene name="leftCheekPuff_Squint" value="0"/>
+			<gene name="rightCheekPuff_Squint" value="0"/>
+			<gene name="noseSneer" value="0"/>
+			<gene name="leftEyeOpen_Close" value="0"/>
+			<gene name="rightEyeOpen_Close" value="0"/>
+			<gene name="leftEyeUp_Down" value="0"/>
+			<gene name="rightEyeUp_Down" value="0"/>
+			<gene name="leftEyeIn_Out" value="0"/>
+			<gene name="rightEyeIn_Out" value="0"/>
+			<gene name="browsIn" value="0"/>
+			<gene name="leftBrowUp_Down" value="0"/>
+			<gene name="rightBrowUp_Down" value="0"/>
+			<gene name="midBrowUp_Down" value="0"/>
+		</expression>
+		<dna>
+			<gene name="height" value="0.83"/>
+			<gene name="headSize" value="1"/>
+			<gene name="headWidth" value="0.79"/>
+			<gene name="handsSize" value="0.82"/>
+			<gene name="feetSize" value="0.99"/>
+			<gene name="muscle" value="1"/>
+			<gene name="weight" value="0.615"/>
+			<gene name="gluteusSize" value="0.995"/>
+			<gene name="earsSize" value="0.5"/>
+			<gene name="earsPosition" value="0.5"/>
+			<gene name="earsRotation" value="0.5"/>
+			<gene name="noseSize" value="0.71"/>
+			<gene name="noseCurve" value="0.71"/>
+			<gene name="noseWidth" value="1"/>
+			<gene name="noseInclination" value="0.35"/>
+			<gene name="nosePosition" value="0.675"/>
+			<gene name="nosePronounced" value="0.64"/>
+			<gene name="noseFlatten" value="0.94"/>
+			<gene name="chinSize" value="1"/>
+			<gene name="chinPronounced" value="1"/>
+			<gene name="chinPosition" value="1"/>
+			<gene name="mandibleSize" value="0.87"/>
+			<gene name="jawsSize" value="0.84"/>
+			<gene name="jawsPosition" value="0.27"/>
+			<gene name="cheekSize" value="1"/>
+			<gene name="cheekPosition" value="0.995"/>
+			<gene name="lowCheekPronounced" value="1"/>
+			<gene name="lowCheekPosition" value="0.995"/>
+			<gene name="foreheadSize" value="1"/>
+			<gene name="foreheadPosition" value="0.26"/>
+			<gene name="lipsSize" value="1"/>
+			<gene name="mouthSize" value="1"/>
+			<gene name="eyeRotation" value="0.985"/>
+			<gene name="eyeSize" value="0.51"/>
+			<gene name="breastSize" value="1"/>
+		</dna>
+	</archetype>
+<archetype name="WillieZD1" male="true" hair_color="33,2,2" eye_color="40,30,24" skin_color="52,208,50" type="Player" stance="Like" voice_set="trader">
+		<base_mesh_parts>
+			<part slot="head" layer="base" mesh="male_base_face">
+				<texture name="male_head_zombie" color="skin"/>
+				<texture name="male_hair_overlay" color="hair"/>
+				<texture name="male_eyebrow_round" color="hair"/>
+				<texture name="male_head_beard" color="hair"/>
+				<texture name="male_head_wound" color="246,74,4,255"/>
+				<texture name="unisex_tattoo_tribal" color="15,20,25"/>
+				<texture name="unisex_face_dirt_overlay" color="244,5,5,255"/>
+			</part>
+			<part slot="head" layer="outer" mesh="unisex_aviator_goggles">
+				<texture name="unisex_aviator_goggles" color="14,11,11,255"/>
+				<texture name="unisex_face_dirt_overlay" color="236,13,19,255"/>
+			</part>
+			<part slot="head" layer="inner" mesh="unisex_hair_dreads">
+				<texture name="unisex_hair_dreads" color="hair"/>
+			</part>
+			<part slot="eyes" layer="base" mesh="male_base_eyes">
+				<texture name="unisex_eye_bloodshot" color="255,255,255"/>
+			</part>
+			<part slot="hands" layer="base" mesh="male_base_hands">
+				<texture name="male_hands" color="skin"/>
+				<texture name="unisex_face_dirt_overlay" color="247,12,12,255"/>
+			</part>
+			<part slot="hands" layer="inner" mesh="male_plant_fiber_gloves">
+			</part>
+			<part slot="chest" layer="base" mesh="male_base_chest">
+				<texture name="male_torso" color="skin"/>
+				<texture name="male_torso_wound" color="251,32,2,255"/>
+				<texture name="male_tanktop" color="57,56,56,255"/>
+				<texture name="unisex_face_dirt_overlay" color="245,9,9,255"/>
+				<texture name="unisex_tattoo_tribal" color="15,20,25"/>
+			</part>
+			<part slot="legs" layer="base" mesh="male_clothes_denim_pants">
+				<texture name="male_pants_01" color="4,56,133,255"/>
+				<texture name="unisex_face_dirt_overlay" color="78,15,15,255"/>
+			</part>
+			
+			<part slot="feet" layer="base" mesh="male_armor_kevlar_boots">
+				<texture name="unisex_armor_kevlar_boots" color="80,80,80"/>
+				<texture name="unisex_face_dirt_overlay" color="78,15,15,255"/>
+			</part>
+		</base_mesh_parts>
+		<preview_mesh_parts>
+		</preview_mesh_parts>
+		<expression blink="true" blink_duration="0.15" blink_min_delay="5" blink_max_delay="15" saccades="true">
+			<gene name="neckUp_Down" value="0"/>
+			<gene name="neckLeft_Right" value="0"/>
+			<gene name="neckTiltLeft_Right" value="0"/>
+			<gene name="headUp_Down" value="0"/>
+			<gene name="headLeft_Right" value="0"/>
+			<gene name="headTiltLeft_Right" value="0"/>
+			<gene name="jawOpen_Close" value="0"/>
+			<gene name="jawForward_Back" value="0"/>
+			<gene name="jawLeft_Right" value="0"/>
+			<gene name="mouthLeft_Right" value="0"/>
+			<gene name="mouthUp_Down" value="0"/>
+			<gene name="mouthNarrow_Pucker" value="0"/>
+			<gene name="tongueOut" value="0"/>
+			<gene name="tongueCurl" value="0"/>
+			<gene name="tongueUp_Down" value="0"/>
+			<gene name="tongueLeft_Right" value="0"/>
+			<gene name="tongueWide_Narrow" value="0"/>
+			<gene name="leftMouthSmile_Frown" value="0"/>
+			<gene name="rightMouthSmile_Frown" value="0"/>
+			<gene name="leftLowerLipUp_Down" value="0"/>
+			<gene name="rightLowerLipUp_Down" value="0"/>
+			<gene name="leftUpperLipUp_Down" value="0"/>
+			<gene name="rightUpperLipUp_Down" value="0"/>
+			<gene name="leftCheekPuff_Squint" value="0"/>
+			<gene name="rightCheekPuff_Squint" value="0"/>
+			<gene name="noseSneer" value="0"/>
+			<gene name="leftEyeOpen_Close" value="0"/>
+			<gene name="rightEyeOpen_Close" value="0"/>
+			<gene name="leftEyeUp_Down" value="0"/>
+			<gene name="rightEyeUp_Down" value="0"/>
+			<gene name="leftEyeIn_Out" value="0"/>
+			<gene name="rightEyeIn_Out" value="0"/>
+			<gene name="browsIn" value="0"/>
+			<gene name="leftBrowUp_Down" value="0"/>
+			<gene name="rightBrowUp_Down" value="0"/>
+			<gene name="midBrowUp_Down" value="0"/>
+		</expression>
+		<dna>
+			<gene name="height" value="0.83"/>
+			<gene name="headSize" value="1"/>
+			<gene name="headWidth" value="0.79"/>
+			<gene name="handsSize" value="0.82"/>
+			<gene name="feetSize" value="0.99"/>
+			<gene name="muscle" value="1"/>
+			<gene name="weight" value="0.615"/>
+			<gene name="gluteusSize" value="0.995"/>
+			<gene name="earsSize" value="0.5"/>
+			<gene name="earsPosition" value="0.5"/>
+			<gene name="earsRotation" value="0.5"/>
+			<gene name="noseSize" value="0.71"/>
+			<gene name="noseCurve" value="0.71"/>
+			<gene name="noseWidth" value="1"/>
+			<gene name="noseInclination" value="0.35"/>
+			<gene name="nosePosition" value="0.675"/>
+			<gene name="nosePronounced" value="0.64"/>
+			<gene name="noseFlatten" value="0.94"/>
+			<gene name="chinSize" value="1"/>
+			<gene name="chinPronounced" value="1"/>
+			<gene name="chinPosition" value="1"/>
+			<gene name="mandibleSize" value="0.87"/>
+			<gene name="jawsSize" value="0.84"/>
+			<gene name="jawsPosition" value="0.27"/>
+			<gene name="cheekSize" value="1"/>
+			<gene name="cheekPosition" value="0.995"/>
+			<gene name="lowCheekPronounced" value="1"/>
+			<gene name="lowCheekPosition" value="0.995"/>
+			<gene name="foreheadSize" value="1"/>
+			<gene name="foreheadPosition" value="0.26"/>
+			<gene name="lipsSize" value="1"/>
+			<gene name="mouthSize" value="1"/>
+			<gene name="eyeRotation" value="0.985"/>
+			<gene name="eyeSize" value="0.51"/>
+			<gene name="breastSize" value="1"/>
+		</dna>
+	</archetype>	
+<archetype name="RadBossOld" male="true" hair_color="255,255,255" eye_color="255,255,255" skin_color="79,52,25" type="Player" stance="Like" voice_set="trader">
+		<base_mesh_parts>
+			<part slot="head" layer="base" mesh="male_base_face">
+				<texture name="male_head_zombie" color="skin"/>
+				<texture name="unisex_tattoo_tribal" color="37,7,11,255"/>
+				<texture name="male_head_wound" color="5,250,42,255"/>
+				<texture name="unisex_face_dirt_overlay" color="78,15,15,255"/>
+				<texture name="male_shaggy_eyebrows" color="hair"/>
+			</part>
+			<part slot="head" layer="inner" mesh="male_hair_short_shaggy">
+				<texture name="female_shaggy_hair" color="hair"/>
+				<texture name="female_shaggy_hair_highlights" color="71,77,71,255"/>
+			</part>
+			<part slot="head" layer="middle" mesh="male_mouth_parts">
+				<texture name="male_head_zombie" color="255,255,255"/>
+			</part>
+			<part slot="eyes" layer="base" mesh="male_base_eyes">
+				<texture name="unisex_eye_bloodshot" color="255,255,255"/>
+			</part>
+			<part slot="hands" layer="base" mesh="male_base_hands">
+				<texture name="male_hands" color="skin"/>
+				<texture name="male_head_wound" color="5,250,42,255"/>
+				<texture name="unisex_face_dirt_overlay" color="78,15,15,255"/>
+			</part>
+			<part slot="chest" layer="base" mesh="male_base_chest">
+				<texture name="male_torso" color="skin"/>
+				<texture name="male_torso_wound" color="2,251,22,255"/>
+				<texture name="male_head_wound" color="5,250,42,255"/>
+				<texture name="male_legs_wound" color="5,250,42,255"/>
+				<texture name="unisex_face_dirt_overlay" color="245,9,9,255"/>
+			</part>
+			<part slot="legs" layer="base" mesh="male_base_legs">
+				<texture name="male_legs" color="skin"/>
+				<texture name="unisex_face_dirt_overlay" color="247,9,9,255"/>
+				<texture name="male_torso_wound" color="2,251,22,255"/>
+				<texture name="male_head_wound" color="5,250,42,255"/>
+				<texture name="male_legs_wound" color="5,250,42,255"/>
+			</part>
+			<part slot="feet" layer="base" mesh="male_base_feet">
+				<texture name="male_feet" color="skin"/>
+				<texture name="unisex_face_dirt_overlay" color="247,10,10,255"/>
+				<texture name="male_torso_wound" color="2,251,22,255"/>
+				<texture name="male_head_wound" color="5,250,42,255"/>
+				<texture name="male_legs_wound" color="5,250,42,255"/>
+			</part>
+		</base_mesh_parts>
+		<preview_mesh_parts>
+		</preview_mesh_parts>
+		<expression blink="false" blink_duration="0.15" blink_min_delay="5" blink_max_delay="15" saccades="false">
+			<gene name="neckUp_Down" value="0"/>
+			<gene name="neckLeft_Right" value="0"/>
+			<gene name="neckTiltLeft_Right" value="0"/>
+			<gene name="headUp_Down" value="0"/>
+			<gene name="headLeft_Right" value="0"/>
+			<gene name="headTiltLeft_Right" value="0"/>
+			<gene name="jawOpen_Close" value="0"/>
+			<gene name="jawForward_Back" value="0"/>
+			<gene name="jawLeft_Right" value="0"/>
+			<gene name="mouthLeft_Right" value="0"/>
+			<gene name="mouthUp_Down" value="0"/>
+			<gene name="mouthNarrow_Pucker" value="0"/>
+			<gene name="tongueOut" value="0"/>
+			<gene name="tongueCurl" value="0"/>
+			<gene name="tongueUp_Down" value="0"/>
+			<gene name="tongueLeft_Right" value="0"/>
+			<gene name="tongueWide_Narrow" value="0"/>
+			<gene name="leftMouthSmile_Frown" value="0"/>
+			<gene name="rightMouthSmile_Frown" value="0"/>
+			<gene name="leftLowerLipUp_Down" value="0"/>
+			<gene name="rightLowerLipUp_Down" value="0"/>
+			<gene name="leftUpperLipUp_Down" value="0"/>
+			<gene name="rightUpperLipUp_Down" value="0"/>
+			<gene name="leftCheekPuff_Squint" value="0"/>
+			<gene name="rightCheekPuff_Squint" value="0"/>
+			<gene name="noseSneer" value="0"/>
+			<gene name="leftEyeOpen_Close" value="0"/>
+			<gene name="rightEyeOpen_Close" value="0"/>
+			<gene name="leftEyeUp_Down" value="0"/>
+			<gene name="rightEyeUp_Down" value="0"/>
+			<gene name="leftEyeIn_Out" value="0"/>
+			<gene name="rightEyeIn_Out" value="0"/>
+			<gene name="browsIn" value="0"/>
+			<gene name="leftBrowUp_Down" value="0"/>
+			<gene name="rightBrowUp_Down" value="0"/>
+			<gene name="midBrowUp_Down" value="0"/>
+		</expression>
+		<dna>
+			<gene name="height" value="2.5"/>
+			<gene name="headSize" value="0.5"/>
+			<gene name="headWidth" value="0"/>
+			<gene name="handsSize" value="0.5"/>
+			<gene name="feetSize" value="0.5"/>
+			<gene name="muscle" value="0.33"/>
+			<gene name="weight" value="0.33"/>
+			<gene name="gluteusSize" value="0.01"/>
+			<gene name="earsSize" value="0.5"/>
+			<gene name="earsPosition" value="0.5"/>
+			<gene name="earsRotation" value="0.5"/>
+			<gene name="noseSize" value="0.5"/>
+			<gene name="noseCurve" value="0.5"/>
+			<gene name="noseWidth" value="0.5"/>
+			<gene name="noseInclination" value="0.5"/>
+			<gene name="nosePosition" value="0.5"/>
+			<gene name="nosePronounced" value="0.5"/>
+			<gene name="noseFlatten" value="0.5"/>
+			<gene name="chinSize" value="0.5"/>
+			<gene name="chinPronounced" value="0.5"/>
+			<gene name="chinPosition" value="0.5"/>
+			<gene name="mandibleSize" value="0.5"/>
+			<gene name="jawsSize" value="0.5"/>
+			<gene name="jawsPosition" value="0.5"/>
+			<gene name="cheekSize" value="0.5"/>
+			<gene name="cheekPosition" value="0.5"/>
+			<gene name="lowCheekPronounced" value="0.5"/>
+			<gene name="lowCheekPosition" value="0.5"/>
+			<gene name="foreheadSize" value="0.5"/>
+			<gene name="foreheadPosition" value="0.5"/>
+			<gene name="lipsSize" value="0.5"/>
+			<gene name="mouthSize" value="0.5"/>
+			<gene name="eyeRotation" value="0.5"/>
+			<gene name="eyeSize" value="0.5"/>
+			<gene name="breastSize" value="0.5"/>
+		</dna>
+	</archetype>	
+</append>	  
+</config>
+<config name="loot">
+<append xpath="/lootcontainers">
+	<lootcontainer id="103" count="1" size="1,1" destroy_on_close="true" sound_open="UseActions/open_corpse" sound_close="UseActions/close_corpse" loot_quality_template="baseTemplate">
+		<item name="talkingHeadItem" />
+	</lootcontainer>
+</append>	  
+</config>
+</configs>

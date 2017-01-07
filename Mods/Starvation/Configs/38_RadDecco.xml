@@ -1,0 +1,104 @@
+<configs>
+<!--			Blocks			-->
+<config name="blocks">	
+
+<append xpath="/blocks">
+
+	<block id="1533" name="DecalSphere">
+		<property name="Material" value="Mmetal_weak" />
+		<property name="Shape" value="ModelEntity" />
+		<property name="Model" value="#radiated?DecalSphere" />				
+		<property name="Group" value="Building" />
+		<property name="DropScale" value="3" />				
+	</block>			
+	<block id="1534" name="RadBarrel">
+		<property name="Class" value="Loot" />
+		<property name="LootList" value="99" />
+		<property name="Material" value="Mmetal_weak" />
+		<property name="Shape" value="ModelEntity" />
+		<property name="Model" value="#radiated?RadBarrel" />		
+		<property name="CanPickup" value="false" />
+		<property name="Group" value="Building" />
+		<property name="DropScale" value="3" />
+		<drop event="Destroy" name="scrapIron" count="1" prob="1.0" />
+		<drop event="Fall" name="scrapIron" count="1" prob="1.0" />
+	</block>
+	<block id="1535" name="RadMushroom">
+		<property name="Material" value="Mmetal_weak" />
+		<property name="Shape" value="ModelEntity" />
+		<property name="Model" value="#radiated?RadMushroom" />
+		<property name="Collide" value="movement,rocket,melee,bullet" />
+		<property name="CanPickup" value="true" />
+		<property name="Group" value="Building" />
+		<property name="DropScale" value="3" />
+		<drop event="Destroy" name="scrapIron" count="1" prob="1.0" />
+		<drop event="Fall" name="scrapIron" count="1" prob="1.0" />
+	</block>
+	<block id="1655" name="RadTree">
+		<property name="Material" value="Mmetal_weak" />
+		<property name="Shape" value="ModelEntity" />
+		<property name="Model" value="#radiated?RadTree" />
+		<property name="Collide" value="movement,rocket,melee,bullet" />
+		<property name="CanPickup" value="false" />
+		<property name="Group" value="Building" />
+		<property name="DropScale" value="3" />
+		<drop event="Harvest" name="coal" count="20" />
+		<drop event="Destroy" name="coal" count="50" prob="1" />
+	</block>
+	<block id="1656" name="RadNest">
+		<property name="Class" value="Spawner, Mods" />
+		<property name="Material" value="Mmetal_weak" />
+		<property name="Shape" value="ModelEntity" />
+		<property name="Model" value="#radiated?Nest2Prefab" />
+		<!-- this determines how fast zombies are spawned, in seconds -->
+		<property name="TickRate" value="5" />
+		<!-- this is the spawn trigger area -->
+		<!-- if a player gets inside this are it starts spawning -->
+		<property name="SpawnRadius" value="15" />
+		<!-- spawning area it will try to spawn the entities inside this area only -->
+		<property name="SpawnArea" value="10" />		
+		<!-- If you dont want it to make radiation damage, set this values to 0 -->
+		<property name="RadiationArea" value="0" />
+		<property name="RadiationDamage" value="0" />
+		<!-- If you want any buff to be applied inside the radiation area, uncomment next line -->
+		<!-- <property name="Buffs" value="radiation1" /> -->
+		<!-- spawns a maximum of 4 zombies at a time -->
+		<property name="NumberToSpawn" value="3" />
+		<!-- Maximum zombies allowed inside the spawnarea -->
+		<property name="MaxSpawned" value="9" />
+		<!-- area to check for max spawned -->
+		<property name="CheckArea" value="30" />
+		<!-- Time to Pause spawning, in minutes, after the total number of spawned zombies have reached NumberToPause -->
+		<!-- If this number is >= 999, the spawning will stop forever -->
+		<!-- this WILL NOT STOP radiation damage and buffs -->
+		<property name="PauseTime" value="60" />
+		<!-- Total number of zombies to pause the spawning. -->
+		<property name="NumberToPause" value="9" />
+		<!-- EntityGroup used to choose the entity to spawn -->
+		<property name="EntityGroup" value="RadSpiders" />
+		<!-- Lootable -->
+		<property name="Lootable" value="true" />
+		<property name="LootList" value="98" /> <!-- asign to 10 if it's not lootable -->
+		<!-- What to do to particles when the nest is stopped -->
+		<!-- None, Start particles, Stop particles -->
+		<property name="ParticleAction" value="None" />
+		<property name="LPHardnessScale" value="8" />
+		<property name="Group" value="Decor" />
+		<drop event="Destroy" count="0" />
+		<property name="debug" value="false" />
+	</block>
+	<block id="1657" name="RadBarrelV">
+		<property name="Class" value="Loot" />
+		<property name="LootList" value="99" />
+		<property name="Material" value="Mmetal_weak" />
+		<property name="Shape" value="ModelEntity" />
+		<property name="Model" value="#radiated?RadBarrelV" />		
+		<property name="CanPickup" value="false" />
+		<property name="Group" value="Building" />
+		<property name="DropScale" value="3" />
+		<drop event="Destroy" name="scrapIron" count="1" prob="1.0" />
+		<drop event="Fall" name="scrapIron" count="1" prob="1.0" />
+	 </block>
+</append>
+</config>
+</configs>

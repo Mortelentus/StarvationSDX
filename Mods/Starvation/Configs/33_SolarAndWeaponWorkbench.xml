@@ -1,0 +1,144 @@
+<configs>
+<config name="blocks">	
+<append xpath="/blocks">
+	<block id="1493" name="SolarPannel">
+		<property name="IsDeveloper" value="true" />
+		<property name="Class" value="Loot" />
+		<property name="Material" value="metal" />
+		<property name="Shape" value="ModelEntity" />
+		<property name="Model" value="#sunenergy?SolarCollector" />
+		<property name="FuelValue" value="100" />
+		<property name="LootList" value="6" />
+		<drop event="Destroy" name="scrapIron" count="1" />		
+	</block>
+	<block id="1494" name="WeaponWorkbench">		
+		<property name="IsDeveloper" value="true" />
+		<property name="Material" value="metal" />	
+		<property name="Shape" value="ModelEntity" />
+<!--		<property name="DescriptionKey" value="electronicWorkbenchDesc" />	-->
+		<property name="Model" value="#hk?WeaponWorkbenchPrefab" />	
+		<property name="Class" value="MorteToolWorkstation, Mods" />
+		<property name="TickRate" value="1000" />
+		<property class="RepairItems">			
+			<property name="forgedIron" value="10" />			
+		</property>
+		<drop event="Destroy" count="0" />		
+		<property name="Group" value="Basics,Building" />		
+		<property class="Workstation">
+		<property name="Modules" value="tools,output" />
+		</property>		
+</block>
+	<block id="1495" name="WeaponWorkbench1">
+		<property name="IsDeveloper" value="true" />
+		<property name="Class" value="Loot" />
+		<property name="Material" value="metal" />
+		<property name="Shape" value="ModelEntity" />
+		<property name="Model" value="#weaponworkbench?WeaponWorkbenchPrefabV" />
+		<property name="FuelValue" value="100" />
+		<property name="LootList" value="6" />
+		<drop event="Destroy" name="scrapIron" count="1" />		
+	</block>
+	<block id="1496" name="BatteryPack">
+		<property name="IsDeveloper" value="true" />
+		<property name="Class" value="Loot" />
+		<property name="Material" value="metal" />
+		<property name="Shape" value="ModelEntity" />
+		<property name="Model" value="#batteries?BatteryBlock" />
+		<property name="FuelValue" value="100" />
+		<property name="LootList" value="6" />
+		<drop event="Destroy" name="scrapIron" count="1" />		
+	</block>	
+</append>
+</config>
+<config name="xui">	
+<append xpath="/xui/ruleset[@name='default']">
+<window_group name="workstation_WeaponWorkbench" controller="XUiC_WorkstationWindowGroup">		
+			<window name="windowCraftingList" />
+			<window name="windowToolsForge" />
+			<window name="craftingInfoPanel" />
+			<window name="windowCraftingQueue" />			
+			<window name="windowOutput" />
+			<window name="windowNonPagingHeader" />
+		</window_group>	
+</append>
+</config>
+<config name="recipes">
+<append xpath="/recipes">
+<recipe name="UMP_Stock" count="1" craft_area="WeaponWorkbench" scrapable="False">
+		<ingredient name="spring" count="2" />
+		<ingredient name="forgedSteel" count="1" />
+		<ingredient name="Rubber" count="2" />		
+	</recipe>	
+<recipe name="UMP_LowerReceiver" count="1" craft_area="WeaponWorkbench" scrapable="False">
+		<ingredient name="spring" count="2" />
+		<ingredient name="forgedSteel" count="2" />
+		<ingredient name="Rubber" count="3" />		
+	</recipe>	
+<recipe name="UMP_UpperReceiver" count="1" craft_area="WeaponWorkbench" scrapable="False">
+		<ingredient name="spring" count="2" />
+		<ingredient name="forgedSteel" count="2" />
+		<ingredient name="Rubber" count="3" />		
+	</recipe>		
+<recipe name="UMP_Barrel" count="1" craft_area="WeaponWorkbench" scrapable="False">		
+		<ingredient name="forgedSteel" count="10" />		
+	</recipe>		
+<recipe name="Ump" count="1" scrapable="False" craft_area="assembly">       
+        <ingredient name="UMP_Stock" count="1"/>
+		<ingredient name="UMP_UpperReceiver" count="1"/>
+        <ingredient name="UMP_LowerReceiver" count="1"/>
+        <ingredient name="UMP_Barrel" count="1"/>
+		<ingredient name="flashlight02" count="0"/>
+</recipe>	
+<recipe name="HK416_Stock" count="1" craft_area="WeaponWorkbench" scrapable="False">
+		<ingredient name="spring" count="2" />
+		<ingredient name="forgedSteel" count="2" />
+		<ingredient name="Rubber" count="4" />		
+	</recipe>	
+<recipe name="HK416_LowerReceiver" count="1" craft_area="WeaponWorkbench" scrapable="False">
+		<ingredient name="spring" count="2" />
+		<ingredient name="forgedSteel" count="3" />
+		<ingredient name="Rubber" count="5" />		
+	</recipe>	
+<recipe name="HK416_UpperReceiver" count="1" craft_area="WeaponWorkbench" scrapable="False">
+		<ingredient name="spring" count="3" />
+		<ingredient name="forgedSteel" count="4" />
+		<ingredient name="Rubber" count="5" />		
+	</recipe>		
+<recipe name="HK416_Barrel" count="1" craft_area="WeaponWorkbench" scrapable="False">		
+		<ingredient name="forgedSteel" count="20" />		
+	</recipe>		
+<recipe name="HK416" count="1" scrapable="False" craft_area="assembly">       
+        <ingredient name="HK416_Stock" count="1"/>
+		<ingredient name="HK416_UpperReceiver" count="1"/>
+        <ingredient name="HK416_LowerReceiver" count="1"/>
+        <ingredient name="HK416_Barrel" count="1"/>
+		<ingredient name="flashlight02" count="0"/>
+</recipe>
+<recipe name="MG4_Stock" count="1" craft_area="WeaponWorkbench" scrapable="False">
+		<ingredient name="spring" count="2" />
+		<ingredient name="forgedSteel" count="2" />
+		<ingredient name="Rubber" count="5" />		
+	</recipe>	
+<recipe name="MG4_LowerReceiver" count="1" craft_area="WeaponWorkbench" scrapable="False">
+		<ingredient name="spring" count="2" />
+		<ingredient name="forgedSteel" count="2" />
+		<ingredient name="Rubber" count="3" />		
+	</recipe>	
+<recipe name="MG4_UpperReceiver" count="1" craft_area="WeaponWorkbench" scrapable="False">
+		<ingredient name="spring" count="4" />
+		<ingredient name="forgedSteel" count="4" />
+		<ingredient name="Rubber" count="10" />		
+	</recipe>		
+<recipe name="MG4_Barrel" count="1" craft_area="WeaponWorkbench" scrapable="False">		
+		<ingredient name="forgedSteel" count="40" />		
+	</recipe>		
+<recipe name="mg4" count="1" scrapable="False" craft_area="assembly">       
+        <ingredient name="MG4_Stock" count="1"/>
+		<ingredient name="MG4_UpperReceiver" count="1"/>
+        <ingredient name="MG4_LowerReceiver" count="1"/>
+        <ingredient name="MG4_Barrel" count="1"/>
+		<ingredient name="flashlight02" count="0"/>
+</recipe>		
+</append>
+</config>	
+</configs>

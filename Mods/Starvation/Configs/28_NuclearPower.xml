@@ -1,0 +1,271 @@
+<!-- NUCLEAR POWER -->
+<configs>
+<config name="recipes">
+<append xpath="/recipes">
+	<recipe name="plutoniumRing" count="1" scrapable="False" craft_area="anvil1" craft_tool="smithHammer" material_based="true">
+		<ingredient name="forgedSteel" count="15" />
+	</recipe>
+	<recipe name="nuke" count="1" scrapable="False" craft_area="electronicWorkbench" craft_tool="radiationGloves" craft_time="3">
+		<ingredient name="plutonium" count="2" />
+		<ingredient name="forgedSteel" count="50" />
+		<ingredient name="shortMetalPipe" count="20" />
+		<ingredient name="spring" count="10" />
+		<ingredient name="gunPowder" count="40" />
+	</recipe>
+	<recipe name="depletedUranium" count="2" scrapable="False">
+		<ingredient name="enrichedUranium" count="1" />
+	</recipe>
+	<recipe name="enrichedUranium" count="5" scrapable="False" craft_area="workbenchBig" craft_tool="gasCentrifuge" craft_time="3">
+		<ingredient name="uranium" count="5" />
+		<ingredient name="gasTank" count="1" />
+	</recipe>
+	<recipe name="762mmBulletPL" count="500" scrapable="True" craft_area="electronicWorkbench" craft_tool="radiationGloves">
+		<ingredient name="762mmBullet" count="500" />
+		<ingredient name="depletedUranium" count="2" />
+	</recipe>
+</append>	
+</config>	
+<config name="items">	
+<append xpath="/items">	
+	<item id="" name="plutoniumRing">
+		<property name="DescriptionKey" value="plutoniumRingDesc" />
+		<property name="Meshfile" value="Items/Misc/sackPrefab" />
+		<property name="DropMeshfile" value="Items/Misc/sack_droppedPrefab" />
+		<property name="Material" value="metal" />
+		<property name="HoldType" value="45" />
+		<property name="Stacknumber" value="5" />
+		<property name="Group" value="Resources" />
+	</item>
+	<item id="" name="gasCentrifuge">
+		<property name="DescriptionKey" value="gasCentrifugeDesc" />
+		<property name="Meshfile" value="Items/Misc/sackPrefab" />
+		<property name="DropMeshfile" value="Items/Misc/sack_droppedPrefab" />
+		<property name="Material" value="metal" />
+		<property name="HoldType" value="45" />
+		<property name="Stacknumber" value="5" />
+		<property name="Group" value="Resources" />
+	</item>
+	<item id="" name="nukeFlyer">
+		<property name="Meshfile" value="Items/Misc/Book" />
+		<property name="Material" value="paper" />
+		<property name="HoldType" value="21" />
+		<property name="Stacknumber" value="1" />
+		<property class="Action1">
+			<!-- UseAction -->
+			<property name="Class" value="LearnRecipe" />
+			<property name="Title" value="STATION POWER UP PROCEDURE" />
+			<property name="Description" value="1.Place enriched uranium and steel rings inside the cores \n 2.Turn on the 2 big turbines. The switch is on the exterior turbine housing \n 3. Keep the cores cleaned by removing the Plutonium \n 4. USE PROTECTION!" />
+			<property name="Delay" value="10" />
+		</property>
+		<property name="FuelValue" value="20" />
+		<property name="Weight" value="20" />
+		<property name="Group" value="Special Items" />
+		<property class="Preview">
+			<property name="Zoom" value="10" />
+			<property name="Pos" value="0,-0.2" />
+			<property name="Rot" value="90,45,0" />
+		</property>
+		<property name="DescriptionKey" value="nukeFlyerDesc" />
+	</item>
+	<item id="" name="smallConsole">
+		<property name="DescriptionKey" value="smallConsoleDesc" />
+		<property name="Meshfile" value="Items/Misc/sackPrefab" />
+		<property name="DropMeshfile" value="Items/Misc/sack_droppedPrefab" />
+		<property name="HoldType" value="45" />
+		<property name="Material" value="metal" />
+		<property name="Stacknumber" value="1" />
+		<!-- STK loot -->
+		<property name="Group" value="Resources" />
+		<property name="CraftingSkillGroup" value="Tool Smithing" />
+	</item>	
+</append>	
+</config>	
+<config name="blocks">
+<append xpath="/blocks">
+	 <block id="1286" name="turbine">
+		  <property name="Class" value="Generator, Mods" />
+		  <property name="Stacknumber" value="1" />
+		  <property name="FuelName" value="" />
+		  <!-- looks for an atomic core 10 blocks wide -->
+		  <property name="PowerEmitter" value="atomicCore,15" /> 
+		  <property name="TickRate" value="150" />
+		  <!-- if you lower this value too much, it can stress the system as it's constantly ticking -->
+		  <!-- be careful: it WILL emmit heat everytime it consumes fuel -->
+		  <property name="Material" value="metal" />
+		  <property name="Shape" value="ModelEntity" />
+		  <property name="Model" value="#turbine?Turbine1" />
+		  <property name="Place" value="TowardsPlacerInverted" />
+		  <property name="LootList" value="10" />
+		  <property name="DecayRate" value="0" />
+		  <property name="HeatMapStrength" value="0.5" />
+		  <property name="HeatMapTime" value="200" />  
+		  <property class="RepairItems">
+			<property name="scrapLead" value="73" />
+		  </property>
+		  <drop event="Destroy" count="0" />
+		  <property name="LPHardnessScale" value="8" />
+		  <property name="Group" value="Decor" />
+		  <property name="debug" value="false" />
+	 </block>
+	 <block id="1287" name="atomicCore">   
+			<property name="Class" value="Transformer, Mods" />
+			<!-- This is mandatory, catalyst used for the transformation (name, quantity) -->
+			<property name="FuelName" value="enrichedUranium,2" />			
+			<!-- Empty version of the end product, optional -->
+			<property name="RawName" value="plutoniumRing,1" />
+			<!-- This is mandatory, and it's the object resulting from the transformation -->					
+			<property name="ProductName" value="plutonium,1" />			
+			<!-- tranform ration in seconds -->
+			<!-- decay and heatmap is applyed for each transform -->
+			<property name="TickRate" value="3600" />		
+			<!-- damage / buffs emission rate, in seconds -->			
+			<property name="EmissionRate" value="5" /> 
+			<property name="RadiationArea" value="10" />
+			<property name="RadiationDamage" value="2" />
+			<property name="Buffs" value="radiation1" />
+			<property name="Shape" value="ModelEntity" />
+			<property name="Model" value="#powerplant?CorePrefab" />  
+			<property name="LootList" value="71" />
+			<property name="Material" value="Mmetal_hard" />
+			<property name="Texture" value="284" />
+			<property class="RepairItems">
+				<property name="scrapLead" value="10" />
+			</property>
+			<property name="ModelOffset" value="0,0.5,0" />
+			<drop event="Destroy" count="0" />
+			<property name="LPHardnessScale" value="8" />
+			<property name="Group" value="Decor" />
+			<property name="debug" value="false" />
+	</block>
+	<block id="1288" name="coolingTower">   
+		  <property name="Material" value="Mmetal_hard" />
+		  <property name="Shape" value="ModelEntity" />
+		  <property name="Model" value="#powerplant?CoolingTowerPrefab" />  
+		  <property name="CanPickup" value="false" />
+		  <drop event="Destroy" name="scrapIron" count="100,200" prob="1" />
+		  <drop event="Fall" name="scrapMetalPile" count="100" prob="1.0" stick_chance=".75" />
+		  <property name="Group" value="Building" />
+	</block>
+	<block id="1289" name="workbenchBig">		
+		<property name="Material" value="metal" />	
+		<property name="Shape" value="ModelEntity" />				
+		<property name="Model" value="#workbenches1?WorkbenchBigPrefab" />
+		<property name="Class" value="Machine, Mods" />	
+		<property name="powerType" value="Electric" />
+		<property class="RepairItems">
+			<property name="wood" value="5" />
+			<property name="forgedIron" value="5" />			
+		</property>
+		<property name="BigDecorationRadius" value="2" />
+		<drop event="Destroy" count="0" />		
+		<property name="Group" value="Basics,Building" />		
+		<property class="Workstation">
+			<property name="CraftingAreaRecipes" value="workbenchBig" />
+			<property name="Modules" value="tools,output" />
+		</property>		
+		<property name="TickRate" value="1000" /> <!-- if you lower this value too much, it can stress the system as it's constantly ticking -->
+		<property name="debug" value="false" />
+	</block>
+	<block id="1290" name="electronicWorkbench">			
+		<property name="Material" value="metal" />	
+		<property name="Shape" value="ModelEntity" />				
+		<property name="Model" value="#workbenches1?ElectronicWorkbench" />		
+		<property name="Class" value="Machine, Mods" />	
+		<property name="powerType" value="Electric" />
+		<property name="TickRate" value="1000" /> <!-- if you lower this value too much, it can stress the system as it's constantly ticking -->
+		<property class="RepairItems">
+			<property name="wood" value="5" />
+			<property name="forgedIron" value="5" />			
+		</property>
+		<property name="BigDecorationRadius" value="2" />
+		<drop event="Destroy" count="0" />		
+		<property name="Group" value="Basics,Building" />		
+		<property class="Workstation">
+			<property name="CraftingAreaRecipes" value="electronicWorkbench" />
+			<property name="Modules" value="tools,output" />
+		</property>		
+	</block>
+	<block id="1291" name="LampSideNew">   
+	  <property name="Material" value="Mmetal_hard" />
+	  <property name="Shape" value="ModelEntity" />
+	  <property name="Model" value="#lamps1?LampSide" />
+	  <property name="CanPickup" value="false" />
+	  <drop event="Destroy" name="scrapIron" count="100,200" prob="1" />
+	  <drop event="Fall" name="scrapMetalPile" count="100" prob="1.0" stick_chance=".75" />
+	  <property name="Group" value="Building" />
+	</block>
+	<block id="1292" name="LampTopNew">   
+	  <property name="Material" value="Mmetal_hard" />
+	  <property name="Shape" value="ModelEntity" />
+	  <property name="Model" value="#lamps1?LampTop" />   
+	  <property name="CanPickup" value="false" />
+	  <drop event="Destroy" name="scrapIron" count="100,200" prob="1" />
+	  <drop event="Fall" name="scrapMetalPile" count="100" prob="1.0" stick_chance=".75" />
+	  <property name="Group" value="Building" />
+	</block>
+	<block id="1293" name="WarningSign">		
+		<property name="Material" value="metal" />
+		<property name="Shape" value="ModelEntity" />
+		<property name="Model" value="#warning?NuclearSign" />		
+		<property name="IsTerrainDecoration" value="false" />		
+		<property name="Density" value="0.1" />		
+		<drop event="Destroy" count="0" prob="1" />
+		<property name="Collide" value="movement" />
+	</block>
+ </append>	
+</config>
+
+<config name="rwgmixer">
+<append xpath="/rwgmixer/prefab_rules/prefab_rule[@name='wildernessPOIs']">
+  <prefab name="PowerPlant" min_count="0" max_count="1" prob="20" />
+</append>
+</config>
+
+<config name="xui">	
+<append xpath="/xui/ruleset[@name='default']">
+	<!-- MACHINES -->
+	<window_group name="workstation_electronicWorkbench" controller="XUiC_WorkstationWindowGroup">		
+		<window name="windowCraftingList" />
+		<window name="windowToolsBW" />
+		<window name="craftingInfoPanel" />
+		<window name="windowCraftingQueue" />			
+		<window name="windowOutput" />
+		<window name="windowNonPagingHeader" />
+	</window_group>		
+	<window_group name="workstation_workbenchBig" controller="XUiC_WorkstationWindowGroup">		
+		<window name="windowCraftingList" />
+		<window name="windowToolsBW" />
+		<window name="craftingInfoPanel" />
+		<window name="windowCraftingQueue" />			
+		<window name="windowOutput" />
+		<window name="windowNonPagingHeader" />
+	</window_group>	
+</append>
+</config>	
+<config name="XUi/windows">
+<append xpath="/windows">
+	<window name="windowToolsBW" width="228" height="121" panel="Right">
+		<panel style="header.panel">
+			<sprite style="header.icon" sprite="ui_game_symbol_wrench" />
+			<label style="header.name" text="TOOLS" text_key="xuiTools" />
+		</panel>
+		<rect name="content" depth="0" pos="0,-46" height="75" disablefallthrough="true" on_press="true">
+			<grid name="inventory" rows="1" cols="2" pos="3,-3" cell_width="75" cell_height="75" controller="WorkstationToolGrid" repeat_content="true" allow_sort_order="false" required_tools="gasCentrifuge,radiationGloves" required_tools_only="true">
+				<required_item_stack name="0" />
+			</grid>
+			<!-- <grid name="slot_preview" depth="1" rows="1" cols="3" pos="3,-3" cell_width="75" cell_height="75" controller="SlotPreview">
+				<rect>
+					<sprite name="slot" depth="2" width="70" height="50" foregroundlayer="true" color="[white_quarter_alpha]" sprite="anvil" atlas="ItemIconAtlasGreyscale" pos="35,-30" pivot="center"/>
+				</rect>
+				<rect>
+					<sprite name="slot" depth="2" width="70" height="50" foregroundlayer="true" color="[white_quarter_alpha]" sprite="calipers" atlas="ItemIconAtlasGreyscale" pos="35,-30" pivot="center"/>
+				</rect>
+				<rect>
+					<sprite name="slot" depth="2" width="70" height="50" foregroundlayer="true" color="[white_quarter_alpha]" sprite="toolAndDieSet" atlas="ItemIconAtlasGreyscale" pos="35,-30" pivot="center"/>
+				</rect>
+			</grid> -->
+		</rect>
+	</window>
+</append>
+</config>
+</configs>

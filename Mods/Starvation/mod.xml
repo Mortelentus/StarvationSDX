@@ -1,0 +1,41 @@
+<mod>
+	<info>
+		<author>SDX Team</author>
+		<name>Starvation</name>
+		<description>Scripts by Mortelentus, Graphics by Pacco. Check details for more information</description>
+		<mod_version>1.0</mod_version>
+		<game_version>15.1</game_version>
+		<launcher_version>0.7.0</launcher_version>
+	</info>
+	<config_mods>
+		<import file="Configs\01_Admin Tools.xml" />
+		<import file="Configs\02_Machinery.xml" />
+		<import file="Configs\07_MorteFishing.xml" />
+		<import file="Configs\18_MorteHusbandry.xml" />
+		<import file="Configs\20_MyDog.xml" />
+		<import file="Configs\21_WeaponAttachments.xml" />
+		<import file="Configs\22_NailGuns.xml" />
+		<import file="Configs\23_RadiationTherapy.xml" />
+		<import file="Configs\24_MyColony.xml" />
+		<import file="Configs\25_animalTraps.xml" />
+		<import file="Configs\26_Trucks.xml" />		
+		<import file="Configs\27_Animals.xml" />
+		<import file="Configs\28_NuclearPower.xml" />
+		<import file="Configs\29_Food.xml" />
+		<import file="Configs\30_Plants.xml" />
+		<import file="Configs\31_StarvationWeapons.xml" />
+		<import file="Configs\33_SolarAndWeaponWorkbench.xml" />
+		<import file="Configs\34_Enemys.xml" />
+		<import file="Configs\35_entitySurvivors.xml" />
+		<import file="Configs\36_AnimalCoops.xml" />
+		<import file="Configs\37_SpecialPets.xml" />
+		<import file="Configs\38_RadDecco.xml" />
+		<import file="Configs\39_DecoVehicles.xml" />
+		<import file="Configs\40_CustomChat.xml" />
+		<import file="Configs\41_AmmoReloader.xml" />
+		<import file="Configs\96_quests.xml" />
+		<import file="Configs\97_BiomesAndRWG.xml" />
+		<import file="Configs\98_Starvation.xml" />
+		<import file="Configs\99_loot.xml" />
+	</config_mods>
+</mod>

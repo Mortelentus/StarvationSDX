@@ -1,0 +1,63 @@
+<configs>
+<config name="recipes">
+<append xpath="/recipes">
+<recipe name="10mmBullet" count="2" scrapable="True" craft_area="ammoWorkbench" craft_time="1" >
+		<ingredient name="bulletTip" count="2" />
+		<ingredient name="gunPowder" count="2" />
+		<ingredient name="bulletCasing" count="2" />
+</recipe>
+<recipe name="44MagBullet" count="2" scrapable="False" craft_area="ammoWorkbench" craft_time="1" >
+		<ingredient name="bulletTip" count="2" />
+		<ingredient name="gunPowder" count="3" />
+		<ingredient name="bulletCasing" count="2" />
+</recipe>
+<recipe name="762mmBullet" count="2" scrapable="True" craft_area="ammoWorkbench" craft_time="1" >
+		<ingredient name="bulletTip" count="2" />
+		<ingredient name="gunPowder" count="3" />
+		<ingredient name="bulletCasing" count="2" />
+</recipe>
+<recipe name="9mmBullet" count="2" scrapable="True" craft_area="ammoWorkbench" craft_time="1" >
+		<ingredient name="bulletTip" count="2" />
+		<ingredient name="gunPowder" count="1" />
+		<ingredient name="bulletCasing" count="2" />
+</recipe>
+<recipe name="50cal" count="1" scrapable="True" craft_area="ammoWorkbench" craft_time="1" >
+		<ingredient name="bulletTip" count="4" />
+		<ingredient name="gunPowder" count="6" />
+		<ingredient name="bulletCasing" count="4" />
+</recipe>
+</append>	  
+</config>
+<config name="blocks">
+<append xpath="/blocks">
+<block id="1958" name="ammoWorkbench">			
+	<property name="Material" value="metal" />	
+		<property name="Shape" value="ModelEntity" />		
+		<property name="DescriptionKey" value="ammoWorkbenchDesc" />
+		<property name="Model" value="#ammoreloder?ammunitionReloader1" />		
+		<property name="Class" value="Campfire" />	
+		<property class="RepairItems">
+			<property name="wood" value="5" />
+			<property name="forgedIron" value="5" />			
+		</property>
+		<property name="BigDecorationRadius" value="1" />
+		<drop event="Destroy" count="0" />		
+		<property name="Group" value="Basics,Building" />		
+		<property class="Workstation">
+		<property name="Modules" value="tools,output" />
+		</property>		
+</block>		  
+</append>
+</config>
+<config name="xui">	
+<append xpath="/xui/ruleset[@name='default']">
+<window_group name="workstation_ammoWorkbench" controller="XUiC_WorkstationWindowGroup">		
+			<window name="windowCraftingList" />		
+			<window name="craftingInfoPanel" />
+			<window name="windowCraftingQueue" />			
+			<window name="windowOutput" />
+			<window name="windowNonPagingHeader" />
+		</window_group>	
+</append>
+</config>
+</configs>

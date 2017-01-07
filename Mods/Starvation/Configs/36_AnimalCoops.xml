@@ -1,0 +1,231 @@
+<configs>
+<config name="recipes">
+<append xpath="/recipes">
+	<!-- ANIMAL COOPS -->
+	<recipe name="RabbitHutch" count="1" scrapable="False">
+		<ingredient name="nail" count="20" />
+		<ingredient name="wood" count="50" />
+		<ingredient name="barbedWireSheet" count="2" />
+		<ingredient name="bucket" count="2" />		
+	</recipe>
+	<recipe name="ChickenCoop" count="1" scrapable="False">
+		<ingredient name="trough" count="2" />
+		<ingredient name="nail" count="20" />
+		<ingredient name="wood" count="50" />
+	</recipe>
+	<recipe name="BoxTrap" count="1" scrapable="False">
+		<ingredient name="spring" count="1" />
+		<ingredient name="nail" count="10" />
+		<ingredient name="wood" count="20" />
+	</recipe>
+	<!-- FISHING -->
+</append>
+</config>
+
+<config name="items">	
+	<append xpath="/items">	
+		<item id="" name="chickenItem">
+			<property name="DescriptionKey" value="chickenItemDesc" />
+			<!-- <property name="HoldingItemHidden" value="true" /> -->
+			<property name="Meshfile" value="Animals/CHICKEN/chickenPrefab" />
+			<property name="Material" value="organic" />
+			<property name="HoldType" value="7" />
+			<property name="Stacknumber" value="4" />	
+			<property class="Action1">
+				<property name="Class" value="SpawnMorteAnimal, Mods" />
+				<property name="entityToSpawn" value="animalChicken" />				
+			</property>
+			<property class="Preview">
+				<property name="Zoom" value="28" />
+				<property name="Pos" value="0,-0.05" />
+				<property name="Rot" value="90,45,0" />
+			</property>
+		</item>	
+		<item id="" name="rabbitItem">
+			<property name="DescriptionKey" value="rabbitItemDesc" />
+			<!-- <property name="HoldingItemHidden" value="true" /> -->
+			<property name="Meshfile" value="Animals/Rabbit/RABBIT" />
+			<property name="Material" value="organic" />
+			<property name="HoldType" value="7" />
+			<property name="Stacknumber" value="4" />	
+			<property class="Action1">
+				<property name="Class" value="SpawnMorteAnimal, Mods" />
+				<property name="entityToSpawn" value="animalRabbit" />				
+			</property>
+			<property class="Preview">
+				<property name="Zoom" value="28" />
+				<property name="Pos" value="0,-0.05" />
+				<property name="Rot" value="90,45,0" />
+			</property>
+		</item>
+	</append>	
+</config>
+<config name="blocks">	
+<append xpath="/blocks">
+	<!-- ANIMAL COOPS -->
+	<block id="1941" name="ChickenCoop">
+		<property name="DescriptionKey" value="ChickenCoopDesc" />
+		<property name="Class" value="AnimalCoop, Mods" />	
+		<!-- This is mandatory, it's the animal item -->		
+		<property name="animalName" value="chickenItem" /> 
+		<!-- food item, 1 unit per animal -->
+		<property name="foodName" value="wheat" /> 
+		<!-- Water Item, 1 unit lasts for a good while -->
+		<property name="waterName" value="bucketWater" /> 
+		<!-- Items that will be produced if there are animals present. 0 to 2 -->
+		<property name="productName" value="feather,egg" /> 			
+		<!-- Interval in seconds to update coop status -->
+		<property name="TickRate" value="10" />
+		<!-- Interval in seconds to proccess life actions (eat, reproduce, etc) -->
+		<property name="LifeRate" value="120" />
+		<!-- when there are animals, this sound will be emitted randomly -->
+		<property name="animalSound" value="chickenSound" />
+		<!-- when there are animals, this sound will be emitted at day break - optional -->
+		<property name="wakeUpSound" value="rosterSound" />
+		<property name="Shape" value="ModelEntity" />
+		<property name="Model" value="#animalCoops?ChickenHousePrefab" />
+		<property name="LootList" value="87" />
+		<property name="Material" value="wood+metal" />
+		<property name="Texture" value="284" />
+		<property class="RepairItems">
+			<property name="wood" value="10" />
+			<property name="scrapIron" value="2" />
+		</property>
+		<property name="ModelOffset" value="0,0,0" />
+		<drop event="Destroy" count="0" />
+		<property name="LPHardnessScale" value="8" />
+		<property name="Group" value="Decor" />		
+		<property name="debug" value="true" />
+	</block>
+	<block id="1942" name="RabbitHutch">
+		<property name="DescriptionKey" value="RabbitHutchDesc" />
+		<property name="Class" value="AnimalCoop, Mods" />	
+		<!-- This is mandatory, it's the animal item -->		
+		<property name="animalName" value="rabbitItem" /> 
+		<!-- food item, 1 unit per animal -->
+		<property name="foodName" value="carrot" /> 
+		<!-- Water Item, 1 unit lasts for a good while -->
+		<property name="waterName" value="bucketWater" /> 
+		<!-- Items that will be produced if there are animals present. 0 to 2 -->
+		<property name="productName" value="turd" /> 			
+		<!-- Interval in seconds to update coop status -->
+		<property name="TickRate" value="10" />
+		<!-- Interval in seconds to proccess life actions (eat, reproduce, etc) -->
+		<property name="LifeRate" value="120" />
+		<!-- when there are animals, this sound will be emitted randomly -->
+		<property name="animalSound" value="rabbitSound" />
+		<!-- when there are animals, this sound will be emitted at day break - optional -->
+		<property name="wakeUpSound" value="" />
+		<property name="Shape" value="ModelEntity" />
+		<property name="Model" value="#animalCoops?rabitCagePrefab" />
+		<property name="LootList" value="87" />
+		<property name="Material" value="wood+metal" />
+		<property name="Texture" value="284" />
+		<property class="RepairItems">
+			<property name="wood" value="10" />
+			<property name="scrapIron" value="2" />
+		</property>
+		<property name="ModelOffset" value="0,0,0" />
+		<drop event="Destroy" count="0" />
+		<property name="LPHardnessScale" value="8" />
+		<property name="Group" value="Decor" />		
+		<property name="debug" value="true" />
+	</block>
+	<block id="1943" name="BoxTrap">
+		<!-- triggered trap -->
+		<!-- requires no power but has to be manually reseted -->
+		<property name="DescriptionKey" value="BoxTrapDesc" />
+		<property name="Class" value="TrapMorte, Mods" />
+		<property name="Material" value="wood" />		
+		<property name="Shape" value="ModelEntity" />
+		<property name="Model" value="#animalCoops?BoxTrapPrefab" />
+		<property name="Collide" value="movement,bullet,rocket,melee" />
+		<property class="RepairItems">
+			<property name="wood" value="5" />
+		</property>
+		<property name="FuelValue" value="36" />
+		<property name="KillChance" value="0" />
+		<property name="SpawnChance" value="100" />
+		<property name="DamageDone" value="0" />
+		<property name="HitLegs" value="false" />
+		<property name="Baited" value="true" />
+		<property name="EntityGroup" value="AnimalsSmall" />
+		<!-- Which animals it will actually be able to capture, up to 2 -->
+		<property name="AnimalToCatch" value="animalRabbit,animalChicken" />
+		<property name="Baite" value="wheat" />
+		<property name="Loot1" value="rabbitItem" />
+		<property name="Loot2" value="chickenItem" />
+		<!-- if set to true, if the trap kills an entity (not player), it will imediatly disapear -->
+		<property name="DestroyOnDeath" value="true" /> 
+		<property name="OpenSound" value="boxtrap_trigger" />
+		<property name="CloseSound" value="boxtrap_trigger" />		
+		<!-- until better solution this is just to allow interaction -->
+		<property name="CanPickup" value="true" /> 
+		<drop event="Destroy" count="0" />
+		<drop event="Fall" name="woodDebris" count="1" prob="1.0" stick_chance=".75" />
+		<property name="Group" value="Tools/Traps" />
+		<property name="debug" value="false" />
+	</block>
+	<!-- ANIMAL COOPS -->
+	
+</append>
+</config>
+<config name="sounds">
+<append xpath="/Sounds">
+	<!-- ANIMAL COOPS -->
+	<SoundDataNode name="chickenSound">
+		<AudioSource name="Sounds/AudioSource_UseAction" />
+		<Noise range="15" prio="1" time="1" heat_map_strength="0.3" heat_map_time="120" />
+		<AudioClip ClipName="#animalCoops?chickens" />
+		<LocalCrouchVolumeScale name="0.5" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.01" />
+	</SoundDataNode>
+	<SoundDataNode name="rosterSound">
+		<AudioSource name="Sounds/AudioSource_UseAction" />
+		<Noise range="25" prio="1" time="1" heat_map_strength="0.9" heat_map_time="120" />
+		<AudioClip ClipName="#animalCoops?roaster" />
+		<LocalCrouchVolumeScale name="0.5" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="2" />
+		<MaxVoices name="1" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.01" />
+	</SoundDataNode>
+	<SoundDataNode name="rabbitSound">
+		<AudioSource name="Sounds/AudioSource_UseAction" />
+		<Noise range="15" prio="1" time="1" heat_map_strength="0.3" heat_map_time="120" />
+		<AudioClip ClipName="#animalCoops?rabbit" />
+		<LocalCrouchVolumeScale name="0.5" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.01" />
+	</SoundDataNode>
+	<SoundDataNode name="boxtrap_trigger">
+		<AudioSource name="Sounds/AudioSource_UseAction" />
+		<Noise range="10" prio="1" time="1" muffled_when_crouched="0.5" />
+		<AudioClip ClipName="#animalCoops?door" />
+		<LocalCrouchVolumeScale name="0.5" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.01" />
+	</SoundDataNode>
+	<!-- ANIMAL COOPS -->
+</append>
+</config>
+<config name="entityclasses">
+	<insertAfter xpath="/entity_classes/entity_class[@name='animalRabbit']/property[@name='PhysicsBody']">
+		<property name="AITask-6" value="ApproachSpot" />
+	</insertAfter>
+	<insertAfter xpath="/entity_classes/entity_class[@name='animalChicken']/property[@name='PhysicsBody']">
+		<property name="AITask-6" value="ApproachSpot" />
+	</insertAfter>
+</config>
+</configs>

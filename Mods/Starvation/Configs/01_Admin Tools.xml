@@ -1,0 +1,192 @@
+<configs>
+<config name="items">
+<append xpath="/items">
+  <!-- Admin Tools -->
+	<item id="" name="AdminNail">
+		<property name="Extends" value="nail" />
+		<property name="Candrop" value="false" />
+		<property name="IsDeveloper" value="true" />
+		<property class="Action1">
+			<property name="Velocity" value="500" />
+			<property name="FlyTime" value="1.2" />
+			<property name="Explosion.BlockDamage" value="500000" />
+			<property name="Explosion.ParticleIndex" value="4" />
+			<property name="Explosion.RadiusBlocks" value="10" />
+			<property name="LifeTime" value="8" />
+		</property>
+		<property class="Attributes">
+		<property name="GetQualityFromWeapon" value="true" />
+		<property name="EntityDamage" value="55,100" />
+		<property name="BlockDamage" value="500000,550000" />
+	</property>
+	</item>
+	<item id="" name="AdminGun">
+		<property name="Meshfile" value="Items/Tools/nailgunPrefab" />
+		<property name="Material" value="metal" />
+		<property name="RepairTools" value="repairKit" />
+		<property name="HoldType" value="37" />
+		<property name="Degradation" value="500" param1="false" />
+		<property name="DegradationBreaksAfter" value="false" />
+		<property name="Candrop" value="false" />
+		<property name="IsDeveloper" value="true" />
+		<property name="SoundJammed" value="Weapons/weapon_jam" />
+		<property class="Parts">
+			<property name="Stock" value="partsAdminNailgun_frame" />
+			<property name="Receiver" value="partsAdminNailgun_receiver" />
+			<property name="Pump" value="partsAdminNailgun_parts" />
+			<property name="Barrel" value="partsAdminNailgun_battery" />
+		</property>
+		<property class="Action0">
+			<!-- AttackAction -->
+			<property name="Class" value="Launcher" />
+			<property name="Hitmask_override" value="Arrow" />
+			<property name="Delay" value="0.3" />
+			<property name="Magazine_size" value="25" />
+			<property name="Range" value="50" />
+			<property name="Auto_fire" value="true" />
+			<property name="Infinite_ammo" value="true" />
+			<property name="Magazine_items" value="AdminNail" />
+			<property name="Rays_spread" value="0.042" />
+			<property name="DamageBlock" value="500000" />
+			<property name="Instantiate_on_load" value="false" />
+			<property name="Reload_time" value="2" />
+			<property name="Bullet_icon" value="uzi" />
+			<property name="Sound_start" value="Weapons/Motorized/Nailgun/nailgun_fire" />
+			<property name="Particles_muzzle_fire" value="nailgunfire" />
+			<!-- <property name="Particles_muzzle_smoke" value="nozzlesmoke" /> -->
+			<property name="Sound_repeat" value="" />
+			<property name="Sound_end" value="" />
+			<property name="Sound_empty" value="Weapons/weapon_empty" />
+			<property name="Sound_reload" value="Weapons/Motorized/Nailgun/nailgun_reload" />
+			<property name="DamageBonus.head" value="6" />
+			<property name="DamageBonus.glass" value="25" />
+			<property name="ActionExp" value="2" />
+		</property>
+		<property class="Action1">
+			<!-- UseAction -->
+			<property name="Class" value="Repair" />
+			<property name="Delay" value="0.25" />
+			<property name="Repair_amount" value="5000" />
+			<property name="Upgrade_hit_offset" value="-10" />
+			<property name="Repair_action_sound" value="Weapons/Motorized/Nailgun/nailgun_fire" />
+			<property name="Upgrade_action_sound" value="Weapons/Motorized/Nailgun/nailgun_fire" />
+			<property name="Allowed_upgrade_items" value="wood,clayLump,dirtFragment,snowBall,scrapIron,forgedIron,forgedSteel,steelPolish,concreteMix,cobblestones,yuccaFibers,nail" />
+			<!--<property name="Restricted_upgrade_items" value="concrete" />-->
+		</property>
+		<property name="Group" value="Tools/Traps" />
+		<property name="ActionSkillGroup" value="Construction Tools" />
+		<property name="CraftingSkillGroup" value="Gun Smithing" />
+		<!-- 15.0 workaround. Should be Science -->
+		<property name="RepairExpMultiplier" value="10.8" />
+		<property name="PickupJournalEntry" value="gunAssemblyTip" />
+	</item>	
+    <item id="" name="AdminTool">
+		<property name="Extends" value="stoneAxe" />
+		<property name="DegradationBreaksAfter" value="false" />
+		<property name="Candrop" value="false" />
+		<property name="IsDeveloper" value="true" />
+		<property class="Action0">
+			<property name="Delay" value="0.35" />
+			<property name="Block_range" value="15" />
+			<property name="ToolCategory.Butcher" value="0.0" />
+		</property>
+		<property class="Action1">
+			<property name="Delay" value="0.2" />
+			<property name="Block_range" value="15" />
+			<property name="Repair_amount" value="50000" />
+			<property name="Upgrade_hit_offset" value="-10" />
+		</property>
+		<property class="Attributes">
+			<property name="BlockDamage" value="500000,500000" />
+			<property name="DegradationRate" value="0,0" />
+		</property>
+	</item>
+	<item id="" name="AdminPill">
+		<property name="Extends" value="painkillers" />
+		<property name="Stacknumber" value="30000" />
+		<property name="Candrop" value="false" />
+		<property name="IsDeveloper" value="true" />
+		<property class="Action1">
+			<property name="Use_time" value="..." />
+			<property name="Gain_health" value="100" />
+			<property name="Gain_food" value="35" />
+			<property name="Gain_water" value="35" />
+			<property name="Buff" value="healAll" />
+			<property name="Debuff" value="freezing,hypo1,hypo2,hypo3,overheated,heat1,heat2,drowning,bleeding,burning,burningSmall,infection,infection2,infection3,foodPoisoning,sprainedLeg,internalBleeding,dysentery,dysentery2,brokenLeg,AlcoholPoisoning,flu,flu2" />
+		</property>
+	</item>
+	<item id="" name="AdminShiv">
+		<property name="Extends" value="boneShiv" />
+		<property name="Candrop" value="false" />
+		<property name="IsDeveloper" value="true" />
+		<property class="Action0">
+			<property name="Class" value="UseOther" />
+			<property name="Delay" value="1.2" />
+			<property name="Range" value="2" />
+			<property name="Sphere" value="0.1" />
+			<property name="DamageEntity" value="1" />
+			<property name="Sound_start" value="swoosh" />
+			<property name="Buff" value="infection4,dysentery2,stunned,brokenLeg,internalBleeding" />
+		</property>
+		<property class="Attributes">
+			<property name="EntityDamage" value="0,0" />
+			<property name="BlockDamage" value="0,0" />
+			<property name="DegradationRate" value="0,0" />
+		</property>
+	</item>
+	<item id="" name="AdminBook">
+		<property name="Extends" value="schematicMaster" />
+		<property name="Candrop" value="false" />
+		<property name="IsDeveloper" value="true" />
+		<property class="Action1">
+			<property name="Recipes_to_learn" value="" />
+		</property>
+	</item>
+	<item id="" name="AdminAuger">
+		<property name="Stacknumber" value="1" />
+		<property name="Meshfile" value="Items/Tools/augerPrefab" />
+		<property name="Material" value="metal" />
+		<property name="HoldType" value="20" />
+		<property name="Degradation" value="500" param1="false" />
+		<property name="DegradationBreaksAfter" value="false" />
+		<property name="Candrop" value="false" />
+		<property name="IsDeveloper" value="true" />
+		<property class="Action0">
+			<property name="Class" value="Ranged" />
+			<property name="Auto_fire" value="true" />
+			<property name="Hitmask_override" value="Melee" />
+			<property name="Delay" value="0.2" />
+			<property name="Range" value="15" />
+			<property name="Rays_per_shot" value="6" />
+			<property name="DamageBlock" value="500000" />
+			<property name="Magazine_size" value="1" />
+			<property name="Infinite_ammo" value="true" />
+			<property name="Single_magazine_usage" value="false" />
+			<property name="Magazine_items" value="AdminNail" />
+			<property name="Sound_start" value="" />
+			<property name="Sound_repeat" value="" />
+			<property name="Sound_end" value="" />
+		</property>
+		<property class="Attributes">
+			<property name="DegradationRate" value="0,0" />
+		</property>
+	</item>
+	<item id="" name="AdminMachete">
+		<property name="Extends" value="machete" />
+		<property name="Candrop" value="false" />
+		<property name="IsDeveloper" value="true" />
+		<property class="Action0">
+			<property name="Delay" value="0.2" />
+			<property name="Range" value="100" />
+			<property name="Stamina_usage" value="1" />
+		</property>
+		<property class="Attributes">
+			<property name="EntityDamage" value="10000,10000" />
+			<property name="BlockDamage" value="0,0" />
+			<property name="DegradationRate" value="0,0" />
+			<property name="DismembermentBaseChance" value="5,5"/>
+		</property>
+	</item>
+</append>	  
+</config>
+</configs>

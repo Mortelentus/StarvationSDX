@@ -1,0 +1,297 @@
+<configs>
+<config name="loot">
+<append xpath="/lootcontainers/lootgroup[@name='melee']">
+		<item name="bat" prob="0.15" />
+</append>
+<append xpath="/lootcontainers/lootgroup[@name='cupboard']">
+		<item name="forkStandard" />
+</append>
+<remove xpath="/lootcontainers/lootqualitytemplates/lootqualitytemplate[@name='baseTemplate']" />
+<append xpath="/lootcontainers/lootqualitytemplates">
+		<lootqualitytemplate name="baseTemplate"> <!-- REPLACE THE ENTIRE TEMPLATE -->
+			<qualitytemplate level="0,0.16" default_quality="1,100">
+				<loot quality="301,350" prob="0.01" /> <!-- REDUCED MAX -->
+				<loot quality="201,300" prob="0.05" />
+				<loot quality="101,200" prob="0.15" />
+				<loot quality="1,100" prob="1" />
+			</qualitytemplate>
+			<qualitytemplate level="0.16,0.32" default_quality="101,200">
+				<loot quality="301,375" prob="0.01" /> <!-- REDUCED MAX -->
+				<loot quality="201,300" prob="0.05" />
+				<loot quality="101,200" prob="0.15" />
+				<loot quality="1,200" prob="1" />
+			</qualitytemplate>
+			<qualitytemplate level="0.32,0.48" default_quality="201,300">
+				<loot quality="301,400" prob="0.01" /> <!-- REDUCED MAX -->
+				<loot quality="201,300" prob="0.05" />
+				<loot quality="101,200" prob="0.15" />
+				<loot quality="1,300" prob="1" />
+			</qualitytemplate>
+			<qualitytemplate level="0.48,0.64" default_quality="301,400">
+				<loot quality="426,475" prob="0.03" /> <!-- REDUCED MAX -->
+				<loot quality="351,425" prob=".10" />
+				<loot quality="301,350" prob="0.25" />
+				<loot quality="1,300" prob="0.75" />
+			</qualitytemplate>
+			<qualitytemplate level="0.64,0.80" default_quality="401,500">
+				<loot quality="501,500" prob="0.05" /> <!-- REDUCED MAX -->
+				<loot quality="401,500" prob="0.25" />
+				<loot quality="301,350" prob="0.25" />
+				<loot quality="1,300" prob="0.5" />
+			</qualitytemplate>
+			<qualitytemplate level="0.80,1" default_quality="501,600">
+				<loot quality="501,525" prob="0.10" /> <!-- REDUCED MAX -->
+				<loot quality="401,500" prob=".25" />
+				<loot quality="301,400" prob="0.25" />
+				<loot quality="1,300" prob="0.4" />
+			</qualitytemplate>
+		</lootqualitytemplate>
+</append>
+<remove xpath="/lootcontainers/lootgroup[@name='cupboard']/item[@group='cannedfood']" />
+<append xpath="/lootcontainers/lootgroup[@name='cupboard']">	
+		<item group="cannedfood" prob="0.05" /> <!-- ADDED PROBABILITY -->
+</append>
+<append xpath="/lootcontainers/lootgroup[@name='seeds']">	
+		<item name="appleSeed" />
+		<item name="bananaSeed" />
+		<item name="limeSeed" />
+		<item name="lemonSeed" />
+		<item name="orangeSeed" />
+		<item name="peachSeed" />
+		<item name="pearSeed" />
+		<item name="cherrySeed" />
+		<item name="tomatoSeed" />
+		<item name="paprikaSeed" />
+		<item name="strawberrySeed" />
+		<item name="carrotSeed" />
+		<item name="eggplantSeed" />
+		<item name="garlicSeed" />
+		<item name="sugarcaneSeed" />
+		<item name="onionSeed" />
+		<item name="saladLeaves" />
+		<item name="tobaccoSeed" />
+		<item name="cannabisSeed" />
+		<item name="sunflowerSeed" />
+		<item name="wheat" />
+		<item name="cocoSeed" />
+		<item name="dateSeed" />
+		<item name="avocadoSeed" />
+</append>
+
+<!-- SMALL GENERATORS AND FILLED GAS TANKS SPAWN ON GARAGES -->
+<append xpath="/lootcontainers/lootplaceholders/placeholder[@name='lootGarage']">
+		<block name="smallGenerator" prob="0.04" />
+		<block name="gasTank" prob="0.05" />
+</append>
+<!-- TREES AND SOME SPECIAL CROPS SPAWN ON LOOTYARDS -->
+<append xpath="/lootcontainers/lootplaceholders/placeholder[@name='lootYard']">
+		<block name="lemonTree" prob="0.05" />
+		<block name="orangeTree" prob="0.05" />
+		<block name="pearTree" prob="0.05" />
+		<block name="cherryTree" prob="0.05" />
+		<block name="appleTree" prob="0.05" />
+		<block name="bananaPalm" prob="0.05" />		
+		<block name="tomatoPlant" prob="0.02" />
+		<block name="strawberryPlant" prob="0.02" />
+		<block name="garlicPlant" prob="0.02" />
+		<block name="onionPlant" prob="0.02" />
+		<block name="paprikaPlant" prob="0.02" />
+		<block name="eggplant" prob="0.02" />
+		<block name="gasTankEmpty" prob="0.02" />		
+</append>
+<remove xpath="/lootcontainers/lootcontainer[@id='35']/item[@group='cannedfood']" />
+<remove xpath="/lootcontainers/lootcontainer[@id='48']/item[@group='cannedfood']" />
+<remove xpath="/lootcontainers/lootcontainer[@id='48']/item[@name='bottledWater']" />
+<!-- ADDING NEW GUNS TO GROUPS -->
+<insertAfter xpath="/lootcontainers/lootgroup[@name='empty']">
+	<lootgroup name="revolver+ammo" count="all">
+		<item name="9mmBullet" count="1,6" />
+		<item name="gunRevolver" count="1" prob="0.2" />
+	</lootgroup>
+	<lootgroup name="magnum+ammo" count="all">
+		<item name="44MagBullet" count="1,6" />
+		<item name="gun44Magnum" count="1" />
+	</lootgroup>
+	<lootgroup name="ak47+ammo" count="all">
+		<item name="762mmBullet" count="1,30" />
+		<item name="gunAK47" count="1" />
+	</lootgroup>
+	<lootgroup name="specialGuns">
+		<item name="gunAK47" prob="0.09" />
+		<item name="ACW" prob="0.08" />
+		<item name="HK416" prob="0.07" />
+		<item name="Ump" prob="0.06" />	
+		<item name="MTAR"  prob="0.05" />		
+		<item name="mg4" prob="0.04" />				
+	</lootgroup>	
+</insertAfter>
+<insertAfter xpath="/lootcontainers/lootgroup[@name='sniperRifle+ammo']">
+	<lootgroup name="military">		
+		<item name="smallCrossbow" prob="0.06" />		
+		<item group="mp5+ammo" prob="0.05" />
+		<item group="ak47+ammo" prob="0.02" />
+		<item group="sniperRifle+ammo" prob="0.01" />
+		<item name="50cal" count="10,20" prob="0.01" />		
+	</lootgroup>
+	<lootgroup name="attachments">
+		<item name="Silencer" />
+		<item name="Mag_Extended" />
+		<item name="Sight_Advanced" />
+		<item name="LaserAttachment" />
+		<item name="Sight_ACOG" />
+		<item name="Barrel_Advanced" />
+		<item name="Sight_AimPoint" />
+		<item name="Grip" />
+		<item name="Mag_ExtendedPSG" />
+		<item name="Sight_AdvancedPSG" />
+		<item name="LaserAttachmentPSG" />
+		<item name="BipodPSG" />
+		<item name="ScopePSG" />
+		<item name="Ejector_AdvancedPSG" />
+		<item name="SilencerMG" />
+		<item name="BipodMg" />
+		<item name="Sight_AdvancedMG" />
+		<item name="Sight_MagnifierMG" />
+		<item name="Barrel_AdvancedMG" />
+	</lootgroup>
+	<lootgroup name="nuclearLoot" count="all">
+		<item name="enrichedUranium" count="4,10" />
+		<item name="gasCentrifuge" />
+		<item name="nukeFlyer" />
+	</lootgroup>
+	<lootgroup name="nuclearWasteGood" count="1,3">
+		<item name="depletedUranium" count="2,4" />
+		<item name="uranium" count="2,6" prob="0.05" />
+		<item name="ammoWorkbench" prob="0.04" />
+		<item name="enrichedUranium" count="1,3" prob="0.01" />
+	</lootgroup>
+	<lootgroup name="nuclearWasteBad" count="0,2">
+		<item name="depletedUranium" count="1,3" />
+		<item name="uranium" count="1,2" prob="0.02" />
+		<item name="ammoWorkbench" prob="0.01" />
+		<item name="nukeFlyer" />
+		
+	</lootgroup>
+</insertAfter>
+<remove xpath="/lootcontainers/lootgroup[@name='guns+ammo']/item[@group='commonWeaponParts']" />
+<remove xpath="/lootcontainers/lootgroup[@name='guns+ammo']/item[@group='magnumparts']" />
+<append xpath="/lootcontainers/lootgroup[@name='guns+ammo']">
+		<item group="revolver+ammo" count="1" prob="0.03" />
+		<item group="magnum+ammo" count="1" prob="0.01" />
+</append>
+<remove xpath="/lootcontainers/lootgroup[@name='militaryguns+ammo']/item[@group='militaryWeaponParts']" />
+<!-- Backpacks -->
+<remove xpath="/lootcontainers/lootgroup[@name='backpacks']/item[@group='commonWeaponParts']" />
+<remove xpath="/lootcontainers/lootgroup[@name='backpacks']/item[@group='guns+ammo']" />
+<append xpath="/lootcontainers/lootgroup[@name='backpacks']">
+		<item group="revolver+ammo" prob="0.02" />
+</append>
+<!-- lootcontainer 11 safes, weapon caches rare good loot -->
+<remove xpath="/lootcontainers/lootcontainer[@id='11']/item[@group='guns+ammo']" />
+<append xpath="/lootcontainers/lootcontainer[@id='11']">
+		<item group="revolver+ammo" prob="0.02" />
+		<item group="guns+ammo" prob="0.001" />
+</append>
+<!-- lootcontainer 35 tree hollowed stump, place where people stash things, -->
+<remove xpath="/lootcontainers/lootcontainer[@id='35']/item[@group='guns+ammo']" />
+<append xpath="/lootcontainers/lootcontainer[@id='35']">
+		<item group="seeds" prob="0.02" />
+</append>
+<!-- shotgun messiah UNUSED -->
+<remove xpath="/lootcontainers/lootcontainer[@id='39']/item[@group='guns+ammo']" />
+<remove xpath="/lootcontainers/lootcontainer[@id='39']/item[@group='magnumparts']" />
+<remove xpath="/lootcontainers/lootcontainer[@id='39']/item[@group='militaryguns+ammo']" />
+<append xpath="/lootcontainers/lootcontainer[@id='39']">
+		<item group="revolver+ammo" prob="0.02" />
+		<item group="attachments" prob="0.01" />
+		<item group="guns+ammo" prob="0.001" />
+		<item group="militaryguns+ammo" prob="0.0001" />
+</append>
+<!-- uma soldier -->
+<remove xpath="/lootcontainers/lootcontainer[@id='73']/item[@group='militaryguns+ammo']" />
+<append xpath="/lootcontainers/lootcontainer[@id='73']">
+		<item group="militaryguns+ammo" prob="0.3" />
+		<item group="attachments" prob="0.1" />
+</append>
+<!-- military munitions ammo box -->
+<remove xpath="/lootcontainers/lootcontainer[@id='40']/item[@group='militaryguns+ammo']" />
+<append xpath="/lootcontainers/lootcontainer[@id='40']">
+		<item group="guns+ammo" prob="0.09" />	
+		<item group="military" prob="0.06" />
+		<item group="attachments" prob="0.01" />
+</append>
+<!-- lootcontainer 42 gun safe -->
+<remove xpath="/lootcontainers/lootcontainer[@id='42']/item[@group='guns+ammo']" />
+<append xpath="/lootcontainers/lootcontainer[@id='42']">
+		<item group="revolver+ammo" prob="0.02" />
+		<item group="guns+ammo" prob="0.001" />
+		<item name="smallCrossbow" prob="0.001" />
+		<item group="militaryguns+ammo" prob="0.0001" />
+</append>
+<!-- shotgun Messiah -->
+<remove xpath="/lootcontainers/lootcontainer[@id='50']/item[@group='guns+ammo']" />
+<remove xpath="/lootcontainers/lootcontainer[@id='50']/item[@group='militaryguns+ammo']" />
+<append xpath="/lootcontainers/lootcontainer[@id='50']">
+		<item group="attachments" prob="0.05" />
+		<item group="revolver+ammo" prob="0.02" />		
+		<item group="guns+ammo" prob="0.001" />
+		<item group="militaryguns+ammo" prob="0.0001" />
+</append>
+<!-- toilet loot -->
+<remove xpath="/lootcontainers/lootgroup[@name='toiletLoot']/item[@group='pistol+ammo']" />
+<append xpath="/lootcontainers/lootgroup[@name='toiletLoot']">
+		<item group="revolver+ammo" prob="0.02" />
+</append>
+<append xpath="/lootcontainers/lootgroup[@name='militaryammo']">
+		<item name="50cal" count="20,50" />
+</append>
+<!-- remove weapon parts from loot -->
+<remove xpath="/lootcontainers/lootcontainer[@id='83']/item[@group='commonWeaponParts']" />
+<remove xpath="/lootcontainers/lootcontainer[@id='81']/item[@group='magnumparts']" />
+<remove xpath="/lootcontainers/lootcontainer[@id='81']/item[@group='huntingRifleParts']" />
+<remove xpath="/lootcontainers/lootcontainer[@id='37']/item[@group='magnumparts']" />
+<remove xpath="/lootcontainers/lootcontainer[@id='61']/item[@group='magnumparts']" />
+<remove xpath="/lootcontainers/lootcontainer[@id='6']/item[@group='pistol+ammo']" />
+<append xpath="/lootcontainers/lootcontainer[@id='6']">
+		<item group="revolver+ammo" prob="0.02" />
+</append>
+<!-- removing some weapons from common loot -->
+<remove xpath="/lootcontainers/lootcontainer[@id='48']/item[@group='pistol+ammo']" />
+<append xpath="/lootcontainers/lootcontainer[@id='48']">
+		<item group="revolver+ammo" prob="0.01" />
+</append>
+<remove xpath="/lootcontainers/lootcontainer[@id='34']/item[@group='militaryguns+ammo']" />
+<remove xpath="/lootcontainers/lootcontainer[@id='61']/item[@group='militaryguns+ammo']" />
+<append xpath="/lootcontainers/lootcontainer[@id='61']">
+		<item group="guns+ammo" prob="0.2" />	
+		<item group="military" prob="0.02" />
+</append>
+<append xpath="/lootcontainers">
+<!-- Rad Bosses Loot -->
+	<lootcontainer id="97" count="1,3" size="4,4" destroy_on_close="false" sound_open="UseActions/open_corpse" sound_close="UseActions/close_corpse" loot_quality_template="baseTemplate">
+		<item group="attachments" prob="2" />
+		<item group="military" prob="1.5" />
+		<item group="militaryguns+ammo" prob="1" />		
+		<item group="militaryArmor" prob="1" />
+		<item group="specialGuns" prob="0.4" />		
+		<item group="rocketLauncher+ammo" prob="0.3" />			
+		<item name="nightvisionGoggles" prob="0.3" />
+	</lootcontainer>
+	<!-- Rad Spider Nest -->
+	<lootcontainer id="98" count="1,2" size="4,4" destroy_on_close="false" sound_open="UseActions/open_corpse" sound_close="UseActions/close_corpse" loot_quality_template="baseTemplate">
+		<item group="nuclearWasteGood" />
+	</lootcontainer>
+	<!-- Rad Barrels -->
+	<lootcontainer id="99" count="0,2" size="4,4" destroy_on_close="false" sound_open="UseActions/open_corpse" sound_close="UseActions/close_corpse" loot_quality_template="baseTemplate">
+		<item group="nuclearWasteBad" />
+	</lootcontainer>
+	<lootcontainer id="100" count="1" size="7,4" sound_open="UseActions/open_vehicle" sound_close="UseActions/close_vehicle" open_time="4" loot_quality_template="baseTemplate">
+		<item group="automotive+tools+junk" prob="0.4" />
+		<item name="miningHelmet" prob="0.3" />
+		<item name="partsBrowning_receiver" prob="0.05" />		
+		<item name="BrowningTripodBlock" prob="0.2" />
+		<item name="ammoWorkbench" prob="0.1" />
+	</lootcontainer>
+</append>
+</config>
+</configs>

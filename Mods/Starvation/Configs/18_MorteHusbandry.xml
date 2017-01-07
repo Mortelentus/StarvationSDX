@@ -1,0 +1,644 @@
+<configs>
+<config name="recipes">
+	<append xpath="/recipes">
+	<!-- HUSBANDRY -->
+	<recipe name="whip" count="1" scrapable="False">
+		<ingredient name="leather" count="2"/>
+		<ingredient name="wood" count="15"/>
+	</recipe>
+	<recipe name="bucketWood" count="1" scrapable="False">
+		<ingredient name="wood" count="20"/>
+		<ingredient name="forgedIron" count="5"/>
+	</recipe>
+	<recipe name="trough" count="1" scrapable="False">
+		<ingredient name="wood" count="50"/>
+		<ingredient name="forgedIron" count="10"/>
+	</recipe>
+	<recipe name="scissor" count="1" scrapable="False">
+		<ingredient name="forgedIron" count="2"/>
+		<ingredient name="ductTape" count="3"/>
+	</recipe>
+	<!-- HUSBANDRY -->
+	</append>	  
+</config>
+
+<config name="entityclasses">
+	<append xpath="/entity_classes">
+		<!-- HUSBANDRY -->		
+		<!-- Wandertime IN SECONDS is how much time the animal will idle wandering, after an action -->
+		<!-- Matingtime IN TICKS is the interval between mating tries for the males -->
+		<!-- PregnancyTime IN TICKS is the time a female will be pregnant after a successful mating -->
+		<!-- Adolesence IN TICKS is how much time an offspring will take to mature -->
+		<!-- 1 day = 24000 ticks (for 60min day) -->
+		<entity_class name="animalMalePig">
+			<!-- Mesh and class properties -->
+			<property name="Mesh" value="Animals/Pig/PIG" />
+			<property name="ModelType" value="Standard" />
+			<property name="Prefab" value="NPC" />
+			<property name="MeshMaterial" value="#husbandry?pig2"/>
+			<property name="MeshScale" value="1,1" />
+			<property name="Parent" value="Animals" />
+			<property name="AvatarController" value="GameObjectAnimalAnimation" />
+			<property name="Weight" value="70" />
+			<property name="RotateToGround" value="true" />
+			<property name="CorpseBlock" value="animalGore" />
+			<property name="CorpseBlockChance" value="1" />
+			<property name="IsEntityAnimal" value="true" />
+			<property name="PhysicsBody" value="Stag" />
+			<property name="Class" value="EntityAnimalTameMorte, Mods" />
+			<!-- AI properties -->				
+			<property name="AITask-1" value="Wander" />
+			<property name="AITask-2" value="RunawayWhenHurt" />
+			<property name="AITask-4" value="RunawayFromEntity" param1="EntityZombie" />
+			<property name="AITask-4" value="RunawayFromEntity" param1="EntityAnimalBear" />
+			<property name="AITask-5" value="Swim" />
+			<!-- <property name="AITask-5" value="RunawayFromEntity" param1="EntityPlayer" />/ -->
+			<property name="CanClimbLadders" value="false" />
+			<!-- General entity properties -->
+			<property name="MaxHealth" value="50" />
+			<property name="MaxViewAngle" value="180" />
+			<property name="WanderSpeed" value="0.3" />
+			<property name="PanicSpeed" value="1.0" />
+			<!-- This decides on the particle effect played on hit -->
+			<property name="SurfaceCategory" value="organic" />
+			<property name="ParticleOnDeath" value="blood_death" />
+			<property name="SoundHurt" value="Animals/pigpain" />
+			<property name="SoundDeath" value="Animals/pigdeath" />
+			<!-- custom properties -->
+			<property name="isMale" value="true" />
+			<property name="entityMale" value="animalMalePig" />
+			<property name="entityFemale" value="animalFemalePig" /> 
+			<property name="entityBaby" value="animalBabyPig" />
+			<property name="itemTamed" value="pigMaleItem" /> 
+			<property name="foodBlock" value="trough" /> <!-- the block they look for when hungry -->
+			<property name="foodItem" value="hayBaleBlock" /> <!-- the item they eat -->
+			<property name="harvestItem" value="bucketWood" /> <!-- the item used to harvest the animal -->
+			<property name="tameItem" value="whip" /> <!-- the item used to tame the animal -->
+			<property name="lootItem" value="turd" /> <!-- the item harvested -->
+			<property name="tameSkill" value="Husbandry" /> <!-- the skill needed to tame -->
+			<property name="harvestSkill" value="Husbandry" /> <!-- the skill needed to tame -->
+			<!-- 24000 = 1 in-game day -->
+			<property name="Adolesence" value="24000" />
+			<property name="PregnancyTime" value="24000" />
+			<property name="WanderTime" value="180" />
+			<property name="MatingTime" value="2400" />
+			<property name="MaxAnimalsInArea" value="15" />
+			<property name="MaxAnimalsAreaCheck" value="40" />
+			<property name="MaxMatingAreaCheck" value="10" />
+			<!-- custom properties -->
+			<property name="TimeStayAfterDeath" value="180" />
+			<!-- Set this if you want this entity to be spawned when user chooses 'enemy entities off' -->
+			<property name="IsEnemyEntity" value="false" />
+			<property name="ExperienceGain" value="150" />
+			<!-- For harvesting -->
+			<property name="DeadBodyHitPoints" value="200" />
+			<property name="PanicSpeed" value="1.2" />
+			<property name="PhysicsBody" value="pig" />
+			<property name="ExperienceGain" value="150" />
+			<!-- For harvesting -->
+			<drop event="Harvest" name="rawMeat" count="2" />
+			<drop event="Harvest" name="rawMeat" tool_category="Butcher" count="1" prob=".5" />
+			<drop event="Harvest" name="rawMeat" tool_category="Butcher" count="1" prob=".5" />
+			<drop event="Harvest" name="animalHide" tool_category="Butcher" count="3" />
+			<drop event="Harvest" name="animalHide" tool_category="Butcher" count="1" prob=".5" />
+			<drop event="Harvest" name="animalHide" tool_category="Butcher" count="1" prob=".5" />
+			<drop event="Harvest" name="animalFat" tool_category="Butcher" count="2" />
+			<drop event="Harvest" name="animalFat" tool_category="Butcher" count="1" prob=".5" />
+			<drop event="Harvest" name="animalFat" tool_category="Butcher" count="1" prob=".5" />
+			<drop event="Harvest" name="femur" tool_category="Butcher" count="1" prob=".4" />
+			<drop event="Harvest" name="femur" tool_category="Butcher" count="1" prob=".4" />
+			<drop event="Destroy" name="femur" tool_category="Butcher" count="2" />
+			<property name="MeshScale" value="1.3,1.3" />
+		</entity_class>
+		<entity_class name="animalFemalePig" extends="animalMalePig">
+			<property name="Mesh" value="Animals/Pig/PIG" />
+			<property name="MeshMaterial" value="#pig2?pig2"/>
+			<!-- custom properties -->
+			<property name="isMale" value="false" />
+			<property name="itemTamed" value="pigFemaleItem" />
+			<!-- For harvesting -->
+			<drop event="Harvest" name="rawMeat" count="2" />
+			<drop event="Harvest" name="rawMeat" tool_category="Butcher" count="1" prob=".5" />
+			<drop event="Harvest" name="rawMeat" tool_category="Butcher" count="1" prob=".5" />
+			<drop event="Harvest" name="animalHide" tool_category="Butcher" count="3" />
+			<drop event="Harvest" name="animalHide" tool_category="Butcher" count="1" prob=".5" />
+			<drop event="Harvest" name="animalHide" tool_category="Butcher" count="1" prob=".5" />
+			<drop event="Harvest" name="animalFat" tool_category="Butcher" count="2" />
+			<drop event="Harvest" name="animalFat" tool_category="Butcher" count="1" prob=".5" />
+			<drop event="Harvest" name="animalFat" tool_category="Butcher" count="1" prob=".5" />
+			<drop event="Harvest" name="pigFemaleItem" tool_category="Butcher" count="1" prob=".005" />
+			<drop event="Harvest" name="pigMaleItem" tool_category="Butcher" count="1" prob=".001" />
+			<drop event="Destroy" name="femur" tool_category="Butcher" count="2" />
+			<property name="MeshScale" value="0.8,0.7" />
+		</entity_class>
+		<entity_class name="animalBabyPig" extends="animalMalePig">
+			<property name="Mesh" value="Animals/Pig/PIG" />
+			<property name="MeshMaterial" value="#pig2?pig2"/>
+			<!-- custom properties -->
+			<property name="isBaby" value="true" />
+			<!-- For harvesting -->
+			<drop event="Harvest" name="rawMeat" count="1" />
+			<drop event="Destroy" name="femur" tool_category="Butcher" count="1" />
+			<property name="MeshScale" value="0.4,0.3" />
+		</entity_class>
+		<entity_class name="animalCow">
+			<!-- Mesh and class properties -->
+			<property name="Prefab" value="NPC" />
+			<!-- <property name="MeshMaterial" value="#husbandry?Cow1" /> -->
+			<property name="Mesh" value="#Animals?Cow" />
+			<property name="ModelType" value="Standard" />
+			<property name="AvatarController" value="GameObjectAnimalAnimationSDX, Mods" />
+			<property name="MeshScale" value="1,1" />
+			<property name="Parent" value="Animals" />
+			<!-- <property name="AvatarController" value="GameObjectAnimalAnimation" />  -->
+			<property name="Weight" value="70" />
+			<property name="RotateToGround" value="true" />
+			<property name="CorpseBlock" value="animalGore" />
+			<property name="CorpseBlockChance" value="1" />
+			<property name="IsEntityAnimal" value="true" />
+			<property name="PhysicsBody" value="Stag" />
+			<property name="Class" value="EntityAnimalTameMorte, Mods" />
+			<!-- AI properties -->
+			<property name="AITask-1" value="Wander" />
+			<property name="AITask-2" value="RunawayWhenHurt" />
+			<property name="AITask-4" value="RunawayFromEntity" param1="EntityZombie" />
+			<property name="AITask-4" value="RunawayFromEntity" param1="EntityAnimalBear" />
+			<property name="AITask-5" value="Swim" />
+			<!-- <property name="AITask-5" value="RunawayFromEntity" param1="EntityPlayer" />/ -->
+			<property name="CanClimbLadders" value="false" />
+			<!-- General entity properties -->
+			<property name="MaxHealth" value="50" />
+			<property name="MaxViewAngle" value="180" />
+			<property name="WanderSpeed" value="0.3" />
+			<property name="PanicSpeed" value="1.0" />
+			<!-- This decides on the particle effect played on hit -->
+			<property name="SurfaceCategory" value="organic" />
+			<property name="ParticleOnDeath" value="blood_death" />
+			<property name="SoundHurt" value="cowMoo" />
+			<property name="SoundDeath" value="cowHurt" />
+			<property name="SoundRandom" value="cowMoo" />
+			<!-- custom properties -->
+			<property name="isMale" value="false" />
+			<property name="entityMale" value="animalBull" /> 
+			<property name="entityFemale" value="animalCow" /> 
+			<property name="entityBaby" value="animalBabyCow" />
+			<property name="itemTamed" value="cowItem" /> 
+			<property name="foodBlock" value="trough" /> <!-- the block they look for when hungry -->
+			<property name="foodItem" value="hayBaleBlock" /> <!-- the item they eat -->
+			<property name="harvestItem" value="bucketWood" /> <!-- the item used to harvest the animal -->
+			<property name="tameItem" value="whip" /> <!-- the item used to tame the animal -->
+			<property name="lootItem" value="milk" /> <!-- the item harvested -->
+			<property name="tameSkill" value="Husbandry" /> <!-- the skill needed to tame -->
+			<property name="harvestSkill" value="Husbandry" /> <!-- the skill needed to tame -->
+			<!-- 24000 = 1 in-game day -->
+			<property name="Adolesence" value="24000" />
+			<property name="PregnancyTime" value="24000" />
+			<property name="WanderTime" value="180" />
+			<property name="MatingTime" value="4000" />
+			<property name="MaxAnimalsInArea" value="15" />
+			<property name="MaxAnimalsAreaCheck" value="40" />
+			<property name="MaxMatingAreaCheck" value="10" />
+			<!-- custom properties -->
+			<property name="TimeStayAfterDeath" value="180" />
+			<!-- Set this if you want this entity to be spawned when user chooses 'enemy entities off' -->
+			<property name="IsEnemyEntity" value="false" />
+			<property name="ExperienceGain" value="150" />
+			<!-- For harvesting -->
+			<property name="DeadBodyHitPoints" value="200" />
+			<drop event="Harvest" name="milk" tool_category="Butcher" count="1" />
+			<drop event="Harvest" name="rawMeat" tool_category="Butcher" count="4" />
+			<drop event="Harvest" name="animalHide" tool_category="Butcher" count="4" />
+			<drop event="Destroy" name="animalFat" tool_category="Butcher" count="4" />
+			<drop event="Destroy" name="femur" tool_category="Butcher" count="4" />
+		</entity_class>
+		<entity_class name="animalBull" extends="animalCow">
+			<!-- Mesh and class properties -->
+			<property name="Prefab" value="NPC" />
+			<!-- <property name="MeshMaterial" value="#husbandry?Bull1" /> -->
+			<property name="Mesh" value="#Animals?Bull" />
+			<property name="ModelType" value="Standard" />
+			<property name="AvatarController" value="GameObjectAnimalAnimationSDX, Mods" />
+			<property name="MeshScale" value="1,1" />
+			<!-- custom properties -->
+			<property name="isMale" value="true" />
+			<property name="itemTamed" value="bullItem" /> 
+			<property name="lootItem" value="turd" /> <!-- the item harvested -->
+			<!-- custom properties -->
+			<!-- For harvesting -->
+			<property name="DeadBodyHitPoints" value="200" />
+			<drop event="Harvest" name="rawMeat" tool_category="Butcher" count="4" />
+			<drop event="Harvest" name="animalHide" tool_category="Butcher" count="4" />
+			<drop event="Destroy" name="animalFat" tool_category="Butcher" count="4" />
+			<drop event="Destroy" name="femur" tool_category="Butcher" count="4" />
+		</entity_class>
+		<entity_class name="animalBabyCow" extends="animalCow">
+			<!-- Mesh and class properties
+			<property name="Mesh" value="Animals/Stag/STAG" />
+			<property name="ModelType" value="Standard" />-->
+			<property name="Prefab" value="NPC" />
+			<property name="Mesh" value="#Animals?Cow" />
+			<property name="ModelType" value="Standard" />
+			<property name="AvatarController" value="GameObjectAnimalAnimationSDX, Mods" />
+			<property name="MeshScale" value="0.5,0.5" /> <!-- on SP it will slowly grow, but on MP it will go from this size to mature size -->
+			<!-- custom properties -->
+			<property name="isBaby" value="true" />
+			<!-- baby animals cannot be "captured" -->
+			<property name="lootItem" value="turd" /> <!-- the item harvested -->
+			<!-- custom properties -->
+			<!-- For harvesting -->
+			<property name="DeadBodyHitPoints" value="100" />
+			<drop event="Harvest" name="rawMeat" tool_category="Butcher" count="1" />
+			<drop event="Harvest" name="animalHide" tool_category="Butcher" count="1" />
+			<drop event="Destroy" name="femur" tool_category="Butcher" count="1" />
+		</entity_class>
+		<entity_class name="animalSheep">
+			<!-- Mesh and class properties -->
+			<property name="Prefab" value="NPC" />
+			<!-- <property name="MeshMaterial" value="#husbandry?Bull1" /> -->
+			<property name="Mesh" value="#sheep?SHEEP" />
+			<property name="ModelType" value="Standard" />
+			<property name="AvatarController" value="GameObjectAnimalAnimationSDX, Mods" />
+			<property name="MeshScale" value="1,1" />
+			<property name="Parent" value="Animals" />
+			<property name="Weight" value="70" />
+			<property name="RotateToGround" value="true" />
+			<property name="CorpseBlock" value="animalGore" />
+			<property name="CorpseBlockChance" value="1" />
+			<property name="IsEntityAnimal" value="true" />
+			<property name="PhysicsBody" value="Stag" />
+			<property name="Class" value="EntityAnimalTameMorte, Mods" />
+			<!-- AI properties -->
+			<property name="AITask-1" value="Wander" />
+			<property name="AITask-2" value="RunawayWhenHurt" />
+			<property name="AITask-4" value="RunawayFromEntity" param1="EntityZombie" />
+			<property name="AITask-4" value="RunawayFromEntity" param1="EntityAnimalBear" />
+			<property name="AITask-5" value="Swim" />
+			<!-- <property name="AITask-5" value="RunawayFromEntity" param1="EntityPlayer" />/ -->
+			<property name="CanClimbLadders" value="false" />
+			<!-- General entity properties -->
+			<property name="MaxHealth" value="50" />
+			<property name="MaxViewAngle" value="180" />
+			<property name="WanderSpeed" value="0.3" />
+			<property name="PanicSpeed" value="1.0" />
+			<!-- This decides on the particle effect played on hit -->
+			<property name="SurfaceCategory" value="organic" />
+			<property name="ParticleOnDeath" value="blood_death" />
+			<property name="SoundHurt" value="sheepMee" />
+			<property name="SoundDeath" value="sheepHurt" />
+			<property name="SoundRandom" value="sheepMee" />
+			<!-- custom properties -->
+			<property name="isMale" value="false" />
+			<property name="entityMale" value="animalRam" />
+			<property name="entityFemale" value="animalSheep" />
+			<property name="entityBaby" value="animalBabySheep" />
+			<property name="itemTamed" value="sheepItem" /> 
+			<property name="foodBlock" value="trough" /> <!-- the block they look for when hungry -->
+			<property name="foodItem" value="hayBaleBlock" /> <!-- the item they eat -->
+			<property name="harvestItem" value="scissor" /> <!-- the item used to harvest the animal -->
+			<property name="tameItem" value="whip" /> <!-- the item used to tame the animal -->
+			<property name="lootItem" value="cloth" /> <!-- the item harvested -->
+			<property name="tameSkill" value="Husbandry" /> <!-- the skill needed to tame -->
+			<property name="harvestSkill" value="Husbandry" /> <!-- the skill needed to tame -->
+			<!-- 24000 = 1 in-game day -->
+			<property name="Adolesence" value="24000" />
+			<property name="PregnancyTime" value="24000" />
+			<property name="WanderTime" value="180" />
+			<property name="MatingTime" value="3500" />
+			<property name="MaxAnimalsInArea" value="15" />
+			<property name="MaxAnimalsAreaCheck" value="40" />
+			<property name="MaxMatingAreaCheck" value="10" />
+			<!-- custom properties -->
+			<property name="TimeStayAfterDeath" value="180" />
+			<!-- Set this if you want this entity to be spawned when user chooses 'enemy entities off' -->
+			<property name="IsEnemyEntity" value="false" />
+			<property name="ExperienceGain" value="150" />
+			<!-- For harvesting -->
+			<property name="DeadBodyHitPoints" value="200" />
+			<drop event="Harvest" name="cloth" tool_category="Butcher" count="4" />
+			<drop event="Harvest" name="rawMeat" tool_category="Butcher" count="4" />
+			<drop event="Destroy" name="animalFat" tool_category="Butcher" count="4" />
+			<drop event="Destroy" name="femur" tool_category="Butcher" count="4" />
+		</entity_class>
+		<entity_class name="animalRam" extends="animalSheep">
+			<!-- Mesh and class properties -->
+			<property name="Prefab" value="NPC" />
+			<!-- <property name="MeshMaterial" value="#husbandry?Bull1" /> -->
+			<property name="Mesh" value="#sheep?SHEEPMale" />
+			<property name="ModelType" value="Standard" />
+			<property name="AvatarController" value="GameObjectAnimalAnimationSDX, Mods" />
+			<property name="MeshScale" value="1,1" />
+			<!-- custom properties -->
+			<property name="isMale" value="true" />
+			<property name="itemTamed" value="ramItem" /> 
+			<!-- custom properties -->
+			<!-- For harvesting -->
+			<property name="DeadBodyHitPoints" value="200" />
+			<drop event="Harvest" name="cloth" tool_category="Butcher" count="4" />
+			<drop event="Harvest" name="rawMeat" tool_category="Butcher" count="4" />
+			<drop event="Destroy" name="animalFat" tool_category="Butcher" count="4" />
+			<drop event="Destroy" name="femur" tool_category="Butcher" count="4" />
+		</entity_class>
+		<entity_class name="animalBabySheep" extends="animalSheep">
+			<!-- Mesh and class properties -->
+			<property name="Prefab" value="NPC" />
+			<!-- <property name="MeshMaterial" value="#husbandry?Bull1" /> -->
+			<property name="Mesh" value="#sheep?SHEEP" />
+			<property name="ModelType" value="Standard" />
+			<property name="AvatarController" value="GameObjectAnimalAnimationSDX, Mods" />	
+			<property name="MeshScale" value="0.4,0.3" />
+			<!-- custom properties -->
+			<property name="isBaby" value="true" />
+			<!-- custom properties -->
+			<!-- For harvesting -->
+			<property name="DeadBodyHitPoints" value="100" />
+			<drop event="Harvest" name="cloth" tool_category="Butcher" count="1" />
+			<drop event="Harvest" name="rawMeat" tool_category="Butcher" count="1" />
+		</entity_class>
+		<!-- HUSBANDRY -->
+	</append>
+</config>
+
+<config name="entitygroups">
+	<!-- removing vanilla pigs -->
+	<remove xpath="/entitygroups/entitygroup[@name='AnimalsAll']/entity[@name='animalPig']" />
+	<remove xpath="/entitygroups/entitygroup[@name='AnimalsFarm']/entity[@name='animalPig']" />
+	<remove xpath="/entitygroups/entitygroup[@name='ZombieFarmGroup']/entity[@name='animalPig']" />
+	
+	<append xpath="/entitygroups/entitygroup[@name='AnimalsAll']">
+		<entity name="animalFemalePig" prob="0.01" />
+		<entity name="animalMalePig" prob="0.005" />
+		<entity name="animalCow" prob="0.01" />
+		<entity name="animalBull" prob="0.0051" />
+		<entity name="animalSheep" prob="0.01" />
+		<entity name="animalRam" prob="0.005" />
+	</append>
+	<append xpath="/entitygroups/entitygroup[@name='AnimalsFarm']">
+		<entity name="animalFemalePig" prob="0.01" />
+		<entity name="animalMalePig" prob="0.005" />
+		<entity name="animalSheep" prob="0.01" />
+		<entity name="animalRam" prob="0.005" />
+	</append>
+	<append xpath="/entitygroups/entitygroup[@name='ZombieFarmGroup']">
+		<entity name="animalFemalePig" prob="0.01" />
+		<entity name="animalMalePig" prob="0.005" />
+	</append>	
+</config>
+
+<config name="items">
+	<append xpath="/items">
+		<!-- HUSBANDRY -->
+		<item id="" name="cowItem">
+			<property name="Meshfile" value="Animals/Stag/STAG" />
+			<property name="MeshMaterial" value="#husbandry?Cow1" />
+			<property name="Material" value="organic" />
+			<property name="HoldType" value="7" />
+			<property name="Stacknumber" value="1" />
+			<property class="Action1">
+				<property name="Class" value="SpawnMorteAnimal, Mods" />
+				<property name="entityToSpawn" value="animalCow" />
+			</property>
+			<property class="Preview">
+				<property name="Zoom" value="28" />
+				<property name="Pos" value="0,-0.05" />
+				<property name="Rot" value="90,45,0" />
+			</property>
+			<property name="EconomicValue" value="300" />
+		</item>
+		<item id="" name="bullItem">
+			<property name="Extends" value="cowItem" />
+			<property class="Action1">
+				<property name="entityToSpawn" value="animalBull" />
+			</property>
+			<property name="EconomicValue" value="400" />
+		</item>
+		<item id="" name="sheepItem">
+			<property name="Extends" value="cowItem" />
+			<property name="MeshMaterial" value="#husbandry?sheep1" />
+			<property class="Action1">
+				<property name="entityToSpawn" value="animalSheep" />
+			</property>
+			<property name="EconomicValue" value="300" />
+		</item>
+		<item id="" name="ramItem">
+			<property name="Extends" value="sheepItem" />
+			<property class="Action1">
+				<property name="entityToSpawn" value="animalRam" />
+			</property>
+			<property name="EconomicValue" value="400" />
+		</item>
+		<item id="" name="pigFemaleItem">
+			<property name="Extends" value="cowItem" />
+			<property name="Meshfile" value="Animals/Pig/PIG" />
+			<property class="Action1">
+				<property name="entityToSpawn" value="animalFemalePig" />
+			</property>
+			<property name="EconomicValue" value="300" />
+		</item>
+		<item id="" name="pigMaleItem">
+			<property name="Extends" value="pigFemaleItem" />
+			<property class="Action1">
+				<property name="entityToSpawn" value="animalMalePig" />
+			</property>
+			<property name="EconomicValue" value="400" />
+		</item>
+
+		<item id="" name="whip">
+		  <property name="Meshfile" value="#husbandry?whip" />
+		  <!-- <property name="DescriptionKey" value="whipDesc" /> -->
+		  <property name="Material" value="wood" />
+		  <property name="HoldType" value="17" />
+		  <property name="Stacknumber" value="1" />
+		  <property name="RepairTools" value="wood" />
+		  <property name="Degradation" value="500" param1="true" />
+		  <property name="FuelValue" value="16" />
+		  <property name="SoundDestroy" value="wooddestroy1" />
+		  <property class="Action0">
+				 <!-- AttackAction -->
+				 <property name="Class" value="Melee" />
+				 <property name="Delay" value="1" />
+				 <property name="Range" value="1.3" />
+				 <property name="Sphere" value="0.8" />
+				 <property name="Sound_start" value="swoosh" />
+				 <property name="Stamina_usage" value="1" />   
+				 <property name="DamageBonus.head" value="5" />
+				 <property name="DamageBonus.glass" value="5" />
+				 <property name="DamageBonus.plants" value="5" />
+				 <property name="DamageBonus.leaves" value="5" />
+				 <property name="ToolCategory.Butcher" value="1" />
+			</property>
+			<property class="Attributes">
+				 <property name="EntityDamage" value="3,7" />
+				 <property name="BlockDamage" value="1,3" />
+				 <property name="DegradationMax" value="100,200" />
+			</property>
+		  <property name="Group" value="Tools/Traps" />
+		  <property class="Preview">
+			   <property name="Zoom" value="8" />
+			   <property name="Pos" value="-0.1,-0.7" />
+		  </property>
+		  <property name="ActionSkillGroup" value="Husbandry" />
+		  <property name="CraftingSkillGroup" value="Husbandry" />
+		  <property name="RepairExpMultiplier" value="5.5" />
+		</item>
+		<item id="" name="bucketWood">
+			<property name="Extends" value="whip" />
+			<property name="Meshfile" value="#animalfarming?bucket1" />
+			<property name="HoldType" value="36" />
+		</item>
+		<item id="" name="scissor">
+			<property name="Extends" value="whip" />
+			<property name="Meshfile" value="#husbandry?woolScissor" />
+			<property name="Material" value="metal" />
+			<property name="HoldType" value="36" />
+			<property name="RepairTools" value="scrapIron" />
+			<property name="Degradation" value="9" param1="true" />
+		</item>
+		<item id="" name="milk">
+			<property name="Meshfile" value="Items/Food/goldenrod_teaPrefab" />
+			<property name="Material" value="glass" />
+			<property name="HoldType" value="14" />
+			<property name="Stacknumber" value="15" />
+			<property name="Weight" value="4" />
+			<property class="Action1">
+				<!-- UseAction -->
+				<property name="Class" value="Eat" />
+				<property name="Delay" value="1" />
+				<property name="Use_time" value="..." />
+				<property name="Gain_health" value="5" />
+				<property name="Gain_stamina" value="20" />
+				<property name="Gain_food" value="10" />
+				<property name="Gain_water" value="15" />
+				<property name="Gain_wellness" value="0.3" />
+				<property name="Sound_start" value="UseActions/player_drinking" />
+			</property>
+			<property name="Group" value="Food/Cooking" />
+			<property class="Preview">
+				<property name="Zoom" value="23" />
+				<property name="Pos" value="0.18,-0.15" />
+				<property name="Rot" value="0,-45,0" />
+			</property>
+			<property name="EconomicValue" value="40" />
+		</item>
+		<!-- HUSBANDRY -->
+	</append>
+</config>
+<config name="blocks">
+	<append xpath="/blocks">
+		<!-- HUSBANDRY -->
+		<block id="540" name="trough">
+			<property name="Class" value="Loot" />
+			<property name="Material" value="wood" />
+			<property name="Shape" value="ModelEntity" />
+			<property name="Model" value="#animalfarming?through" />
+			<property name="LootList" value="10" />
+			<drop event="Destroy" count="0" />
+		</block>
+		<!-- HUSBANDRY -->
+	</append>
+</config>
+
+<config name="progression">
+<append xpath="/progression/skills">
+	<!-- HUSBANDRY -->
+	<crafting_skill name="Husbandry" exp_to_level="100" icon="husbandry" description_key="husbandryDesc" title_key="husbandry" group="Husbandry">
+			<effect name="CraftingTime">
+				<multiply skill_level="1,20" value="1.00,0.76" />
+				<multiply skill_level="20,40" value="0.76,0.66" />
+				<multiply skill_level="40,60" value="0.66,0.59" />
+				<multiply skill_level="60,80" value="0.59,0.53" />
+				<multiply skill_level="80,100" value="0.53,0.47" />
+			</effect>
+			<effect name="CraftingQuality">
+				<setvalue skill_level="1,20" value="1,239" />
+				<setvalue skill_level="20,30" value="239,260" />
+				<setvalue skill_level="30,40" value="260,300" />
+				<setvalue skill_level="40,50" value="300,325" />
+				<setvalue skill_level="50,60" value="325,350" />
+				<setvalue skill_level="60,70" value="350,375" />
+				<setvalue skill_level="70,80" value="375,400" />
+				<setvalue skill_level="80,90" value="400,450" />
+				<setvalue skill_level="90,100" value="450,500" />
+			</effect>
+			<effect name="RepairTime">
+				<multiply skill_level="1,20" value="1.00,0.61" />
+				<multiply skill_level="20,30" value="0.61,0.54" />
+				<multiply skill_level="30,40" value="0.54,0.48" />
+				<multiply skill_level="40,50" value="0.48,0.43" />
+				<multiply skill_level="50,60" value="0.43,0.39" />
+				<multiply skill_level="60,70" value="0.39,0.35" />
+				<multiply skill_level="70,80" value="0.35,0.31" />
+				<multiply skill_level="80,90" value="0.31,0.28" />
+				<multiply skill_level="90,100" value="0.28,0.25" />
+			</effect>
+			<effect name="RepairAmount">
+				<add skill_level="1,20" value="1,27" />
+				<add skill_level="20,30" value="27,31" />
+				<add skill_level="30,40" value="31,35" />
+				<add skill_level="40,50" value="35,38" />
+				<add skill_level="50,60" value="38,41" />
+				<add skill_level="60,70" value="41,43" />
+				<add skill_level="70,80" value="43,46" />
+				<add skill_level="80,90" value="46,48" />
+				<add skill_level="90,100" value="48,50" />
+			</effect>
+			<effect name="RepairQualityLoss">
+				<multiply skill_level="1,20" value="1.00,0.53" />
+				<multiply skill_level="20,30" value="0.53,0.44" />
+				<multiply skill_level="30,40" value="0.44,0.38" />
+				<multiply skill_level="40,50" value="0.38,0.32" />
+				<multiply skill_level="50,60" value="0.32,0.27" />
+				<multiply skill_level="60,70" value="0.27,0.22" />
+				<multiply skill_level="70,80" value="0.22,0.18" />
+				<multiply skill_level="80,90" value="0.18,0.14" />
+				<multiply skill_level="90,100" value="0.14,0.10" />
+			</effect>
+	</crafting_skill>
+	<!-- HUSBANDRY -->	
+</append>
+</config>
+	
+<config name="sounds">
+<append xpath="/Sounds">
+	<SoundDataNode name="cowHurt">
+		<AudioSource name="Sounds/AudioSource_Creatures" />
+		<AudioClip ClipName="#husbandry?cowHurt" />
+		<LocalCrouchVolumeScale name="1.0" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="10" />
+		<MaxRepeatRate name="0.01" />
+	</SoundDataNode>
+	<SoundDataNode name="cowMoo">
+		<AudioSource name="Sounds/AudioSource_Creatures" />
+		<AudioClip ClipName="#husbandry?cowMoo" />
+		<LocalCrouchVolumeScale name="1.0" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="10" />
+		<MaxRepeatRate name="0.01" />
+	</SoundDataNode>
+	<SoundDataNode name="sheepHurt">
+		<AudioSource name="Sounds/AudioSource_Creatures" />
+		<AudioClip ClipName="#husbandry?sheepHurt" />
+		<LocalCrouchVolumeScale name="1.0" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="10" />
+		<MaxRepeatRate name="0.01" />
+	</SoundDataNode>
+	<SoundDataNode name="sheepMee">
+		<AudioSource name="Sounds/AudioSource_Creatures" />
+		<AudioClip ClipName="#husbandry?sheepMee" />
+		<LocalCrouchVolumeScale name="1.0" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="10" />
+		<MaxRepeatRate name="0.01" />
+	</SoundDataNode>
+</append>
+</config>
+</configs>

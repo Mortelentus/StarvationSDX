@@ -1,0 +1,107 @@
+<configs>
+<config name="quests">	
+<insertAfter xpath="/quests/quest[@id='quest_BasicSurvival1']/reward[@type='Quest']" >
+		<reward type="Quest" id="LOS" />
+		<reward type="Quest" id="Q_WoodenSpear" />
+		<reward type="Quest" id="Q_NailWood" />
+		<reward type="Quest" id="Q_Husbandry" />
+		</insertAfter>	
+<append xpath="/quests">
+<!--Husbandry-->
+<quest id="Q_Husbandry" group_name="Husbandry" name="Husbandry 1" subtitle="Learn how to build a whip" description="you could use the whip to tame wild animals" offer="Husbandry - How to tame wild animals"  icon="ui_game_symbol_hammer" repeatable="false" category_key="Quest" difficulty="easy">
+<objective type="FetchKeep" id="leather" value="2" />
+<objective type="FetchKeep" id="wood" value="15" />
+		<objective type="Craft" id="whip" value="1" />				
+			<reward type="Quest" id="Q_Husbandry2" />		
+	</quest>
+<quest id="Q_Husbandry2" group_name="Husbandry" name="Husbandry 2" subtitle="How to tame a Pig" description="You can capture animals in the wild,  by using a taming tool - the whip\nTaming success is based on your husbandry skill.\nIf you fail a taming action,  you will hurt the animal. If you fail enough times,  you will KILL the animal."   icon="ui_game_symbol_hammer" repeatable="false" category_key="Quest" difficulty="easy">
+<objective type="FetchKeep" id="pigFemaleItem" value="1" />			
+			<reward type="Quest" id="Q_Husbandry3" />		
+	</quest>	
+<quest id="Q_Husbandry3" group_name="Husbandry" name="Husbandry 3" subtitle="a stable and a trough for your first tamed animal" description="Build a stable out of fences or something similar\nand place a trough there for your animal"   icon="ui_game_symbol_hammer" repeatable="false" category_key="Quest" difficulty="easy">
+<objective type="FetchKeep" id="wood" value="50" />	
+<objective type="FetchKeep" id="forgedIron" value="10" />
+<objective type="Craft" id="trough" value="1" />				
+			<reward type="Quest" id="Q_Husbandry4" />		
+	</quest>
+<quest id="Q_Husbandry4" group_name="Husbandry" name="Husbandry 4" subtitle="Hay Bales - the food for your animals" description="find some hay bales\nand put them in the trough\nnow place your animal in the stable\n\nif you put a male and a femal there they will start breeding"   icon="ui_game_symbol_hammer" repeatable="false" category_key="Quest" difficulty="easy">
+<objective type="FetchKeep" id="hayBaleBlock" value="5" />			
+			<reward type="SkillPoints" value="1" />		
+	</quest>	
+<!-- Fishing -->
+<quest id="Q_Fishing" group_name="Fishing" name="Fishing 1" subtitle="Learn how to build a hook" description="How to build a hook" offer="first steps in fishing"  icon="ui_game_symbol_hammer" repeatable="false" category_key="Quest" difficulty="easy">
+	<objective type="FetchKeep" id="scrapLead" value="4" />
+	<objective type="Craft" id="hook" value="1" />				
+	<reward type="SkillPoints" value="1" />		
+</quest>
+<quest id="Q_Fishing2" group_name="Fishing" name="Fishing 2" subtitle="Learn how to build a Cane" description="How to build a cane"   icon="ui_game_symbol_hammer" repeatable="false" category_key="Quest" difficulty="easy">
+	<objective type="FetchKeep" id="bambooPole" value="4" />
+	<objective type="FetchKeep" id="hook" value="1" />
+	<objective type="FetchKeep" id="ductTape" value="1" />
+	<objective type="FetchKeep" id="glue" value="1" />
+	<objective type="Craft" id="cane" value="1" />				
+	<reward type="SkillPoints" value="1" />		
+</quest>
+<quest id="Q_Fishing3" group_name="Fishing" name="Fishing 3" subtitle="The bait for the cane - earthworms" description="dig in the dirt to find earthworms"  icon="ui_game_symbol_hammer" repeatable="false" category_key="Quest" difficulty="easy">
+	<objective type="FetchKeep" id="earthworm" value="5" />						
+	<reward type="SkillPoints" value="1" />		
+</quest>
+<quest id="Q_Fishing4" group_name="Fishing" name="Fishing 4" subtitle="improve the chance for fishes, with lures" description="How to craft lures"  icon="ui_game_symbol_hammer" repeatable="false" category_key="Quest" difficulty="easy">
+	<objective type="FetchKeep" id="moldyBread" value="1" />
+	<objective type="FetchKeep" id="bottledWater" value="1" />
+	<objective type="FetchKeep" id="paper" value="2" />
+	<objective type="Craft" id="fishingLure1" value="1" />				
+	<reward type="SkillPoints" value="1" />		
+</quest>
+<quest id="Q_Fishing5" group_name="Fishing" name="Fishing 5" subtitle="now get some fishes" description="equip your cane, and target a natural body of water\n\nnow bait the cane with the R Key, when you get a fish poke the cane will start moving and you'll hear a splash sound.\nReact quickly by pressing the left mouse button\n\nIf you catch something,  you then have some seconds to grab the loot by pressing the right mouse button."  icon="ui_game_symbol_hammer" repeatable="false" category_key="Quest" difficulty="easy">
+	<objective type="FetchKeep" id="fish" value="1" />		
+	<reward type="SkillPoints" value="1" />	
+</quest>
+<!-- Weapons-->	
+<quest id="Q_NailWood" name="Nailed Wood" subtitle="A simple but effective Weapon" description="Find some Wood and nails\n\nto craft a nailed wood" offer="simple....but effective"  icon="ui_game_symbol_club" repeatable="false" category_key="Quest" difficulty="easy">
+<objective type="FetchKeep" id="wood" value="5" />
+<objective type="FetchKeep" id="nail" value="1" />
+		<objective type="Craft" id="nailwood" value="1" />		
+		<reward type="Quest" id="Q_NailedBat" />
+			<reward type="Quest" id="Q_ChainNLocks" />
+		<reward type="SkillPoints" value="1" />
+	</quest>
+<quest id="Q_ChainNLocks" name="Chain'N'Locks " subtitle="a Chain, Locks and a piece of wood....sounds interesting" description="Find some Wood, forged Iron, and two Locks\n\nto craft a Chain'N'Lock" offer="I'm sure you will like it...." icon="ui_game_symbol_club" repeatable="false" category_key="Quest" difficulty="easy">
+<objective type="FetchKeep" id="wood" value="4" />
+<objective type="FetchKeep" id="forgedIron" value="4" />
+<objective type="FetchKeep" id="padlock" value="2" />
+		<objective type="Craft" id="chainNlocks" value="1" />			
+		<reward type="SkillPoints" value="1" />
+	</quest>
+<quest id="Q_WoodenSpear" name="Wooden Spear" subtitle="Your first simple Spear" description="Find some Wood.\n\nand craft your Spear" offer="I´m sure you want it...." icon="ui_game_symbol_club" repeatable="false" category_key="Quest" difficulty="easy">
+<objective type="FetchKeep" id="wood" value="8" />
+		<objective type="Craft" id="woodenSpear" value="1" />
+		<reward type="Quest" id="Q_HuntingKnifeSpear" />
+		<reward type="SkillPoints" value="1" />
+	</quest>
+<quest id="Q_HuntingKnifeSpear" name="Hunting Knife Spear" subtitle="An advanced Spear" description="Find some Yucca Fibers and an Hunting Knife\n\nand 'assemble' it to your wooden Spear" offer="I´m sure you want it...." icon="ui_game_symbol_club" repeatable="false" category_key="Quest" difficulty="easy">
+<objective type="FetchKeep" id="woodenSpear" value="1" />
+<objective type="FetchKeep" id="yuccaFibers" value="10" />
+<objective type="FetchKeep" id="huntingKnife" value="1" />
+<objective type="Craft" id="huntingKnifeSpear" value="1" />
+<reward type="SkillPoints" value="1" />		
+</quest>	
+<quest id="Q_NailedBat" name="Nailed Bat" subtitle="What a Weapon" description="Find a Baseball Bat\n\nand some Nails" offer="You will love it...." icon="ui_game_symbol_club" repeatable="false" category_key="Quest" difficulty="easy">
+<objective type="FetchKeep" id="bat" value="1" />
+<objective type="FetchKeep" id="nail" value="25" />
+<objective type="Craft" id="nailedBat" value="1" />	
+<reward type="SkillPoints" value="1" />	
+</quest>	
+ <quest id="LOS" name="Lord of the Spiders" subtitle="Kill some spiders" description="Go out and murder 5 small spiders.\n\nDon't let them bite you....." offer="Just click accept...if you are quick enough." icon="ui_game_symbol_knife" repeatable="false" category_key="challenge" difficulty="medium">
+		<objective type="AnimalKill" id="SpiderSmall" value="5" />
+		<reward type="SkillPoints" value="1" />
+		<reward type="Quest" id="KOS" />
+</quest>
+ <quest id="KOS" name="King of the Spiders" subtitle="Kill some spiders" description="Go out and murder 5 big spiders.\n\nDon't let them bite you....." offer="Just click accept...if you are hard enough." icon="ui_game_symbol_knife" repeatable="false" category_key="challenge" difficulty="hard">
+		<objective type="AnimalKill" id="Spider" value="5" />
+		<reward type="SkillPoints" value="2" />
+		</quest>
+
+</append>
+</config>
+</configs>

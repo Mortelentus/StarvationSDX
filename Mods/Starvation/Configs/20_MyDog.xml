@@ -1,0 +1,834 @@
+<configs>
+<config name="recipes">
+	<append xpath="/recipes">
+	<!-- HUSBANDRY -->
+	<recipe name="DogStaff" count="1" scrapable="False">
+		<ingredient name="leather" count="2"/>
+		<ingredient name="forgedIron" count="10"/>
+		<ingredient name="ductTape" count="3"/>		
+	</recipe>
+	<recipe name="DogCollar" count="1" scrapable="False">
+		<ingredient name="leather" count="5"/>
+		<ingredient name="ductTape" count="5"/>
+	</recipe>
+	<recipe name="DogToy" count="1" scrapable="False">
+		<ingredient name="cloth" count="20"/>
+		<ingredient name="leather" count="5"/>
+		<ingredient name="ductTape" count="1"/>
+	</recipe>
+	<recipe name="DogCookie" count="5" scrapable="False">
+		<ingredient name="canDogfood" count="1"/>
+		<ingredient name="cornMeal" count="3"/>
+		<ingredient name="bottledWater" count="1"/>
+	</recipe>
+	<recipe name="DogWhistle" count="1" scrapable="False">
+		<ingredient name="forgedIron" count="2"/>
+	</recipe>
+	<recipe name="dummyHumanBlock" count="1" scrapable="False">
+		<ingredient name="hayBaleBlock" count="2"/>
+		<ingredient name="wood" count="10"/>
+		<ingredient name="ductTape" count="10"/>
+		<ingredient name="plantFiberPants" count="1"/>
+		<ingredient name="plantFiberShirt" count="1"/>	
+		<ingredient name="plantFiberHood" count="1"/>
+		<ingredient name="plantFiberShoes" count="1"/>
+		<ingredient name="plantFiberGloves" count="1"/>		
+	</recipe>
+	<recipe name="dummyZombieBlock" count="1" scrapable="False">
+		<ingredient name="hayBaleBlock" count="5"/>
+		<ingredient name="ductTape" count="10"/>
+		<ingredient name="plantFiberPants" count="1"/>
+		<ingredient name="plantFiberShirt" count="1"/>	
+		<ingredient name="plantFiberHood" count="1"/>
+		<ingredient name="plantFiberShoes" count="1"/>
+		<ingredient name="plantFiberGloves" count="1"/>
+		<ingredient name="rottingFlesh" count="5"/>
+	</recipe>
+	<recipe name="dummyAnimalBlock" count="1" scrapable="False">
+		<ingredient name="hayBaleBlock" count="5"/>
+		<ingredient name="ductTape" count="10"/>
+		<ingredient name="rawMeat" count="10"/>
+	</recipe>
+	<recipe name="DogTrough" count="1" scrapable="False">
+		<ingredient name="forgedIron" count="20"/>
+	</recipe>
+	<!-- HUSBANDRY -->
+	</append>	  
+</config>
+<config name="items">
+<append xpath="/items">
+	<!-- DOGSDX -->
+	<item id="" name="handMyDog">
+		<property name="IsDeveloper" value="true" />
+		<property name="Material" value="organic" />
+		<property name="Canhold" value="false" />
+		<property name="IsDeveloper" value="true" />
+		<property name="HoldType" value="35" />
+		<property name="Stacknumber" value="1" />
+		<property name="Candrop" value="false" />
+		<property class="Action0">
+			<!-- AttackAction -->
+			<property name="Class" value="MeleeDog, Mods" />
+			<property name="Delay" value="0.5" />
+			<property name="Range" value="2.0" />
+			<property name="Sphere" value="0.2" />
+			<property name="Block_range" value="2.5" />
+			<property name="DamageEntity" value="15" />
+			<property name="DamageBlock" value="18" />
+			<property name="Buff" value="critMyDog,stunned" />
+			<property name="Buff_chance" value=".2,.6" />
+			<property name="DamageBonus.earth" value="4" />
+		</property>
+	</item>
+	<item id="" name="DogStaff">
+		<property name="DescriptionKey" value="DogStaffDesc" />
+		<property name="Meshfile" value="#dogstuff?DogStaff" />
+		<property name="Material" value="metal" />
+		<property name="HoldType" value="18" />
+		<property name="Stacknumber" value="1" />
+		<property name="RepairTools" value="scrapIron" />
+		<property name="Degradation" value="100" param1="true" />
+		<property name="FuelValue" value="4" />
+		<property name="SoundDestroy" value="metaldestroy1" />
+		<property name="Weight" value="4" />
+		<property class="Action0">
+			<!-- AttackAction -->
+			<property name="Class" value="Melee" />
+			<property name="Delay" value="1" />
+			<property name="Range" value="4" />
+			<property name="Sphere" value="0.8" />     
+			<property name="Sound_start" value="swoosh" />
+			<property name="Stamina_usage" value="2" />     
+			<property name="DamageBonus.head" value="35" />      
+		</property>
+		<property class="Attributes">
+			  <property name="EntityDamage" value="1,2" />
+			  <property name="BlockDamage" value="1,3" />
+			  <property name="DegradationMax" value="100,300" />    
+		</property>
+		<property name="Group" value="Tools/Traps" />      
+		<property class="Preview">
+			<property name="Zoom" value="8" />
+			<property name="Pos" value="-0.1,-0.7" />
+		</property>  
+		<property name="ActionSkillGroup" value="Dogtaming" />
+		<property name="CraftingSkillGroup" value="Dogtaming" />
+	</item>
+	<item id="" name="DogCollar">
+		<property name="DescriptionKey" value="DogCollarDesc" />
+		<property name="Meshfile" value="#dogstuff?Collar" />
+		<property name="Material" value="metal" />
+		<property name="RepairTools" value="forgedIron" />
+		<property name="HoldType" value="36" />
+		<property name="DegradationBreaksAfter" value="false" />
+		<property name="FuelValue" value="12" />
+		<property name="SoundDestroy" value="wooddestroy1" />
+		<property class="Action0">
+			<!-- AttackAction -->
+			<property name="Class" value="Melee" />
+			<property name="Delay" value="1.2" />
+			<property name="Range" value="2.2" />
+			<property name="Sphere" value="0.1" />
+			<property name="Sound_start" value="swoosh" />
+			<property name="Stamina_usage" value="1" />
+			<property name="DamageBonus.head" value="5" />
+			<property name="DamageBonus.glass" value="25" />
+			<property name="DamageBonus.plants" value="25" />
+			<property name="DamageBonus.leaves" value="25" />
+			<property name="DamageBonus.organic" value="10" />   
+		</property>
+		<property class="Attributes">
+			<property name="EntityDamage" value="1,2" />
+			<property name="BlockDamage" value="1,2" />
+			<property name="DegradationMax" value="100,600" />
+			<property name="DegradationRate" value="1,1" />   
+		</property>
+		<property name="Group" value="Tools/Traps"  />
+		<property name="ActionSkillGroup" value="Dogtaming" />
+		<property name="CraftingSkillGroup" value="Dogtaming" />
+	 </item>
+	<item id="" name="DogToy">
+		<property name="DescriptionKey" value="DogToyDesc" />
+		<property name="Meshfile" value="#dogstuff?DogToy" />
+		<property name="Material" value="metal" />
+		<property name="RepairTools" value="forgedIron" />
+		<property name="HoldType" value="36" />
+		<property name="DegradationBreaksAfter" value="false" />
+		<property name="FuelValue" value="12" />
+		<property name="Stacknumber" value="1" />
+		<property name="SoundDestroy" value="wooddestroy1" />
+		<property class="Action0">
+			<!-- AttackAction -->
+			<property name="Class" value="ThrowAway" />
+			<property name="Delay" value="1.2" />
+			<property name="Throw_strength_default" value="0.8" />
+			<property name="Throw_strength_max" value="2.5" />
+			<property name="Max_strain_time" value="2.1" />
+			<property name="Sound_start" value="swoosh" />
+		</property>
+		<property name="ThrowableDecoy" value="true" />
+		<property name="DropScale" value="1" />
+		<property name="Group" value="Resources" />  
+		<property name="ActionSkillGroup" value="Dogtaming" />
+		<property name="CraftingSkillGroup" value="Dogtaming" />
+	</item>
+	<item id="" name="DogCookie">
+		<property name="DescriptionKey" value="DogCookieDesc" />
+		<property name="Meshfile" value="#dogstuff?dogCookie" />
+		<property name="Material" value="organic" />
+		<property name="Stacknumber" value="50" />
+		<property name="RepairTools" value="forgedIron" />
+		<property name="HoldType" value="36" />
+		<property name="DegradationBreaksAfter" value="false" />
+		<property name="FuelValue" value="12" />
+		<property name="SoundDestroy" value="wooddestroy1" />
+			<property class="Action0">
+			<!-- AttackAction -->
+			<property name="Class" value="ThrowAway" />
+			<property name="Delay" value="1.2" />
+			<property name="Throw_strength_default" value="0.8" />
+			<property name="Throw_strength_max" value="2.5" />
+			<property name="Max_strain_time" value="2.1" />
+			<property name="Sound_start" value="swoosh" />
+		</property>
+		<property name="ThrowableDecoy" value="true" />
+		<property name="DropScale" value="1" />
+		<property name="Group" value="Resources" />  
+		<property name="CraftingSkillGroup" value="Dogtaming" />
+	</item>
+	<item id="" name="DogWhistle">
+		<property name="DescriptionKey" value="DogWhistleDesc" />
+		<property name="Class" value="ItemClassDogWhistle, Mods" />
+		<property name="Meshfile" value="#dogstuff?whistle" />  
+		<property name="Material" value="glass" />
+		<property name="HoldType" value="3" />
+		<property name="Stacknumber" value="1" />
+		<property name="Weight" value="15" />   
+		<property class="Action0">
+			<!-- AttackAction -->
+			<property name="Class" value="Melee" />
+			<property name="Delay" value="1.33" />
+			<property name="Range" value="0" />
+			<property name="Sphere" value="0" />
+			<property name="Stamina_usage" value="0" />
+			<property name="DamageBonus.head" value="0" />
+			<!-- these are multipliers -->
+			<property name="DamageBonus.glass" value="0" />
+			<property name="ActionExp" value="0" />
+			<property name="ActionExpBonusMultiplier" value="0" />
+		</property>
+		<property class="Attributes">
+			<property name="DegradationMax" value="20,600" />
+			<property name="DegradationRate" value="3,1" />
+		</property>
+		<property class="Preview">
+			<property name="Zoom" value="23" />
+			<property name="Pos" value="0.18,-0.15" />
+			<property name="Rot" value="0,-45,0" />
+		</property>
+		<property name="ActionSkillGroup" value="Dogtaming" />
+		<property name="CraftingSkillGroup" value="Dogtaming" />
+	</item>
+	<item id="" name="DogWhistle1">
+		<property name="Extends" value="DogWhistle" />
+		<property name="CustomIcon" value="DogWhistle" />
+		<property name="IsDeveloper" value="true" />
+	</item>
+	<item id="" name="DogWhistle2">
+		<property name="Extends" value="DogWhistle" />
+		<property name="CustomIcon" value="DogWhistle" />
+		<property name="IsDeveloper" value="true" />
+	</item>
+	<item id="" name="DogWhistle3">
+		<property name="Extends" value="DogWhistle" />
+		<property name="CustomIcon" value="DogWhistle" />
+		<property name="IsDeveloper" value="true" />
+	</item>
+	<item id="" name="DogWhistle4">
+		<property name="Extends" value="DogWhistle" />
+		<property name="CustomIcon" value="DogWhistle" />
+		<property name="IsDeveloper" value="true" />
+	</item>
+	<item id="" name="DogWhistle5">
+		<property name="Extends" value="DogWhistle" />
+		<property name="CustomIcon" value="DogWhistle" />
+		<property name="IsDeveloper" value="true" />
+	</item>
+	<item id="" name="DogWhistle6">
+		<property name="Extends" value="DogWhistle" />
+		<property name="CustomIcon" value="DogWhistle" />
+		<property name="IsDeveloper" value="true" />
+	</item>
+	<item id="" name="dogMaleItem">
+		<property name="DescriptionKey" value="dogMaleItemDesc" />
+		<!-- <property name="HoldingItemHidden" value="true" /> -->
+		<property name="Meshfile" value="Items/Misc/sackPrefab" />
+		<property name="DropMeshfile" value="Items/Misc/sack_droppedPrefab" />
+		<property name="HoldType" value="45" />
+		<property name="Material" value="organic" />
+		<property name="Stacknumber" value="1" />	
+		<property class="Action1">
+			<property name="Class" value="SpawnMorteDog, Mods" />
+			<property name="entityToSpawn" value="dogMale" />				
+		</property>
+		<property class="Preview">
+			<property name="Zoom" value="28" />
+			<property name="Pos" value="0,-0.05" />
+			<property name="Rot" value="90,45,0" />
+		</property>
+	</item>
+	<item id="" name="dogFemaleItem">
+		<property name="Extends" value="dogMaleItem" />
+		<property name="DescriptionKey" value="dogFemaleItemDesc" />
+		<property class="Action1">
+			<property name="Class" value="SpawnMorteDog, Mods" />
+			<property name="entityToSpawn" value="dogFemale" />
+		</property>				
+	</item>
+	<!-- DOGSDX -->
+</append>	
+</config>
+<config name="blocks">	
+	<append xpath="/blocks">
+		<!-- DOGSDX -->
+		<block id="541" name="DogTrough">  
+			<property name="DescriptionKey" value="DogTroughDesc" />
+			<property name="Class" value="UtilityContainer, Mods" />
+			<property name="LootList" value="10" />
+			<property name="debug" value="false" />
+			<property name="Shape" value="ModelEntity" /> 
+			<property name="Model" value="#dogstuff?DogTroughPrefab" />			
+			<property name="Material" value="metal" />  
+			<property name="TickRate" value="100" />
+			<property name="item1" value="DogCookie,Cookie" />
+			<property name="item2" value="canMurkyWater,Water" />
+			<drop event="Destroy" count="0" />
+			<property name="CanMobsSpawnOn" value="false" />  
+			<property name="Group" value="Building" />
+			<property class="RepairItems">
+				<property name="scrapIron" value="2" />
+			</property>
+			<property name="CraftingSkillGroup" value="Dogtaming" />
+		</block>
+		<block id="750" name="DogPlace">  
+			<property name="DescriptionKey" value="DogPlaceDesc" />
+			<property name="Shape" value="ModelEntity" /> 
+			<property name="Model" value="#dogstuff?DogPlacePrefab" />  
+			<property name="Material" value="organic" />
+			<property name="CanPickup" value="true" /> 
+			<property name="BigDecorationRadius" value="2" /> 
+			<property name="CanMobsSpawnOn" value="false" />  
+			<property name="Group" value="Building" />  
+		</block>
+		<block id="904" name="dummyAnimalBlock">  
+			<property name="DescriptionKey" value="dummyAnimalBlockDesc" />
+			<property name="Shape" value="ModelEntity" /> 
+			<property name="Model" value="#dogDummy?HayBigStand" />  
+			<property name="Material" value="wood" />
+			<property name="CanPickup" value="true" /> 
+			<property name="BigDecorationRadius" value="2" /> 
+			<property name="CanMobsSpawnOn" value="false" />  
+			<property name="Group" value="Building" />  
+		</block>
+		<block id="905" name="dummyHumanBlock">  
+			<property name="DescriptionKey" value="dummyHumanBlockDesc" />
+			<property name="Shape" value="ModelEntity" /> 
+			<property name="Model" value="#dogDummy?humanDummy" />  
+			<property name="Material" value="wood" />
+			<property name="CanPickup" value="true" /> 
+			<property name="BigDecorationRadius" value="2" /> 
+			<property name="CanMobsSpawnOn" value="false" />  
+			<property name="Group" value="Building" />  
+		</block>
+		<block id="906" name="dummyZombieBlock">  
+			<property name="DescriptionKey" value="dummyZombieBlockDesc" />
+			<property name="Shape" value="ModelEntity" /> 
+			<property name="Model" value="#dogDummy?NewHayBoe" />  
+			<property name="Material" value="wood" />
+			<property name="CanPickup" value="true" /> 
+			<property name="BigDecorationRadius" value="2" /> 
+			<property name="CanMobsSpawnOn" value="false" />  
+			<property name="Group" value="Building" />  
+		</block>
+		<!-- DOGSDX -->
+	</append>
+</config>
+<config name="sounds">
+<append xpath="/Sounds">	
+	<!-- DOGSDX -->
+	<SoundDataNode name="DogWhistle">
+		<AudioSource name="Sounds/AudioSource_Creatures" />
+		<AudioClip ClipName="#dogstuff?WhistleSound_01" />
+		<LocalCrouchVolumeScale name="1" />
+		<CrouchNoiseScale name="1" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.001" />
+	</SoundDataNode>
+	<SoundDataNode name="DogBark">
+		<AudioSource name="Sounds/AudioSource_Creatures" />
+		<AudioClip ClipName="#dogSounds?dog_bark_single" />
+		<LocalCrouchVolumeScale name="1" />
+		<CrouchNoiseScale name="1" />
+		<NoiseScale name="1.5" />
+		<MaxVoices name="1" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.001" />
+	</SoundDataNode>	
+	<SoundDataNode name="DogDropBall">
+		<AudioSource name="Sounds/AudioSource_Creatures" />
+		<AudioClip ClipName="#dogSounds?dog_drop_ball" />
+		<LocalCrouchVolumeScale name="1" />
+		<CrouchNoiseScale name="1" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.001" />
+	</SoundDataNode>
+	<SoundDataNode name="DogGrowl">
+		<AudioSource name="Sounds/AudioSource_Creatures" />
+		<AudioClip ClipName="#dogSounds?dog_growl" />
+		<LocalCrouchVolumeScale name="1" />
+		<CrouchNoiseScale name="1" />
+		<NoiseScale name="2" />
+		<MaxVoices name="1" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.001" />
+	</SoundDataNode>
+	<SoundDataNode name="DogHowl">
+		<AudioSource name="Sounds/AudioSource_Creatures" />
+		<AudioClip ClipName="#dogSounds?dog_howl" />
+		<LocalCrouchVolumeScale name="1" />
+		<CrouchNoiseScale name="1" />
+		<NoiseScale name="2.5" />
+		<MaxVoices name="1" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.001" />
+	</SoundDataNode>
+	<SoundDataNode name="DogPain">
+		<AudioSource name="Sounds/AudioSource_Creatures" />
+		<AudioClip ClipName="#dogSounds?Dog_pain" />
+		<LocalCrouchVolumeScale name="1" />
+		<CrouchNoiseScale name="1" />
+		<NoiseScale name="2" />
+		<MaxVoices name="1" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.001" />
+	</SoundDataNode>
+	<SoundDataNode name="DogPlay">
+		<AudioSource name="Sounds/AudioSource_Creatures" />
+		<AudioClip ClipName="#dogSounds?dog_playful" />
+		<LocalCrouchVolumeScale name="1" />
+		<CrouchNoiseScale name="1" />
+		<NoiseScale name="1.5" />
+		<MaxVoices name="1" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.001" />
+	</SoundDataNode>
+	<SoundDataNode name="DogSmell">
+		<AudioSource name="Sounds/AudioSource_Creatures" />
+		<AudioClip ClipName="#dogSounds?dog_smell_track" />
+		<LocalCrouchVolumeScale name="1" />
+		<CrouchNoiseScale name="1" />
+		<NoiseScale name="1.5" />
+		<MaxVoices name="1" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.001" />
+	</SoundDataNode>
+	<SoundDataNode name="DogHungry">
+		<AudioSource name="Sounds/AudioSource_Creatures" />
+		<AudioClip ClipName="#dogSounds?dog_starve" />
+		<LocalCrouchVolumeScale name="1" />
+		<CrouchNoiseScale name="1" />
+		<NoiseScale name="2" />
+		<MaxVoices name="1" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.001" />
+	</SoundDataNode>
+	<SoundDataNode name="whistleCall">
+		<AudioSource name="Sounds/AudioSource_Interact" />
+		<AudioClip ClipName="#dogSounds?whistleCall" />
+		<AudioClip ClipName="#dogSounds?whistleCall1" />
+		<AudioClip ClipName="#dogSounds?whistleCall2" />
+		<LocalCrouchVolumeScale name="1" />
+		<CrouchNoiseScale name="1" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.001" />
+	</SoundDataNode>
+	<SoundDataNode name="whistleStay">
+		<AudioSource name="Sounds/AudioSource_Interact" />
+		<AudioClip ClipName="#dogSounds?whistleStay" />
+		<LocalCrouchVolumeScale name="1" />
+		<CrouchNoiseScale name="1" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.001" />
+	</SoundDataNode>
+	<SoundDataNode name="dog_whistle_2small">
+		<AudioSource name="Sounds/AudioSource_Interact" />
+		<AudioClip ClipName="#dogSounds?dog_whistle_2small" />
+		<LocalCrouchVolumeScale name="1" />
+		<CrouchNoiseScale name="1" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.001" />
+	</SoundDataNode>
+	<SoundDataNode name="dog_whistle_3small">
+		<AudioSource name="Sounds/AudioSource_Interact" />
+		<AudioClip ClipName="#dogSounds?dog_whistle_3small" />
+		<LocalCrouchVolumeScale name="1" />
+		<CrouchNoiseScale name="1" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.001" />
+	</SoundDataNode>
+	<SoundDataNode name="dog_whistle_7small">
+		<AudioSource name="Sounds/AudioSource_Interact" />
+		<AudioClip ClipName="#dogSounds?dog_whistle_7small" />
+		<LocalCrouchVolumeScale name="1" />
+		<CrouchNoiseScale name="1" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.001" />
+	</SoundDataNode>
+	<SoundDataNode name="dog_whistle_long_2small">
+		<AudioSource name="Sounds/AudioSource_Interact" />
+		<AudioClip ClipName="#dogSounds?dog_whistle_long_2small" />
+		<LocalCrouchVolumeScale name="1" />
+		<CrouchNoiseScale name="1" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.001" />
+	</SoundDataNode>
+	<SoundDataNode name="DogDrink">
+		<AudioSource name="Sounds/AudioSource_Creatures" />
+		<AudioClip ClipName="#dogSounds?dog_drinking" />
+		<AudioClip ClipName="#dogSounds?dog_drinking1" />
+		<LocalCrouchVolumeScale name="1" />
+		<CrouchNoiseScale name="1" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.001" />
+	</SoundDataNode>
+	<SoundDataNode name="DogEat">
+		<AudioSource name="Sounds/AudioSource_Creatures" />
+		<AudioClip ClipName="#dogSounds?dog_eat" />
+		<AudioClip ClipName="#dogSounds?dog_eat1" />
+		<AudioClip ClipName="#dogSounds?dog_eat2" />
+		<LocalCrouchVolumeScale name="1" />
+		<CrouchNoiseScale name="1" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.001" />
+	</SoundDataNode>
+	<SoundDataNode name="DogAttack">
+		<AudioSource name="Sounds/AudioSource_Creatures" />
+		<AudioClip ClipName="#dogSounds?dog_attack" />
+		<AudioClip ClipName="#dogSounds?dog_attack1" />
+		<LocalCrouchVolumeScale name="1" />
+		<CrouchNoiseScale name="1" />
+		<NoiseScale name="2" />
+		<MaxVoices name="1" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.001" />
+	</SoundDataNode>
+	<SoundDataNode name="PupBark">
+		<AudioSource name="Sounds/AudioSource_Creatures" />
+		<AudioClip ClipName="#dogSounds?puppy_bark" />
+		<AudioClip ClipName="#dogSounds?puppy_bark3" />
+		<LocalCrouchVolumeScale name="1" />
+		<CrouchNoiseScale name="1" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.001" />
+	</SoundDataNode>
+	<SoundDataNode name="PupRoam">
+		<AudioSource name="Sounds/AudioSource_Creatures" />
+		<AudioClip ClipName="#dogSounds?puppy_roam" />
+		<LocalCrouchVolumeScale name="1" />
+		<CrouchNoiseScale name="1" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.001" />
+	</SoundDataNode>
+	<SoundDataNode name="PupGrowl">
+		<AudioSource name="Sounds/AudioSource_Creatures" />
+		<AudioClip ClipName="#dogSounds?puppy_growl" />
+		<LocalCrouchVolumeScale name="1" />
+		<CrouchNoiseScale name="1" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.001" />
+	</SoundDataNode>
+	<SoundDataNode name="PupPain">
+		<AudioSource name="Sounds/AudioSource_Creatures" />
+		<AudioClip ClipName="#dogSounds?puppy_hurt" />
+		<LocalCrouchVolumeScale name="1" />
+		<CrouchNoiseScale name="1" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.001" />
+	</SoundDataNode>
+	<SoundDataNode name="PupPlay">
+		<AudioSource name="Sounds/AudioSource_Creatures" />
+		<AudioClip ClipName="#dogSounds?puppy_play" />
+		<LocalCrouchVolumeScale name="1" />
+		<CrouchNoiseScale name="1" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.001" />
+	</SoundDataNode>
+	<SoundDataNode name="PupHungry">
+		<AudioSource name="Sounds/AudioSource_Creatures" />
+		<AudioClip ClipName="#dogSounds?puppy_askfood" />
+		<LocalCrouchVolumeScale name="1" />
+		<CrouchNoiseScale name="1" />
+		<NoiseScale name="1" />
+		<MaxVoices name="1" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.001" />
+	</SoundDataNode>
+	<!-- DOGSDX -->
+</append>	
+</config>
+<config name="buffs">
+<append xpath="/buffs">
+	<buff id="critMyDog" duration="5" castsound="Buffs/critical_blunt" >
+		<modify id="1" stat="health" amount="-15" rate="1" />
+	</buff>
+</append>
+</config>
+
+<config name="entityclasses">
+<append xpath="/entity_classes"> 
+	<!-- DOGSDX -->
+	<!-- Wandertime IN SECONDS is how much time the animal will idle wandering, after an action -->
+	<!-- Matingtime IN TICKS is the interval between mating tries for the males -->
+	<!-- PregnancyTime IN TICKS is the time a female will be pregnant after a successful mating -->
+	<!-- Adolesence IN TICKS is how much time an offspring will take to mature -->
+	<!-- 1 day = 24000 ticks (for 60min day) -->
+	<entity_class name="dogMale">
+		<!-- <property name="EntityType" value="Zombie" />	
+		<property name="Mesh" value="Zombies/zombieDogPrefab" />
+		<property name="MeshMaterial" value="#mydog2?myDog"/>
+		<property name="MeshMaterial1" value="#mydog2?myDog 2"/>
+		<property name="ModelType" value="Standard" /> 
+		<property name="AvatarController" value="AvatarZombieDogController" /> -->
+		<property name="Mesh" value="#Dog?DogSh" />
+		<property name="ModelType" value="Standard" />			
+		<property name="AvatarController" value="GameObjectAnimalAnimationSDX, Mods" />
+		<property name="Immunity" value="disease" />
+		<property name="Parent" value="Animals" />
+		<property name="RagdollEnabled" value="true" />
+		<property name="IsEntityAnimal" value="true" />
+		<property name="SurfaceCategory" value="organic" />
+		<property name="AttackTimeoutDay" value="1.5" />
+		<!-- in s -->
+		<property name="AttackTimeoutNight" value="1.1" />
+		<property name="Prefab" value="Dog" />
+		<property name="WalkType" value="0" />
+		<property name="HandItem" value="handMyDog" />
+		<property name="Class" value="EntityDogMorte, Mods" />
+		<property name="WanderSpeed" value="0.5" />
+		<property name="ApproachSpeed" value="1.6" />
+		<property name="NightWanderSpeed" value="0.3" />
+		<property name="NightApproachSpeed" value="1.6" />
+		<property name="PanicSpeed" value="1.6" />
+		<property name="CanClimbLadders" value="false" />
+		<property name="RotateToGround" value="true" />
+		<property name="MaxHealth" value="100" />
+		<property name="SoundRandomTime" value="45.0" />
+		<property name="SoundAlertTime" value="25.0" />
+		<property name="SoundRandom" value="Enemies/Zombie_Dogs/zombiedogroam" />
+		<property name="SoundAlert" value="DogGrowl" />
+		<property name="SoundHurt" value="DogPain" />
+		<property name="SoundDeath" value="Enemies/Zombie_Dogs/zombiedogdeath" />
+		<property name="SoundAttack" value="DogAttack" />
+		<property name="SoundSense" value="DogSmell" />
+		<property name="SoundGiveUp" value="Enemies/Zombie_Dogs/zombiedoggiveup" />
+		<property name="SoundPlay" value="DogPlay" />
+		<property name="SoundDropBall" value="DogDropBall" />
+		<property name="SoundStarve" value="DogHungry" />
+		<property name="SoundBark" value="DogBark" />
+		<property name="SoundHowl" value="DogHowl" />
+		<property name="SoundDrink" value="DogDrink" />
+		<property name="SoundEat" value="DogEat" />
+		<property name="ExperienceGain" value="300" />			
+		<!-- AI properties -->				
+		<property name="AITask-1" value="Swim" />
+		<property name="AITask-2" value="Wander" />
+		<property name="AITask-3" value="RunawayWhenHurt" />
+		<!-- <property name="AITask-5" value="RunawayFromEntity" param1="EntityPlayer" />/ -->
+		<property name="CanClimbLadders" value="false" />
+		<property name="MaxViewAngle" value="180" />
+		<!-- custom properties -->
+		<property name="isMale" value="true" />
+		<property name="entityMale" value="dogMale" />
+		<property name="entityFemale" value="dogFemale" /> 
+		<property name="entityBaby" value="dogPup" />
+		<property name="itemTamed" value="dogMaleItem" /> 
+		<property name="foodBlock" value="DogTrough" /> <!-- the block they look for when hungry -->
+		<property name="foodItem" value="DogCookie" /> <!-- the item they eat -->
+		<!-- <property name="emptyFoodItem" value="DogCookie" /> --> <!-- the empty item they leave if you want some -->
+		<property name="waterItem" value="canMurkyWater" /> <!-- the item they dring -->
+		<property name="emptyWaterItem" value="canEmpty" /> <!-- the empty item they leave if you want some -->
+		<property name="tameItem" value="DogStaff" /> <!-- the item used to tame the animal -->
+		<property name="tameSkill" value="Dogtaming" /> <!-- the skill needed to tame -->
+		<property name="harvestSkill" value="Dogtaming" /> <!-- the skill needed to tame -->
+		<!-- 24000 = 1 in-game day -->
+		<property name="Adolesence" value="24000" />
+		<property name="PregnancyTime" value="24000" />
+		<property name="WanderTime" value="250" />
+		<property name="MatingTime" value="4000" />
+		<property name="MaxAnimalsInArea" value="15" />
+		<property name="MaxAnimalsAreaCheck" value="40" />
+		<property name="MaxMatingAreaCheck" value="20" />
+		<!-- custom properties -->
+		<property name="TimeStayAfterDeath" value="180" />
+		<!-- Set this if you want this entity to be spawned when user chooses 'enemy entities off' -->
+		<property name="IsEnemyEntity" value="false" />
+		<property name="ExperienceGain" value="150" />
+		<!-- For harvesting -->
+		<property name="PhysicsBody" value="zombieDog" />
+		<property name="CorpseBlock" value="animalGore" />
+		<property name="CorpseBlockChance" value="0" />
+		<property name="ParticleOnDestroy" value="blood_death" />
+		<property name="TimeStayAfterDeath" value="60" />
+		<!-- For harvesting -->
+		<property name="DeadBodyHitPoints" value="200" />
+		<drop event="Harvest" name="rottingFlesh" count="2" />
+		<drop event="Harvest" name="rottingFlesh" tool_category="Butcher" count="4" />
+		<drop event="Harvest" name="animalHide" tool_category="Butcher" count="2" />
+		<drop event="Destroy" name="animalFat" tool_category="Butcher" count="2" />
+		<drop event="Destroy" name="femur" tool_category="Butcher" count="4" />		
+	</entity_class>
+	<entity_class name="dogFemale" extends="dogMale">
+		<property name="Mesh" value="#Dog?DogFemale" />
+		<property name="ModelType" value="Standard" />			
+		<property name="AvatarController" value="GameObjectAnimalAnimationSDX, Mods" />
+		<property name="MeshScale" value="1,1" />
+		<!-- custom properties -->
+		<property name="isMale" value="false" />
+		<property name="itemTamed" value="dogFemaleItem" />
+		<!-- For harvesting -->
+		<drop event="Harvest" name="rawMeat" count="2" />
+		<drop event="Harvest" name="rawMeat" tool_category="Butcher" count="1" prob=".5" />
+		<drop event="Harvest" name="rawMeat" tool_category="Butcher" count="1" prob=".5" />
+		<drop event="Harvest" name="animalHide" tool_category="Butcher" count="3" />
+		<drop event="Harvest" name="animalHide" tool_category="Butcher" count="1" prob=".5" />
+		<drop event="Harvest" name="animalHide" tool_category="Butcher" count="1" prob=".5" />
+		<drop event="Harvest" name="animalFat" tool_category="Butcher" count="2" />
+		<drop event="Harvest" name="animalFat" tool_category="Butcher" count="1" prob=".5" />
+		<drop event="Harvest" name="animalFat" tool_category="Butcher" count="1" prob=".5" />
+		<drop event="Destroy" name="femur" tool_category="Butcher" count="2" />
+	</entity_class>
+	<entity_class name="dogPup" extends="dogMale">
+		<property name="Mesh" value="#Dog?Dog" />
+		<property name="ModelType" value="Standard" />			
+		<property name="AvatarController" value="GameObjectAnimalAnimationSDX, Mods" />
+		<property name="MeshScale" value="0.4,0.6" />
+		<!-- custom properties -->
+		<property name="isBaby" value="true" />
+		<property name="SoundRandom" value="PupRoam" />
+		<property name="SoundAlert" value="PupGrowl" />
+		<property name="SoundHurt" value="PupPain" />
+		<property name="SoundDeath" value="PupPain" />
+		<property name="SoundAttack" value="Enemies/Zombie_Dogs/zombiedogattack" />
+		<property name="SoundSense" value="DogSmell" />
+		<property name="SoundGiveUp" value="Enemies/Zombie_Dogs/zombiedoggiveup" />
+		<property name="SoundPlay" value="PupPlay" />
+		<property name="SoundDropBall" value="DogDropBall" />
+		<property name="SoundStarve" value="PupHungry" />
+		<property name="SoundBark" value="PupBark" />
+		<property name="SoundHowl" value="DogHowl" />
+		<property name="SoundDrink" value="DogDrink" />
+		<property name="SoundEat" value="DogEat" />
+		<!-- For harvesting -->
+		<drop event="Harvest" name="rawMeat" count="1" />
+		<drop event="Destroy" name="femur" tool_category="Butcher" count="1" />
+	</entity_class>		
+	<!-- DOGSDX -->
+</append>
+</config>	
+<config name="entitygroups">			 	
+	<append xpath="/entitygroups/entitygroup[@name='AnimalsAll']">	
+		<entity name="dogFemale" prob="0.005" />
+		<entity name="dogMale" prob="0.001" />
+	</append>
+</config>
+<config name="progression">
+<append xpath="/progression/skills">
+	<!-- DOGSDX -->
+	<crafting_skill name="Dogtaming" exp_to_level="100" icon="dogtaming" description_key="DogtamingDesc" title_key="Dogtaming" group="Dogtaming">
+			<effect name="CraftingTime">
+				<multiply skill_level="1,20" value="1.00,0.76" />
+				<multiply skill_level="20,40" value="0.76,0.66" />
+				<multiply skill_level="40,60" value="0.66,0.59" />
+				<multiply skill_level="60,80" value="0.59,0.53" />
+				<multiply skill_level="80,100" value="0.53,0.47" />
+			</effect>
+			<effect name="CraftingQuality">
+				<setvalue skill_level="1,20" value="1,239" />
+				<setvalue skill_level="20,30" value="239,260" />
+				<setvalue skill_level="30,40" value="260,300" />
+				<setvalue skill_level="40,50" value="300,325" />
+				<setvalue skill_level="50,60" value="325,350" />
+				<setvalue skill_level="60,70" value="350,375" />
+				<setvalue skill_level="70,80" value="375,400" />
+				<setvalue skill_level="80,90" value="400,450" />
+				<setvalue skill_level="90,100" value="450,500" />
+			</effect>
+			<effect name="RepairTime">
+				<multiply skill_level="1,20" value="1.00,0.61" />
+				<multiply skill_level="20,30" value="0.61,0.54" />
+				<multiply skill_level="30,40" value="0.54,0.48" />
+				<multiply skill_level="40,50" value="0.48,0.43" />
+				<multiply skill_level="50,60" value="0.43,0.39" />
+				<multiply skill_level="60,70" value="0.39,0.35" />
+				<multiply skill_level="70,80" value="0.35,0.31" />
+				<multiply skill_level="80,90" value="0.31,0.28" />
+				<multiply skill_level="90,100" value="0.28,0.25" />
+			</effect>
+			<effect name="RepairAmount">
+				<add skill_level="1,20" value="1,27" />
+				<add skill_level="20,30" value="27,31" />
+				<add skill_level="30,40" value="31,35" />
+				<add skill_level="40,50" value="35,38" />
+				<add skill_level="50,60" value="38,41" />
+				<add skill_level="60,70" value="41,43" />
+				<add skill_level="70,80" value="43,46" />
+				<add skill_level="80,90" value="46,48" />
+				<add skill_level="90,100" value="48,50" />
+			</effect>
+			<effect name="RepairQualityLoss">
+				<multiply skill_level="1,20" value="1.00,0.53" />
+				<multiply skill_level="20,30" value="0.53,0.44" />
+				<multiply skill_level="30,40" value="0.44,0.38" />
+				<multiply skill_level="40,50" value="0.38,0.32" />
+				<multiply skill_level="50,60" value="0.32,0.27" />
+				<multiply skill_level="60,70" value="0.27,0.22" />
+				<multiply skill_level="70,80" value="0.22,0.18" />
+				<multiply skill_level="80,90" value="0.18,0.14" />
+				<multiply skill_level="90,100" value="0.14,0.10" />
+			</effect>
+	</crafting_skill>
+	<!-- DOGSDX -->	
+</append>
+</config>
+
+</configs>

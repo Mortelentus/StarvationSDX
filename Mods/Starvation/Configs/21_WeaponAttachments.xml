@@ -1,0 +1,458 @@
+<configs>
+	<config name="items">
+		<append xpath="/items">
+			<item id="" name="assaultRifleTriggerHousing">
+				<property name="Extends" value="partsMaster" />
+				<property name="DescriptionKey" value="assaultRiflePartsGroupDesc" />
+				<property name="PartType" value="Receiver" />		
+				<property name="Weight" value="80" />		
+				<property class="Attributes">
+						<property name="FalloffRange" value="50,120" />
+						<property name="DegradationMax" value="3250,12000" />
+				</property>
+			</item>
+			<item id="" name="assaultRifleStock">
+				<property name="Extends" value="partsMaster" />
+				<property name="DescriptionKey" value="assaultRiflePartsGroupDesc" />
+				<property name="PartType" value="Stock" />		
+				<property name="Weight" value="70" />		
+				<property class="Attributes">
+						<property name="DegradationRate" value="12,16" />
+						<property name="DegradationMax" value="3250,12000" />
+				</property>
+			</item>	
+			<item id="" name="assaultRifleBarrel">
+				<property name="Extends" value="partsMaster" />
+				<property name="DescriptionKey" value="assaultRiflePartsGroupDesc" />
+				<property name="PartType" value="Barrel" />		
+				<property name="Weight" value="60" />		
+				<property class="Attributes">					
+						<property name="DegradationMax" value="3250,12000" />
+						<property name="DismembermentBaseChance" value="0.6,0.8" />
+						<property name="DismembermentBonus" value="1,2" />
+				</property>
+			</item>
+			<item id="" name="acw-r_parts">
+				<property name="Extends" value="partsMaster" />
+				<property name="DescriptionKey" value="assaultRiflePartsGroupDesc" />
+				<property name="PartType" value="Pump" />						
+				<property name="Weight" value="60" />		
+				<property class="Attributes">
+					<property name="EntityDamage" value="25, 60" />
+					<property name="BlockDamage" value="8,18" />
+					<property name="DegradationMax" value="3250,12000" />
+				</property>
+			</item>
+			<item id="" name="ACW">			
+				<property name="Meshfile" value="#acw?ACWPrefabTest" />
+				<property name="DescriptionKey" value="ACWDesc"/>
+				<property name="CustomIcon" value="ACWLaser" />
+				<property name="Class" value="ItemClassAttachments, Mods" />
+				<property name="Material" value="metal" />
+				<property name="HoldType" value="6" />
+				<property name="Stacknumber" value="1" />
+				<property name="RepairTools" value="repairKit" />
+				<property name="Degradation" value="700" param1="false" />
+				<property name="DegradationBreaksAfter" value="false" />
+				<property name="SoundJammed" value="Weapons/weapon_jam" />	
+				<property name="Attachments" value="flashlight02,Silencer,Mag_Extended,Sight_Advanced,LaserAttachment,Sight_ACOG,Barrel_Advanced" />
+				<property class="Parts">
+					<property name="Stock" value="assaultRifleStock" />
+					<property name="Receiver" value="assaultRifleTriggerHousing" />
+					<property name="Barrel" value="assaultRifleBarrel" />
+					<property name="Pump" value="acw-r_parts" />
+				</property>
+				<property class="Action0">
+					<!-- AttackAction -->					
+					<property name="Class" value="RangedAt, Mods" />
+					<property name="Delay" value="0.110" />
+					<property name="Range" value="100" /> <!-- Default value, can be modified -->
+					<property name="Auto_fire" value="true" />
+					<property name="Rays_per_shot" value="1" />
+					<property name="Rays_spread" value="0" />
+					<property name="Crosshair_min_distance" value="5" />
+					<property name="Crosshair_max_distance" value="30" />					
+					<property name="Magazine_size" value="30" /> <!-- Default value, can be modified -->
+					<property name="Magazine_items" value="762mmBullet, 762mmBulletPL" />
+					<property name="Reload_time" value="4.1" />
+					<property name="Bullet_icon" value="uzi" />
+					<property name="Sound_start" value="Weapons/Ranged/AK47/ak47_fire_start" /> <!-- Default value, can be modified -->
+					<property name="Sound_repeat" value="Weapons/Ranged/AK47/ak47_fire_lp" /> <!-- Default value, can be modified -->
+					<property name="Sound_end" value="Weapons/Ranged/AK47/ak47_fire_end" /> <!-- Default value, can be modified -->
+					<property name="Sound_empty" value="Weapons/weapon_empty" />
+					<property name="Sound_reload" value="Weapons/Ranged/AK47/ak47_reload" />
+					<property name="Horde_meter_rate" value="3.5" />
+					<property name="Horde_meter_distance" value="25" />
+					<property name="Particles_muzzle_fire" value="nozzleflashuzi" />
+					<property name="Particles_muzzle_smoke" value="nozzlesmokeuzi" />
+					<property name="DamageBonus.head" value="6" />
+					<property name="DamageBonus.wood" value="4" />
+					<property name="DamageBonus.glass" value="25" />
+					<!-- Aditional kickback on top of vanilla kickback for weapon DEFAULT-->
+					<property name="kickbackAim" value="4" /> 
+					<!-- Aditional kickback on top of vanilla kickback for weapon DEFAULT -->
+					<property name="kickbackHip" value="8" /> 
+				</property>
+				<property class="Action1">
+					<!-- UseAction -->
+					<property name="Class" value="ZoomAt, Mods" />
+					<property name="Zoom_max_out" value="35" />
+					<property name="Zoom_max_in" value="35" />
+				</property>
+				<!-- Start: Needed for the attachment flashlight -->
+				<property name="LightSource" value="lightSource" />
+				<property name="ActivateObject" value="Attachments/flashlight/lightSource" />
+				<property name="AttachmentFlashlight" value="flashlight02" />
+				<!-- End: Needed for the attachment flashlight -->
+				<property name="Group" value="Ammo/Weapons" />
+				<property class="Preview">
+					<property name="Zoom" value="2" />
+					<property name="Pos" value="-0.20,-0.40" />
+					<property name="Rot" value="0,-45,0" />
+				</property>
+				<property name="ActionSkillGroup" value="Rifles" />
+				<property name="CraftingSkillGroup" value="Gun Smithing" />
+			</item>
+			<item id="" name="Silencer">
+				<property name="Meshfile" value="#weaponAttach?SilencerPrefab" />
+				<property name="DropMeshfile" value="#weaponAttach?SilencerPrefab" />
+				<property name="Material" value="metal" />
+				<property name="RepairTools" value="repairKit" />
+				<property name="DegradationBreaksAfter" value="false" />
+				<property name="Incompatible" value="Barrel_Advanced" />
+				<property name="Weight" value="5" />
+				<property name="HoldType" value="36" />
+				<property name="Stacknumber" value="1" />
+				<property class="Action0">
+					<!-- AttackAction -->
+					<property name="Class" value="Melee" />
+					<property name="Delay" value="1.1" />
+					<property name="Range" value="2.0" />
+					<property name="Sphere" value="0.1" />
+					<property name="DamageEntity" value="6" />
+					<property name="DamageBlock" value=".7" />
+					<property name="Sound_start" value="swoosh" />
+					<property name="Stamina_usage" value="7" />
+					<property name="DamageBonus.head" value="2" />
+					<property name="DamageBonus.glass" value="25" />
+				</property>
+				<property class="AttachAction0">
+					<!-- AttackAction -->	
+					<property name="Sound_start" value="as_val_fire_start" />
+					<property name="Sound_repeat" value="#sfxsilencedsilenced?suppressor02" />
+					<property name="Sound_end" value="#sfxsilencedsilenced?suppressorend" />
+					<!-- Base Modifier is 1, so this would reduce the base modifier by 0.1 -->
+					<!-- IF no more attachments are present the entity damage modifier would be 0.9, this reducing entity damage by 10% -->
+					<property name="Entity_Damage_Modifier" value="0.1" param1="Sub" />
+					<!-- Base Modifier is 1 -->					
+					<property name="Block_Damage_Modifier" value="0.1" param1="Sub" /> 
+					<!-- Base Modifier is 1 -->
+					<property name="FallOff_Range_Modifier" value="0.1"  param1="Sub" /> 
+				</property>				
+				<property name="Group" value="Decor/Miscellaneous" />
+				<property class="Attributes">
+				    <!-- If you do not define DegradationMax the attachment will NOT decay --> 
+					<property name="DegradationMax" value="300,6000" />
+				</property>
+			</item>
+			<item id="" name="Mag_Extended">				
+				<property name="Meshfile" value="#weaponAttach?ExtendMagPrefab" />
+				<property name="DropMeshfile" value="#weaponAttach?ExtendMagPrefab" />
+				<property name="Material" value="metal" />
+				<property name="RepairTools" value="repairKit" />
+				<property name="DegradationBreaksAfter" value="false" />
+				<property name="Weight" value="5" />
+				<property name="HoldType" value="36" />
+				<property name="Stacknumber" value="1" />
+				<property class="Action0">
+					<!-- AttackAction -->
+					<property name="Class" value="Melee" />
+					<property name="Delay" value="1.1" />
+					<property name="Range" value="2.0" />
+					<property name="Sphere" value="0.1" />
+					<property name="DamageEntity" value="6" />
+					<property name="DamageBlock" value=".7" />
+					<property name="Sound_start" value="swoosh" />
+					<property name="Stamina_usage" value="7" />
+					<property name="DamageBonus.head" value="2" />
+					<property name="DamageBonus.glass" value="25" />
+				</property>
+				<property class="AttachAction0">
+					<!-- AttackAction -->					
+					<property name="Magazine_size" value="30" param1="Add" />		
+					<!-- Applys at default value, so this means reload time will double -->		
+					<property name="Reload_time" value="1.5" param1="Multiply" /> 					
+				</property>
+				<property name="Group" value="Decor/Miscellaneous" />
+				<property class="Attributes">
+					<!-- If you do not define DegradationMax the attachment will NOT decay --> 
+					<property name="DegradationMax" value="300,6000" />
+				</property>
+			</item>
+			<item id="" name="Sight_Advanced">
+				<property name="Meshfile" value="Items/Misc/sackPrefab" />
+				<property name="DropMeshfile" value="Items/Misc/sack_droppedPrefab" />
+				<property name="Material" value="metal" />
+				<property name="RepairTools" value="repairKit" />
+				<property name="DegradationBreaksAfter" value="false" />
+				<property name="Weight" value="5" />
+				<property name="HoldType" value="36" />
+				<property name="Stacknumber" value="1" />
+				<property name="Incompatible" value="Sight_ACOG" />
+				<property class="AttachAction0">
+					<!-- AttackAction -->	
+					<!-- reduces aditional kickback by 2 while aiming -->
+					<property name="kickbackAim" value="2" param1="Sub" /> 
+					<!-- reduces aditional kickback by 2 on hip shot -->
+					<property name="kickbackHip" value="2" param1="Sub" /> 
+				</property>
+				<property name="Group" value="Decor/Miscellaneous" />				
+			</item>
+			<item id="" name="LaserAttachment">
+				<property name="Meshfile" value="Items/Misc/sackPrefab" />
+				<property name="DropMeshfile" value="Items/Misc/sack_droppedPrefab" />
+				<property name="Material" value="metal" />
+				<property name="RepairTools" value="repairKit" />
+				<property name="DegradationBreaksAfter" value="false" />
+				<property name="Weight" value="5" />
+				<property name="HoldType" value="36" />
+				<property name="Stacknumber" value="1" />				
+				<property name="Group" value="Decor/Miscellaneous" />				
+			</item>
+			<item id="" name="Sight_ACOG">
+				<property name="Meshfile" value="#weaponAttach?AcogPrebab" />
+				<property name="DropMeshfile" value="#weaponAttach?AcogPrebab" />
+				<property name="Material" value="metal" />
+				<property name="RepairTools" value="repairKit" />
+				<property name="DegradationBreaksAfter" value="false" />
+				<property name="Weight" value="5" />
+				<property name="HoldType" value="36" />
+				<property name="Stacknumber" value="1" />
+				<property name="Incompatible" value="Sight_Advanced" />
+				<property class="Action0">
+					<!-- AttackAction -->
+					<property name="Class" value="Melee" />
+					<property name="Delay" value="1.1" />
+					<property name="Range" value="2.0" />
+					<property name="Sphere" value="0.1" />
+					<property name="DamageEntity" value="6" />
+					<property name="DamageBlock" value=".7" />
+					<property name="Sound_start" value="swoosh" />
+					<property name="Stamina_usage" value="7" />
+					<property name="DamageBonus.head" value="2" />
+					<property name="DamageBonus.glass" value="25" />
+				</property>
+				<property class="Action1">
+					<!-- UseAction -->
+					<property name="Class" value="Zoom" />
+					<property name="Zoom_overlay" value="Items/Weapons/HUD/sniper_zoom_overlay" />
+					<property name="Zoom_max_out" value="40" />
+					<property name="Zoom_max_in" value="15" />
+				</property>
+				<property class="AttachAction0">
+					<!-- AttackAction -->	
+					<!-- Decreases aditional kickback by 4 while aiming -->
+					<property name="kickbackAim" value="4" param1="Sub" />
+					<!-- increases aditional kickback by 2 on hip shot -->
+					<property name="kickbackHip" value="2" param1="Add" />  
+					<property name="Entity_Damage_Modifier" value="0.2" param1="Add" />
+					<property name="Block_Damage_Modifier" value="0.1" param1="Add" />
+					<property name="FallOff_Range_Modifier" value="0.2"  param1="Add" />
+				</property>
+				<property class="AttachAction1">
+					<!-- UseAction -->
+					<property name="Class" value="Zoom" />
+					<property name="Zoom_overlay" value="Items/Weapons/HUD/sniper_zoom_overlay" />
+					<property name="Zoom_max_out" value="40" />
+					<property name="Zoom_max_in" value="15" />
+				</property>
+				<property name="Group" value="Decor/Miscellaneous" />
+			</item>
+			<item id="" name="Barrel_Advanced">
+				<property name="Meshfile" value="Items/Misc/sackPrefab" />
+				<property name="DropMeshfile" value="Items/Misc/sack_droppedPrefab" />
+				<property name="Material" value="metal" />
+				<property name="RepairTools" value="repairKit" />
+				<property name="DegradationBreaksAfter" value="false" />
+				<property name="Weight" value="5" />
+				<property name="HoldType" value="36" />
+				<property name="Stacknumber" value="1" />
+				<property name="Incompatible" value="Silencer" />
+				<property class="AttachAction0">
+					<!-- AttackAction -->	
+					<!-- increases aditional kickback by 2 while aiming -->
+					<property name="kickbackAim" value="2" param1="Add" /> 
+					<!-- increases aditional kickback by 2 on hip shot -->
+					<property name="kickbackHip" value="2" param1="Add" />  
+					<property name="Entity_Damage_Modifier" value="0.2" param1="Add" /> 
+					<property name="Block_Damage_Modifier" value="0.1" param1="Add" /> 
+					<property name="FallOff_Range_Modifier" value="0.2"  param1="Add" />
+				</property>
+				<property name="Group" value="Decor/Miscellaneous" />
+				<property class="Attributes">
+					<!-- If you do not define DegradationMax the attachment will NOT decay -->
+					<property name="DegradationMax" value="300,6000" />
+				</property>
+			</item>
+			<item id="" name="MTAR">			
+				<property name="Meshfile" value="#mtar?mtarPrefab" />
+				<property name="DescriptionKey" value="MTARDesc"/>
+				<property name="Class" value="ItemClassAttachments, Mods" />
+				<property name="Material" value="metal" />
+				<property name="HoldType" value="6" />
+				<property name="Stacknumber" value="1" />
+				<property name="RepairTools" value="repairKit" />
+				<property name="Degradation" value="700" param1="false" />
+				<property name="DegradationBreaksAfter" value="false" />
+				<property name="SoundJammed" value="Weapons/weapon_jam" />	
+				<property name="Attachments" value="flashlight02,Silencer,Mag_Extended,Sight_Advanced,Sight_AimPoint,Grip" />
+				<property class="Parts">
+					<property name="Stock" value="assaultRifleStock" />
+					<property name="Receiver" value="assaultRifleTriggerHousing" />
+					<property name="Barrel" value="assaultRifleBarrel" />
+					<property name="Pump" value="acw-r_parts" />
+				</property>
+				<property class="Action0">
+					<!-- AttackAction -->					
+					<property name="Class" value="RangedAt, Mods" />
+					<property name="Delay" value="0.110" />
+					<property name="Range" value="100" /> <!-- Default value, can be modified -->
+					<property name="Auto_fire" value="true" />
+					<property name="Rays_per_shot" value="1" />
+					<property name="Rays_spread" value="0" />
+					<property name="Crosshair_min_distance" value="5" />
+					<property name="Crosshair_max_distance" value="30" />					
+					<property name="Magazine_size" value="30" /> <!-- Default value, can be modified -->
+					<property name="Magazine_items" value="762mmBullet, 762mmBulletPL" />
+					<property name="Reload_time" value="4.1" />
+					<property name="Bullet_icon" value="uzi" />
+					<property name="Sound_start" value="Weapons/Ranged/AK47/ak47_fire_start" /> <!-- Default value, can be modified -->
+					<property name="Sound_repeat" value="Weapons/Ranged/AK47/ak47_fire_lp" /> <!-- Default value, can be modified -->
+					<property name="Sound_end" value="Weapons/Ranged/AK47/ak47_fire_end" /> <!-- Default value, can be modified -->
+					<property name="Sound_empty" value="Weapons/weapon_empty" />
+					<property name="Sound_reload" value="Weapons/Ranged/AK47/ak47_reload" />
+					<property name="Horde_meter_rate" value="3.5" />
+					<property name="Horde_meter_distance" value="25" />
+					<property name="Particles_muzzle_fire" value="nozzleflashuzi" />
+					<property name="Particles_muzzle_smoke" value="nozzlesmokeuzi" />
+					<property name="DamageBonus.head" value="6" />
+					<property name="DamageBonus.wood" value="4" />
+					<property name="DamageBonus.glass" value="25" />
+					<!-- Aditional kickback on top of vanilla kickback for weapon DEFAULT-->
+					<property name="kickbackAim" value="4" /> 
+					<!-- Aditional kickback on top of vanilla kickback for weapon DEFAULT -->
+					<property name="kickbackHip" value="8" /> 
+				</property>
+				<property class="Action1">
+					<!-- UseAction -->
+					<property name="Class" value="ZoomAt, Mods" />
+					<property name="Zoom_max_out" value="35" />
+					<property name="Zoom_max_in" value="35" />
+				</property>
+				<!-- Start: Needed for the attachment flashlight -->
+				<property name="LightSource" value="lightSource" />
+				<property name="ActivateObject" value="Attachments/flashlight/lightSource" />
+				<property name="AttachmentFlashlight" value="flashlight02" />
+				<!-- End: Needed for the attachment flashlight -->
+				<property name="Group" value="Ammo/Weapons" />
+				<property class="Preview">
+					<property name="Zoom" value="2" />
+					<property name="Pos" value="-0.20,-0.40" />
+					<property name="Rot" value="0,-45,0" />
+				</property>
+				<property name="ActionSkillGroup" value="Rifles" />
+				<property name="CraftingSkillGroup" value="Gun Smithing" />
+			</item>
+			<item id="" name="Sight_AimPoint">
+				<property name="Meshfile" value="#weaponAttach?AimPointPrefab" />
+				<property name="DropMeshfile" value="#weaponAttach?AimPointPrefab" />
+				<property name="Material" value="metal" />
+				<property name="RepairTools" value="repairKit" />
+				<property name="DegradationBreaksAfter" value="false" />
+				<property name="Weight" value="5" />
+				<property name="HoldType" value="36" />
+				<property name="Stacknumber" value="1" />
+				<property name="Incompatible" value="Sight_Advanced,Sight_ACOG" />
+				<property class="Action0">
+					<!-- AttackAction -->
+					<property name="Class" value="Melee" />
+					<property name="Delay" value="1.1" />
+					<property name="Range" value="2.0" />
+					<property name="Sphere" value="0.1" />
+					<property name="DamageEntity" value="6" />
+					<property name="DamageBlock" value=".7" />
+					<property name="Sound_start" value="swoosh" />
+					<property name="Stamina_usage" value="7" />
+					<property name="DamageBonus.head" value="2" />
+					<property name="DamageBonus.glass" value="25" />
+				</property>
+				<property class="Action1">
+					<!-- UseAction -->
+					<property name="Class" value="Zoom" />
+					<property name="Zoom_overlay" value="#weaponAttach?aimpoint_zoom_overlay" />
+					<property name="Zoom_max_out" value="40" />
+					<property name="Zoom_max_in" value="15" />
+				</property>
+				<property class="AttachAction0">
+					<!-- AttackAction -->	
+					<!-- Decreases aditional kickback by 4 while aiming -->
+					<property name="kickbackAim" value="4" param1="Sub" />
+					<!-- increases aditional kickback by 2 on hip shot -->
+					<property name="kickbackHip" value="2" param1="Add" />  
+					<property name="Entity_Damage_Modifier" value="0.2" param1="Add" />
+					<property name="Block_Damage_Modifier" value="0.1" param1="Add" />
+					<property name="FallOff_Range_Modifier" value="0.2"  param1="Add" />
+				</property>
+				<property class="AttachAction1">
+					<!-- UseAction -->
+					<property name="Class" value="Zoom" />
+					<property name="Zoom_overlay" value="#weaponAttach?aimpoint_zoom_overlay" />
+					<property name="Zoom_max_out" value="40" />
+					<property name="Zoom_max_in" value="15" />
+				</property>
+				<property name="Group" value="Decor/Miscellaneous" />
+			</item>
+			<item id="" name="Grip">
+				<property name="Meshfile" value="#weaponAttach?GripPrefab" />
+				<property name="DropMeshfile" value="#weaponAttach?GripPrefab" />
+				<property name="Material" value="metal" />
+				<property name="RepairTools" value="repairKit" />
+				<property name="DegradationBreaksAfter" value="false" />
+				<property name="Weight" value="5" />
+				<property name="HoldType" value="36" />
+				<property name="Stacknumber" value="1" />
+				<property class="AttachAction0">
+					<!-- AttackAction -->	
+					<!-- increases aditional kickback by 2 while aiming -->
+					<property name="kickbackAim" value="2" param1="Sub" /> 
+					<!-- increases aditional kickback by 2 on hip shot -->
+					<property name="kickbackHip" value="2" param1="Sub" />  
+					<property name="Entity_Damage_Modifier" value="0.1" param1="Add" /> 
+					<property name="Block_Damage_Modifier" value="0.1" param1="Add" /> 
+				</property>
+				<property name="Group" value="Decor/Miscellaneous" />
+				<property class="Attributes">
+					<!-- If you do not define DegradationMax the attachment will NOT decay -->
+					<property name="DegradationMax" value="300,6000" />
+				</property>
+			</item>
+	</append>
+	</config>
+<config name="sounds">
+<append xpath="/Sounds">
+	<SoundDataNode name="as_val_fire_start">
+		<AudioSource name="Sounds/AudioSource_WeaponFire" />
+		<Noise range="5" prio="1" time="1" heat_map_strength="0.001" heat_map_time="1" />
+		<AudioClip ClipName="#sfxsilenced?suppressor01" />
+		<AudioClip ClipName="#sfxsilenced?suppressor02" Loop="true" />
+		<AudioClip ClipName="#sfxsilenced?suppressorend" />
+		<LocalCrouchVolumeScale name="1" />
+		<CrouchNoiseScale name="1" />
+		<NoiseScale name="1" />
+		<MaxVoices name="5" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.5" />
+	</SoundDataNode>
+</append>
+</config>
+</configs>

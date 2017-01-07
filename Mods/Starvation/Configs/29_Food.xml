@@ -1,0 +1,917 @@
+<!-- FOOD -->
+<configs>
+<config name="recipes">
+<append xpath="/recipes">
+	<recipe name="rum" count="1" scrapable="False" craft_area="moonshine">
+		<ingredient name="rawSugar" count="3" />
+		<ingredient name="bottledRiverWater" count="1" />
+	</recipe>
+	<recipe name="cubaLibre" count="1" scrapable="False" >
+		<ingredient name="rum" count="1" />
+		<ingredient name="limeJuice" count="1" />
+	</recipe>
+	<recipe name="bigOven" count="1" scrapable="False" >
+		<ingredient name="shortMetalPipe" count="5" />
+		<ingredient name="forgedIron" count="5" />
+		<ingredient name="electricParts" count="1" />
+		<ingredient name="brokenGlass" count="1" />
+	</recipe>
+	<recipe name="kettle" count="1" scrapable="False" >
+		<ingredient name="forgedIron" count="3" />
+	</recipe>
+	<recipe name="cookingWare" count="1" scrapable="False" >
+		<ingredient name="forgedIron" count="3" />
+		<ingredient name="shortMetalPipe" count="2" />
+		<ingredient name="pan" count="1" />
+	</recipe>
+	<recipe name="breadLoafPan" count="1" scrapable="False" >
+	<ingredient name="scrapIron" count="5" />
+	</recipe>
+	<recipe name="pan" count="1" scrapable="False" craft_area="forge" craft_tool="anvil" material_based="true">
+		<ingredient name="unit_iron" count="30" />
+		<ingredient name="unit_clay" count="10" />
+	</recipe>
+	<recipe name="blender" count="1" scrapable="False" >
+		<ingredient name="forgedIron" count="2" />
+		<ingredient name="electricParts" count="1" />
+		<ingredient name="brokenGlass" count="3" />
+	</recipe>
+	<recipe name="mixer" count="1" scrapable="False" >
+		<ingredient name="forgedIron" count="2" />
+		<ingredient name="electricParts" count="1" />
+		<ingredient name="shortMetalPipe" count="2" />
+	</recipe>
+	<recipe name="meatGrinder" count="1" scrapable="False" >
+		<ingredient name="forgedIron" count="2" />
+		<ingredient name="shortMetalPipe" count="2" />
+	</recipe>
+	<recipe name="kitchenWorkbench" count="1" scrapable="False">
+		<ingredient name="cobblestones" count="20" />
+		<ingredient name="wood" count="30" />
+	</recipe>
+	<recipe name="cheese" count="1" craft_area="kitchenWorkbench" scrapable="False">
+		<ingredient name="milk" count="1" />
+		<ingredient name="salt" count="1" />
+	</recipe>	
+	<recipe name="mixedSalad" count="2" craft_area="kitchenWorkbench" scrapable="False">
+		<ingredient name="salad" count="1" />
+		<ingredient name="carrot" count="1" />
+		<ingredient name="onion" count="1" />
+		<ingredient name="cheese" count="1" />
+		<ingredient name="garlic" count="1" />
+	</recipe>
+	<recipe name="mincedMeat" count="2" scrapable="False" craft_area="kitchenWorkbench" craft_tool="meatGrinder" >
+		<ingredient name="rawMeat" count="1"/>
+	</recipe>
+	<recipe name="hamburgerMeat" count="2" scrapable="False" craft_area="bigOven" craft_tool="cookingWare">
+		<ingredient name="mincedMeat" count="1"/>
+	</recipe>
+	<recipe name="pasta" count="3" scrapable="False" craft_area="kitchenWorkbench" craft_tool="mixer" >
+		<ingredient name="flour" count="4"/>
+		<ingredient name="bottledWater" count="1"/>
+	</recipe>
+	<recipe name="dough" count="2" scrapable="False" craft_area="kitchenWorkbench" craft_tool="mixer" >
+		<ingredient name="flour" count="10"/>
+		<ingredient name="bottledWater" count="2"/>
+	</recipe>
+	<recipe name="doughSweet" count="2" scrapable="False" craft_area="kitchenWorkbench" craft_tool="mixer" >
+		<ingredient name="flour" count="10"/>
+		<ingredient name="bottledWater" count="2"/>
+		<ingredient name="egg" count="1"/>
+		<ingredient name="rawSugar" count="1"/>
+	</recipe>
+	<recipe name="canSoup" count="1" scrapable="False" craft_tool="cookingWare" craft_area="bigOven">
+		<ingredient name="corn" count="1"/>
+		<ingredient name="rawMeat" count="1" />
+		<ingredient name="bottledWater" count="1"/>
+	</recipe>
+	<recipe name="canBeef" count="2" scrapable="False" craft_area="bigOven" craft_tool="cookingWare">
+		<ingredient name="bottledWater" count="1" />
+		<ingredient name="potato" count="1" />
+		<ingredient name="corn" count="1" />
+		<ingredient name="rawMeat" count="1" />
+	</recipe>
+	<recipe name="canChicken" count="2" scrapable="False" craft_area="bigOven" craft_tool="cookingWare">
+		<ingredient name="bottledWater" count="1" />
+		<ingredient name="potato" count="1" />
+		<ingredient name="corn" count="1" />
+		<ingredient name="rawMeat" count="1" />
+	</recipe>
+	<recipe name="vegetableStew" count="2" scrapable="False" craft_area="bigOven" craft_tool="cookingWare">
+		<ingredient name="bottledWater" count="2" />
+		<ingredient name="potato" count="1" />
+		<ingredient name="corn" count="1" />
+		<ingredient name="mushrooms" count="1" />
+	</recipe>
+	<recipe name="pastaBolognese" count="1" scrapable="False" craft_area="bigOven" craft_tool="cookingWare">
+		<ingredient name="boiledPasta" count="1"/>
+		<ingredient name="bologneseSauce" count="1"/>
+	</recipe>
+	<recipe name="boiledPasta" count="2" scrapable="False" craft_area="bigOven" craft_tool="cookingWare" >
+		<ingredient name="pasta" count="2"/>
+		<ingredient name="bottledWater" count="1" />
+	</recipe>
+	<recipe name="breadLoaf" count="1" scrapable="False" craft_area="bigOven" craft_tool="breadLoafPan" >
+		<ingredient name="dough" count="1"/>
+	</recipe>
+	<recipe name="hamburgerBun" count="10" scrapable="False" craft_area="bigOven" craft_tool="breadLoafPan" >
+		<ingredient name="dough" count="1"/>
+	</recipe>
+	<recipe name="bologneseSauce" count="1" scrapable="False" craft_area="bigOven" craft_tool="cookingWare">
+		<ingredient name="tomatoJuice" count="1"/>
+		<ingredient name="mincedMeat" count="1"/>
+	</recipe>
+	<recipe name="hamburger" count="1" scrapable="False" craft_area="bigOven" craft_tool="cookingWare" >
+		<ingredient name="hamburgerMeat" count="2"/>
+		<ingredient name="hamburgerBun" count="2"/>
+	</recipe>
+	<recipe name="cheeseburger" count="1" scrapable="False" craft_area="bigOven" craft_tool="cookingWare" >
+		<ingredient name="hamburgerMeat" count="2"/>
+		<ingredient name="hamburgerBun" count="2"/>
+		<ingredient name="tomato" count="1"/>
+		<ingredient name="cheese" count="1"/>
+	</recipe>
+	<recipe name="appleCake" count="1" scrapable="False" craft_area="bigOven" craft_tool="breadLoafPan">
+		<ingredient name="doughSweet" count="1"/>
+		<ingredient name="apple" count="2"/>
+	</recipe>
+	<recipe name="cherryCake" count="1" scrapable="False" craft_area="bigOven" craft_tool="breadLoafPan">
+		<ingredient name="doughSweet" count="1"/>
+		<ingredient name="cherry" count="4"/>
+	</recipe>
+	<recipe name="orangeCake" count="1" scrapable="False" craft_area="bigOven" craft_tool="breadLoafPan">
+		<ingredient name="doughSweet" count="1"/>
+		<ingredient name="orange" count="2"/>
+	</recipe>
+	<recipe name="lemonCake" count="1" scrapable="False" craft_area="bigOven" craft_tool="breadLoafPan">
+		<ingredient name="doughSweet" count="1"/>
+		<ingredient name="lemon" count="2"/>
+	</recipe>
+	<recipe name="strawberryCake" count="1" scrapable="False" craft_area="bigOven" craft_tool="breadLoafPan">
+		<ingredient name="doughSweet" count="1"/>
+		<ingredient name="strawberry" count="4"/>
+	</recipe>
+	<recipe name="cocoCake" count="1" scrapable="False" craft_area="bigOven" craft_tool="breadLoafPan">
+		<ingredient name="doughSweet" count="1"/>
+		<ingredient name="coconut" count="1"/>
+	</recipe>
+	<recipe name="pearCake" count="1" scrapable="False" craft_area="bigOven" craft_tool="breadLoafPan">
+		<ingredient name="doughSweet" count="1"/>
+		<ingredient name="pear" count="2"/>
+	</recipe>
+	<recipe name="peachCake" count="1" scrapable="False" craft_area="bigOven" craft_tool="breadLoafPan">
+		<ingredient name="doughSweet" count="1"/>
+		<ingredient name="peach" count="2"/>
+	</recipe>
+	<recipe name="bananaPancakes" count="1" scrapable="False" craft_area="bigOven" craft_tool="cookingWare">
+		<ingredient name="doughSweet" count="1"/>
+		<ingredient name="banana" count="2"/>
+	</recipe>
+	<recipe name="coffee" count="2" scrapable="False" craft_area="bigOven" craft_tool="kettle">
+		<ingredient name="coffeeBeans" count="1" />
+		<ingredient name="bottledWater" count="2" />
+	</recipe>
+	<recipe name="tomatoJuice" count="1" scrapable="False" craft_area="kitchenWorkbench" craft_tool="blender">
+		<ingredient name="tomato" count="2" />
+		<ingredient name="emptyJar" count="1" />
+	</recipe>	
+	<recipe name="pearJuice" count="1" scrapable="False" craft_area="kitchenWorkbench" craft_tool="blender">
+		<ingredient name="pear" count="2" />
+		<ingredient name="emptyJar" count="1" />
+	</recipe>
+	<recipe name="peachJuice" count="1" scrapable="False" craft_area="kitchenWorkbench" craft_tool="blender">
+		<ingredient name="peach" count="2" />
+		<ingredient name="emptyJar" count="1" />
+	</recipe>
+	<recipe name="carrotJuice" count="1" scrapable="False" craft_area="kitchenWorkbench" craft_tool="blender">
+		<ingredient name="carrot" count="2" />
+		<ingredient name="emptyJar" count="1" />
+	</recipe>
+	<recipe name="cocoJuice" count="1" scrapable="False" craft_area="kitchenWorkbench" craft_tool="blender">
+		<ingredient name="coconut" count="1" />
+		<ingredient name="emptyJar" count="1" />
+	</recipe>
+	<recipe name="lemonJuice" count="1" scrapable="False" craft_area="kitchenWorkbench" craft_tool="blender">
+		<ingredient name="lemon" count="2" />
+		<ingredient name="emptyJar" count="1" />
+	</recipe>
+	<recipe name="strawberryJuice" count="1" scrapable="False" craft_area="kitchenWorkbench" craft_tool="blender">
+		<ingredient name="strawberry" count="4" />
+		<ingredient name="emptyJar" count="1" />
+	</recipe>
+	<recipe name="orangeJuice" count="1" scrapable="False" craft_area="kitchenWorkbench" craft_tool="blender">
+		<ingredient name="orange" count="2" />
+		<ingredient name="emptyJar" count="1" />
+	</recipe>
+	<recipe name="limeJuice" count="1" scrapable="False" craft_area="kitchenWorkbench" craft_tool="blender">
+		<ingredient name="lime" count="2" />
+		<ingredient name="emptyJar" count="1" />
+	</recipe>
+	<recipe name="cherryJuice" count="1" scrapable="False" craft_area="kitchenWorkbench" craft_tool="blender">
+		<ingredient name="cherry" count="4" />
+		<ingredient name="emptyJar" count="1" />
+	</recipe>
+	<recipe name="appleJuice" count="1" scrapable="False" craft_area="kitchenWorkbench" craft_tool="blender">
+		<ingredient name="apple" count="2" />
+		<ingredient name="emptyJar" count="1" />
+	</recipe>
+	<recipe name="blueberryJuice" count="1" scrapable="False" craft_area="kitchenWorkbench" craft_tool="blender">
+		<ingredient name="blueberries" count="4" />
+	</recipe>
+	<recipe name="strawberryMilkShake" count="1" scrapable="False" craft_area="kitchenWorkbench" craft_tool="blender">
+		<ingredient name="strawberry" count="4" />
+		<ingredient name="milk" count="1" />
+	</recipe>
+	<recipe name="cherryMilkShake" count="1" scrapable="False" craft_area="kitchenWorkbench" craft_tool="blender">
+		<ingredient name="cherry" count="4" />
+		<ingredient name="milk" count="1" />
+		<ingredient name="emptyJar" count="1" />
+	</recipe>
+	<recipe name="peachMilkShake" count="1" scrapable="False" craft_area="kitchenWorkbench" craft_tool="blender">
+		<ingredient name="peach" count="2" />
+		<ingredient name="milk" count="1" />
+		<ingredient name="emptyJar" count="1" />
+	</recipe>
+	<recipe name="pearMilkShake" count="1" scrapable="False" craft_area="kitchenWorkbench" craft_tool="blender">
+		<ingredient name="pear" count="2" />
+		<ingredient name="milk" count="1" />
+		<ingredient name="emptyJar" count="1" />
+	</recipe>
+	<recipe name="cocoMilkShake" count="1" scrapable="False" craft_area="kitchenWorkbench" craft_tool="blender">
+		<ingredient name="coconut" count="1" />
+		<ingredient name="milk" count="1" />
+		<ingredient name="emptyJar" count="1" />
+	</recipe>
+	<recipe name="appleMilkShake" count="1" scrapable="False" craft_area="kitchenWorkbench" craft_tool="blender">
+		<ingredient name="apple" count="2" />
+		<ingredient name="milk" count="1" />
+		<ingredient name="emptyJar" count="1" />
+	</recipe>
+	<recipe name="blueberryMilkShake" count="1" scrapable="False" craft_area="kitchenWorkbench" craft_tool="blender">
+		<ingredient name="blueberries" count="4" />
+		<ingredient name="milk" count="1" />
+		<ingredient name="emptyJar" count="1" />
+	</recipe>
+	<recipe name="bananaMilkShake" count="1" scrapable="False" craft_area="kitchenWorkbench" craft_tool="blender">
+		<ingredient name="banana" count="2" />
+		<ingredient name="milk" count="1" />
+		<ingredient name="emptyJar" count="1" />
+	</recipe>
+	<recipe name="cherryIce" count="2" scrapable="False" craft_area="kitchenWorkbench" craft_tool="blender">
+		<ingredient name="cherry" count="4" />
+		<ingredient name="milk" count="1" />
+		<ingredient name="rawSugar" count="1" />
+		<ingredient name="paper" count="2" />
+	</recipe>
+	<recipe name="strawberryIce" count="2" scrapable="False" craft_area="kitchenWorkbench" craft_tool="blender">
+		<ingredient name="strawberry" count="4" />
+		<ingredient name="milk" count="1" />
+		<ingredient name="paper" count="2" />
+	</recipe>
+	<recipe name="cocoIce" count="2" scrapable="False" craft_area="kitchenWorkbench" craft_tool="blender">
+		<ingredient name="coconut" count="1" />
+		<ingredient name="milk" count="1" />
+		<ingredient name="rawSugar" count="1" />
+		<ingredient name="paper" count="2" />
+	</recipe>
+	<recipe name="lemonIce" count="2" scrapable="False" craft_area="kitchenWorkbench" craft_tool="blender">
+		<ingredient name="lemon" count="2" />
+		<ingredient name="milk" count="1" />
+		<ingredient name="rawSugar" count="1" />
+		<ingredient name="paper" count="2" />
+	</recipe>
+	<recipe name="peachIce" count="2" scrapable="False" craft_area="kitchenWorkbench" craft_tool="blender">
+		<ingredient name="peach" count="2" />
+		<ingredient name="milk" count="1" />
+		<ingredient name="rawSugar" count="1" />
+		<ingredient name="paper" count="2" />
+	</recipe>
+	<recipe name="pearIce" count="2" scrapable="False" craft_area="kitchenWorkbench" craft_tool="blender">
+		<ingredient name="pear" count="2" />
+		<ingredient name="milk" count="1" />
+		<ingredient name="rawSugar" count="1" />
+		<ingredient name="paper" count="2" />
+	</recipe>
+	<recipe name="appleIce" count="2" scrapable="False" craft_area="kitchenWorkbench" craft_tool="blender">
+		<ingredient name="apple" count="2" />
+		<ingredient name="milk" count="1" />
+		<ingredient name="rawSugar" count="1" />
+		<ingredient name="paper" count="2" />
+	</recipe>
+	<recipe name="blueberryIce" count="2" scrapable="False" craft_area="kitchenWorkbench" craft_tool="blender">
+		<ingredient name="blueberries" count="4" />
+		<ingredient name="milk" count="1" />
+		<ingredient name="rawSugar" count="1" />
+		<ingredient name="paper" count="2" />
+	</recipe>
+	<recipe name="bananaIce" count="2" scrapable="False" craft_area="kitchenWorkbench" craft_tool="blender">
+		<ingredient name="banana" count="2" />
+		<ingredient name="milk" count="1" />
+		<ingredient name="rawSugar" count="1" />
+		<ingredient name="paper" count="2" />
+	</recipe>
+	<recipe name="applePie" count="1" scrapable="False" craft_area="campfire" craft_tool="cookingPot">
+		<ingredient name="foodHoney" count="2" />
+		<ingredient name="apple" count="6" />
+		<ingredient name="dough" count="3" />
+		<ingredient name="bottledWater" count="1" />
+	</recipe>
+	<recipe name="bananaPie" count="1" scrapable="False" craft_area="campfire" craft_tool="cookingPot">
+		<ingredient name="animalFat" count="2" />
+		<ingredient name="banana" count="6" />
+		<ingredient name="doughSweet" count="3" />
+		<ingredient name="bottledWater" count="1" />
+	</recipe>
+</append>
+</config>
+<config name="items">
+<append xpath="/items">
+<!--Juices -->
+	<item id="" name="appleJuice">
+		<property name="Meshfile" value="Items/Food/redTeaPrefab" />
+		<property name="Material" value="glass" />
+		<property name="HoldType" value="3" />
+		<property name="Stacknumber" value="15" />
+		<property class="Action1">
+			<!-- UseAction -->
+			<property name="Class" value="Eat" />
+			<property name="Delay" value="1.0" />
+			<property name="Use_time" value="..." />
+			<property name="Gain_food" value="0" />
+			<property name="Gain_health" value="2" />
+			<property name="Gain_water" value="20" />
+			<property name="Buff" value="redTeaCooling" />
+			<property name="Gain_stamina" value="40" />
+			<property name="Sound_start" value="UseActions/player_drinking" />
+			<property name="Gain_wellness" value="0.5" />
+			<property name="Debuff" value="dysentery" />
+			<property name="Create_item" value="emptyJar" />
+		</property>
+		<property name="Group" value="Food/Cooking" />
+	</item>
+	<item id="" name="limeJuice">
+		<property name="Extends" value="appleJuice" />
+		<property name="Meshfile" value="Items/Food/yucca_juicePrefab" />
+	</item>
+	<item id="" name="lemonJuice">
+		<property name="Extends" value="appleJuice" />
+		<property name="Meshfile" value="Items/Food/goldenrod_teaPrefab" />
+	</item>
+	<item id="" name="orangeJuice">
+		<property name="Extends" value="appleJuice" />
+		<property name="Meshfile" value="Items/Food/goldenrod_teaPrefab" />
+	</item>
+	<item id="" name="peachJuice">
+		<property name="Extends" value="appleJuice" />
+	</item>
+	<item id="" name="pearJuice">
+		<property name="Extends" value="appleJuice" />
+		<property name="Meshfile" value="Items/Food/yucca_juicePrefab" />
+	</item>
+	<item id="" name="cherryJuice">
+		<property name="Extends" value="appleJuice" />
+	</item>
+	<item id="" name="tomatoJuice">		
+		<property name="Extends" value="appleJuice" />
+		<property name="Gain_water" value="15" />
+		<property name="Gain_stamina" value="30" />
+		<property name="Gain_wellness" value="0.3" />
+	</item>
+	<item id="" name="strawberryJuice">
+		<property name="Extends" value="appleJuice" />
+	</item>
+	<item id="" name="carrotJuice">
+		<property name="Extends" value="appleJuice" />
+	</item>
+	<item id="" name="cocoJuice">
+		<property name="Extends" value="appleJuice" />
+		<property name="Meshfile" value="Items/Food/bottled_waterPrefab" />
+	</item>
+	<item id="" name="blueberryJuice">
+		<property name="Extends" value="appleJuice" />
+	</item>
+
+<!-- Milk Shakes -->
+	<item id="" name="appleMilkShake">
+		<property name="Meshfile" value="#food1?Applemilk1shakePrefab" />
+		<property name="Material" value="glass" />
+		<property name="HoldType" value="3" />
+		<property name="Stacknumber" value="15" />
+		<property class="Action1">
+			<!-- UseAction -->
+			<property name="Class" value="Eat" />
+			<property name="Delay" value="1.0" />
+			<property name="Use_time" value="..." />
+			<property name="Gain_health" value="5" />
+			<property name="Gain_food" value="20" />
+			<property name="Gain_water" value="20" />
+			<property name="Gain_stamina" value="50" />
+			<property name="Sound_start" value="UseActions/player_drinking" />
+			<property name="Gain_wellness" value="1.0" />
+			<property name="Debuff" value="dysentery" />
+			<property name="Create_item" value="emptyJar" />
+		</property>
+		<property name="Group" value="Food/Cooking" />
+	</item>	
+	<item id="" name="bananaMilkShake">
+		<property name="Extends" value="appleMilkShake" />
+		<property name="Meshfile" value="#food1?Bananamilk1shakePrefab" />
+	</item>
+	<item id="" name="orangeMilkShake">
+		<property name="Extends" value="appleMilkShake" />
+		<property name="Meshfile" value="#food1?Bananamilk1shakePrefab" />
+	</item>
+	<item id="" name="peachMilkShake">
+		<property name="Extends" value="appleMilkShake" />
+		<property name="Meshfile" value="#food1?Bananamilk1shakePrefab" />
+	</item>
+	<item id="" name="pearMilkShake">
+		<property name="Extends" value="appleMilkShake" />
+	</item>
+	<item id="" name="cherryMilkShake">
+		<property name="Extends" value="appleMilkShake" />
+		<property name="Meshfile" value="#food1?Cherrymilk1shakePrefab" />
+	</item>
+	<item id="" name="strawberryMilkShake">
+		<property name="Extends" value="appleMilkShake" />
+		<property name="Meshfile" value="#food1?Cherrymilk1shakePrefab" />
+	</item>
+	<item id="" name="cocoMilkShake">
+		<property name="Extends" value="appleMilkShake" />
+		<property name="Meshfile" value="#food1?Cocomilk1shakePrefab" />
+	</item>
+	<item id="" name="blueberryMilkShake">
+		<property name="Extends" value="appleMilkShake" />
+		<property name="Meshfile" value="#food1?Blueberrymilk1shakePrefab" />
+	</item>
+
+<!-- Ice -->
+	<item id="" name="appleIce">
+		<property name="Meshfile" value="#food1?AppleIceCreamPrefab" />
+		<property name="Material" value="glass" />
+		<property name="HoldType" value="3" />
+		<property name="Stacknumber" value="15" />
+		<property class="Action1">
+			<!-- UseAction -->
+			<property name="Class" value="Eat" />
+			<property name="Delay" value="1.0" />
+			<property name="Use_time" value="..." />
+			<property name="Gain_health" value="2" />
+			<property name="Gain_food" value="10" />
+			<property name="Gain_water" value="20" />
+			<property name="Buff" value="redTeaCooling" />
+			<property name="Gain_stamina" value="40" />
+			<property name="Sound_start" value="UseActions/player_drinking" />			
+			<property name="Gain_wellness" value="0.4" />
+			<property name="Debuff" value="dysentery" />
+			<property name="Create_item" value="paper" />
+		</property>
+		<property name="Group" value="Food/Cooking" />
+	</item>
+	<item id="" name="bananaIce">
+		<property name="Extends" value="appleIce" />
+		<property name="Meshfile" value="#food1?BananaIceCreamPrefab" />
+	</item>
+	<item id="" name="lemonIce">
+		<property name="Extends" value="appleIce" />
+		<property name="Meshfile" value="#food1?LemonIceCreamPrefab" />
+	</item>
+	<item id="" name="peachIce">
+		<property name="Extends" value="appleIce" />
+		<property name="Meshfile" value="#food1?LemonIceCreamPrefab" />
+		<property name="CustomIcon" value="lemonIce" />
+	</item>
+	<item id="" name="pearIce">
+		<property name="Extends" value="appleIce" />
+		<property name="CustomIcon" value="appleIce" />
+	</item>
+	<item id="" name="cherryIce">
+		<property name="Extends" value="appleIce" />
+		<property name="Meshfile" value="#food1?CherryIceCreamPrefab" />
+		<property name="CustomIcon" value="strawberryIce" />
+	</item>
+	<item id="" name="strawberryIce">
+		<property name="Extends" value="appleIce" />
+		<property name="Meshfile" value="#food1?CherryIceCreamPrefab" />
+	</item>
+	<item id="" name="cocoIce">
+		<property name="Extends" value="appleIce" />
+		<property name="Meshfile" value="#food1?CocoIceCreamPrefab" />	
+	</item>
+	<item id="" name="blueberryIce">
+		<property name="Extends" value="appleIce" />
+		<property name="Meshfile" value="#food1?BlueberryIceCreamPrefab" />
+	</item>
+
+<!-- Cakes -->
+	<item id="" name="appleCake">
+		<property name="DescriptionKey" value="GoodFoodDesc" />
+		<property name="Meshfile" value="Items/Misc/parcel" />
+		<property name="Material" value="organic" />
+		<property name="HoldType" value="31" />
+		<property name="Stacknumber" value="15" />
+		<property class="Action1">
+			<!-- RMB = Eat -->
+			<property name="Class" value="Eat" />
+			<property name="Delay" value="1.0" />
+			<property name="Use_time" value="..." />
+			<property name="Gain_health" value="5" />
+			<property name="Gain_food" value="15" />
+			<property name="Gain_wellness" value="0.5" />
+			<property name="Buff" value="goodFoodBuff" />
+			<property name="Sound_start" value="UseActions/player_eating" />
+		</property>
+		<property name="Group" value="Food/Cooking" />
+	</item>
+	<item id="" name="bananaPancakes">
+		<property name="Extends" value="appleCake" />
+	</item>
+	<item id="" name="lemonCake">
+		<property name="Extends" value="appleCake" />
+	</item>
+	<item id="" name="orangeCake">
+		<property name="Extends" value="appleCake" />
+	</item>
+	<item id="" name="peachCake">
+		<property name="Extends" value="appleCake" />
+	</item>
+	<item id="" name="pearCake">
+		<property name="Extends" value="appleCake" />
+	</item>
+	<item id="" name="cherryCake">
+		<property name="Extends" value="appleCake" />
+	</item>
+	<item id="" name="strawberryCake">
+		<property name="Extends" value="appleCake" />
+	</item>
+	<item id="" name="cocoCake">
+		<property name="Extends" value="appleCake" />
+	</item>
+	
+<!-- Pies -->
+	<item id="" name="applePie">
+		<property name="Meshfile" value="Items/Food/blueberry_pie" />
+		<property name="Material" value="organic" />
+		<property name="HoldType" value="31" />
+		<property class="Action1">
+			<property name="Class" value="Eat" />
+			<property name="Delay" value="1.0" />
+			<property name="Use_time" value="..." />
+			<property name="Gain_health" value="10" />
+			<property name="Gain_food" value="50" />
+			<property name="Gain_wellness" value="2.0" />
+			<property name="Sound_start" value="UseActions/player_eating" />
+		</property>
+		<property name="Group" value="Food/Cooking" />
+		<property name="Stacknumber" value="5" />
+		<property class="Preview">
+			<property name="Zoom" value="30" />
+			<property name="Pos" value="0,-0.03" />
+			<property name="Rot" value="90,45,0" />
+		</property>
+	</item>
+	<item id="" name="bananaPie">
+		<property name="Extends" value="applePie" />
+		<property class="Action1">
+			<property name="Gain_health" value="10" />
+			<property name="Gain_food" value="30" />
+			<property name="Gain_wellness" value="1.5" />
+		</property>
+	</item>
+
+<!-- Cooking components -->
+	<item id="" name="dough">
+		<property name="Meshfile" value="Items/Crafting/clay_bowl" />
+		<property name="Material" value="organic" />
+		<property name="HoldType" value="3" />
+		<property name="Group" value="Food/Cooking" />
+		<property name="Stacknumber" value="500" />
+	</item>
+	<item id="" name="doughSweet">
+		<property name="Extends" value="dough" />
+	</item>
+	<item id="" name="pasta">
+		<property name="Extends" value="dough" />
+	</item>
+	<item id="" name="mincedMeat">
+		<property name="Extends" value="dough" />
+	</item>	
+	<item id="" name="bologneseSauce">
+		<property name="Extends" value="dough" />
+	</item>	
+	<item id="" name="hamburgerMeat">
+		<property name="Extends" value="dough" />
+		<property name="Meshfile" value="#food1?HamburerMeatPrefab" />
+	</item>
+	<item id="" name="hamburgerBun">
+		<property name="Extends" value="dough" />
+		<property name="Meshfile" value="#food1?HamburerBunPrefab" />
+	</item>	
+
+<!-- Food&Beverage -->
+	<item id="" name="boiledPasta">
+		<property name="Meshfile" value="Items/Misc/parcel" />
+		<property name="Material" value="organic" />
+		<property name="HoldType" value="31" />
+		<property name="Stacknumber" value="15" />
+		<property class="Action1">
+			<!-- RMB = Eat -->
+			<property name="Class" value="Eat" />
+			<property name="Delay" value="1.0" />
+			<property name="Use_time" value="..." />
+			<property name="Gain_health" value="0" />
+			<property name="Gain_food" value="10" />
+			<property name="Gain_water" value="2" />
+			<property name="Sound_start" value="UseActions/player_eating" />
+		</property>
+		<property name="Group" value="Food/Cooking" />
+	</item>
+	<item id="" name="pastaBolognese">
+		<property name="Extends" value="boiledPasta" />
+		<property class="Action1">
+			<property name="Gain_health" value="5" />
+			<property name="Gain_food" value="30" />
+			<property name="Gain_water" value="10" />
+			<property name="Gain_wellness" value="1.0" />
+			<property name="Buff" value="goodFoodBuff" />
+		</property>
+	</item>
+	<item id="" name="hamburger">
+		<property name="Extends" value="boiledPasta" />
+		<property name="Meshfile" value="#food1?Hamburger" />
+		<property name="HoldType" value="3" />	
+		<property class="Action1">
+			<property name="Gain_health" value="10" />
+			<property name="Gain_food" value="15" />		
+		</property>
+	</item>
+	<item id="" name="cheese">
+		<property name="Extends" value="boiledPasta" />
+		<property name="Meshfile" value="#food1?cheese" />
+		<property name="HoldType" value="3" />
+		<property class="Action1">
+			<property name="Gain_health" value="5" />
+			<property name="Gain_food" value="5" />
+			<property name="Gain_wellness" value="0.1" />
+			<property name="Buff" value="goodFoodBuff" /> 
+		</property>
+	</item>	
+	<item id="" name="cheeseburger">
+		<property name="Extends" value="boiledPasta" />
+		<property name="Meshfile" value="#food1?Cheeseburger" />
+		<property name="HoldType" value="3" />
+		<property class="Action1">
+			<property name="Gain_health" value="10" />
+			<property name="Gain_food" value="20" />
+			<property name="Gain_wellness" value="0.5" />
+			<property name="Buff" value="goodFoodBuff" /> 
+		</property>
+	</item>	
+	<item id="" name="mixedSalad">
+		<property name="Extends" value="boiledPasta" />
+		<property name="Meshfile" value="#food1?mixedSalad" />
+		<property name="HoldType" value="3" />
+		<property class="Action1">
+			<property name="Gain_health" value="5" />
+			<property name="Gain_food" value="5" />
+			<property name="Gain_water" value="4" />
+			<property name="Gain_stamina" value="5" />
+			<property name="Gain_wellness" value="0.5" />
+			<property name="Gain_sickness" value="0" />
+		</property>
+	</item>
+	<item id="" name="breadLoaf">
+		<property name="Extends" value="boiledPasta" />
+		<property name="Meshfile" value="#BreadLoaf1?BreadLoaf1Prefab" />
+		<property name="DropMeshfile" value="#BreadLoaf1?BreadLoaf1Prefab" />
+		<property name="HoldType" value="23" />
+		<property class="Action1">
+			<property name="Gain_food" value="10" />
+		</property>
+	</item>
+	<item id="" name="rum">
+		<property name="Meshfile" value="#food1?Rum" />
+		<property name="Material" value="glass" />
+		<property name="HoldType" value="3" />
+		<property name="Weight" value="10" />
+		<property name="Stacknumber" value="15" />
+		<property class="Action1">
+			<property name="Class" value="Eat" />
+			<property name="Delay" value="1" />
+			<property name="Use_time" value="..." />
+			<property name="Gain_health" value="0" />
+			<property name="Gain_stamina" value="20" />
+			<property name="Gain_food" value="0" />
+			<property name="Gain_water" value="-1" />
+			<property name="Sound_start" value="UseActions/player_drinking" />
+			<property name="Create_item" value="emptyJar" />
+			<property name="Buff" value="DrinkBeer" />
+		</property>
+		<property name="Group" value="Food/Cooking" />
+	</item>
+	<item id="" name="cubaLibre">
+		<property name="Extends" value="rum" />
+		<property name="Meshfile" value="#food1?Libre" />
+		<property class="Action1">
+			<property name="Gain_stamina" value="30" />
+			<property name="Gain_wellness" value="2" />
+		</property>
+	</item>
+
+<!-- Cooking Tools -->
+	<item id="" name="mixer">
+		<property name="Meshfile" value="Items/Misc/sackPrefab" />
+		<property name="DropMeshfile" value="Items/Misc/sack_droppedPrefab" />
+		<property name="HoldType" value="45" />
+		<property name="Material" value="metal" />
+		<property name="Stacknumber" value="1" />
+		<property name="Group" value="Resources" />
+		<property name="CraftingSkillGroup" value="Tool Smithing" />
+	</item>
+	<item id="" name="blender">
+		<property name="Extends" value="mixer" />
+	</item>	
+	<item id="" name="meatGrinder">
+		<property name="Extends" value="mixer" />
+		<property name="HoldType" value="21" />
+	</item>	
+	<item id="" name="cookingWare">
+		<property name="Extends" value="mixer" />
+		<property name="HoldType" value="21" />
+	</item>		
+	<item id="" name="kettle">
+		<property name="Extends" value="mixer" />
+	</item>
+	<item id="" name="newBreadLoafPan">
+		<property name="Extends" value="mixer" />
+		<!-- HIDDEN/NOT USED -->	
+		<property name="IsDeveloper" value="true" />
+	</item>	
+
+<!-- WEAPONS -->
+	<item id="" name="pan">
+		<property name="Meshfile" value="#pan?Pan" />
+		<property name="Material" value="metal" />
+		<property name="HoldType" value="2" />
+		<property name="Stacknumber" value="1" />
+		<property name="RepairTools" value="scrapIron" />
+		<property name="Degradation" value="50" param1="false" />
+		<property name="FuelValue" value="4" />
+		<property name="SoundDestroy" value="metaldestroy1" />
+		<property name="Weight" value="24" />
+		<property class="Action0">
+			<!-- AttackAction -->
+			<property name="Class" value="Melee" />
+			<property name="Delay" value="1" />
+			<property name="Range" value="1.8" />
+			<property name="Sphere" value="0.9" />
+			<property name="DamageEntity" value="3" />
+			<property name="DamageBlock" value=".5" />
+			<property name="Sound_start" value="swoosh" />
+			<property name="Stamina_usage" value="1" />			
+			<property name="DamageBonus.head" value="25" />
+			<property name="DamageBonus.glass" value="25" />
+		</property>
+		<property class="Attributes">
+			<property name="EntityDamage" value="5,15" />
+			<property name="BlockDamage" value="1,5" />
+		</property>
+		<property name="Group" value="Tools/Traps" />
+		<property class="Preview">
+			<property name="Zoom" value="8" />
+			<property name="Pos" value="-0.1,-0.7" />
+		</property>		
+		<property name="ActionSkillGroup" value="Blunt Weapons" />
+		<property name="CraftingSkillGroup" value="Tool Smithing" />
+		<property name="RepairExpMultiplier" value="5.5" />
+	</item>
+ </append>	
+</config>	
+<config name="blocks">
+<append xpath="/blocks">
+<block id="1294" name="kitchenWorkbench">
+	<property name="Material" value="metal" />
+	<property name="Shape" value="ModelEntity" />
+	<property name="Model" value="#cooking?KitchenWorkbench" />
+	<property name="Class" value="MorteToolWorkstation, Mods" />
+	<property name="TickRate" value="1000" />
+	<property name="Stacknumber" value="1" />
+	<property class="RepairItems">
+		<property name="forgedIron" value="10" />
+	</property>
+	<drop event="Destroy" name="kitchenWorkbench" count="1" prob="1" />
+	<property name="Group" value="Basics,Building" />
+	<property class="Workstation">
+		<property name="Modules" value="tools,output" />
+	</property>
+</block>
+<block id="1295" name="bigOven">
+	<property name="Extends" value="kitchenWorkbench" />
+	<property name="Model" value="#cooking?SteelCookerPrefab" />
+	<property name="Class" value="MorteToolForge, Mods" />
+	<property class="RepairItems">
+		<property name="wood" value="5" />
+		<property name="forgedIron" value="5" />
+	</property>
+	<property name="BigDecorationRadius" value="2" />
+	<drop event="Destroy" name="bigOven" count="1" prob="1" />
+	<property class="Workstation">
+		<property name="Modules" value="tools,output,fuel" />
+	</property>
+</block>
+<block id="1507" name="breadLoafPan">
+	<property name="Material" value="Mmetal_weak" />
+	<property name="Shape" value="ModelEntity" />
+	<property name="Model" value="#BreadLoafPan1?BreadLoafPan1Prefab" />
+	<property name="Collide" value="movement,rocket,melee,bullet" />
+	<property name="Stacknumber" value="1" />
+	<property name="CanPickup" value="true" />
+	<property name="Group" value="Food/Cooking" />
+	<property name="DropScale" value="3" />
+	<drop event="Destroy" name="scrapIron" count="1" prob="1.0" />
+	<drop event="Fall" name="scrapIron" count="1" prob="1.0" />
+</block>
+</append>	
+</config>	
+<config name="xui">	
+<append xpath="/xui/ruleset[@name='default']">
+<window_group name="workstation_kitchenWorkbench" controller="XUiC_WorkstationWindowGroup">		
+			<window name="windowCraftingList" />
+			<window name="craftingInfoPanel" />
+			<window name="windowCraftingQueue" />
+			<window name="windowToolsKitchenWorkbench" />
+			<window name="windowOutput" />
+			<window name="windowNonPagingHeader" />
+		</window_group>	
+<window_group name="workstation_bigOven" controller="XUiC_WorkstationWindowGroup">		
+			<window name="windowCraftingList" />		
+			<window name="craftingInfoPanel" />
+			<window name="windowCraftingQueue" />			
+			<window name="windowOutput" />
+			<window name="windowToolsBigOven" />
+			<window name="windowFuel" />
+			<window name="windowNonPagingHeader" />
+		</window_group>	
+ </append>	
+</config>	
+<config name="XUi/windows">
+<append xpath="/windows">
+	<window name="windowToolsKitchenWorkbench" width="228" height="121" panel="Right">
+		<panel style="header.panel">
+			<sprite style="header.icon" sprite="@C:\Program Files (x86)\Steam\steamapps\common\7 Days To Die\Data\TexturesUI\hflIcon48.png" />
+			<label style="header.name" text="TOOLS" text_key="xuiTools" />
+		</panel>
+		<rect name="content" depth="0" pos="0,-46" height="75" disablefallthrough="true" on_press="true">				
+			<grid name="inventory" rows="1" cols="3" pos="3,-3" cell_width="75" cell_height="75" controller="WorkstationToolGrid" repeat_content="true" allow_sort_order="false" required_tools="mixer,blender,meatGrinder" required_tools_only="true">
+				<required_item_stack name="0" />
+			</grid>
+			<grid name="slot_preview" depth="1" rows="1" cols="4" pos="3,-2" cell_width="75" cell_height="75" controller="SlotPreview">
+				<rect>
+					<sprite name="slot" depth="2" width="70" height="50" color="[white_quarter_alpha]" sprite="mixer" atlas="ItemIconAtlasGreyscale" pos="35,-30" pivot="center" foregroundlayer="true" />
+				</rect>
+				<rect>
+					<sprite name="slot" depth="2" width="70" height="50" color="[white_quarter_alpha]" sprite="blender" atlas="ItemIconAtlasGreyscale" pos="35,-30" pivot="center" foregroundlayer="true" />
+				</rect>
+				<rect>
+					<sprite name="slot" depth="2" width="70" height="50" color="[white_quarter_alpha]" sprite="meatGrinder" atlas="ItemIconAtlasGreyscale" pos="35,-30" pivot="center" foregroundlayer="true" />
+				</rect>
+			</grid>
+		</rect>
+	</window>
+	<window name="windowToolsBigOven" width="228" height="121" panel="Right">
+		<panel style="header.panel">
+			<sprite style="header.icon" sprite="ui_game_symbol_lightbulb" />
+			<label style="header.name" text="TOOLS" text_key="xuiTools" />
+		</panel>
+		<rect name="content" depth="0" pos="0,-46" height="75" disablefallthrough="true" on_press="true">
+			<grid name="inventory" rows="1" cols="3" pos="3,-3" cell_width="75" cell_height="75" controller="WorkstationToolGrid" repeat_content="true" allow_sort_order="false" required_tools="cookingWare,kettle,breadLoafPan" required_tools_only="true">
+				<required_item_stack name="0" />
+			</grid>
+			<grid name="slot_preview" depth="1" rows="1" cols="3" pos="3,-3" cell_width="75" cell_height="75" controller="SlotPreview">
+				<rect>
+					<sprite name="slot" depth="2" width="70" height="50" color="[white_quarter_alpha]" sprite="cookingWare" atlas="ItemIconAtlasGreyscale" pos="35,-30" pivot="center" foregroundlayer="true" />
+				</rect>
+				<rect>
+					<sprite name="slot" depth="2" width="70" height="50" color="[white_quarter_alpha]" sprite="kettle" atlas="ItemIconAtlasGreyscale" pos="35,-30" pivot="center" foregroundlayer="true" />
+				</rect>
+				<rect>
+					<sprite name="slot" depth="2" width="70" height="50" color="[white_quarter_alpha]" sprite="breadLoafPan" atlas="ItemIconAtlasGreyscale" pos="35,-30" pivot="center" foregroundlayer="true" />
+				</rect>
+			</grid>
+		</rect>
+	</window>
+	</append>	
+	</config>	
+<config name="buffs">
+<append xpath="/buffs">
+	<buff id="badFoodBuff" mutex="goodFoodBuff" actions="increment(@wellness, -0.5, 100t, 0, 0)" name_key="badFood" type="staminadown" >
+		<modify id="0" stat="stamina" amount="-5" rate="35" />		
+	</buff>
+	<buff id="goodFoodBuff" duration="1200" actions="increment(vitamine, 40, 0, 0, 1)" name_key="goodFoodBuff" type="wellness" description_key="wellnessDesc" tooltip_key="wellnessTooltip" icon="">
+		<modify id="0" stat="health" amount="1" rate="30" />
+		<modify id="1" stat="food" amount="1" rate="60" />
+		<modify id="2" stat="stamina" amount="1" rate="10" />
+	</buff>
+</append>	
+</config>	
+</configs>
