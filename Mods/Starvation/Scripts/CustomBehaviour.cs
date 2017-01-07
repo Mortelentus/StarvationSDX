@@ -56,6 +56,7 @@ public static class MorteHelpers
             Debug.Log("MSG EMPTY OR _cInfo is null");
             return;
         }
+        if (GameManager.IsDedicatedServer && _cInfo == null) return;
         if (chatModEnabled)
         {
             CustomChat(_cInfo, _type, _msg, _mainName, _localizeMain, _secondaryName, _localizeSecondary, cman);
