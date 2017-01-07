@@ -389,7 +389,7 @@ public class EntitySurvivorMod : EntityAnimalStag
                     }
                     #endregion;
                 }
-                //if (this.world.IsRemote())
+                if (doSleep)
                 {
                     if (GameManager.Instance.World.IsDaytime() && isSleeping) isSleeping = false;
                     else if (!GameManager.Instance.World.IsDaytime() && !isSleeping) isSleeping = true;
@@ -414,6 +414,7 @@ public class EntitySurvivorMod : EntityAnimalStag
                     //    }                        
                     //}
                 }
+                else isSleeping = false;
                 if (!isSleeping && DateTime.Now > nextRandomSound && randomSounds && !this.world.IsRemote())
                 {
                     #region Random Sound;
