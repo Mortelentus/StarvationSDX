@@ -51,7 +51,11 @@ public static class MorteHelpers
         //cman = GameManager.Instance.AT;
         // check if modded chat is enabled.
         Debug.Log("MSG: " + _msg);
-        if (_msg == "" || _cInfo == null) return;
+        if (_msg == "")
+        {
+            Debug.Log("MSG EMPTY OR _cInfo is null");
+            return;
+        }
         if (chatModEnabled)
         {
             CustomChat(_cInfo, _type, _msg, _mainName, _localizeMain, _secondaryName, _localizeSecondary, cman);
