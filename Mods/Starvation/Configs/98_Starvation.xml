@@ -1941,7 +1941,6 @@
 	<remove xpath="/blocks/block[@name='bed01']" />
 	<remove xpath="/blocks/block[@name='mattressFlat']" />
 	<remove xpath="/blocks/block[@name='bed02']" />
-	<remove xpath="/blocks/block[@name='plantedBamboo1']/property[@name='Class']" />
 	<remove xpath="/blocks/block[@name='cntCorpseLoot01']" />
 	<remove xpath="/blocks/block[@name='cntCorpseLoot02']" />
 	<set xpath="/blocks/block/property[@name='Class' and @value='CarExplodeLoot']/@value">CarAlarmLoot, Mods</set>

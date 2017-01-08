@@ -770,7 +770,6 @@
 		<property name="Model" value="#CannabisSprout1?CannabisSprout1Prefab" />
 		<property name="PlantGrowing.Next" value="smallCannabisPlant" />
 		<property name="PlantGrowing.GrowthRate" value="60" />
-		<property name="PlantGrowing.FertileLevel" value="1" />
 		<drop event="Destroy" name="cannabisSeed" count="1" prob="1"/>
 	</block>
 	<block id="1333" name="plantedSunflower">
@@ -793,7 +792,6 @@
 		<property name="Model" value="#WheatSprout1?WheatSprout1Prefab" />
 		<property name="PlantGrowing.Next" value="smallWheatPlant" />
 		<property name="PlantGrowing.GrowthRate" value="60" />
-		<property name="PlantGrowing.FertileLevel" value="1" />
 	</block>
 
 	<!-- Young Trees/Plants as an intermediate link -->

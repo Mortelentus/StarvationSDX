@@ -747,9 +747,15 @@
 </config>
 
 <config name="biomes">
-<append xpath="/worldgeneration/biomes/biome[@name='snow']/layers/layer[@depth='*']">
+<!-- <append xpath="/worldgeneration/biomes/biome[@name='snow']/layers/layer[@depth='*']">
 		<resource blockname="iodineOre" cluster="1" prob="0.1" rwgGenerationType="all" />
 </append>
+<append xpath="/worldgeneration/biomes/biome[@name='snow']/subbiome[@prob='0.1']/layers/layer[@depth='*']">
+		<resource blockname="iodineOre" cluster="1" prob="0.1" rwgGenerationType="all" />
+</append>
+<append xpath="/worldgeneration/biomes/biome[@name='snow']/subbiome[@prob='0.1551']/layers/layer[@depth='*']">
+		<resource blockname="iodineOre" cluster="1" prob="0.1" rwgGenerationType="all" />
+</append> -->
 <append xpath="/worldgeneration/biomes/biome[@name='desert']/layers/layer[@depth='*']">
 		<resource blockname="uranium" cluster="1" prob="0.005" rwgGenerationType="all" />
 </append>

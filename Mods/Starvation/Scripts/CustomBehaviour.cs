@@ -5,6 +5,50 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 
+
+public class ConsoleCmdCustomChat : global::ConsoleCmdAbstract
+{
+    // Token: 0x170003B0 RID: 944
+    // (get) Token: 0x060019FA RID: 6650 RVA: 0x000B58D0 File Offset: 0x000B3AD0
+    public override bool IsExecuteOnClient
+    {
+        get
+        {
+            return true;
+        }
+    }
+
+    // Token: 0x060019FB RID: 6651 RVA: 0x000B58D4 File Offset: 0x000B3AD4
+    public override string[] GetCommands()
+    {
+        return new string[]
+        {
+            "toggleChat"
+        };
+    }
+
+    // Token: 0x060019FC RID: 6652 RVA: 0x000B58E4 File Offset: 0x000B3AE4
+    public override void Execute(List<string> _params, global::CommandSenderInfo _senderInfo)
+    {
+        if (_params.Count == 0)
+        {
+            MorteHelpers.chatModEnabled = !MorteHelpers.chatModEnabled;
+            string state = "CUSTOM CHAT ENABLED IS NOW " + MorteHelpers.chatModEnabled.ToString();
+            global::SingletonMonoBehaviour<global::SdtdConsole>.Instance.Output(state);
+        }
+        else
+        {
+            global::SingletonMonoBehaviour<global::SdtdConsole>.Instance.Output("toggleChat has no arguments!");
+        }
+    }
+
+    // Token: 0x060019FD RID: 6653 RVA: 0x000B59B0 File Offset: 0x000B3BB0
+    public override string GetDescription()
+    {
+        return "Applies a buff to the local player";
+    }
+}
+
 public static class MorteHelpers
 {
     private static string whisperColor = "[B536DA]";
@@ -19,6 +63,7 @@ public static class MorteHelpers
     public static string GamePath = GamePrefs.GetString(EnumGamePrefs.SaveGameFolder);
     public static string ConfigPath = string.Format("{0}/Starvation", GamePath);
     public static bool chatModEnabled = true;
+    public static bool configLoaded = false;
 
     public static void LoadConfig()
     {
@@ -26,6 +71,7 @@ public static class MorteHelpers
         {
             Directory.CreateDirectory(ConfigPath);
         }
+        Config.Load();
     }
 
     public static bool RadioIsOn(ItemValue radioV)
@@ -45,46 +91,101 @@ public static class MorteHelpers
 
     public static void MessageHook(ClientInfo _cInfo, EnumGameMessages _type, string _msg, string _mainName, bool _localizeMain, string _secondaryName, bool _localizeSecondary)
     {
-        Debug.Log("CHAT HOOK");       
-        ConnectionManager cman = ConnectionManager.Instance;
-        //cman = GameManager.Instance.RA;
-        //cman = GameManager.Instance.AT;
-        // check if modded chat is enabled.
-        Debug.Log("MSG: " + _msg);
+        Debug.Log("CHAT HOOK");
+        if (!configLoaded)
+        {
+            configLoaded = true;
+            LoadConfig();
+            Debug.Log("CUSTOM CHAT ENABLED = " + chatModEnabled.ToString());
+        }
         if (_msg == "")
         {
             Debug.Log("MSG EMPTY OR _cInfo is null");
             return;
         }
         if (GameManager.IsDedicatedServer && _cInfo == null) return;
-        if (chatModEnabled)
+        try
         {
-            CustomChat(_cInfo, _type, _msg, _mainName, _localizeMain, _secondaryName, _localizeSecondary, cman);
+            ConnectionManager cman = ConnectionManager.Instance;
+            // check if modded chat is enabled.
+            Debug.Log("MSG: " + _msg);
+            if (_msg.StartsWith("/toggleChatMod") && !GameManager.Instance.World.IsRemote())
+            {
+                EntityAlive player = null;
+                var state = "";
+                if (!GameManager.IsDedicatedServer)
+                {
+                    try
+                    {
+                        player = (GameManager.Instance.World.GetLocalPlayer() as EntityAlive);
+                    }
+                    catch (Exception)
+                    {
+                        player = null;
+                    }
+                }
+                if (_cInfo != null)
+                {
+                    if (GameManager.Instance.adminTools.IsAdmin(_cInfo.playerId))
+                    {
+                        state = ToggleChat();
+                    }
+                    else state = "You are not allowed to do this";
+                    if (!GameManager.IsDedicatedServer)
+                    {
+                        if (player != null)
+                            GameManager.Instance.GameMessage(EnumGameMessages.Chat, state, player);
+                    }
+                    else
+                        _cInfo.SendPackage(new NetPackageGameMessage(EnumGameMessages.Chat, state, "Server", false, "",
+                            false));
+                }
+                else
+                {
+                    state = ToggleChat();
+                    if (player != null)
+                        GameManager.Instance.GameMessage(EnumGameMessages.Chat, state, player);
+                }
+                return;
+            }
+            if (chatModEnabled)
+            {
+                CustomChat(_cInfo, _type, _msg, _mainName, _localizeMain, _secondaryName, _localizeSecondary, cman);
+            }
+            else
+            {
+                VanillaChat(_cInfo, _type, _msg, _mainName, _localizeMain, _secondaryName, _localizeSecondary, cman);
+            }
         }
-        else
+        catch (Exception ex)
         {
-            VanillaChat(_cInfo, _type, _msg, _mainName, _localizeMain, _secondaryName, _localizeSecondary, cman);
-        }        
+            Debug.Log("STARVATION: Check this later!!!");         
+        }             
+    }
+
+    private static string ToggleChat()
+    {
+        chatModEnabled = !chatModEnabled;
+        string state = "CUSTOM CHAT ENABLED IS NOW " + chatModEnabled.ToString();
+        Debug.Log(state);
+        Config.UpdateConfig();
+        return state;
     }
 
     private static void VanillaChat(ClientInfo _cInfo, EnumGameMessages _type, string _msg, string _mainName,
         bool _localizeMain, string _secondaryName, bool _localizeSecondary, ConnectionManager cman)
     {
-        Debug.Log("USING VANILLA CODE");
-        if (global::Steam.Network.IsServer)
+        //Debug.Log("USING VANILLA CODE");        
+        if (Steam.Network.IsServer)
         {
-            string text = global::ModManager.ChatMessage(_cInfo, _type, _msg, _mainName, _localizeMain, _secondaryName,
-                _localizeSecondary);
-            string text2 = GameManager.Instance.DisplayGameMessage(_type, _msg, _mainName, _localizeMain, _secondaryName,
-                _localizeSecondary, true, text == null);
+            string text = ModManager.ChatMessage(_cInfo, _type, _msg, _mainName, _localizeMain, _secondaryName, _localizeSecondary);
+            string text2 = GameManager.Instance.DisplayGameMessage(_type, _msg, _mainName, _localizeMain, _secondaryName, _localizeSecondary, true, text == null);
             if (text == null)
             {
-                cman.SendPackage(
-                    new global::NetPackageGameMessage(_type, _msg, _mainName, _localizeMain, _secondaryName,
-                        _localizeSecondary), new global::IPackageDestinationFilter[]
-                        {
-                            new global::PackageDestinationAttachedToEntity()
-                        });
+                cman.SendPackage(new NetPackageGameMessage(_type, _msg, _mainName, _localizeMain, _secondaryName, _localizeSecondary), new IPackageDestinationFilter[]
+                {
+                new PackageDestinationAttachedToEntity()
+                });
             }
             else
             {
@@ -93,9 +194,7 @@ public static class MorteHelpers
         }
         else
         {
-            cman.SendToServer(
-                new global::NetPackageGameMessage(_type, _msg, _mainName, _localizeMain, _secondaryName, _localizeSecondary),
-                false);
+            cman.SendToServer(new NetPackageGameMessage(_type, _msg, _mainName, _localizeMain, _secondaryName, _localizeSecondary), false);
         }
     }
 
@@ -423,7 +522,8 @@ public class Config
             sw.WriteLine("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
             sw.WriteLine("<Starvation>");
             sw.WriteLine("    <Options>");
-            sw.WriteLine(string.Format("        <Option Name=\"CustomChat\" Enable=\"{0}\" />", "true"));
+            sw.WriteLine(string.Format("        <Option Name=\"CustomChat\" Enable=\"{0}\" />",
+                MorteHelpers.chatModEnabled.ToString().ToLower()));
             sw.WriteLine("    </Options>");
             sw.WriteLine("</Starvation>");
             sw.Flush();

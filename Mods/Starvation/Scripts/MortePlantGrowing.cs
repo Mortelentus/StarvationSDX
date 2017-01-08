@@ -94,11 +94,14 @@ public class BlockMortePlantGrowing : BlockPlantGrowing
         ulong _ticksIfLoaded, Random _rnd)
     {
         // check if it's not raining.        
-        if ((double) WeatherManager.theInstance.GetCurrentRainfallValue() < 0.25)
+        //Debug.Log(string.Format("Tick with rainfall = " + WeatherManager.theInstance.GetCurrentRainfallValue().ToString()));
+        if (WeatherManager.theInstance.GetCurrentRainfallValue() == 0.0F)
         {
+            //Debug.Log(string.Format("Check for water"));
             //if it's not raining, then check if there's any liquid near it
             if (!this.CheckWaterNear(_world, _clrIdx, _blockPos))
             {
+                //Debug.Log(string.Format("NO WATER"));
                 DisplayChatAreaText("No water near");
                 return true;
             }
@@ -382,16 +385,19 @@ public class BlockMorteTreeGrowing : BlockModelTreeEx
     public override bool UpdateTick(WorldBase _world, int _clrIdx, Vector3i _blockPos, BlockValue _blockValue, bool _bRandomTick,
         ulong _ticksIfLoaded, Random _rnd)
     {
-        // check if it's not raining.        
-        if ((double)WeatherManager.theInstance.GetCurrentRainfallValue() < 0.25)
+        //Debug.Log(string.Format("Tick with rainfall = " + WeatherManager.theInstance.GetCurrentRainfallValue().ToString()));
+        if (WeatherManager.theInstance.GetCurrentRainfallValue() == 0.0F)
         {
+            //Debug.Log(string.Format("Check for water"));
             //if it's not raining, then check if there's any liquid near it
             if (!this.CheckWaterNear(_world, _clrIdx, _blockPos))
             {
+                //Debug.Log(string.Format("NO WATER"));
                 DisplayChatAreaText("No water near");
                 return true;
             }
         }
+        return base.UpdateTick(_world, _clrIdx, _blockPos, _blockValue, _bRandomTick, _ticksIfLoaded, _rnd);
         return base.UpdateTick(_world, _clrIdx, _blockPos, _blockValue, _bRandomTick, _ticksIfLoaded, _rnd);
     }
 
