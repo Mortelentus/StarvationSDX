@@ -249,10 +249,9 @@
 	<recipe name="camoDye" count="1" scrapable="False" craft_area="ScienceStation">
 		<ingredient name="grainAlcohol" count="1" />
 		<ingredient name="blueberries" count="2" />
-		<ingredient name="plantedGoldenrod3Harvest" count="2" />
-		<ingredient name="plantedChrysanthemum3Harvest" count="2" />
-		<ingredient name="yuccaFibers" count="10" />
-		<ingredient name="clayLump" count="1" />		
+		<ingredient name="goldenrodPlant" count="2" />
+		<ingredient name="chrysanthemumPlant" count="2" />
+		<ingredient name="yuccaFibers" count="10" />		
 	</recipe>
 	<recipe name="leatherDusterCamo" count="1" scrapable="False">
 		<ingredient name="leatherDuster" count="1" />

@@ -288,7 +288,7 @@
 	<lootcontainer id="100" count="1" size="7,4" sound_open="UseActions/open_vehicle" sound_close="UseActions/close_vehicle" open_time="4" loot_quality_template="baseTemplate">
 		<item group="automotive+tools+junk" prob="0.4" />
 		<item name="miningHelmet" prob="0.3" />
-		<item name="partsBrowning_receiver" prob="0.05" />		
+		<item name="partsBrowning_receiver" prob="0.1" />		
 		<item name="BrowningTripodBlock" prob="0.2" />
 		<item name="ammoWorkbench" prob="0.1" />
 	</lootcontainer>

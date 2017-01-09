@@ -202,21 +202,21 @@
 	</item>	
 	
 	<item id="" name="radiationBoots">
+		<!-- armorMasterHazMatArmor -->
 		<property name="CustomIcon" value="hazmatBoots" />
 		<property name="CustomIconTint" value="dfe4eb" />
-		<property name="DescriptionKey" value="hazmatClothesGroupDesc" />
 		<property name="Insulation" value="10" />
 		<property name="Waterproof" value="0.2" />
+		<property name="Encumbrance" value="0.03" />
+		<property name="Material" value="MmilitaryFiber" />
+		<property name="RepairTools" value="militaryFiber" />
+		<property name="DegradationBreaksAfter" value="false" />
+		<property name="EconomicValue" value="1600" />
+		<property name="Weight" value="5" />
+		<property name="EquipSlot" value="Feet" />
+		<property name="HoldType" value="45" />
 		<property name="Meshfile" value="Items/Misc/sackPrefab" />
 		<property name="DropMeshfile" value="Items/Misc/sack_droppedPrefab" />
-		<property name="Material" value="cloth" />
-		<property name="Weight" value="5" />
-		<property name="HoldType" value="21" />
-		<property name="Stacknumber" value="1" />
-		<property name="RepairTools" value="cloth" />
-		<property name="EquipSlot" value="Feet" />
-		<property name="FuelValue" value="1" />
-		<property name="Degradation" value="100" param1="true" />
 		<!-- Armor Set Properties -->
 		<property name="ArmorSet" value="radSuit" />
 		<property name="SetNum" value="5" />
@@ -228,195 +228,79 @@
 			<property name="RadiationProtection" value="0.9, 0.99" />
 			<property name="DegradationMax" value="40,600" />
 		</property>
-		<property name="Group" value="Clothing" />
 		<property class="UMA">
 			<property name="Mesh" value="armor_hazmat_feet" />
-			<property name="Overlay" value="armor_hazmat_boots" />
+			<property name="Overlay0" value="armor_hazmat_boots" />
 			<property name="OverlayTints" value="232f21" />
 			<property name="Layer" value="0" />
 			<property name="UISlot" value="Footwear" />
 		</property>
-		<property class="Preview">
-			<property name="Zoom" value="28" />
-			<property name="Pos" value="0,-0.05" />
-			<property name="Rot" value="90,45,0" />
-		</property>
-		<property name="ActionSkillGroup" value="Clothing" />
-		<property name="CraftingSkillGroup" value="Tailoring" />
+		<property name="DescriptionKey" value="hazmatClothesGroupDesc" />
+		<property name="Group" value="Clothing" />
+		<property name="ActionSkillGroup" value="Light Armor" />
+		<property name="CraftingSkillGroup" value="Science" />
 	</item>
 	<item id="" name="radiationPants">
+		<!-- hazMatArmor -->
+		<property name="Extends" value="radiationBoots" />
 		<property name="CustomIcon" value="hazmatPants" />
 		<property name="CustomIconTint" value="dfe4eb" />
-		<property name="DescriptionKey" value="hazmatClothesGroupDesc" />
-		<property name="Insulation" value="15" />
-		<property name="Waterproof" value="0.2" />
-		<property name="Meshfile" value="Items/Misc/sackPrefab" />
-		<property name="DropMeshfile" value="Items/Misc/sack_droppedPrefab" />
-		<property name="Material" value="cloth" />
-		<property name="Weight" value="5" />
-		<property name="HoldType" value="45" />
-		<property name="Stacknumber" value="1" />
-		<property name="RepairTools" value="cloth" />
+		<property name="Weight" value="10" />
 		<property name="EquipSlot" value="Legs" />
-		<property name="FuelValue" value="2" />
-		<property name="Degradation" value="100" param1="true" />
-		<!-- Armor Set Properties -->
-		<property name="ArmorSet" value="radSuit" />
-		<property name="SetNum" value="5" />
-		<property name="SetBuff" value="radSuit" />
-		<property class="Attributes">
-			<property name="ConcussiveProtection" value="0.1, 0.3" />
-			<property name="PunctureProtection" value="0.05, 0.2" />
-			<property name="FireProtection" value="0.05, 0.2" />
-			<property name="RadiationProtection" value="0.9, 0.99" />
-			<property name="DegradationMax" value="40,600" />
-		</property>
-		<property name="Group" value="Clothing" />
 		<property class="UMA">
 			<property name="Mesh" value="armor_hazmat_legs" />
-			<property name="Overlay" value="armor_hazmat_pants" />
-			<property name="OverlayTints" value="232f21" />
-			<property name="Layer" value="1" />
+			<property name="Overlay0" value="armor_hazmat_pants" />
+			<property name="Layer" value="3" />
 			<property name="UISlot" value="LegArmor" />
 		</property>
-		<property class="Preview">
-			<property name="Zoom" value="28" />
-			<property name="Pos" value="0,-0.05" />
-			<property name="Rot" value="90,45,0" />
-		</property>
-		<property name="ActionSkillGroup" value="Clothing" />
-		<property name="CraftingSkillGroup" value="Tailoring" />
-	</item>
+	</item>	
 	<item id="" name="radiationShirt">
+		<!-- hazMatArmor -->
+		<property name="Extends" value="radiationBoots" />
 		<property name="CustomIcon" value="hazmatShirt" />
 		<property name="CustomIconTint" value="dfe4eb" />
-		<property name="DescriptionKey" value="hazmatClothesGroupDesc" />
-		<property name="Insulation" value="20" />
-		<property name="Waterproof" value="0.2" />
-		<property name="Meshfile" value="Items/Misc/sackPrefab" />
-		<property name="DropMeshfile" value="Items/Misc/sack_droppedPrefab" />
-		<property name="Material" value="cloth" />
-		<property name="Weight" value="5" />
-		<property name="HoldType" value="45" />
-		<property name="Stacknumber" value="1" />
-		<property name="RepairTools" value="cloth" />
+		<property name="Weight" value="10" />
 		<property name="EquipSlot" value="Chest" />
-		<property name="FuelValue" value="3" />
-		<property name="Degradation" value="100" param1="true" />
-		<!-- Armor Set Properties -->
-		<property name="ArmorSet" value="radSuit" />
-		<property name="SetNum" value="5" />
-		<property name="SetBuff" value="radSuit" />
-		<property class="Attributes">
-			<property name="ConcussiveProtection" value="0.1, 0.3" />
-			<property name="PunctureProtection" value="0.05, 0.2" />
-			<property name="FireProtection" value="0.05, 0.2" />
-			<property name="RadiationProtection" value="0.9, 0.99" />
-			<property name="DegradationMax" value="40,600" />
-		</property>
-		<property name="Group" value="Clothing" />
 		<property class="UMA">
 			<property name="Mesh" value="armor_hazmat_chest" />
-			<property name="Overlay" value="armor_hazmat_chest" />
+			<property name="Overlay0" value="armor_hazmat_chest" />
 			<property name="OverlayTints" value="232f21" />
 			<property name="Layer" value="2" />
 			<property name="UISlot" value="ChestArmor" />
 		</property>
-		<property class="Preview">
-			<property name="Zoom" value="28" />
-			<property name="Pos" value="0,-0.05" />
-			<property name="Rot" value="90,45,0" />
-		</property>
-		<property name="ActionSkillGroup" value="Clothing" />
-		<property name="CraftingSkillGroup" value="Tailoring" />
 	</item>
 	<item id="" name="radiationGloves">
+		<!-- hazMatArmor -->
+		<property name="Extends" value="radiationBoots" />
 		<property name="CustomIcon" value="hazmatGloves" />
 		<property name="CustomIconTint" value="dfe4eb" />
-		<property name="DescriptionKey" value="hazmatClothesGroupDesc" />
-		<property name="Insulation" value="10" />
-		<property name="Waterproof" value="0.2" />
-		<property name="Meshfile" value="Items/Misc/sackPrefab" />
-		<property name="DropMeshfile" value="Items/Misc/sack_droppedPrefab" />
-		<property name="Material" value="cloth" />
 		<property name="Weight" value="5" />
-		<property name="HoldType" value="45" />
-		<property name="Stacknumber" value="1" />
-		<property name="RepairTools" value="cloth" />
 		<property name="EquipSlot" value="Hands" />
-		<property name="FuelValue" value="1" />
-		<property name="Degradation" value="100" param1="true" />
-		<!-- Armor Set Properties -->
-		<property name="ArmorSet" value="radSuit" />
-		<property name="SetNum" value="5" />
-		<property name="SetBuff" value="radSuit" />
-		<property class="Attributes">
-			<property name="ConcussiveProtection" value="0.1, 0.3" />
-			<property name="PunctureProtection" value="0.05, 0.2" />
-			<property name="FireProtection" value="0.05, 0.2" />
-			<property name="RadiationProtection" value="0.9, 0.99" />
-			<property name="DegradationMax" value="40,600" />
-		</property>
-		<property name="Group" value="Clothing" />
 		<property class="UMA">
 			<property name="Mesh" value="armor_hazmat_hands" />
-			<property name="Overlay" value="armor_hazmat_gloves" />
+			<property name="Overlay0" value="armor_hazmat_gloves" />
 			<property name="OverlayTints" value="232f21" />
 			<property name="Layer" value="0" />
 			<property name="UISlot" value="Gloves" />
 		</property>
-		<property class="Preview">
-			<property name="Zoom" value="28" />
-			<property name="Pos" value="0,-0.05" />
-			<property name="Rot" value="90,45,0" />
-		</property>
-		<property name="ActionSkillGroup" value="Clothing" />
-		<property name="CraftingSkillGroup" value="Tailoring" />
 	</item>
 	<item id="" name="radiationMask">
+		<!-- hazMatArmor -->
+		<property name="Extends" value="radiationBoots" />
 		<property name="CustomIcon" value="hazmatMask" />
 		<property name="CustomIconTint" value="dfe4eb" />
-		<property name="DescriptionKey" value="hazmatClothesGroupDesc" />
-		<property name="Insulation" value="15" />
-		<property name="Waterproof" value="0.2" />
-		<property name="Meshfile" value="Items/Misc/sackPrefab" />
-		<property name="DropMeshfile" value="Items/Misc/sack_droppedPrefab" />
-		<property name="Material" value="cloth" />
 		<property name="Weight" value="5" />
-		<property name="HoldType" value="45" />
-		<property name="Stacknumber" value="1" />
-		<property name="RepairTools" value="cloth" />
 		<property name="EquipSlot" value="Head" />
-		<property name="FuelValue" value="1" />
-		<property name="Degradation" value="100" param1="true" />
-		<!-- Armor Set Properties -->
-		<property name="ArmorSet" value="radSuit" />
-		<property name="SetNum" value="5" />
-		<property name="SetBuff" value="radSuit" />
-		<property class="Attributes">
-			<property name="ConcussiveProtection" value="0.1, 0.3" />
-			<property name="PunctureProtection" value="0.05, 0.2" />
-			<property name="FireProtection" value="0.05, 0.2" />
-			<property name="RadiationProtection" value="0.9, 0.99" />
-			<property name="DegradationMax" value="40,600" />
-		</property>
-		<property name="Group" value="Clothing" />
 		<property class="UMA">
 			<property name="Mesh" value="armor_hazmat_head" />
-			<property name="Overlay" value="armor_hazmat_hood" />
+			<property name="Overlay0" value="armor_hazmat_hood" />
 			<property name="OverlayTints" value="232f21" />
 			<property name="Layer" value="2" />
-			<property name="UISlot" value="Headgear" />
-			<property name="ShowHair" value="true" />
+			<property name="UISlot" value="Headgear,xFace,xEyewear" />
+			<property name="ShowAltHair" value="true" />
 		</property>
-		<property class="Preview">
-			<property name="Zoom" value="28" />
-			<property name="Pos" value="0,-0.05" />
-			<property name="Rot" value="90,45,0" />
-		</property>
-		<property name="ActionSkillGroup" value="Clothing" />
-		<property name="CraftingSkillGroup" value="Tailoring" />
 	</item>
+	
 	<item id="" name="Rubber">
 		<property name="Meshfile" value="Items/Misc/paper" />
 		<property name="Material" value="organic" />
