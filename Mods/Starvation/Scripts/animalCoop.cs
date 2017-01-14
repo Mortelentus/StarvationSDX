@@ -570,6 +570,7 @@ public class AnimalCoopScript : MonoBehaviour
     DateTime dtaNextWakeup = DateTime.MinValue;
     DateTime dtaNextTransform = DateTime.MinValue;
     private bool debug = false;
+    System.Random Rand = new System.Random();
 
     void Start()
     {
@@ -631,7 +632,6 @@ public class AnimalCoopScript : MonoBehaviour
                 dtaNextTick = DateTime.Now.AddSeconds(tickRate);
                 try
                 {
-                    System.Random Rand = new System.Random(Guid.NewGuid().GetHashCode());
                     blockValue = world.GetBlock(cIdx, blockPos);
                     if (BlockAnimalCoop.AnimalCount(blockValue.meta2, blockValue.meta3) > 0)
                     {
@@ -672,7 +672,7 @@ public class AnimalCoopScript : MonoBehaviour
                 }
                 catch (Exception ex)
                 {
-                    Debug.Log("ANIMALCOOP (6): ERROR - " + ex.Message);
+                    debugHelper.doDebug("ANIMALCOOP (6): ERROR - " + ex.Message, debug);
                 }
             }            
         }

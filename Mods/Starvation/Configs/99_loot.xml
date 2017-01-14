@@ -245,6 +245,12 @@
 <append xpath="/lootcontainers/lootgroup[@name='militaryammo']">
 		<item name="50cal" count="20,50" />
 </append>
+<append xpath="/lootcontainers/lootgroup[@name='heavyArmor']">
+		<item name="MilitaryHeadset" />
+</append>
+<append xpath="/lootcontainers/lootgroup[@name='militaryArmor']">
+		<item name="MilitaryHeadset" />
+</append>
 <!-- remove weapon parts from loot -->
 <remove xpath="/lootcontainers/lootcontainer[@id='83']/item[@group='commonWeaponParts']" />
 <remove xpath="/lootcontainers/lootcontainer[@id='81']/item[@group='magnumparts']" />

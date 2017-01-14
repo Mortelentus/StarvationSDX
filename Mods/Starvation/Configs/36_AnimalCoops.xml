@@ -77,7 +77,7 @@
 		<!-- Interval in seconds to update coop status -->
 		<property name="TickRate" value="10" />
 		<!-- Interval in seconds to proccess life actions (eat, reproduce, etc) -->
-		<property name="LifeRate" value="120" />
+		<property name="LifeRate" value="200" />
 		<!-- when there are animals, this sound will be emitted randomly -->
 		<property name="animalSound" value="chickenSound" />
 		<!-- when there are animals, this sound will be emitted at day break - optional -->
@@ -111,7 +111,7 @@
 		<!-- Interval in seconds to update coop status -->
 		<property name="TickRate" value="10" />
 		<!-- Interval in seconds to proccess life actions (eat, reproduce, etc) -->
-		<property name="LifeRate" value="120" />
+		<property name="LifeRate" value="200" />
 		<!-- when there are animals, this sound will be emitted randomly -->
 		<property name="animalSound" value="rabbitSound" />
 		<!-- when there are animals, this sound will be emitted at day break - optional -->

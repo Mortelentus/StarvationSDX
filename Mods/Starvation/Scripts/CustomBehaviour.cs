@@ -60,6 +60,7 @@ public static class MorteHelpers
     private static string AdminColor = "[B0FF00]";    
     private static string radioItem = "WalkyTalky";
     private static string megaPhoneItem = "MegaPhone";
+    private static string headsetItem = "MilitaryHeadset";
     public static string GamePath = GamePrefs.GetString(EnumGamePrefs.SaveGameFolder);
     public static string ConfigPath = string.Format("{0}/Starvation", GamePath);
     public static bool chatModEnabled = true;
@@ -91,7 +92,7 @@ public static class MorteHelpers
 
     public static void MessageHook(ClientInfo _cInfo, EnumGameMessages _type, string _msg, string _mainName, bool _localizeMain, string _secondaryName, bool _localizeSecondary)
     {
-        Debug.Log("CHAT HOOK");
+        //Debug.Log("CHAT HOOK");
         if (!configLoaded)
         {
             configLoaded = true;
@@ -103,12 +104,16 @@ public static class MorteHelpers
             Debug.Log("MSG EMPTY OR _cInfo is null");
             return;
         }
-        if (GameManager.IsDedicatedServer && _cInfo == null) return;
+        ConnectionManager cman = ConnectionManager.Instance;
         try
         {
-            ConnectionManager cman = ConnectionManager.Instance;
+            if (Steam.Network.IsServer && _cInfo == null)
+            {                
+                VanillaChat(_cInfo, _type, _msg, _mainName, _localizeMain, _secondaryName, _localizeSecondary, cman);
+                return;
+            }
             // check if modded chat is enabled.
-            Debug.Log("MSG: " + _msg);
+            Debug.Log("Chat: " + _msg);
             if (_msg.StartsWith("/toggleChatMod") && !GameManager.Instance.World.IsRemote())
             {
                 EntityAlive player = null;
@@ -148,7 +153,9 @@ public static class MorteHelpers
                 }
                 return;
             }
-            if (chatModEnabled)
+            if (_mainName.ToLower().Contains("server") || _msg == "")
+                VanillaChat(_cInfo, _type, _msg, _mainName, _localizeMain, _secondaryName, _localizeSecondary, cman);
+            else if (chatModEnabled && Steam.Network.IsServer)
             {
                 CustomChat(_cInfo, _type, _msg, _mainName, _localizeMain, _secondaryName, _localizeSecondary, cman);
             }
@@ -159,7 +166,8 @@ public static class MorteHelpers
         }
         catch (Exception ex)
         {
-            Debug.Log("STARVATION: Check this later!!!");         
+            // TODO - solve all exceptions
+            //Debug.Log("STARVATION: Check this later");            
         }             
     }
 
@@ -202,17 +210,18 @@ public static class MorteHelpers
         bool _localizeMain, string _secondaryName, bool _localizeSecondary, ConnectionManager cman)
     {
         //Debug.Log("USING CUSTOM CHAT");
-
+        Entity player = null;
+        if (!GameManager.IsDedicatedServer)
+        {
+            player = GameManager.Instance.World.GetEntity(GameManager.Instance.GetPersistentLocalPlayer().EntityId);
+        }
+        else if (_cInfo != null)
+            player = GameManager.Instance.World.GetEntity(_cInfo.entityId);
         if (_msg.StartsWith("/buffs"))
         {
             if (!GameManager.Instance.adminTools.IsAdmin(_cInfo.playerId)) return;
             // returns player buffs to self
-            // get localplayer
-            Entity player = null;
-            if (!GameManager.IsDedicatedServer)
-                player = GameManager.Instance.World.GetEntity(GameManager.Instance.GetPersistentLocalPlayer().EntityId);
-            else
-                player = GameManager.Instance.World.GetEntity(_cInfo.entityId);
+            // get localplayer                        
             if (player is EntityPlayer)
             {
                 // gets all his buffs
@@ -235,7 +244,11 @@ public static class MorteHelpers
         EntityPlayer _player = null;
         try
         {
-            _player = GameManager.Instance.World.Players.dict[_cInfo.entityId];
+            if (player != null)
+            {
+                if (player is EntityPlayer) _player = (player as EntityPlayer);
+            }
+            //_player = GameManager.Instance.World.Players.dict[_cInfo.entityId];
         }
         catch (Exception)
         {
@@ -246,21 +259,24 @@ public static class MorteHelpers
             bool hasRadio = false;
             int radioChannel = 0;
             bool hasMegaphone = false;
+            bool militaryHeadset = false;
+            // see if player has a military headset
+            radioChannel = HasHEadset(_player, radioChannel, ref hasRadio, ref militaryHeadset);
             // see what is the player holding
             ItemClass itemHeld = _player.inventory.holdingItem;
             if (itemHeld != null)
             {
-                if (itemHeld.Name == radioItem)
+                if (itemHeld.Name == radioItem && !militaryHeadset)
                 {
                     hasRadio = true;
                     radioChannel = RadioChannel(_player.inventory.holdingItemItemValue);
                     string msg = string.Format("Player holding radio in channel={0} and On={1}",
                         RadioChannel(_player.inventory.holdingItemItemValue),
                         RadioIsOn(_player.inventory.holdingItemItemValue));
-                    Debug.Log(msg);
+                    //Debug.Log(msg);
                 }
                 else if (itemHeld.Name == megaPhoneItem) hasMegaphone = true;
-            }            
+            }
             if (_msg.StartsWith("/admin"))
             {
                 _msg = _msg.Replace("/admin", "");
@@ -269,7 +285,7 @@ public static class MorteHelpers
             else if (_msg.StartsWith("/all"))
             {
                 _msg = _msg.Replace("/all", "");
-                SendAdmins(_cInfo, _msg, true);
+                VanillaChat(_cInfo, _type, _msg, _mainName, _localizeMain, _secondaryName, _localizeSecondary, cman);
             }
             else if (_msg.StartsWith("/r"))
             {
@@ -281,11 +297,14 @@ public static class MorteHelpers
                 {
                     if (!RadioIsOn(_player.inventory.holdingItemItemValue))
                         _cInfo.SendPackage(new NetPackageGameMessage(EnumGameMessages.Chat, string.Format("{0}You need to turn on your radio[-]", InfoColor), "Server", false, "", false));
-                    _msg = _msg.Substring(2).Trim();
-                    // radio message
-                    //Debug.Log("RADIO MESSAGE");
-                    SendRadioMessage(_msg, _mainName, _localizeMain, _player, radioColor, radioItem, radioChannel);
-                    // TODO - decay radio
+                    else
+                    {
+                        _msg = _msg.Substring(2).Trim();
+                        // radio message
+                        //Debug.Log("RADIO MESSAGE");
+                        SendRadioMessage(_msg, _mainName, _localizeMain, _player, radioColor, radioItem, radioChannel);
+                        // TODO - decay radio   
+                    }
                 }                
             }
             else if (_msg.StartsWith("/w"))
@@ -310,25 +329,92 @@ public static class MorteHelpers
             }
             else
             {
-                //Debug.Log("TALK");
-                // talk
-                msgRange = 10;
-                string color = ChatColor;
-                if (hasMegaphone)
+                if (hasRadio && militaryHeadset)
                 {
-                    msgRange = 40;
-                    color = megaColor;
+                    // military headset, talks to turned on radio by default, but also whispers
+                    //Debug.Log("HEADSET MESSAGE");
+                    SendRadioMessage(_msg, _mainName, _localizeMain, _player, radioColor, radioItem, radioChannel);
+                    // TODO - decay radio
+                }
+                else
+                {
+                    // talk
+                    msgRange = 10;
+                    string color = ChatColor;
+                    if (hasMegaphone)
+                    {
+                        msgRange = 40;
+                        color = megaColor;
+                    }
+                    //Debug.Log("NORMAL MESSAGE");
+                    SendRangedMessage(_msg, _mainName, _localizeMain, _player, msgRange, color, "");
                 }                
-                SendRangedMessage(_msg, _mainName, _localizeMain, _player, msgRange, color, "");
             }
         }
         else VanillaChat(_cInfo, _type, _msg, _mainName, _localizeMain, _secondaryName, _localizeSecondary, cman);
+    }
+
+    private static int HasHEadset(EntityPlayer _player, int radioChannel, ref bool hasRadio, ref bool militaryHeadset)
+    {
+        ItemValue headItemValue = _player.equipment.GetSlotItem((int) XMLData.Item.EnumEquipmentSlot.Head);
+        if (headItemValue != null)
+        {
+            ItemClass itemClassHead = null;
+            if (itemClassHead == null)
+            {
+                //Debug.Log(string.Format("Player has no head item??"));
+                int i = 0;
+                foreach (ItemValue item in _player.equipment.GetItems())
+                {
+                    if (item != null)
+                    {
+                        itemClassHead = ItemClass.GetForId(item.type);
+                        if (itemClassHead != null)
+                        {
+                            if (itemClassHead.Name == headsetItem)
+                            {
+                                //Debug.Log(string.Format("Player is wearing {0} on slot {1}", itemClassHead.Name, i));
+                                // check if player has a turned on radio on the belt
+                                foreach (ItemStack stack in _player.inventory.GetSlots())
+                                {
+                                    if (stack != null)
+                                    {
+                                        if (stack.itemValue != null)
+                                        {
+                                            itemClassHead = ItemClass.GetForId(stack.itemValue.type);
+                                            if (itemClassHead != null)
+                                            {
+                                                if (itemClassHead.Name == radioItem)
+                                                {
+                                                    radioChannel = RadioChannel(stack.itemValue);
+                                                    if (RadioIsOn(stack.itemValue))
+                                                    {
+                                                        //Debug.Log(string.Format("Player is wearing HEADSET on slot {0} and radio is ON", i));
+                                                        hasRadio = true;
+                                                        militaryHeadset = true;
+                                                        return radioChannel;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    i++;
+                }
+                return 0;
+            }
+        }
+        return radioChannel;
     }
 
     private static void SendRadioMessage(string _msg, string _mainName, bool _localizeMain, EntityPlayer player,
         string color, string requiredItem, int channel)
     {
         List<ClientInfo> _cInfoList = ConnectionManager.Instance.GetClients();
+        _msg = string.Format("{0}(CH{2}){1}[-]", color, _msg, channel);
         foreach (ClientInfo _cInfo in _cInfoList)
         {
             EntityPlayer _player = null;
@@ -346,27 +432,35 @@ public static class MorteHelpers
                 if (requiredItem != "")
                 {
                     canSend = false;
-                    ItemClass itemHeld = _player.inventory.holdingItem;
-                    if (itemHeld != null)
+                    bool hasRadio = false;
+                    int radioChannel = 0;
+                    bool militaryHeadset = false;
+                    // see if player has a military headset
+                    radioChannel = HasHEadset(_player, radioChannel, ref hasRadio, ref militaryHeadset);
+                    if (militaryHeadset && hasRadio && radioChannel == channel) canSend = true;
+                    else
                     {
-                        if (itemHeld.Name == requiredItem)
+                        ItemClass itemHeld = _player.inventory.holdingItem;
+                        if (itemHeld != null)
                         {
-                            string msg = string.Format("Player {2} holding radio in channel={0} and On={1}",
-                                RadioChannel(_player.inventory.holdingItemItemValue),
-                                RadioIsOn(_player.inventory.holdingItemItemValue), _cInfo.playerName);
-                            Debug.Log(msg);
-                            if (RadioChannel(_player.inventory.holdingItemItemValue) == channel)
+                            if (itemHeld.Name == requiredItem)
                             {
-                                if (RadioIsOn(_player.inventory.holdingItemItemValue))
-                                    canSend = true;
+                                string msg = string.Format("Player {2} holding radio in channel={0} and On={1}",
+                                    RadioChannel(_player.inventory.holdingItemItemValue),
+                                    RadioIsOn(_player.inventory.holdingItemItemValue), _cInfo.playerName);
+                                //Debug.Log(msg);
+                                if (RadioChannel(_player.inventory.holdingItemItemValue) == channel)
+                                {
+                                    if (RadioIsOn(_player.inventory.holdingItemItemValue))
+                                        canSend = true;
+                                }
                             }
                         }
-                    }
+                    }                    
                 }
                 if (canSend)
                 {
-                    // send message with a different color.
-                    _msg = string.Format("{0}(CH{2}){1}[-]", color, _msg, channel);
+                    // send message with a different color.                    
                     _cInfo.SendPackage(new NetPackageGameMessage(EnumGameMessages.Chat, _msg, _mainName,
                         _localizeMain, "", false));
                 }
@@ -377,6 +471,7 @@ public static class MorteHelpers
     private static void SendRangedMessage(string _msg, string _mainName, bool _localizeMain, EntityPlayer player, int msgRange,
         string color, string requiredItem)
     {
+        _msg = string.Format("{0}{1}[-]", color, _msg);
         using (
             List<Entity>.Enumerator enumerator =
                 GameManager.Instance.World.GetEntitiesInBounds(typeof (EntityPlayer),
@@ -405,8 +500,7 @@ public static class MorteHelpers
                 {
                     PersistentPlayerData dataFromEntityId1 =
                         GameManager.Instance.persistentPlayers.GetPlayerDataFromEntityID(_other.entityId);
-                    // send message with a different color.
-                    _msg = string.Format("{0}{1}[-]", color, _msg);
+                    // send message with a different color.                    
                     ClientInfo _destination = ConsoleHelper.ParseParamIdOrName(dataFromEntityId1.PlayerId, false,
                         false);
                     _destination.SendPackage(new NetPackageGameMessage(EnumGameMessages.Chat, _msg, _mainName,

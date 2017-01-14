@@ -619,7 +619,7 @@
 		<property name="Material" value="metal" />
 		<property name="Shape" value="Terrain" />
 		<property name="Mesh" value="terrain" />
-		<property name="Texture" value="192" />	
+		<property name="Texture" value="181,300,300,300,300,300" />
 		<property name="Weight" value="50" />
 		<drop event="Harvest" name="uranium" count="5" prob="1.0" />
 		<drop event="Destroy" name="uranium" count="5" prob="1.0" />

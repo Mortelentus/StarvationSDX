@@ -199,38 +199,47 @@ public class BipedAnimations : MonoBehaviour, IAvatarController
 
     private void PlayAnimation(string clipName)
     {
-        
-        AnimationClip clip = ani.GetClip(clipName);
-
-        if (clip != null && !ani[clipName].enabled)
+        try
         {
-            //Debug.Log("Playing " + clipName + " " + (clip == null ? "null" : "true") + " walking: " + IsWalking + " running: " + IsRunning + " enabled: " + ani[clipName].enabled);
-            if ((clipName == "Attack1" || clipName == "Attack2"))
+            if (ani != null)
             {
-                if (IsMoving)
-                {
-                    ani[clipName].layer = 5;
-                    ani[clipName].AddMixingTransform(UpperBody);
-                    ani.Blend(clipName);
-                }
-                else
-                {
-                    ani[clipName].layer = 0;
-                    ani[clipName].AddMixingTransform(UpperBody);
-                    ani[clipName].RemoveMixingTransform(UpperBody);
-                    ani.CrossFade(clipName);
-                }
-                StartCoroutine(WaitThenCrossFade(ani[clipName].length - 0.5f, ani[Idle1]));
+                AnimationClip clip = ani.GetClip(clipName);
 
-            }
-            else
-            {
-                ani[clipName].layer = 0;
-                ani[clipName].AddMixingTransform(UpperBody);
-                ani[clipName].RemoveMixingTransform(UpperBody);
-                ani.CrossFade(clipName);
+                if (clip != null && !ani[clipName].enabled)
+                {
+                    //Debug.Log("Playing " + clipName + " " + (clip == null ? "null" : "true") + " walking: " + IsWalking + " running: " + IsRunning + " enabled: " + ani[clipName].enabled);
+                    if ((clipName == "Attack1" || clipName == "Attack2"))
+                    {
+                        if (IsMoving)
+                        {
+                            ani[clipName].layer = 5;
+                            ani[clipName].AddMixingTransform(UpperBody);
+                            ani.Blend(clipName);
+                        }
+                        else
+                        {
+                            ani[clipName].layer = 0;
+                            ani[clipName].AddMixingTransform(UpperBody);
+                            ani[clipName].RemoveMixingTransform(UpperBody);
+                            ani.CrossFade(clipName);
+                        }
+                        StartCoroutine(WaitThenCrossFade(ani[clipName].length - 0.5f, ani[Idle1]));
+
+                    }
+                    else
+                    {
+                        ani[clipName].layer = 0;
+                        ani[clipName].AddMixingTransform(UpperBody);
+                        ani[clipName].RemoveMixingTransform(UpperBody);
+                        ani.CrossFade(clipName);
+                    }
+                }
             }
         }
+        catch (Exception ex)
+        {
+            Debug.Log("GIVE THIS TO STARVATION GUYS: " + ex.ToString());
+        }        
     }
 
     private void AddTransformRefs(Transform t)

@@ -32,8 +32,10 @@ public class BlockSurvivor : Block
                 {
                     try
                     {
+                        if (_ebcd.transform == null) return;
                         debugHelper.doDebug("BLOCKSURVIVOR: OnBlockValueChanged - CHECKING SCRIPT?", !disableDebug);
                         gameObject = _ebcd.transform.gameObject;
+                        if (gameObject == null) return;
                         // adds the script if still not existing.
                         script = gameObject.GetComponent<SurvivorScript>();
                         if (script == null)
@@ -224,8 +226,10 @@ public class BlockRadioTower : Block
                 {
                     try
                     {
+                        if (_ebcd.transform == null) return;
                         debugHelper.doDebug("BLOCKRADIOTOWER: OnBlockValueChanged - CHECKING SCRIPT?", !disableDebug);
                         gameObject = _ebcd.transform.gameObject;
+                        if (gameObject == null) return;
                         // adds the script if still not existing.
                         script = gameObject.GetComponent<TowerScript>();
                         if (script == null)
@@ -491,8 +495,10 @@ public class BlockCrafter : BlockSecureLoot
                 {
                     try
                     {
+                        if (_ebcd.transform == null) return;
                         debugHelper.doDebug("BLOCKCRAFTER: OnBlockValueChanged - CHECKING SCRIPT?", !disableDebug);
                         gameObject = _ebcd.transform.gameObject;
+                        if (gameObject == null) return;
                         // adds the script if still not existing.
                         script = gameObject.GetComponent<CrafterWorkScript>();
                         if (script == null)
@@ -507,7 +513,7 @@ public class BlockCrafter : BlockSecureLoot
                     }
                     catch (Exception ex)
                     {
-                        debugHelper.doDebug("BLOCKCRAFTER: Error OnBlockValueChanged - " + ex.Message, false);
+                        debugHelper.doDebug("BLOCKCRAFTER: Error OnBlockValueChanged - " + ex.Message, !disableDebug);
                     }
                 }                
             }
@@ -776,8 +782,10 @@ public class BlockFarmer : BlockSecureLoot
                 {
                     try
                     {
+                        if (_ebcd.transform == null) return;
                         debugHelper.doDebug("BLOCKFARMER: OnBlockValueChanged - CHECKING SCRIPT?", !disableDebug);
                         gameObject = _ebcd.transform.gameObject;
+                        if (gameObject == null) return;
                         // adds the script if still not existing.
                         script = gameObject.GetComponent<FarmerWorkScript>();
                         if (script == null)
@@ -792,7 +800,7 @@ public class BlockFarmer : BlockSecureLoot
                     }
                     catch (Exception ex)
                     {
-                        debugHelper.doDebug("BLOCKFARMER: Error OnBlockValueChanged - " + ex.Message, false);
+                        debugHelper.doDebug("BLOCKFARMER: Error OnBlockValueChanged - " + ex.Message, !disableDebug);
                     }
                 }
                 // resets the bit
@@ -1042,23 +1050,33 @@ public class BlockGuard : BlockSecureLoot
                 {
                     try
                     {
-                        debugHelper.doDebug("BLOCKGUARD: OnBlockValueChanged - CHECKING SCRIPT?", !disableDebug);
-                        gameObject = _ebcd.transform.gameObject;
-                        // adds the script if still not existing.
-                        script = gameObject.GetComponent<GuardWorkScript>();
-                        if (script == null)
+                        if (_ebcd.transform != null)
                         {
-                            debugHelper.doDebug("BLOCKGUARD: OnBlockValueChanged - ADDING SCRIPT?", !disableDebug);
-                            script = gameObject.AddComponent<GuardWorkScript>();
-                            TileEntitySecureLootContainer secureLootContainer =
-                                _world.GetTileEntity(_clrIdx, _blockPos) as TileEntitySecureLootContainer;
-                            script.initialize(secureLootContainer, _world, _blockPos, _clrIdx);
+                            debugHelper.doDebug("BLOCKGUARD: OnBlockValueChanged - CHECKING SCRIPT?", !disableDebug);
+                            gameObject = _ebcd.transform.gameObject;
+                            if (gameObject != null)
+                            {
+                                // adds the script if still not existing.
+                                script = gameObject.GetComponent<GuardWorkScript>();
+                                if (script == null)
+                                {
+                                    debugHelper.doDebug("BLOCKGUARD: OnBlockValueChanged - ADDING SCRIPT?",
+                                        !disableDebug);
+                                    script = gameObject.AddComponent<GuardWorkScript>();
+                                    TileEntitySecureLootContainer secureLootContainer =
+                                        _world.GetTileEntity(_clrIdx, _blockPos) as TileEntitySecureLootContainer;
+                                    script.initialize(secureLootContainer, _world, _blockPos, _clrIdx);
+                                }
+                                else
+                                    debugHelper.doDebug(
+                                        "BLOCKGUARD: OnBlockValueChanged - SCRIPT ALREADY EXISTING AND RUNNING?",
+                                        !disableDebug);
+                            }
                         }
-                        else debugHelper.doDebug("BLOCKGUARD: OnBlockValueChanged - SCRIPT ALREADY EXISTING AND RUNNING?", !disableDebug);
                     }
                     catch (Exception ex)
                     {
-                        debugHelper.doDebug("BLOCKGUARD: Error OnBlockValueChanged - " + ex.Message, true);
+                        debugHelper.doDebug("BLOCKGUARD: Error OnBlockValueChanged - " + ex.Message, !disableDebug);
                     }
                 }
                 // resets the bit

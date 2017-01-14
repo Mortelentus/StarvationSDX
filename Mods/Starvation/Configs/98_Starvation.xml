@@ -1537,7 +1537,7 @@
 </item>
 	<item id="" name="partsBrowning_stock">
 		<property name="Extends" value="partsMaster" />
-		<property name="DescriptionKey" value="partsAK47GroupDesc"/>
+		<property name="DescriptionKey" value="partsBrowningGroup"/>
 		<property name="PartType" value="Stock" />
 		<property name="Weight" value="30" />
 		<property class="Attributes">
@@ -1548,7 +1548,7 @@
 	</item>
 	<item id="" name="partsBrowning_receiver">
 		<property name="Extends" value="partsMaster" />
-		<property name="DescriptionKey" value="partsAK47GroupDesc"/>
+		<property name="DescriptionKey" value="partsBrowningGroup"/>
 		<property name="PartType" value="Receiver" />
 		<property name="Weight" value="30" />
 		<property class="Attributes">
@@ -1559,7 +1559,7 @@
 	</item>
 	<item id="" name="partsBrowning_parts">
 		<property name="Extends" value="partsMaster" />
-		<property name="DescriptionKey" value="partsAK47GroupDesc"/>
+		<property name="DescriptionKey" value="partsBrowningGroup"/>
 		<property name="PartType" value="Pump" />
 		<property name="Weight" value="15" />
 		<property class="Attributes">
@@ -1571,7 +1571,7 @@
 	<item id="" name="partsBrowning_barrel">
 		<property name="Extends" value="partsMaster" />
 		<property name="CustomIcon" value="partsPistol_barrel" /> <!-- xxx -->
-		<property name="DescriptionKey" value="partsAK47GroupDesc"/>
+		<property name="DescriptionKey" value="partsBrowningGroup"/>
 		<property name="PartType" value="Barrel" />
 		<property name="Weight" value="35" />
 		<property class="Attributes">
@@ -1595,6 +1595,8 @@
 		<property name="Candrop" value="false" />
 		<property name="SoundJammed" value="browning_reload" />
 		<property name="JamChance" value="1" /> <!-- 100 = 1% -->
+		<property name="CrosshairOnAim" value="true" />
+		<property name="CrosshairUpAfterShot" value="false" />
 		<property class="Parts">
 			<property name="Stock" value="partsBrowning_stockA" />
 			<property name="Receiver" value="partsBrowning_receiverA" />
@@ -1931,6 +1933,9 @@
 				<property name="Class" value="SpawnMorteEntity, Mods" />
 				<property name="entityToSpawn" value="TalkingHead" />
 			</property>			
+	</item>
+	<item id="" name="MilitaryHeadset">
+		<property name="Extends" value="swatHelmet" />		
 	</item>
 	<!-- STARVATION -->
 </append>	  

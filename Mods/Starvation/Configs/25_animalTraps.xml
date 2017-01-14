@@ -172,7 +172,7 @@
 		<property name="Material" value="zinc" />
 		<property name="Shape" value="Terrain" />
 		<property name="Mesh" value="terrain" />
-		<property name="Texture" value="314" />
+		<property name="Texture" value="96,300,300,300,300,300" />
 		<property name="Weight" value="100" />
 		<property name="DropScale" value="2" />
 		<drop event="Harvest" name="scrapZinc" count="10" />

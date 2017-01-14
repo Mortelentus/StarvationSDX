@@ -99,21 +99,28 @@ public class BlockSpawner : BlockLoot
                     try
                     {
                         pos = "1";
-                        gameObject = _ebcd.transform.gameObject;
-                        // adds the script if still not existing.
-                        pos = "2";
-                        script = gameObject.GetComponent<SpawnerMScript>();
-                        pos = "3";
-                        if (script == null)
+                        if (_ebcd.transform != null)
                         {
-                            if (!disableDebug) Debug.Log("SPAWNER: ADDING SCRIPT");
-                            pos = "3.1";
-                            script = gameObject.AddComponent<SpawnerMScript>();
-                            pos = "3.2";
-                            script.initialize(_world, _blockPos, _clrIdx);
-                            pos = "3.3";
+                            gameObject = _ebcd.transform.gameObject;
+                            // adds the script if still not existing.
+                            if (gameObject != null)
+                            {
+                                pos = "2";
+                                script = gameObject.GetComponent<SpawnerMScript>();
+                                pos = "3";
+                                if (script == null)
+                                {
+                                    if (!disableDebug) Debug.Log("SPAWNER: ADDING SCRIPT");
+                                    pos = "3.1";
+                                    script = gameObject.AddComponent<SpawnerMScript>();
+                                    pos = "3.2";
+                                    script.initialize(_world, _blockPos, _clrIdx);
+                                    pos = "3.3";
+                                }
+                                else if (!disableDebug)
+                                    Debug.Log("SPAWNER: OnBlockValueChanged - SCRIPT ALREADY EXISTING AND RUNNING?");
+                            }
                         }
-                        else if (!disableDebug) Debug.Log("SPAWNER: OnBlockValueChanged - SCRIPT ALREADY EXISTING AND RUNNING?");
                         pos = "4";
                     }
                     catch (Exception ex)

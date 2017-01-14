@@ -298,6 +298,8 @@
 		<property name="FuelValue" value="70" />
 		<property name="SoundDestroy" value="wooddestroy1" />
 		<property name="Attachments" value="flashlight02,Sight_Advanced,LaserAttachment,Sight_ACOG" />
+		<property name="CrosshairOnAim" value="true" />
+		<property name="CrosshairUpAfterShot" value="false" />
 		<property class="Parts">
 			<property name="Stock" value="CrossbowStock" />
 			<property name="Receiver" value="CrossbowHousing" />
@@ -1388,8 +1390,8 @@
 			<!-- AttackAction -->
 			<property name="Class" value="Melee" />
 			<property name="Delay" value="0.8" />
-			<property name="Range" value="0.5" />
-			<property name="Sphere" value="0.5" />
+			<property name="Range" value="0.8" />
+			<property name="Sphere" value="0.2" />
 			<property name="DamageEntity" value="35" />
 			<property name="DamageBlock" value="0.4" />
 			<property name="Sound_start" value="swoosh" />

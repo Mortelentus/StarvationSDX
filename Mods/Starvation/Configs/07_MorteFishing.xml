@@ -483,6 +483,7 @@
 		<property name="IsDeveloper" value="true" />
 		<property name="CustomIcon" value="potatoSeed" />
 		<property name="Class" value="MorteTreeGrowing, Mods" />
+		<property name="AllowSize" value="1,1,1" />
 		<property name="Material" value="plants" />
 		<property name="StabilitySupport" value="false" />
 		<property name="Shape" value="ModelEntity" />				

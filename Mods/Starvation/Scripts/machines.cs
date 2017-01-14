@@ -633,17 +633,23 @@ public class BlockMachine : BlockWorkstation
             {
                 try
                 {
-                    gameObject = _ebcd.transform.gameObject;
-                    // adds the script if still not existing.
-                    script = gameObject.GetComponent<MachineScript>();
-                    if (script == null)
+                    if (_ebcd.transform != null)
                     {
-                        if (!disableDebug) Debug.Log("MACHINE: ADDING SCRIPT");
-                        script = gameObject.AddComponent<MachineScript>();
-                        script.initialize(_world, _blockPos, _clrIdx);
+                        gameObject = _ebcd.transform.gameObject;
+                        if (gameObject != null)
+                        {
+                            // adds the script if still not existing.
+                            script = gameObject.GetComponent<MachineScript>();
+                            if (script == null)
+                            {
+                                if (!disableDebug) Debug.Log("MACHINE: ADDING SCRIPT");
+                                script = gameObject.AddComponent<MachineScript>();
+                                script.initialize(_world, _blockPos, _clrIdx);
+                            }
+                            else if (!disableDebug)
+                                Debug.Log("MACHINE: OnBlockValueChanged - SCRIPT ALREADY EXISTING AND RUNNING?");
+                        }
                     }
-                    else if (!disableDebug)
-                        Debug.Log("MACHINE: OnBlockValueChanged - SCRIPT ALREADY EXISTING AND RUNNING?");
                 }
                 catch (Exception ex)
                 {

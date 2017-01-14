@@ -588,6 +588,7 @@
 	<block id="104" name="plantedAppleTree">
 		<property name="Model" value="Entities/Trees/Prefabs/MountainPine1mPrefab" />
 		<property name="IsDeveloper" value="true" />
+		<property name="AllowSize" value="2,2,2" />
 		<property name="Material" value="treeWoodSmall" />
 		<property name="Shape" value="ModelEntity" />
 		<property name="Texture" value="116" />
@@ -797,6 +798,7 @@
 	<!-- Young Trees/Plants as an intermediate link -->
 		<block id="1934" name="smallAppleTree">
 		<property name="IsDeveloper" value="true" />
+		<property name="AllowSize" value="2,2,2" />
 		<property name="Model" value="#AppleTree1?AppleTree1Prefab" />
 		<property name="MeshScale" value="0.5,0.5" />
 		<property name="Class" value="MorteTreeGrowing, Mods" />
@@ -885,6 +887,7 @@
 	<block id="1395" name="smallRedwoodTree">
 		<property name="Class" value="MorteTreeGrowing, Mods" />
 		<property name="doDamage" value="false" />
+		<property name="AllowSize" value="2,2,2" />
 		<property name="PlantGrowing.Next" value="redwoodTree" />
 		<property name="PlantGrowing.GrowthRate" value="25" />
 		<property name="PlantGrowing.FertileLevel" value="1" />
