@@ -90,6 +90,17 @@ public class StarvationPatcher : IPatcherMod
         pro.Emit(OpCodes.Ldarg_S, worldLoad.Parameters[6]);
         pro.Emit(OpCodes.Call, linkMethod);
         pro.Emit(OpCodes.Ret);
+        // locks assembly receipts when player closes a workstation Or assembly window
+        worldLoad = module.Types.First(d => d.Name == "XUiC_AssembleWindow").Methods.First(d => d.Name == "OnClose");
+        manager = mod.Types.First(d => d.Name == "LockReceips");
+        linkMethod = module.Import(manager.Methods.First(d => d.Name == "LockAll"));
+        pro = worldLoad.Body.GetILProcessor();
+        pro.Body.Instructions.Insert(0, Instruction.Create(OpCodes.Call, linkMethod));
+        worldLoad = module.Types.First(d => d.Name == "XUiC_WorkstationWindowGroup").Methods.First(d => d.Name == "OnClose");
+        manager = mod.Types.First(d => d.Name == "LockReceips");
+        linkMethod = module.Import(manager.Methods.First(d => d.Name == "LockAll"));
+        pro = worldLoad.Body.GetILProcessor();
+        pro.Body.Instructions.Insert(0, Instruction.Create(OpCodes.Call, linkMethod));
     }
 
     private void ChangeFieldPermission(ModuleDefinition module)

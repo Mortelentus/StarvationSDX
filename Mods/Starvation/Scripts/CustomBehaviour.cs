@@ -643,6 +643,8 @@ public class CustomBehaviour : ModScript
             {
                 obj.AddComponent<BehaviourScript>();
             }
+            // locks all receipts, even if the player has read the books
+            LockReceips.LockAll();
         }
         //else Config.Load();
    }

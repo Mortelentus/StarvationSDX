@@ -727,7 +727,7 @@
 		<property name="CustomIcon" value="parts44Magnum_grip" />
 		<property name="CustomIconTint" value="000532" />
 		<property name="Extends" value="partsMaster" />
-		<property name="DescriptionKey" value="parts44MagnumGroupDesc" />
+		<property name="DescriptionKey" value="partsRevolverGroupDesc" />
 		<property name="PartType" value="Stock" />
 		<property name="Weight" value="15" />
 		<property class="Attributes">
@@ -739,7 +739,7 @@
 		<property name="CustomIcon" value="parts44Magnum_cylinder" />
 		<property name="CustomIconTint" value="000532" />
 		<property name="Extends" value="partsMaster" />
-		<property name="DescriptionKey" value="parts44MagnumGroupDesc" />
+		<property name="DescriptionKey" value="partsRevolverGroupDesc" />
 		<property name="PartType" value="Receiver" />
 		<property name="Weight" value="10" />
 		<property class="Attributes">
@@ -751,7 +751,7 @@
 		<property name="CustomIcon" value="parts44Magnum_parts" />
 		<property name="CustomIconTint" value="000532" />
 		<property name="Extends" value="partsMaster" />
-		<property name="DescriptionKey" value="parts44MagnumGroupDesc" />
+		<property name="DescriptionKey" value="partsRevolverGroupDesc" />
 		<property name="PartType" value="Pump" />
 		<property name="Weight" value="10" />
 		<property class="Attributes">
@@ -763,7 +763,7 @@
 		<property name="CustomIcon" value="parts44Magnum_frame" />
 		<property name="CustomIconTint" value="000532" />
 		<property name="Extends" value="partsMaster" />
-		<property name="DescriptionKey" value="parts44MagnumGroupDesc" />
+		<property name="DescriptionKey" value="partsRevolverGroupDesc" />
 		<property name="PartType" value="Barrel" />
 		<property name="Weight" value="20" />
 		<property class="Attributes">

@@ -605,7 +605,7 @@
 		<property name="PlantGrowing.IsRandom" value="false" />
 		<property name="FallOver" value="false" />
 		<property name="doDamage" value="true" />
-		<drop event="Destroy" name="appleSeed" count="1" prob="1" />
+		<!-- <drop event="Destroy" name="appleSeed" count="1" prob="1" /> -->
 	</block>
 	<block id="105" name="plantedBananaPalm">
 		<property name="Extends" value="plantedAppleTree" />
@@ -689,7 +689,7 @@
 		<property name="PlantGrowing.FertileLevel" value="5" />
 		<property name="PlantGrowing.IsRandom" value="false" />
 		<property name="FallOver" value="false" />
-		<drop event="Destroy" name="tomatoSeed" count="1" prob="1" />
+		<!-- <drop event="Destroy" name="tomatoSeed" count="1" prob="1" /> -->
 	</block>
 	<block id="115" name="plantedPaprika">
 		<property name="Extends" value="plantedTomato" />

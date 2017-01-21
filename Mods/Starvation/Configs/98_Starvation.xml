@@ -142,6 +142,20 @@
 		<ingredient name="armorPlate" count="5" />
 		<ingredient name="leather" count="3" />
 	</recipe>
+	<recipe name="ShutterDoor" count="1" scrapable="False" craft_area="workbench">
+		<ingredient name="spring" count="3" />
+		<ingredient name="sheave" count="2" />
+		<ingredient name="shortMetalPipe" count="6" />
+		<ingredient name="ductTape" count="6" />
+		<ingredient name="forgedIron" count="15" />
+	</recipe>
+	<recipe name="ShutterDoorV" count="1" scrapable="False" craft_area="workbench">
+		<ingredient name="spring" count="3" />
+		<ingredient name="sheave" count="2" />
+		<ingredient name="shortMetalPipe" count="6" />
+		<ingredient name="ductTape" count="6" />
+		<ingredient name="forgedIron" count="15" />
+	</recipe>
 	<!-- PLAYER MADE -->
 
 	<!-- CRAFTER MADE -->
@@ -1937,6 +1951,24 @@
 	<item id="" name="MilitaryHeadset">
 		<property name="Extends" value="swatHelmet" />		
 	</item>
+	<item id="" name="mtar_parts">
+			<property name="Extends" value="partsMaster" />
+			<property name="PartType" value="Pump" />						
+			<property name="Weight" value="60" />		
+			<property class="Attributes">
+				<property name="EntityDamage" value="25, 60" />
+				<property name="BlockDamage" value="8,18" />
+				<property name="DegradationMax" value="3250,12000" />
+			</property>
+	</item>
+	<item id="" name="bookBlockGuns">
+		<property name="IsDeveloper" value="true" />
+		<property name="Extends" value="schematicMaster" />
+		<property class="Action1">
+			<property name="Recipes_to_learn" value="gunRevolver,mg4,HK416,Ump,smallCrossbow,ACW,MTAR" />
+			<property name="Skills_to_gain" value="Gun Smithing" />
+		</property>
+	</item>
 	<!-- STARVATION -->
 </append>	  
 </config>
@@ -2191,7 +2223,49 @@
 	  <drop event="Destroy" name="BrowningTripodBlock" count="1" prob="1" tool_category="Military" />
 	 </block>	
 	<!-- Mortelentus Server -->
- <block id="2045" name="OldMGBlock">
+	<block id="2043" name="ShutterDoor">
+		  <property name="Class" value="DoorSecure" />
+		  <property name="Material" value="Msteel" />
+		  <property name="Shape" value="ModelEntity" />
+		 <property name="Model" value="#shutter?ShutterDoor" />
+		  <property name="Collide" value="movement,melee,rocket,bullet" />
+		  <!-- -rocket -->
+		  <property name="Tag" value="Door" />
+		  <property name="Place" value="Door" />
+		  <property name="PlaceEverywhere" value="true" />
+		  <property name="MultiBlockDim" value="4,2,2" />
+		  <property name="OpenSound" value="UseActions/open_dumpster" />
+		  <property name="CloseSound" value="UseActions/close_dumpster" />
+		  <property class="RepairItems">
+		   <property name="forgedSteel" value="10" />
+		  </property>
+		  <drop event="Harvest" name="scrapIron" count="30" />
+		  <drop event="Destroy" name="scrapIron" count="30" />
+		  <drop event="Fall" name="scrapMetalPile" count="1" prob=".75" stick_chance="1" />
+		  <property name="Group" value="Building" />
+	 </block>
+	 <block id="2044" name="ShutterDoorV"  >  
+		  <property name="Class" value="DoorSecure" />
+		  <property name="Material" value="Msteel" />
+		  <property name="Shape" value="ModelEntity" />
+		 <property name="Model" value="#shutter?ShutterDoorV" />
+		  <property name="Collide" value="movement,melee,rocket,bullet" />
+		  <!-- -rocket -->
+		  <property name="Tag" value="Door" />
+		  <property name="Place" value="Door" />
+		  <property name="PlaceEverywhere" value="true" />
+		  <property name="MultiBlockDim" value="2,2,4" />
+		  <property name="OpenSound" value="UseActions/open_dumpster" />
+		  <property name="CloseSound" value="UseActions/close_dumpster" />
+		  <property class="RepairItems">
+		   <property name="forgedSteel" value="10" />
+		  </property>
+		  <drop event="Harvest" name="scrapIron" count="30" />
+		  <drop event="Destroy" name="scrapIron" count="30" />
+		  <drop event="Fall" name="scrapMetalPile" count="1" prob=".75" stick_chance="1" />
+		  <property name="Group" value="Building" />
+	</block>
+	<block id="2045" name="OldMGBlock">
 		<property name="Class" value="MannedTurret, Mods" />
 		<property name="Stacknumber" value="1" />
 		<property name="Material" value="metal" />
@@ -2225,7 +2299,7 @@
 			<property name="UpgradeHitCount" value="1" />
 	  </property>	  
 	  <drop event="Destroy" name="OldMGTripodBlock" count="1" prob="1" tool_category="Military" />
-	 </block>	
+	 </block>		
 </append>
 </config>
 <config name="progression">

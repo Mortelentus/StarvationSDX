@@ -14,6 +14,7 @@ public class BlockPowerTrap : Block
     private bool disableDebug = false;
 
     private int maxLevel = 10;
+    private int valveNumber = 10;
     private int miniMumCheck = 5; // in seconds
     private int numberUnitsToRequest = 5;
     List<MultiBuffClassAction> BuffActions;
@@ -661,7 +662,7 @@ public class BlockPowerTrap : Block
             }
             // asks valve for power, instead of going all the way to the gaz tank
             // only asks for the requested power units only, it will not acumulate on this case
-            if ((blockAux as BlockValve).GetPower(_world, _cIdx, _blockCheck, powerUnits))
+            if ((blockAux as BlockValve).GetPower(_world, _cIdx, _blockCheck, powerUnits, valveNumber))
             {
                 DisplayChatAreaText(string.Format("FOUND VALVE WITH POWER"));
                 // adds 4 to self since if it consumes 1

@@ -358,136 +358,143 @@ public class TowerScript : MonoBehaviour
     {
         if (world != null)
         {
-            // check for power        
-            try
+            // check for power      
+            if (true)
             {
-                if (DateTime.Now >= nextCheck && isPowered)
-                {
-                    nextCheck = DateTime.Now.AddSeconds(5);
-                    BlockValue _blockValue = world.GetBlock(cIdx, blockPos);
-                    if (Findorigin(world, cIdx, _blockValue, blockPos, blockPos, 1, "Electric"))
-                    {
-                        hasPower = true;
-                    }
-                    else hasPower = false;
-                }
-            }
-            catch (Exception ex)
-            {
-                debugHelper.doDebug(string.Format("TowerScript: ERROR TOWER: {0}", ex.Message), true);
-            }
-            // light blink - just for show... ;)
-            SecondsPassed += Time.deltaTime;
-            if (luz != null && hasPower)
-            {
-                if (luz.Length > 0)
-                {
-                    if (luz[0].intensity == LightOnIntensity && SecondsPassed >= BlinkSpeed)
-                    {
-                        luz[0].intensity = LightOffIntensity;
-                        SecondsPassed = 0.0F;
-                    }
-                    else if (luz[0].intensity == LightOffIntensity && SecondsPassed >= BlinkSpeed)
-                    {
-                        luz[0].intensity = LightOnIntensity;
-                        SecondsPassed = 0.0F;
-                    }
-                }
-                else debugHelper.doDebug("TowerScript: No light exists", true);
-            }
-            else if (luz != null)
-            {
-                if (luz.Length > 0)
-                {
-                    luz[0].intensity = LightOffIntensity;
-                    SecondsPassed = 0.0F;
-                }
-            }
-            else debugHelper.doDebug("TowerScript:No light exists", true);
-            // this will only run on the server
-            if (!world.IsRemote())
-            {
-                #region Spawn Check - SERVER ONLY;
-
                 try
                 {
-                    if (hasPower && DateTime.Now >= nextSpawn)
+                    if (DateTime.Now >= nextCheck && isPowered)
                     {
-                        nextSpawn = DateTime.Now.AddSeconds(spawnInterval);
-                        System.Random _rnd = new System.Random((int) (DateTime.Now.Ticks & 0x7FFFFFFF));
-                        int rndCheck = _rnd.Next(1, 101);
-                        debugHelper.doDebug(
-                            string.Format("TowerScript: TRY SPAWN with spawnChance={0} and randomCheck={1}", spawnChance,
-                                rndCheck), debug);
-                        if (rndCheck <= spawnChance && spawnChance > 0)
+                        nextCheck = DateTime.Now.AddSeconds(5);
+                        BlockValue _blockValue = world.GetBlock(cIdx, blockPos);
+                        if (Findorigin(world, cIdx, _blockValue, blockPos, blockPos, 1, "Electric"))
                         {
-                            debugHelper.doDebug("TowerScript: Spawning", debug);
-                            // look for a place to spawn the survivor.
-                            // basically will look for a place where i COULD spawn an entity
-                            // and spawn the survivor block there
-                            // i'll have to check for the number of those blocks nearby.
-
-                            // check the maximum number of spawns in the spawn area
-                            if (CheckMaxSurvivors())
-                            {
-                                // prepares spawn
-                                int x = 0;
-                                int y = 0;
-                                int z = 0;
-                                GameManager.Instance.World.FindRandomSpawnPointNearPosition(blockPos.ToVector3(), 15, out x,
-                                    out y,
-                                    out z, new Vector3(spawnArea, spawnArea, spawnArea), true, true);
-                                Vector3i spotToPlace = new Vector3i(x, y, z);
-                                //BlockValue offBlock = Block.GetBlockValue("survivor");
-                                //Vector3i spotToPlace = GetSpotToPlaceBlock(offBlock, world, blockPos, cIdx, spawnArea);
-                                //if (world.IsOpenSkyAbove(cIdx, x, y + 1, z))
-                                //for (int i = -2; i <= 2; i++)
-                                if (spotToPlace != Vector3i.zero)
-                                {
-                                    {
-                                        // spawn random entity from a survivor group!
-                                        int entityID = EntityGroups.GetRandomFromGroup(entityGroup);
-                                        Entity spawnEntity = EntityFactory.CreateEntity(entityID,
-                                            new Vector3((float) x, (float) y, (float) z));
-                                        spawnEntity.SetSpawnerSource(EnumSpawnerSource.StaticSpawner, cIdx, entityGroup);
-                                        GameManager.Instance.World.SpawnEntityInWorld(spawnEntity);
-
-                                        //WorldRayHitInfo worldRayHitInfo = new WorldRayHitInfo();
-                                        ////worldRayHitInfo.hit.blockPos = new Vector3i(x, y + i, z);
-                                        //worldRayHitInfo.hit.blockPos = spotToPlace;
-                                        //worldRayHitInfo.bHitValid = true;
-                                        //BlockPlacement.Result _bpResult =
-                                        //    Block.list[offBlock.type].BlockPlacementHelper.OnPlaceBlock(world, offBlock,
-                                        //        worldRayHitInfo.hit, blockPos.ToVector3());
-                                        //Block.list[offBlock.type].OnBlockPlaceBefore(world, ref _bpResult, null,
-                                        //    new System.Random());
-                                        //if (Block.list[offBlock.type].CanPlaceBlockAt(world, cIdx, _bpResult.blockPos,
-                                        //    _bpResult.blockValue))
-                                        //{
-                                        //    // spawn the survivor block on this new position    
-                                        //    Block.list[offBlock.type].PlaceBlock(world, _bpResult, null);
-                                        //    //break;
-                                        //}
-                                        //else
-                                        //    debugHelper.doDebug("TowerScript: CANNOT PLACE BLOCK AT DEFINED POSITION" +
-                                        //                        _bpResult.blockPos.ToString(), debug);
-                                    }
-                                }
-                                else
-                                    debugHelper.doDebug("TowerScript: NO SUITABLE PLACE TO SPAWN A SURVIVOR WAS FOUND",
-                                        debug);
-                            }
-                            else debugHelper.doDebug("TowerScript: Impossible to spawn more survivors", debug);
+                            hasPower = true;
                         }
-                        else debugHelper.doDebug("TowerScript: Spawning failed", debug);
+                        else hasPower = false;
                     }
                 }
                 catch (Exception ex)
                 {
                     debugHelper.doDebug(string.Format("TowerScript: ERROR TOWER: {0}", ex.Message), true);
                 }
+                // light blink - just for show... ;)
+                SecondsPassed += Time.deltaTime;
+                if (luz != null && hasPower)
+                {
+                    if (luz.Length > 0)
+                    {
+                        if (luz[0].intensity == LightOnIntensity && SecondsPassed >= BlinkSpeed)
+                        {
+                            luz[0].intensity = LightOffIntensity;
+                            SecondsPassed = 0.0F;
+                        }
+                        else if (luz[0].intensity == LightOffIntensity && SecondsPassed >= BlinkSpeed)
+                        {
+                            luz[0].intensity = LightOnIntensity;
+                            SecondsPassed = 0.0F;
+                        }
+                    }
+                    else debugHelper.doDebug("TowerScript: No light exists", true);
+                }
+                else if (luz != null)
+                {
+                    if (luz.Length > 0)
+                    {
+                        luz[0].intensity = LightOffIntensity;
+                        SecondsPassed = 0.0F;
+                    }
+                }
+                else debugHelper.doDebug("TowerScript:No light exists", true);
+                // this will only run on the server            
+                if (!world.IsRemote())
+                {
+                    #region Spawn Check - SERVER ONLY;
 
-                #endregion;
+                    try
+                    {
+                        if (hasPower && DateTime.Now >= nextSpawn)
+                        {
+                            nextSpawn = DateTime.Now.AddSeconds(spawnInterval);
+                            System.Random _rnd = new System.Random((int) (DateTime.Now.Ticks & 0x7FFFFFFF));
+                            int rndCheck = _rnd.Next(1, 101);
+                            debugHelper.doDebug(
+                                string.Format("TowerScript: TRY SPAWN with spawnChance={0} and randomCheck={1}",
+                                    spawnChance,
+                                    rndCheck), debug);
+                            if (rndCheck <= spawnChance && spawnChance > 0)
+                            {
+                                debugHelper.doDebug("TowerScript: Spawning", debug);
+                                // look for a place to spawn the survivor.
+                                // basically will look for a place where i COULD spawn an entity
+                                // and spawn the survivor block there
+                                // i'll have to check for the number of those blocks nearby.
+
+                                // check the maximum number of spawns in the spawn area
+                                if (CheckMaxSurvivors())
+                                {
+                                    // prepares spawn
+                                    int x = 0;
+                                    int y = 0;
+                                    int z = 0;
+                                    GameManager.Instance.World.FindRandomSpawnPointNearPosition(blockPos.ToVector3(), 15,
+                                        out x,
+                                        out y,
+                                        out z, new Vector3(spawnArea, spawnArea, spawnArea), true, true);
+                                    Vector3i spotToPlace = new Vector3i(x, y, z);
+                                    //BlockValue offBlock = Block.GetBlockValue("survivor");
+                                    //Vector3i spotToPlace = GetSpotToPlaceBlock(offBlock, world, blockPos, cIdx, spawnArea);
+                                    //if (world.IsOpenSkyAbove(cIdx, x, y + 1, z))
+                                    //for (int i = -2; i <= 2; i++)
+                                    if (spotToPlace != Vector3i.zero)
+                                    {
+                                        {
+                                            // spawn random entity from a survivor group!
+                                            int entityID = EntityGroups.GetRandomFromGroup(entityGroup);
+                                            Entity spawnEntity = EntityFactory.CreateEntity(entityID,
+                                                new Vector3((float) x, (float) y, (float) z));
+                                            spawnEntity.SetSpawnerSource(EnumSpawnerSource.StaticSpawner, cIdx,
+                                                entityGroup);
+                                            GameManager.Instance.World.SpawnEntityInWorld(spawnEntity);
+
+                                            //WorldRayHitInfo worldRayHitInfo = new WorldRayHitInfo();
+                                            ////worldRayHitInfo.hit.blockPos = new Vector3i(x, y + i, z);
+                                            //worldRayHitInfo.hit.blockPos = spotToPlace;
+                                            //worldRayHitInfo.bHitValid = true;
+                                            //BlockPlacement.Result _bpResult =
+                                            //    Block.list[offBlock.type].BlockPlacementHelper.OnPlaceBlock(world, offBlock,
+                                            //        worldRayHitInfo.hit, blockPos.ToVector3());
+                                            //Block.list[offBlock.type].OnBlockPlaceBefore(world, ref _bpResult, null,
+                                            //    new System.Random());
+                                            //if (Block.list[offBlock.type].CanPlaceBlockAt(world, cIdx, _bpResult.blockPos,
+                                            //    _bpResult.blockValue))
+                                            //{
+                                            //    // spawn the survivor block on this new position    
+                                            //    Block.list[offBlock.type].PlaceBlock(world, _bpResult, null);
+                                            //    //break;
+                                            //}
+                                            //else
+                                            //    debugHelper.doDebug("TowerScript: CANNOT PLACE BLOCK AT DEFINED POSITION" +
+                                            //                        _bpResult.blockPos.ToString(), debug);
+                                        }
+                                    }
+                                    else
+                                        debugHelper.doDebug(
+                                            "TowerScript: NO SUITABLE PLACE TO SPAWN A SURVIVOR WAS FOUND",
+                                            debug);
+                                }
+                                else debugHelper.doDebug("TowerScript: Impossible to spawn more survivors", debug);
+                            }
+                            else debugHelper.doDebug("TowerScript: Spawning failed", debug);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        debugHelper.doDebug(string.Format("TowerScript: ERROR TOWER: {0}", ex.Message), true);
+                    }
+
+                    #endregion;
+                }
             }
         }
     }
@@ -606,12 +613,13 @@ public class TowerScript : MonoBehaviour
     private bool CheckBoiler(int level, WorldBase _world, int _cIdx, Vector3i _blockCheck, Vector3i _blockPosOrigin)
     {
         int maxLevel = 10;
+        int maxValves = 10;
         bool result = false;
         if (level > maxLevel)
         {
             //DisplayChatAreaText(string.Format("LINE LIMIT REACHED AT ({0},{1},{2}", _blockCheck.x, _blockCheck.y, _blockCheck.z));
             return result; // it goes as far as maxLevel blocks away it stops, so you should plan carefully your lines using heat acumulators
-        }
+        }                
         string blockname = Block.list[_world.GetBlock(_cIdx, _blockCheck).ToItemValue().type].GetBlockName();
         Block blockAux = Block.list[_world.GetBlock(_cIdx, _blockCheck).ToItemValue().type];
         if (blockAux is BlockGenerator)
@@ -630,12 +638,12 @@ public class TowerScript : MonoBehaviour
             }
         }
         else if (blockAux is BlockValve)
-        {
+        {            
             // needs to verify the valve powerType, to make sure.
-            if ((blockAux as BlockValve).GetPowerType() != "Electric") return false;
-
+            if ((blockAux as BlockValve).GetPowerType() != "Electric") return false;            
             // asks valve for power, instead of going all the way to the generator
-            if ((blockAux as BlockValve).GetPower(_world, _cIdx, _blockCheck, 1))
+            // it will go as deep as 10 valves
+            if ((blockAux as BlockValve).GetPower(_world, _cIdx, _blockCheck, 1, maxValves))
             {
                 //DisplayChatAreaText(string.Format("FOUND A VALVE WITH POWER"));
                 return true; // available power
@@ -789,7 +797,7 @@ public class CrafterInvScript : MonoBehaviour
                 }
             }
         }
-        numButtons = numButtons + 2; // teach button, exit button, job label and Title        
+        numButtons = numButtons + 6; // teach button, exit button, job label and Title        
         guiAreaRect = new Rect(10, 10, 250, 60 * numButtons);
         infoAreaRect = new Rect(300, 10, 250, 60 * numButtons);
     }
@@ -834,7 +842,9 @@ public class CrafterInvScript : MonoBehaviour
             #region Job area;
             //begin guilayout area            
             //GUILayout.BeginArea(guiAreaRect);
-            scrollPosition = GUI.BeginScrollView(new Rect(10, 10, 280, 500), scrollPosition, new Rect(0, 0, 250, 50 * numButtons));
+            //scrollPosition = GUI.BeginScrollView(new Rect(10, 10, 280, 500), scrollPosition, new Rect(0, 0, 250, 50 * numButtons));
+            // up to 5 buttons
+            scrollPosition = GUI.BeginScrollView(new Rect(10, 10, 280, 500), scrollPosition, new Rect(0, 0, 250, 50 * numButtons), false, true);
             //begin vertical group. This means that everything under this will go from up to down
             //GUILayout.BeginVertical();
             //loop throught the list of available known "receipts"

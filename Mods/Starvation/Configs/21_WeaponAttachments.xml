@@ -34,7 +34,6 @@
 			</item>
 			<item id="" name="acw-r_parts">
 				<property name="Extends" value="partsMaster" />
-				<property name="DescriptionKey" value="assaultRiflePartsGroupDesc" />
 				<property name="PartType" value="Pump" />						
 				<property name="Weight" value="60" />		
 				<property class="Attributes">
@@ -310,7 +309,7 @@
 					<property name="Stock" value="assaultRifleStock" />
 					<property name="Receiver" value="assaultRifleTriggerHousing" />
 					<property name="Barrel" value="assaultRifleBarrel" />
-					<property name="Pump" value="acw-r_parts" />
+					<property name="Pump" value="mtar_parts" />
 				</property>
 				<property class="Action0">
 					<!-- AttackAction -->					

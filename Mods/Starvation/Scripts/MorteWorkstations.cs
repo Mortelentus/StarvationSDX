@@ -189,3 +189,18 @@ public class BlockMorteToolWorkstation : BlockWorkstation
             _world.GetWBT().AddScheduledBlockUpdate(_clrIdx, _blockPos, this.blockID, this.GetTickRate());
     }
 }
+
+public class BlockAssWork : BlockWorkstation
+{
+    public override bool OnBlockActivated(int _indexInBlockActivationCommands, WorldBase _world, int _cIdx, Vector3i _blockPos,
+        BlockValue _blockValue, EntityAlive _player)
+    {
+        bool result = base.OnBlockActivated(_indexInBlockActivationCommands, _world, _cIdx, _blockPos, _blockValue,
+            _player);
+        if (result)
+        {
+            LockReceips.UnlockAll();
+        }
+        return result;
+    }
+}

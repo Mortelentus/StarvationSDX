@@ -942,7 +942,7 @@ public class BlockFarmer : BlockSecureLoot
             while (enumerator.MoveNext())
             {
                 EntitySurvivorMod _other = enumerator.Current as EntitySurvivorMod;
-                if (_other.IsAlive() && ((_other.IsMale && survivorType == 1) || (!_other.IsMale && survivorType == 2) || (!_other.IsMale && survivorType == 3 && _other.EntityName == "Girl1")))
+                if (_other.IsAlive() && ((_other.IsMale && survivorType == 1) || (!_other.IsMale && survivorType == 2) || (!_other.IsMale && survivorType == 3 && _other.EntityName.StartsWith("Girl"))))
                 {
                     if (placing)
                     {

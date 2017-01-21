@@ -17,6 +17,7 @@ public class BlockMachine : BlockWorkstation
     MachineScript script;
     UnityEngine.GameObject gameObject;
     private int maxLevel = 10;
+    private int valveNumber = 10;
 
     /// <summary>
     /// Stores the date and time the tool tip was last displayed
@@ -256,7 +257,7 @@ public class BlockMachine : BlockWorkstation
             }
 
             // asks valve for power, instead of going all the way to the generator
-            if ((blockAux as BlockValve).GetPower(_world, _cIdx, _blockCheck, 1))
+            if ((blockAux as BlockValve).GetPower(_world, _cIdx, _blockCheck, 1, valveNumber))
             {
                 DisplayChatAreaText(string.Format("FOUND A VALVE WITH POWER"));
                 return true; // available power
@@ -381,7 +382,7 @@ public class BlockMachine : BlockWorkstation
             DisplayChatAreaText("ask valve for power");
             // asks valve for power, instead of going all the way to the gaz tank
             // asks for 5 power units, since the machine itself acumulates some gaz
-            if ((blockAux as BlockValve).GetPower(_world, _cIdx, _blockCheck, 5))
+            if ((blockAux as BlockValve).GetPower(_world, _cIdx, _blockCheck, 5, valveNumber))
             {
                 // adds 4 to self since if it consumes 1
                 AddPowerLevel(_world, _cIdx, _blockPosOrigin, 4);

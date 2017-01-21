@@ -15,6 +15,7 @@ public class BlockPowerLight : BlockLight
 {
     private bool disableDebug = true;
     private int maxLevel = 10;
+    private int valveNumber = 10;
     PowerLightScript script;
     UnityEngine.GameObject gameObject;
 
@@ -212,7 +213,7 @@ public class BlockPowerLight : BlockLight
            if ((blockAux as BlockValve).GetPowerType()!="Electric") return false;
 
             // asks valve for power, instead of going all the way to the generator
-            if ((blockAux as BlockValve).GetPower(_world, _cIdx, _blockCheck, 1))
+            if ((blockAux as BlockValve).GetPower(_world, _cIdx, _blockCheck, 1, valveNumber))
             {
                 DisplayChatAreaText(string.Format("FOUND A VALVE WITH POWER"));
                 return true; // available power

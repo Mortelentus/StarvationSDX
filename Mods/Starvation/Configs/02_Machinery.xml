@@ -325,7 +325,7 @@
 	<item id="" name="doorBook">
 		<property name="Extends" value="schematicMaster" />
 		<property class="Action1">
-			<property name="Recipes_to_learn" value="drawBridge, garageDoorRolling" />
+			<property name="Recipes_to_learn" value="drawBridge, garageDoorRolling, ShutterDoor, ShutterDoorV" />
 			<property name="Skills_to_gain" value="Tool Smithing" />
 		</property>
 	</item>	

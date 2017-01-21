@@ -987,3 +987,45 @@ public class SurvivorHelper
     }
 
 }
+
+public class LockReceips
+{
+    public static List<string> receiptsToLock = new List<string>();
+
+    static LockReceips() 
+    {        
+        receiptsToLock.Add("steampunkRevolver");
+        receiptsToLock.Add("smallCrossbow");
+        receiptsToLock.Add("Ump");
+        receiptsToLock.Add("HK416");
+        receiptsToLock.Add("mg4");
+        receiptsToLock.Add("gunRevolver");
+        receiptsToLock.Add("gun44Magnum");        
+        receiptsToLock.Add("MTAR");
+        receiptsToLock.Add("ACW");
+        receiptsToLock.Add("gunSawedOffPumpShotgun");
+        receiptsToLock.Add("gunPumpShotgun");
+        receiptsToLock.Add("gunPistol");
+        receiptsToLock.Add("gunMP5");
+        receiptsToLock.Add("gunAK47");
+        receiptsToLock.Add("gunHuntingRifle");
+        receiptsToLock.Add("gunSniperRifle");        
+    }
+    public static void UnlockAll()
+    {
+        //Debug.Log("unlocking receipts");
+        foreach (string recipt in receiptsToLock)
+        {
+            CraftingManager.UnlockRecipe(recipt);
+        }
+    }
+    public static void LockAll()
+    {
+        //Debug.Log("Locking receipts");                
+        foreach (string recipt in receiptsToLock)
+        {
+            CraftingManager.LockRecipe(recipt, CraftingManager.RecipeLockTypes.None);
+            CraftingManager.UnlockedRecipeList.Remove(recipt);
+        }        
+    }
+}

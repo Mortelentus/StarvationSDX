@@ -203,7 +203,7 @@ public class BlockValve : Block
 
     // for a gaz tank, the machine has to "ask" for power unit
     private int FindSource(WorldBase _world, int _cIdx, BlockValue _blockValue, Vector3i _blockPos,
-        Vector3i _blockPosOrgin, int level, int powerUnits)
+        Vector3i _blockPosOrgin, int level, int powerUnits, int valveNumber)
     {
         // now, it will check the parent directly... If no parent is found, the line to the origin is broken
         // and energy is NOT bidirectional - so even if there are acumulator further in line
@@ -228,7 +228,7 @@ public class BlockValve : Block
             else if (_blockValue.meta2 == 6)
                 posCheck = new Vector3i(_blockPos.x, _blockPos.y, _blockPos.z - 1); // parent is back
             result = CheckSource(level, _world, _cIdx,
-                posCheck, _blockPosOrgin, powerUnits);
+                posCheck, _blockPosOrgin, powerUnits, valveNumber);
         }
         else DisplayToolTipText("NO PARENT DEFINED");
 
@@ -236,7 +236,7 @@ public class BlockValve : Block
     }
 
     private int CheckSource(int level, WorldBase _world, int _cIdx, Vector3i _blockCheck, Vector3i _blockPosOrigin,
-        int powerUnits)
+        int powerUnits, int valveNumber)
     {
         int result = 0;
         if (level > maxLevel)
@@ -341,7 +341,7 @@ public class BlockValve : Block
             }
             // asks valve for power, instead of going all the way to the gaz tank
             // asks for 5 power units only, since it's a valve
-            if ((blockAux as BlockValve).GetPower(_world, _cIdx, _blockCheck, 5))
+            if ((blockAux as BlockValve).GetPower(_world, _cIdx, _blockCheck, 5, valveNumber))
             {
                 DisplayChatAreaText(string.Format("FOUND VALVE WITH POWER"));
                 // adds 4 to self since if it consumes 1
@@ -367,7 +367,7 @@ public class BlockValve : Block
             level = level + 1;
             // check parent of current posistion
             BlockValue currentValue = _world.GetBlock(_cIdx, _blockCheck);
-            result = FindSource(_world, _cIdx, currentValue, _blockCheck, _blockPosOrigin, level, powerUnits);
+            result = FindSource(_world, _cIdx, currentValue, _blockCheck, _blockPosOrigin, level, powerUnits, valveNumber);
 
             #endregion;
         }
@@ -481,8 +481,10 @@ public class BlockValve : Block
     /// <param name="_blockPos">Block Position</param>
     /// <param name="powerUnits">Number of Power Units requested</param>
     /// <returns>True if power units available</returns>
-    public bool GetPower(WorldBase _world, int _cIdx, Vector3i _blockPos, int powerUnits)
+    public bool GetPower(WorldBase _world, int _cIdx, Vector3i _blockPos, int powerUnits, int valveNumber)
     {
+        valveNumber--;
+        if (valveNumber <= 0) return false;
         // checks if self has enough power units left
         // get self blockvalue
         BlockValue blkValue = _world.GetBlock(_cIdx, _blockPos);
@@ -504,7 +506,7 @@ public class BlockValve : Block
                 // 1 valve batch is ALWAYS bigger then 1 machine request
                 DisplayChatAreaText("VALVE needs to ask for power to master");
                 // always asks for a batch of 10 powerunits, but can get less then that
-                int powerReceived = FindSource(_world, _cIdx, blkValue, _blockPos, _blockPos, 1, 10);
+                int powerReceived = FindSource(_world, _cIdx, blkValue, _blockPos, _blockPos, 1, 10, valveNumber);
                 if (newPowerValue < 0) newPowerValue = 0;
                 newPowerValue = newPowerValue + powerReceived;
                 if (newPowerValue >= powerUnits)

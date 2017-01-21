@@ -144,9 +144,11 @@ public class ItemClassAttachments : ItemClass
             DoDebug("Looking for " + forId.Name);
             if (_data.item.Attachments != null)
             {
-                if (_data.item.Attachments.Length <= 1) return false;
+                //if (_data.item.Attachments.Length <= 1) return false;
+                if (_data.item.Attachments.Length < 1) return false;
                 // go through available attachments to check if the respective attachment exists
-                for (int i = 1; i <= (_data.item.Attachments.Length - 1); i++)
+                for (int i = 0; i <= (_data.item.Attachments.Length - 1); i++)
+                //for (int i = 1; i <= (_data.item.Attachments.Length - 1); i++)
                 {
                     if (_data.item.Attachments[i] == forId.Name)
                     {
@@ -263,7 +265,7 @@ public class ItemClassAttachments : ItemClass
                                     _data.itemValue.Attachments = newArray;
                                     //newArray.CopyTo(_data.itemValue.Attachments, 0);
                                 }
-                                else _data.itemValue.Attachments[i] = attachStack.itemValue;
+                                else _data.itemValue.Attachments[i] = attachStack.itemValue;                               
                                 ToogleAttachment(_data, forId.GetItemName(), true, true);
                                 DisplayToolTipText(string.Format("You attached a {0} to your gun",
                                     forId.GetLocalizedItemName()));
@@ -468,7 +470,8 @@ public class ItemClassAttachments : ItemClass
         if (item.Attachments != null)
             if (item.Attachments.Length > 1)
             {
-                for (int i = 1; i <= (item.Attachments.Length - 1); i++)
+                //for (int i = 1; i <= (item.Attachments.Length - 1); i++)
+                for (int i = 0; i <= (item.Attachments.Length - 1); i++)
                 {
                     bool state = false;
                     if (_data.itemValue.Attachments.Length >= (i + 1))
@@ -564,6 +567,15 @@ public class ItemClassAttachments : ItemClass
     {
         try
         {
+            if (attachment.ToLower().Contains("flashlight"))
+            {
+                Transform transform2 = _data.model.Find("Attachments/flashlight");
+                if (transform2 != null)
+                {
+                    transform2.gameObject.SetActive(active);
+                }
+                return true;
+            }
             // Check if the reference to the LineRenderer component is null
             Transform[] componentsInChildren = _data.model.GetComponentsInChildren<Transform>(true);
             if (componentsInChildren != null)
@@ -583,7 +595,8 @@ public class ItemClassAttachments : ItemClass
                             bool doAction = true;
                             if (!active)
                             {
-                                for (int i = 1; i <= (_data.itemValue.Attachments.Length - 1); i++)
+                                //for (int i = 1; i <= (_data.itemValue.Attachments.Length - 1); i++)
+                                for (int i = 0; i <= (_data.itemValue.Attachments.Length - 1); i++)
                                 {
                                     if (!_data.itemValue.Attachments[i].IsEmpty())
                                     {
@@ -1273,7 +1286,8 @@ public class ItemClassAttachments : ItemClass
                 if (item.Attachments == null) return transform;
                 if (item.Attachments.Length > 1)
                 {
-                    for (int i = 1; i <= (item.Attachments.Length - 1); i++)
+                    //for (int i = 1; i <= (item.Attachments.Length - 1); i++)
+                    for (int i = 0; i <= (item.Attachments.Length - 1); i++)
                     {
                         bool state = false;
                         if (_itemValue.Attachments.Length >= (i + 1))
@@ -1336,7 +1350,8 @@ public class WeaponGUI : MonoBehaviour
         // get the list of allowed attachments
         item = ItemClass.GetForId(epLocalPlayer.inventory.holdingItemData.itemValue.type);
         if (item.Attachments != null)
-            if (item.Attachments.Length > 1)
+            //if (item.Attachments.Length > 1)
+            if (item.Attachments.Length > 0)
             {
                 numAllowedAttachments = item.Attachments.Length;
                 guiAreaRect = new Rect(10, 10, 250, 50 * numAllowedAttachments + 1);
@@ -1438,10 +1453,11 @@ public class WeaponGUI : MonoBehaviour
             string msg = "";
             if (item.Attachments != null)
             {
-                if (item.Attachments.Length > 1)
+                if (item.Attachments.Length >= 1)
                 {
                     numAllowedAttachments = item.Attachments.Length;
-                    for (int i = 1; i <= (item.Attachments.Length - 1); i++)
+                    //for (int i = 1; i <= (item.Attachments.Length - 1); i++)
+                    for (int i = 0; i <= (item.Attachments.Length - 1); i++)
                     {
                         ItemValue itemA = ItemClass.GetItem(item.Attachments[i]);
                         if (itemA != null)
