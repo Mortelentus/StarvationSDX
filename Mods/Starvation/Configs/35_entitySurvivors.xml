@@ -369,9 +369,9 @@
 		<property name="MaxViewAngle" value="180" />
 		<property name="WanderSpeed" value="0.25" />
 		<property name="PanicSpeed" value="1.7" />
-		<property name="ApproachSpeed" value="1.4" />
+		<property name="ApproachSpeed" value="1.7" />
 		<property name="NightWanderSpeed" value="0.25" />
-		<property name="NightApproachSpeed" value="1.4" />			
+		<property name="NightApproachSpeed" value="1.7" />			
 		<!-- This decides on the particle effect played on hit -->
 		<property name="SurfaceCategory" value="organic" />
 		<property name="ParticleOnDeath" value="blood_death" />
@@ -393,7 +393,7 @@
 		<property name="IsMale" value="false" />
 		<!-- FOOD CONFIGURATION - <amount of "hp" to restore>,foodItem1,foodItem2,...,foodItemn -->
 		<!-- Lower type of food - survivor looks for this if he is not hurt -->
-		<property name="FoodLow" value="1,salad,wheat" />
+		<property name="FoodLow" value="1,salad,wheat,carrot" />
 		<!-- Medium type of food - survivor looks for this if he is slighlty hurt -->
 		<property name="FoodMedium" value="2,carrot" />
 		<!-- Higher type of food - survivor looks for this if he is badly hurt -->
@@ -596,7 +596,18 @@
 		<objective type="ZombieKill" id="zombieJoe" value="1" />
 		<reward type="Item" id="donkeyItem" />
 	</quest>
-
+	<quest id="quest_BurnedHouse" group_name="Test" name="BurnedHouse" subtitle="BurnedHouse" description="..." icon="ui_game_symbol_map_trader" category_key="Quest">
+		<objective type="Goto" id="HouseBurntRadiated" value="5" />
+		<reward type="SkillPoints" value="1" />
+	</quest>
+	<quest id="quest_BurnedHouse1" group_name="Test" name="BurnedHouse1" subtitle="BurnedHouse1" description="..." icon="ui_game_symbol_map_trader" category_key="Quest">
+		<objective type="Goto" id="HouseBurntRadiated1" value="5" />
+		<reward type="SkillPoints" value="1" />
+	</quest>	
+	<quest id="quest_MpWaste" group_name="Test" name="MpWaste" subtitle="MpWaste" description="..." icon="ui_game_symbol_map_trader" category_key="Quest">
+		<objective type="Goto" id="MpWasteRadiated" value="5" />
+		<reward type="SkillPoints" value="1" />
+	</quest>	
 </append>	  
 </config>
 <config name="entitygroups">

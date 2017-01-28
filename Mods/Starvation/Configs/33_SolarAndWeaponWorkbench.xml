@@ -17,17 +17,17 @@
 		<property name="StabilitySupport" value="false" />
 		<property name="Shape" value="ModelEntity" />
 		<property name="Model" value="#weaponworkbench?WeaponWorkbenchPrefabV" />
-		<property name="MultiBlockDim" value="2,2,1" />
+		<property name="MultiBlockDim" value="1,2,3" />
 		<property name="Place" value="TowardsPlacerInverted" />
 		<property name="Stacknumber" value="1" />
 		<property name="HeatMapStrength" value="0.5" />
 		<property name="HeatMapTime" value="1200" />
 		<property name="HeatMapFrequency" value="25" />
-		<!--<property name="RecipeList" value="backpack, workbench"/>-->
+		<property name="RecipeList" value="workbench"/>
 		<property name="RecipeUnlock" value="backpack, workbench"/>
 		<property class="Workstation">
 			<property name="Modules" value="output" />
-			<property name="CraftingAreaRecipes" value="player,workbench" />
+			<property name="CraftingAreaRecipes" value="WeaponWorkbench" />
 		</property>
 		<property class="RepairItems">
 			<property name="forgedIron" value="35" />
@@ -112,6 +112,9 @@
 		<ingredient name="toolAndDieSet" count="1" />
 		<ingredient name="wood" count="50" />
 	</recipe>	
+	<recipe name="WeaponWorkbenchFlyer" count="1" craft_area="WeaponWorkbench">
+		<ingredient name="paper" count="1" />		
+	</recipe>
 	<recipe name="gunRevolver" count="1" craft_area="assembly">
 		<ingredient name="flashlight02" count="0" />
 		<ingredient name="partsGunRevolver_grip" count="1" />

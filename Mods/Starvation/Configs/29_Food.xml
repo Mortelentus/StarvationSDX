@@ -340,7 +340,7 @@
 			<property name="Gain_food" value="0" />
 			<property name="Gain_health" value="2" />
 			<property name="Gain_water" value="20" />
-			<property name="Buff" value="redTeaCooling" />
+			<property name="Buff" value="redTeaCooling,fruity" />
 			<property name="Gain_stamina" value="40" />
 			<property name="Sound_start" value="UseActions/player_drinking" />
 			<property name="Gain_wellness" value="0.5" />
@@ -408,6 +408,7 @@
 			<property name="Gain_stamina" value="50" />
 			<property name="Sound_start" value="UseActions/player_drinking" />
 			<property name="Gain_wellness" value="1.0" />
+			<property name="Buff" value="fruity" />
 			<property name="Debuff" value="dysentery" />
 			<property name="Create_item" value="emptyJar" />
 		</property>
@@ -463,6 +464,7 @@
 			<property name="Gain_stamina" value="40" />
 			<property name="Sound_start" value="UseActions/player_drinking" />			
 			<property name="Gain_wellness" value="0.4" />
+			<property name="Buff" value="fruity" />
 			<property name="Debuff" value="dysentery" />
 			<property name="Create_item" value="paper" />
 		</property>
@@ -518,7 +520,7 @@
 			<property name="Gain_health" value="5" />
 			<property name="Gain_food" value="15" />
 			<property name="Gain_wellness" value="0.5" />
-			<property name="Buff" value="goodFoodBuff" />
+			<property name="Buff" value="goodFoodBuff,fruity" />
 			<property name="Sound_start" value="UseActions/player_eating" />
 		</property>
 		<property name="Group" value="Food/Cooking" />
@@ -560,6 +562,7 @@
 			<property name="Gain_health" value="10" />
 			<property name="Gain_food" value="50" />
 			<property name="Gain_wellness" value="2.0" />
+			<property name="Buff" value="fruity" />
 			<property name="Sound_start" value="UseActions/player_eating" />
 		</property>
 		<property name="Group" value="Food/Cooking" />

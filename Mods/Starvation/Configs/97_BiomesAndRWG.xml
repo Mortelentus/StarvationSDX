@@ -307,7 +307,17 @@
 		<prefab name="ScientistShelter" />		
 	</append>
 	<append xpath="/rwgmixer/prefab_rules/prefab_rule[@name='wildernessPOIs']">		
-	<prefab name="junkyard_med_MG" />					
+		<prefab name="junkyard_med_MG" />					
+	</append>
+	<append xpath="/rwgmixer/prefab_rules/prefab_rule[@name='wildernessPOIs']">		
+		<prefab name="MpWasteRadiated" />		
+		<prefab name="HouseBurntRadiated" />
+		<prefab name="HouseBurntRadiated1" />		
+	</append>
+	<append xpath="/rwgmixer/prefab_rules/prefab_rule[@name='rural']">		
+		<prefab name="MpWasteRadiated" />		
+		<prefab name="HouseBurntRadiated" />	
+		<prefab name="HouseBurntRadiated1" />		
 	</append>
 </config>
 </configs>

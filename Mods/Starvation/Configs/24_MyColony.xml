@@ -3,6 +3,11 @@
 <append xpath="/recipes">
 	<!-- MyColony  -->
 	<!-- Medium Tier Receipts  -->	
+	<recipe name="wrench" count="1" craft_area="smith">
+		<ingredient name="forgedSteel" count="12" />
+		<ingredient name="forgedIron" count="2" />
+		<ingredient name="scrapPlastics" count="1" />
+	</recipe>
 	<recipe name="partsAK47_stock" count="1" scrapable="True" craft_area="smith">
 		<ingredient name="spring" count="3" />
 		<ingredient name="forgedSteel" count="2" />

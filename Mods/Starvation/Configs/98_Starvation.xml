@@ -339,8 +339,8 @@
 	<set xpath="/items/item[(contains(@name, 'meat') or contains(@name, 'Meat') or contains(@name, 'Stew') or contains(@name, 'Egg') or contains(@name, 'egg') or contains(@name, 'Pie') or contains(@name, 'Fillet'))]/property[@name='Stacknumber' and (@value='50' or @value='500')]/@value">15</set>
 	<set xpath="/items/item[@name='herbalAntibiotics']/property[@class='Action1']/property[@name='Debuff' and contains(@value, 'dysentery')]/@value">infection,dysentery,dysentery2,flu,flu2</set>
 	<set xpath="/items/item[@name='herbalAntibiotics']/property[@class='Action0']/property[@name='Debuff' and contains(@value, 'dysentery')]/@value">infection,dysentery,dysentery2,flu,flu2</set>
-	<set xpath="/items/item[@name='antibiotics']/property[@class='Action1']/property[@name='Debuff' and contains(@value, 'dysentery')]/@value">infection,dysentery,dysentery2,flu,flu2</set>
-	<set xpath="/items/item[@name='antibiotics']/property[@class='Action0']/property[@name='Debuff' and contains(@value, 'dysentery')]/@value">infection,dysentery,dysentery2,flu,flu2</set>
+	<set xpath="/items/item[@name='antibiotics']/property[@class='Action1']/property[@name='Debuff' and contains(@value, 'dysentery')]/@value">infection,infection1,infection2,infection3,dysentery,dysentery2,flu,flu2</set>
+	<set xpath="/items/item[@name='antibiotics']/property[@class='Action0']/property[@name='Debuff' and contains(@value, 'dysentery')]/@value">infection,infection1,infection2,infection3,dysentery,dysentery2,flu,flu2</set>
 
 <append xpath="/items">
 	<!-- STARVATION -->
@@ -1941,12 +1941,12 @@
 		</property>
 		<property name="EconomicValue" value="1500" />
 	</item>	
-		<item id="" name="talkingHeadItem">
-			<property name="Extends" value="girlItem" />
-			<property class="Action1">
-				<property name="Class" value="SpawnMorteEntity, Mods" />
-				<property name="entityToSpawn" value="TalkingHead" />
-			</property>			
+	<item id="" name="talkingHeadItem">
+		<property name="Extends" value="girlItem" />
+		<property class="Action1">
+			<property name="Class" value="SpawnMorteEntity, Mods" />
+			<property name="entityToSpawn" value="TalkingHead" />
+		</property>			
 	</item>
 	<item id="" name="MilitaryHeadset">
 		<property name="Extends" value="swatHelmet" />		
@@ -1968,6 +1968,92 @@
 			<property name="Recipes_to_learn" value="gunRevolver,mg4,HK416,Ump,smallCrossbow,ACW,MTAR" />
 			<property name="Skills_to_gain" value="Gun Smithing" />
 		</property>
+	</item>
+	<item id="" name="handWallCrusher">
+		<property name="Extends" value="handMaster" />
+		<property name="IsDeveloper" value="true" />
+		<property class="Action0"> <!-- AttackAction -->
+			<property name="DamageEntity" value="20" />
+			<property name="DamageBlock" value="2500" />
+			<property name="Delay" value="1.8" />
+			<property name="Range" value="2.65" />
+			<property name="Buff" value="infection,stunned" />
+			<property name="Buff_chance" value="0.04,1" />
+		</property>
+	</item>
+	<item id="" name="WeaponWorkbenchFlyer">
+		<property name="Meshfile" value="Items/Misc/Book" />
+		<property name="CustomIcon" value="treasureQuestMaster" />
+		<property name="Material" value="paper" />
+		<property name="HoldType" value="21" />
+		<property name="Stacknumber" value="1" />
+		<property name="DescriptionKey" value="WeaponWorkbenchFlyerDesc" />		
+		<property name="FuelValue" value="1" />
+		<property name="Weight" value="1" />
+		<property name="Group" value="Special Items" />
+		<property class="Preview">
+			<property name="Zoom" value="10" />
+			<property name="Pos" value="0,-0.2" />
+			<property name="Rot" value="90,45,0" />
+		</property>		
+	</item>
+	<item id="" name="powerCore">
+		<property name="Meshfile" value="Items/Misc/sackPrefab" />
+		<property name="DropMeshfile" value="Items/Misc/sack_droppedPrefab" />
+		<property name="Material" value="metal" />
+		<property name="HoldType" value="45" />
+		<property name="Stacknumber" value="5" /> <!-- STK repairKit -->
+		<property name="EconomicValue" value="186" />
+		<property name="RepairTime" value="2" />
+		<property name="RepairAmount" value="2000" />
+		<property name="Group" value="Resources,Ammo/Weapons" />
+		<property name="CraftingSkillGroup" value="Gun Smithing"/>
+	</item>	
+	<item id="" name="lightsword">
+		<property name="Meshfile" value="#lightswordnew?Lightsword" />
+		<!--property name="DescriptionKey" value="LightSwordDesc" /-->
+		<property name="Material" value="metal" />
+		<property name="HoldType" value="17" />
+		<property name="Stacknumber" value="1" />
+		<property name="RepairTools" value="powerCore" />
+		<property name="Degradation" value="500" param1="true" />
+		<property name="FuelValue" value="4" />
+		<property name="SoundDestroy" value="metaldestroy1" />
+		<property name="Weight" value="25" />	
+		<property name="EconomicValue" value="1000" />
+		<property name="SoundIdle" value="lightSword_idle" />
+		<property name="SoundUnholster" value="lightSword_open" />
+		<property name="SoundHolster" value="lightSword_close" />
+		<property class="Action0">
+			<!-- AttackAction -->
+			<property name="Class" value="Melee" />
+			<property name="Delay" value="1.2" />
+			<property name="Range" value="2.2" />
+			<property name="Sphere" value="0.1" />
+			<property name="DamageEntity" value="10" />
+			<property name="DamageBlock" value="0.4" />
+			<property name="Sound_start" value="lightSword_swoosh" />
+			<property name="Stamina_usage" value="6" />
+			<property name="Buff" value="bleeding" />
+			<property name="Buff_chance" value="1" />					
+			<property name="DamageBonus.metal" value="10" />
+			<property name="DamageBonus.stone" value="11" />
+			<property name="DamageBonus.wood" value="12" />
+			<property name="DamageBonus.head" value="13" />
+			<property name="DamageBonus.glass" value="25" />
+			<property name="ToolCategory.Butcher" value="1" />
+		</property>
+		<property class="Attributes">
+			<property name="EntityDamage" value="8,20" />
+			<property name="BlockDamage" value="80,160" />
+			<property name="DegradationMax" value="200,400" />
+			<property name="DegradationRate" value="1,1" />
+			<property name="DismembermentBaseChance" value="1,1" />
+			<property name="DismembermentBonus" value="1,2" />
+		</property>
+		<property name="Group" value="Ammo/Weapons" />
+		<property name="ActionSkillGroup" value="Blade Weapons" />
+		<property name="CraftingSkillGroup" value="Weapon Smithing" />
 	</item>
 	<!-- STARVATION -->
 </append>	  
@@ -2223,6 +2309,28 @@
 	  <drop event="Destroy" name="BrowningTripodBlock" count="1" prob="1" tool_category="Military" />
 	 </block>	
 	<!-- Mortelentus Server -->
+	<block id="2040" name="ammobag">
+		<property name="Class" value="Loot" />
+		<property name="Material" value="organic" />
+		<property name="Shape" value="ModelEntity" />
+		<property name="Model" value="#ammobags?ammoBag" />
+		<property name="Collide" value="movement,melee,bullet,arrow,rocket" />
+		<property name="LootList" value="104" />
+		<drop event="Destroy" name="cloth" count="5" />
+	</block>
+	<block id="2041" name="ammobag1">
+		<property name="Class" value="Loot" />
+		<property name="Material" value="organic" />
+		<property name="Shape" value="ModelEntity" />
+		<property name="Model" value="#ammobags?ammoBag1" />
+		<property name="Collide" value="movement,melee,bullet,arrow,rocket" />
+		<property name="LootList" value="105" />
+		<drop event="Destroy" name="cloth" count="5" />
+	</block>
+	<block id="2042" name="lootRad">
+		<property name="Extends" value="lootWasteland" />
+		<property name="IsDeveloper" value="true" />
+	</block>
 	<block id="2043" name="ShutterDoor">
 		  <property name="Class" value="DoorSecure" />
 		  <property name="Material" value="Msteel" />
@@ -2233,7 +2341,7 @@
 		  <property name="Tag" value="Door" />
 		  <property name="Place" value="Door" />
 		  <property name="PlaceEverywhere" value="true" />
-		  <property name="MultiBlockDim" value="4,2,2" />
+		  <property name="MultiBlockDim" value="4,2,1" />
 		  <property name="OpenSound" value="UseActions/open_dumpster" />
 		  <property name="CloseSound" value="UseActions/close_dumpster" />
 		  <property class="RepairItems">
@@ -2245,26 +2353,26 @@
 		  <property name="Group" value="Building" />
 	 </block>
 	 <block id="2044" name="ShutterDoorV"  >  
-		  <property name="Class" value="DoorSecure" />
-		  <property name="Material" value="Msteel" />
-		  <property name="Shape" value="ModelEntity" />
-		 <property name="Model" value="#shutter?ShutterDoorV" />
-		  <property name="Collide" value="movement,melee,rocket,bullet" />
-		  <!-- -rocket -->
-		  <property name="Tag" value="Door" />
-		  <property name="Place" value="Door" />
-		  <property name="PlaceEverywhere" value="true" />
-		  <property name="MultiBlockDim" value="2,2,4" />
-		  <property name="OpenSound" value="UseActions/open_dumpster" />
-		  <property name="CloseSound" value="UseActions/close_dumpster" />
-		  <property class="RepairItems">
-		   <property name="forgedSteel" value="10" />
-		  </property>
-		  <drop event="Harvest" name="scrapIron" count="30" />
-		  <drop event="Destroy" name="scrapIron" count="30" />
-		  <drop event="Fall" name="scrapMetalPile" count="1" prob=".75" stick_chance="1" />
-		  <property name="Group" value="Building" />
-	</block>
+		<property name="Class" value="DoorSecure" />
+		<property name="Material" value="Msteel" />
+		<property name="Shape" value="ModelEntity" />
+	   <property name="Model" value="#shutter?ShutterDoorV" />
+		<property name="Collide" value="movement,melee,rocket,bullet" />
+		<!-- -rocket -->
+		<property name="Tag" value="Door" />
+		<property name="Place" value="Door" />
+		<property name="PlaceEverywhere" value="true" />
+		<property name="MultiBlockDim" value="2,2,4" />
+		<property name="OpenSound" value="UseActions/open_dumpster" />
+		<property name="CloseSound" value="UseActions/close_dumpster" />
+		<property class="RepairItems">
+		 <property name="forgedSteel" value="10" />
+		</property>
+		<drop event="Harvest" name="scrapIron" count="30" />
+		<drop event="Destroy" name="scrapIron" count="30" />
+		<drop event="Fall" name="scrapMetalPile" count="1" prob=".75" stick_chance="1" />
+		<property name="Group" value="Building" />
+	 </block>
 	<block id="2045" name="OldMGBlock">
 		<property name="Class" value="MannedTurret, Mods" />
 		<property name="Stacknumber" value="1" />
@@ -2822,6 +2930,46 @@
 		<MaxVoices name="3" />
 		<MaxEntities name="30" />
 		<MaxRepeatRate name="2.0" />
+	</SoundDataNode>
+	<SoundDataNode name="lightSword_swoosh">
+		<AudioSource name="Sounds/AudioSource_Interact" />
+		<AudioClip ClipName="#lightswordnew?LightsaberHit" />		
+		<LocalCrouchVolumeScale name="0.5" />
+		<CrouchNoiseScale name="1" />
+		<NoiseScale name="1" />
+		<MaxVoices name="3" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.01" />
+	</SoundDataNode>
+	<SoundDataNode name="lightSword_open">		
+		<AudioSource name="Sounds/AudioSource_Default" />
+		<AudioClip ClipName="#lightswordnew?LightsaberOpen" />
+		<LocalCrouchVolumeScale name="1" />
+		<CrouchNoiseScale name="1" />
+		<NoiseScale name="1" />
+		<MaxVoices name="2" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.01" />
+	</SoundDataNode>
+	<SoundDataNode name="lightSword_close">		
+		<AudioSource name="Sounds/AudioSource_Default" />
+		<AudioClip ClipName="#lightswordnew?LightsaberClose" />
+		<LocalCrouchVolumeScale name="1" />
+		<CrouchNoiseScale name="1" />
+		<NoiseScale name="1" />
+		<MaxVoices name="2" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.01" />
+	</SoundDataNode>
+	<SoundDataNode name="lightSword_idle">		
+		<AudioSource name="Sounds/AudioSource_Default" />
+		<AudioClip ClipName="#lightswordnew?LightsaberIdle" Loop="true" />
+		<LocalCrouchVolumeScale name="1" />
+		<CrouchNoiseScale name="1" />
+		<NoiseScale name="1" />
+		<MaxVoices name="2" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.001" />
 	</SoundDataNode>
 	<!-- STARVATION -->
 </append>

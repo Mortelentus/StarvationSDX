@@ -597,6 +597,7 @@
 			<!-- damage for entities in the center of the explosion -->
 		</property>
 		<property name="LPHardnessScale" value="0" />
+		<property name="CanPickup" value="true" />
 		<property name="debug" value="false" />
 		<!-- disable LP for TNT blocks -->
 		<property name="Group" value="Tools/Traps" />

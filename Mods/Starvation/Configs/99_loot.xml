@@ -21,25 +21,25 @@
 				<loot quality="101,200" prob="0.15" />
 				<loot quality="1,200" prob="1" />
 			</qualitytemplate>
-			<qualitytemplate level="0.32,0.48" default_quality="201,300">
+			<qualitytemplate level="0.32,0.48" default_quality="101,250">
 				<loot quality="301,400" prob="0.01" /> <!-- REDUCED MAX -->
 				<loot quality="201,300" prob="0.05" />
 				<loot quality="101,200" prob="0.15" />
 				<loot quality="1,300" prob="1" />
 			</qualitytemplate>
-			<qualitytemplate level="0.48,0.64" default_quality="301,400">
+			<qualitytemplate level="0.48,0.64" default_quality="251,350">
 				<loot quality="426,475" prob="0.03" /> <!-- REDUCED MAX -->
 				<loot quality="351,425" prob=".10" />
 				<loot quality="301,350" prob="0.25" />
 				<loot quality="1,300" prob="0.75" />
 			</qualitytemplate>
-			<qualitytemplate level="0.64,0.80" default_quality="401,500">
+			<qualitytemplate level="0.64,0.80" default_quality="350,450">
 				<loot quality="501,500" prob="0.05" /> <!-- REDUCED MAX -->
 				<loot quality="401,500" prob="0.25" />
 				<loot quality="301,350" prob="0.25" />
 				<loot quality="1,300" prob="0.5" />
 			</qualitytemplate>
-			<qualitytemplate level="0.80,1" default_quality="501,600">
+			<qualitytemplate level="0.80,1" default_quality="450,525">
 				<loot quality="501,525" prob="0.10" /> <!-- REDUCED MAX -->
 				<loot quality="401,500" prob=".25" />
 				<loot quality="301,400" prob="0.25" />
@@ -47,6 +47,16 @@
 			</qualitytemplate>
 		</lootqualitytemplate>
 </append>
+<insertAfter xpath="/lootcontainers/lootqualitytemplates/lootqualitytemplate[@name='baseTemplate']">
+		<lootqualitytemplate name="radLootTemplate"> 		 
+			<qualitytemplate level="0,1" default_quality="400,550">
+				<loot quality="450,550" prob="0.10" /> 
+				<loot quality="400,449" prob=".25" />
+				<loot quality="350,399" prob="0.25" />
+				<loot quality="300,349" prob="0.4" />
+			</qualitytemplate>
+		</lootqualitytemplate>
+</insertAfter>
 <remove xpath="/lootcontainers/lootgroup[@name='cupboard']/item[@group='cannedfood']" />
 <append xpath="/lootcontainers/lootgroup[@name='cupboard']">	
 		<item group="cannedfood" prob="0.05" /> <!-- ADDED PROBABILITY -->
@@ -102,7 +112,29 @@
 <remove xpath="/lootcontainers/lootcontainer[@id='35']/item[@group='cannedfood']" />
 <remove xpath="/lootcontainers/lootcontainer[@id='48']/item[@group='cannedfood']" />
 <remove xpath="/lootcontainers/lootcontainer[@id='48']/item[@name='bottledWater']" />
+<!-- NEW LOOT PLACEHOLDER FOR RADIATED PREFABS -->
+<insertAfter xpath="/lootcontainers/lootplaceholders/placeholder[@name='lootGarage']">
+	<placeholder name="lootRad">
+		<block name="ammobag" prob="0.07" />
+		<block name="ammobag1" prob="0.06" />
+		<block name="nuke" prob="0.05" />
+		<block name="SpiderNest" prob="0.01" />		
+	</placeholder>
+</insertAfter>
 <!-- ADDING NEW GUNS TO GROUPS -->
+<insertAfter xpath="/lootcontainers/lootgroup[@name='empty']">
+	<lootgroup name="AmmoBoxes">		
+		<item name="762mmBullet" count="30,60" prob="0.09" />
+		<item name="762mmBulletPL" count="1,30" prob="0.04" />
+		<item name="44MagBullet" count="10,25" prob="0.07" />
+		<item name="9mmBullet" count="15,40" prob="0.09" />	
+		<item name="blunderbussAmmo" count="15,40" prob="0.09" />	
+		<item name="50cal" count="10,20"  prob="0.05" />
+		<item name="shotgunShell" count="10,20"  prob="0.05" />
+		<item name="shotgunSlug" count="10,20"  prob="0.05" />
+		<item name="10mmBullet" count="15,40" prob="0.1" />				
+	</lootgroup>	
+</insertAfter>
 <insertAfter xpath="/lootcontainers/lootgroup[@name='empty']">
 	<lootgroup name="revolver+ammo" count="all">
 		<item name="9mmBullet" count="1,6" />
@@ -163,6 +195,7 @@
 		<item name="depletedUranium" count="2,4" />
 		<item name="uranium" count="2,6" prob="0.05" />
 		<item name="ammoWorkbench" prob="0.04" />
+		<item name="powerCore" prob="0.03" />
 		<item name="enrichedUranium" count="1,3" prob="0.01" />
 	</lootgroup>
 	<lootgroup name="nuclearWasteBad" count="0,2">
@@ -199,6 +232,12 @@
 		<item name="MegaPhone" />
 		<item name="WalkyTalky" />	
 		<item name="MilitaryHeadset" prob="0.01" />		
+	</lootgroup>
+	<lootgroup name="browningStuff" count="1">
+		<item name="partsBrowning_stock" />
+		<item name="partsBrowning_barrel" />
+		<item name="partsBrowning_receiver" />
+		<item name="partsBrowning_parts" />		
 	</lootgroup>
 </insertAfter>
 <remove xpath="/lootcontainers/lootgroup[@name='guns+ammo']/item[@group='commonWeaponParts']" />
@@ -357,12 +396,28 @@
 	<lootcontainer id="99" count="0,2" size="4,4" destroy_on_close="false" sound_open="UseActions/open_corpse" sound_close="UseActions/close_corpse" loot_quality_template="baseTemplate">
 		<item group="nuclearWasteBad" />
 	</lootcontainer>
-	<lootcontainer id="100" count="1" size="7,4" sound_open="UseActions/open_vehicle" sound_close="UseActions/close_vehicle" open_time="4" loot_quality_template="baseTemplate">
+	<lootcontainer id="100" count="1,2" size="7,4" sound_open="UseActions/open_vehicle" sound_close="UseActions/close_vehicle" open_time="4" loot_quality_template="baseTemplate">
 		<item group="automotive+tools+junk" prob="0.4" />
 		<item name="miningHelmet" prob="0.3" />
 		<item name="partsBrowning_receiver" prob="0.1" />		
 		<item name="BrowningTripodBlock" prob="0.2" />
 		<item name="ammoWorkbench" prob="0.1" />
+	</lootcontainer>
+	<lootcontainer id="104" count="2,4" size="4,4" destroy_on_close="false" sound_open="UseActions/open_chest" sound_close="UseActions/close_chest" open_time="15" loot_quality_template="baseTemplate">
+		<item group="AmmoBoxes" />
+		<item name="powerCore" count="1" prob="0.1" />
+	</lootcontainer>
+	<lootcontainer id="105" count="3,5" size="4,4" destroy_on_close="false" sound_open="UseActions/open_chest" sound_close="UseActions/close_chest" open_time="15" loot_quality_template="radLootTemplate">
+		<item group="AmmoBoxes" />
+		<item name="powerCore" count="1" prob="0.2" />
+		<item group="specialParts" count="1" prob="1" />
+	</lootcontainer>
+	<lootcontainer id="106" count="2,4" size="4,4" destroy_on_close="false" sound_open="UseActions/open_chest" sound_close="UseActions/close_chest" open_time="15" loot_quality_template="radLootTemplate">
+		<item group="nuclearWasteGood" />
+		<item group="specialParts" count="1" prob="0.6" />
+		<item name="powerCore" count="1" prob="0.2" />		
+		<item group="browningStuff" count="1" prob="0.2" />		
+		<item name="MilitaryScrewer" count="1" prob="0.09" />
 	</lootcontainer>
 </append>
 </config>

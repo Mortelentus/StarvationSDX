@@ -77,7 +77,9 @@
 	<entitygroup name="AnimalsForest">	  
 	  <entity name="Spider" prob="0.001"/>
 	  <entity name="SpiderSmall" prob="0.001"/>
-	  <entity name="DogAlbino" prob="0.009"/>
+	  <entity name="DogAlbino" prob="0.003"/>
+	  <entity name="animalFemalePig" prob="0.005" />
+	  <entity name="animalMalePig" prob="0.004" />
 	</entitygroup>
 	<entitygroup name="AnimalHyenas">	  
 	  <entity name="Hyena" prob="0.045"/>

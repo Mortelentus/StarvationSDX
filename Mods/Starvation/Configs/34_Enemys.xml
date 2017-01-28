@@ -630,20 +630,188 @@
 		<property name="MeshScale" value="0.5,0.5" />
 		<property name="HandItem" value="handRadSpiderSmall" />
 	</entity_class>
-	
+	<entity_class name="WallCrusher" >			
+		 <!-- This one decides for scoring -->
+		  <property name="EntityType" value="Zombie" />
+		  <!-- Mesh and class properties -->
+		  <property name="Mesh" value="#WallCrusher?WallCrusher" />
+		  <!--property name="MeshScale" value="1.5,2" /-->
+		  <property name="Class" value="EntityZedBoss, Mods" />
+		  <property name="AvatarController" value="BipedAnimations, Mods" />
+		  <property name="Hability" value="Regen" />
+		  <property name="HabilityChance" value="45" />
+		  <property name="HabilityBuff" value="BossRegen" />
+		  <property name="HabilitySound" value="regenSound" />
+		  <property name="ModelType" value="Standard" />
+		  <property name="HasRagdoll" value="false" />
+		  <property name="Prefab" value="NPC" />
+		  <property name="Parent" value="Enemies" />
+		  <!-- <property name="PhysicsBody" value="zombieStandard" /> -->
+		  <!-- AI properties -->
+		  <property name="AITask-1" value="ApproachSpot" />
+		  <property name="AITask-2" value="BreakBlock" />
+		  <property name="AITask-3" value="Territorial" param1="10" />
+		  <property name="AITask-4" value="ApproachAndAttackTarget" param1="EntityPlayer" />
+		  <!--property name="AITask-5" value="ApproachAndAttackTarget" param1="EntityAnimalBear" /-->
+		  <!--property name="AITask-6" value="ApproachAndAttackTarget" param1="EntityAnimalStag" /-->
+		  <property name="AITask-5" value="ApproachSpot" />
+		  <property name="AITask-6" value="Wander" />
+		  <property name="AITarget-1" value="SetAsTargetIfHurt" param1="EntityPlayer" />
+		  <property name="AITarget-2" value="BlockingTargetTask" />
+		  <property name="AITarget-3" value="SetNearestCorpseAsTarget" param1="EntityPlayer" />
+		  <property name="AITarget-4" value="SetNearestEntityAsTarget" param1="EntityPlayer" />
+		  <!--property name="AITarget-4" value="SetNearestEntityAsTarget" param1="EntityAnimalBear" /-->
+		  <!--property name="AITarget-5" value="SetNearestEntityAsTarget" param1="EntityAnimalStag" /-->
+		  <!-- General entity properties -->
+		  <property name="MaxHealth" value="3500" />
+		  <property name="MaxViewAngle" value="180" />
+		  <property name="HandItem" value="handWallCrusher" />
+		  <property name="Weight" value="7000" />
+		  <property name="Immunity" value="sickness;disease;bleeding;wellness" />
+		  <property name="WanderSpeed" value="0.03" />
+		  <property name="ApproachSpeed" value="0.5" />
+		  <property name="NightWanderSpeed" value="0.1" />
+		  <property name="NightApproachSpeed" value="0.5" />
+		  <property name="PanicSpeed" value="0.45" />
+		  <property name="CanClimbLadders" value="true" />
+		  <property name="IsEnemyEntity" value="true" />
+		  <!-- This decides on the particle effect played on hit -->
+		  <property name="SurfaceCategory" value="organic" />
+		  <property name="WalkType" value="7" />
+		  <property name="ParticleOnDeath" value="blood_death" />
+		  <property name="SoundRandomTime" value="60.0" />
+		  <!-- It will play the roam every 60/30 seconds -->
+		  <property name="SoundRandom" value="CrusherRoam" />
+		  <property name="SoundAlertTime" value="25.0" />
+		  <!-- It will play the roam every 25/12.5 seconds-->
+		  <property name="SoundAlert" value="Crusheralert" />
+		  <property name="SoundSense" value="Crushersense" />
+		  <property name="SoundHurt" value="Crusherhurt" />
+		  <property name="SoundDeath" value="Crusherdeath" />
+		  <property name="SoundAttack" value="Crusherattack" />
+		  <property name="TimeStayAfterDeath" value="300" />
+		  <property name="AttackTimeoutDay" value="1.5" />
+		  <!-- in s -->
+		  <property name="AttackTimeoutNight" value="1.1" />
+		  <property name="LootListOnDeath" value="106" />
+		  <property name="CorpseBlock" value="GoreBlock1Prefab" />
+		  <property name="CorpseBlockChance" value="1" />
+		  <property name="ExperienceGain" value="100" />
+		  <property name="DeadBodyHitPoints" value="150" />
+		  <!-- For harvesting -->
+		  <property name="RootMotion" value="false" />
+		  <property name="HasDeathAnim" value="true" />
+		  <property name="ExperienceGain" value="1000" />
+	</entity_class>
+	<entity_class name="ParasiteMinion" extends="WallCrusher">		
+		<property name="Hability" value="None" />		
+		<property name="MeshScale" value="0.5,0.6" />
+		<property name="MaxHealth" value="250" />		
+		<property name="Mesh" value="#ParasiteZd?ParasiteZd" />
+		<property name="WanderSpeed" value="0.03" />
+		  <property name="ApproachSpeed" value="1.1" />
+		  <property name="NightWanderSpeed" value="0.1" />
+		  <property name="NightApproachSpeed" value="1.1" />
+		  <property name="LootListOnDeath" value="10" />
+		 <property name="SoundRandomTime" value="60.0" />
+		  <!-- It will play the roam every 60/30 seconds -->
+		  <property name="SoundRandom" value="ParasiteRoam" />
+		  <property name="SoundAlertTime" value="25.0" />
+		  <!-- It will play the roam every 25/12.5 seconds-->
+		  <property name="SoundAlert" value="Parasitealert" />
+		  <property name="SoundSense" value="Parasitesense" />
+		  <property name="SoundHurt" value="Parasitehurt" />
+		  <property name="SoundDeath" value="Parasitedeath" />
+		  <property name="SoundAttack" value="Parasiteattack" />	
+	</entity_class>
+	<entity_class name="Parasite" extends="WallCrusher">		
+		<property name="Hability" value="Spawn" />
+		<property name="HabilityChance" value="35" />
+		<property name="HabilityBuff" value="BossSpawn" />
+		<property name="HabilitySound" value="spawningSound" />
+		<property name="Area" value="5" />
+		<property name="Group" value="ParasiteMinions" />
+		<property name="Number" value="2" />
+		<property name="MaxHealth" value="3000" />		
+		<property name="WanderSpeed" value="0.03" />
+		  <property name="ApproachSpeed" value="0.9" />
+		  <property name="NightWanderSpeed" value="0.1" />
+		  <property name="NightApproachSpeed" value="1.0" />
+		<property name="Mesh" value="#ParasiteZd?ParasiteZd" />
+		 <property name="SoundRandomTime" value="60.0" />
+		  <!-- It will play the roam every 60/30 seconds -->
+		  <property name="SoundRandom" value="ParasiteRoam" />
+		  <property name="SoundAlertTime" value="25.0" />
+		  <!-- It will play the roam every 25/12.5 seconds-->
+		  <property name="SoundAlert" value="Parasitealert" />
+		  <property name="SoundSense" value="Parasitesense" />
+		  <property name="SoundHurt" value="Parasitehurt" />
+		  <property name="SoundDeath" value="Parasitedeath" />
+		  <property name="SoundAttack" value="Parasiteattack" />	
+	</entity_class>	
+	<entity_class name="RezBoss" extends="WallCrusher">		
+		<property name="Hability" value="Rez" />
+		<property name="HabilityChance" value="50" />
+		<property name="HabilityBuff" value="BossRez" />
+		<property name="HabilitySound" value="rezzingSound" />
+		<property name="Area" value="10" />
+		<property name="MaxHealth" value="3000" />		
+		<property name="WanderSpeed" value="0.03" />
+		  <property name="ApproachSpeed" value="0.6" />
+		  <property name="NightWanderSpeed" value="0.1" />
+		  <property name="NightApproachSpeed" value="0.8" />
+		<property name="Mesh" value="#Resurector?Resurector" />
+		 <property name="SoundRandomTime" value="60.0" />
+		  <!-- It will play the roam every 60/30 seconds -->
+		  <property name="SoundRandom" value="ParasiteRoam" />
+		  <property name="SoundAlertTime" value="25.0" />
+		  <!-- It will play the roam every 25/12.5 seconds-->
+		  <property name="SoundAlert" value="Parasitealert" />
+		  <property name="SoundSense" value="Parasitesense" />
+		  <property name="SoundHurt" value="Parasitehurt" />
+		  <property name="SoundDeath" value="Parasitedeath" />
+		  <property name="SoundAttack" value="Parasiteattack" />	
+	</entity_class>
+	<entity_class name="TruckSoldier" extends="zombieUMA" >
+		<property name="Archetype" value="ZombieSoldier"/>
+		<property name="LootListOnDeath" value="10" />
+		<property name="MaxHealth" value="500" />
+		<property name="ExperienceGain" value="10"/>
+		<property name="WalkType" value="7" />
+	</entity_class>
+	<entity_class name="TruckMaleHazmat" extends="zombieMaleHazmat" >
+		<property name="ExperienceGain" value="10"/>
+		<property name="LootListOnDeath" value="10" />
+	</entity_class>
+	<entity_class name="TruckFemaleHazmat" extends="zombieFemaleHazmat" >
+		<property name="ExperienceGain" value="10"/>
+		<property name="LootListOnDeath" value="65" />
+	</entity_class>
 </append>
+</config>
+<config name="buffs">	
+<append xpath="/buffs">
+	<buff id="BossRegen" duration="15" type="healthup" ffcheck="true" actions="attach(#effects?Fog, Hips)" icon="ui_game_symbol_fire" name_key="BossRegen" description_key="electricalShockDesc"  >
+		<modify id="1" stat="health" amount="30" rate="1" />
+	</buff>
+	<buff id="ZedRez" duration="10" type="healthup" icon="ui_game_symbol_fire" name_key="ZedRez" description_key="electricalShockDesc"  >
+		<modify id="1" stat="health" amount="2" rate="1" />
+	</buff>
+	<buff id="BossSpawn" duration="5" ffcheck="true" actions="attach(#effects?BloodSplatter, Hips)" icon="ui_game_symbol_fire" name_key="BossRegen" description_key="electricalShockDesc"  />
+	<buff id="BossRez" duration="5" ffcheck="true" actions="attach(#effects?LightningField, Hips, 5)" icon="ui_game_symbol_fire" name_key="BossRegen" description_key="electricalShockDesc"  />
+</append>	
 </config>
 <config name="loot">
 <append xpath="/lootcontainers">
-<lootcontainer id="93" count="1,2" size="4,4" destroy_on_close="false" sound_open="UseActions/open_corpse" sound_close="UseActions/close_corpse" loot_quality_template="baseTemplate">	
+<lootcontainer id="93" count="1" size="4,4" destroy_on_close="false" sound_open="UseActions/open_corpse" sound_close="UseActions/close_corpse" loot_quality_template="baseTemplate">	
 	<item name="fireaxeSteel"  />	
 </lootcontainer>
 <lootcontainer id="94" count="1,2" size="4,4" destroy_on_close="false" sound_open="UseActions/open_corpse" sound_close="UseActions/close_corpse" loot_quality_template="baseTemplate">
-	<item name="PoliceBaton"  />
+	<item name="PoliceBaton" count="1"  />
 	<item group="revolver+ammo" prob="0.02" />
 </lootcontainer>
-<lootcontainer id="95" count="1" size="4,4" destroy_on_close="false" sound_open="UseActions/open_corpse" sound_close="UseActions/close_corpse" loot_quality_template="baseTemplate">
-	<item name="Tomahawk" prob="0.8"   />
+<lootcontainer id="95" count="1,2" size="4,4" destroy_on_close="false" sound_open="UseActions/open_corpse" sound_close="UseActions/close_corpse" loot_quality_template="baseTemplate">
+	<item name="Tomahawk" prob="0.8" count="1" />
 	<item group="military" prob="0.02" />
 	<item group="specialGuns" prob="0.01" />
 </lootcontainer>
@@ -678,6 +846,13 @@
 		<entity name="FirefighterZd" prob="0.02" />		
 	</append>
 	<append xpath="/entitygroups">
+		<entitygroup name="MilitaryTruckGroup">
+			<entity name="TruckSoldier" />			
+			<entity name="TruckMaleHazmat" />
+			<entity name="TruckFemaleHazmat" />
+			<entity name="MilitaryZd" prob="0.4" />
+			<entity name="zombieferal" prob="0.01" />			
+		</entitygroup>
 		<entitygroup name="ZombiesRad">
 			<entity name="BikiniZd" />
 			<entity name="zombieMaleHazmat" prob="0.35" />
@@ -716,15 +891,15 @@
 		</entitygroup>
 		<entitygroup name="ZombiesMed">
 			<entity name="zombieNurse" />
-			<entity name="FirefighterZd" />
-			<entity name="zombieMaleHazmat" prob="0.35" />
-			<entity name="zombieFemaleHazmat" prob="0.35" />
+			<entity name="TruckMaleHazmat" prob="0.35" />
+			<entity name="TruckFemaleHazmat" prob="0.35" />			
+			<entity name="FirefighterZd" prob="0.15" />
 			<entity name="PoliceZd" prob="0.02" />					
 		</entitygroup>
 		<entitygroup name="ZombiesScience">
 			<entity name="zombieNurse" />			
-			<entity name="zombieMaleHazmat" prob="0.4" />
-			<entity name="zombieFemaleHazmat" prob="0.4" />
+			<entity name="TruckMaleHazmat" prob="0.4" />
+			<entity name="TruckFemaleHazmat" prob="0.4" />
 			<entity name="DocZd" prob="0.25" />
 			<entity name="BikiniZd" prob="0.02" />					
 		</entitygroup>
@@ -732,10 +907,50 @@
 		  <entity name="RadSpider" prob="0.3"/>
 		  <entity name="RadSpiderSmall" prob="0.7"/>
 		</entitygroup>
+		<entitygroup name="SpecialZds">
+		  <entity name="WallCrusher" prob="1"/>
+		  <entity name="Parasite" prob="1"/>
+		  <entity name="RezBoss" prob="1"/>
+		</entitygroup>	
+		<entitygroup name="ParasiteMinions">
+		  <entity name="ParasiteMinion"/>
+		</entitygroup>
+		<entitygroup name="ZombiesRadPrefab">
+			<entity name="BikiniZd" />
+			<entity name="zombieMaleHazmat" prob="0.35" />
+			<entity name="zombieFemaleHazmat" prob="0.35" />
+			<entity name="GirlZd" prob="0.25" />
+			<entity name="ZombieSoldier" prob="0.25" />
+			<entity name="MilitaryZd" prob="0.2" />
+			<entity name="FirefighterZd" prob="0.2" />
+			<entity name="DocZd" prob="0.2" />
+			<entity name="zombieferal" prob="0.15"/>			
+			<entity name="zombieBear" prob="0.1" />
+			<entity name="RadBoss" prob="0.02" />
+		   <entity name="WallCrusher" prob="0.01"/>
+		  <entity name="Parasite" prob="0.01"/>
+		   <entity name="RezBoss" prob="0.01"/>
+		</entitygroup>
 	</append>
 </config>	
 <config name="spawning">
 	<remove xpath="/spawning/biome[@name='burnt_forest']" />
+	<insertAfter xpath="/spawning/entityspawner[@name='Dog_Sm_Territorial']">	
+		<entityspawner name="ZombiesRadPrefabSpawn">
+			<day value="*">
+				<property name="ResetToday" value="false" />
+				<property name="EntityGroupName" value="ZombiesRadPrefab" />
+				<property name="Time" value="Any" />
+				<property name="DelayBetweenSpawns" value="0" />
+				<!-- in seconds -->
+				<property name="TotalAlive" value="4" />
+				<property name="TotalPerWave" value="4" />
+				<property name="DaysToRespawnIfPlayerLeft" value="5" />
+				<!-- in game days -->
+				<property name="AttackPlayerAtOnce" value="false" />
+			</day>
+		</entityspawner>
+	</insertAfter>
 	<append xpath="/spawning">
 		<biome name="burnt_forest">
 			<spawn maxcount="1" respawndelay="4" time="Any" entitygroup="ZombiesBurntForest" />
@@ -967,6 +1182,166 @@
 		<MaxVoices name="1" />
 		<MaxEntities name="10" />
 		<MaxRepeatRate name="3" />
+	</SoundDataNode>
+	<SoundDataNode name="Parasitealert">
+		<AudioSource name="Sounds/AudioSource_Pain" />
+		<AudioClip ClipName="#ParasiteZd?ParasiteAlert" />
+		<LocalCrouchVolumeScale name="1.0" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="2" />
+		<MaxVoices name="1" />
+		<MaxEntities name="10" />
+		<MaxRepeatRate name="3" />
+	</SoundDataNode>
+	<SoundDataNode name="Parasiteattack">
+		<AudioSource name="Sounds/AudioSource_Creatures" />
+		<AudioClip ClipName="#ParasiteZd?ParasiteAttack" />
+		<LocalCrouchVolumeScale name="1.0" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="2" />
+		<MaxVoices name="1" />
+		<MaxEntities name="10" />
+		<MaxRepeatRate name="3" />
+	</SoundDataNode>
+	<SoundDataNode name="Parasitedeath">
+		<AudioSource name="Sounds/AudioSource_Pain" />
+		<AudioClip ClipName="#ParasiteZd?ParasiteDying" />
+		<LocalCrouchVolumeScale name="1.0" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="2" />
+		<MaxVoices name="1" />
+		<MaxEntities name="10" />
+		<MaxRepeatRate name="3" />
+	</SoundDataNode>
+	<SoundDataNode name="Parasitehurt">
+		<AudioSource name="Sounds/AudioSource_Pain" />
+		<AudioClip ClipName="#ParasiteZd?ParasiteHurt" />
+		<LocalCrouchVolumeScale name="1.0" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="2" />
+		<MaxVoices name="1" />
+		<MaxEntities name="10" />
+		<MaxRepeatRate name="3" />
+	</SoundDataNode>
+	<SoundDataNode name="Parasitesense">
+		<AudioSource name="Sounds/AudioSource_Pain" />
+		<AudioClip ClipName="#ParasiteZd?ParasiteSense" />
+		<LocalCrouchVolumeScale name="1.0" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="2" />
+		<MaxVoices name="1" />
+		<MaxEntities name="10" />
+		<MaxRepeatRate name="3" />
+	</SoundDataNode>
+	<SoundDataNode name="ParasiteRoam">
+		<AudioSource name="Sounds/AudioSource_Creatures" />
+		<AudioClip ClipName="#ParasiteZd?ParasiteRandom" />
+		<LocalCrouchVolumeScale name="1.0" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="2" />
+		<MaxVoices name="1" />
+		<MaxEntities name="10" />
+		<MaxRepeatRate name="3" />
+	</SoundDataNode>
+	
+	
+	<SoundDataNode name="Crusheralert">
+		<AudioSource name="Sounds/AudioSource_Pain" />
+		<AudioClip ClipName="#WallCrusher?WallCrusherSense1" />
+		<LocalCrouchVolumeScale name="1.0" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="2" />
+		<MaxVoices name="1" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.9" />
+	</SoundDataNode>
+	<SoundDataNode name="Crusherattack">
+		<AudioSource name="Sounds/AudioSource_Creatures" />
+		<AudioClip ClipName="#WallCrusher?WallCrusherAttack" />
+		<AudioClip ClipName="#WallCrusher?WallCrusherAttack1" />
+		<AudioClip ClipName="#WallCrusher?WallCrusherAttack2" />
+		<LocalCrouchVolumeScale name="1.0" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="2" />
+		<MaxVoices name="1" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.9" />
+	</SoundDataNode>
+	<SoundDataNode name="Crusherdeath">
+		<AudioSource name="Sounds/AudioSource_Pain" />
+		<AudioClip ClipName="#WallCrusher?WallCrusherDying" />
+		<AudioClip ClipName="#WallCrusher?WallCrusherDying1" />
+		<LocalCrouchVolumeScale name="1.0" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="2" />
+		<MaxVoices name="1" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.9" />
+	</SoundDataNode>
+	<SoundDataNode name="Crusherhurt">
+		<AudioSource name="Sounds/AudioSource_Pain" />
+		<AudioClip ClipName="#WallCrusher?WallCrusherHit" />
+		<AudioClip ClipName="#WallCrusher?WallCrusherHit1" />
+		<AudioClip ClipName="#WallCrusher?WallCrusherHit2" />
+		<AudioClip ClipName="#WallCrusher?WallCrusherHit3" />
+		<LocalCrouchVolumeScale name="1.0" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="2" />
+		<MaxVoices name="1" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.9" />
+	</SoundDataNode>
+	<SoundDataNode name="Crushersense">
+		<AudioSource name="Sounds/AudioSource_Pain" />
+		<AudioClip ClipName="#WallCrusher?WallCrusherSense" />
+		<AudioClip ClipName="#WallCrusher?WallCrusherSense3" />
+		<LocalCrouchVolumeScale name="1.0" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="2" />
+		<MaxVoices name="1" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.9" />
+	</SoundDataNode>
+	<SoundDataNode name="CrusherRoam">
+		<AudioSource name="Sounds/AudioSource_Creatures" />
+		<AudioClip ClipName="#WallCrusher?WallCrusherRandom" />
+		<AudioClip ClipName="#WallCrusher?WallCrusherRandom1" />
+		<LocalCrouchVolumeScale name="1.0" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="2" />
+		<MaxVoices name="1" />
+		<MaxEntities name="30" />
+		<MaxRepeatRate name="0.9" />
+	</SoundDataNode>
+	<SoundDataNode name="regenSound">
+		<AudioSource name="Sounds/AudioSource_Creatures" />
+		<AudioClip ClipName="#zedSounds?regen" />
+		<LocalCrouchVolumeScale name="1.0" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="2" />
+		<MaxVoices name="1" />
+		<MaxEntities name="10" />
+		<MaxRepeatRate name="3" />
+	</SoundDataNode>
+	<SoundDataNode name="rezzingSound">
+		<AudioSource name="Sounds/AudioSource_Creatures" />
+		<AudioClip ClipName="#zedSounds?rezzing" />
+		<LocalCrouchVolumeScale name="1.0" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="2" />
+		<MaxVoices name="1" />
+		<MaxEntities name="10" />
+		<MaxRepeatRate name="3" />
+	</SoundDataNode>
+	<SoundDataNode name="spawningSound">
+		<AudioSource name="Sounds/AudioSource_Creatures" />
+		<AudioClip ClipName="#zedSounds?spawning" />
+		<LocalCrouchVolumeScale name="1.0" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="2" />
+		<MaxVoices name="1" />
+		<MaxEntities name="10" />
+		<MaxRepeatRate name="4" />
 	</SoundDataNode>
 	<!-- STARVATION ZEDS -->
 </append>
@@ -1347,5 +1722,686 @@
 		<item name="talkingHeadItem" />
 	</lootcontainer>
 </append>	  
+</config>
+<config name="gamestages">
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='27']">
+		<spawn group="SpecialZds" num="1" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='31']">
+		<spawn group="SpecialZds" num="1" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='35']">
+		<spawn group="SpecialZds" num="1" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='38']">
+		<spawn group="SpecialZds" num="1" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='42']">
+		<spawn group="SpecialZds" num="1" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='46']">
+		<spawn group="SpecialZds" num="1" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='50']">
+		<spawn group="SpecialZds" num="1" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='55']">
+		<spawn group="SpecialZds" num="1" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='59']">
+		<spawn group="SpecialZds" num="1" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='63']">
+		<spawn group="SpecialZds" num="1" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='68']">
+		<spawn group="SpecialZds" num="1" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='72']">
+		<spawn group="SpecialZds" num="1" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='77']">
+		<spawn group="SpecialZds" num="1" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='82']">
+		<spawn group="SpecialZds" num="1" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='86']">
+		<spawn group="SpecialZds" num="1" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='91']">
+		<spawn group="SpecialZds" num="1" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='96']">
+		<spawn group="SpecialZds" num="1" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='101']">
+		<spawn group="SpecialZds" num="1" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='106']">
+		<spawn group="SpecialZds" num="1" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='111']">
+		<spawn group="SpecialZds" num="1" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='117']">
+		<spawn group="SpecialZds" num="1" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='122']">
+		<spawn group="SpecialZds" num="1" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='127']">
+		<spawn group="SpecialZds" num="1" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='133']">
+		<spawn group="SpecialZds" num="1" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='138']">
+		<spawn group="SpecialZds" num="1" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='144']">
+		<spawn group="SpecialZds" num="1" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='149']">
+		<spawn group="SpecialZds" num="1" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='155']">
+		<spawn group="SpecialZds" num="2" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='160']">
+		<spawn group="SpecialZds" num="2" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='166']">
+		<spawn group="SpecialZds" num="2" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='172']">
+		<spawn group="SpecialZds" num="2" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='178']">
+		<spawn group="SpecialZds" num="2" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='184']">
+		<spawn group="SpecialZds" num="2" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='190']">
+		<spawn group="SpecialZds" num="2" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='196']">
+		<spawn group="SpecialZds" num="2" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='202']">
+		<spawn group="SpecialZds" num="2" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='208']">
+		<spawn group="SpecialZds" num="2" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='214']">
+		<spawn group="SpecialZds" num="2" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='220']">
+		<spawn group="SpecialZds" num="2" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='227']">
+		<spawn group="SpecialZds" num="2" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='233']">
+		<spawn group="SpecialZds" num="2" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='239']">
+		<spawn group="SpecialZds" num="2" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='246']">
+		<spawn group="SpecialZds" num="2" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='252']">
+		<spawn group="SpecialZds" num="2" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='259']">
+		<spawn group="SpecialZds" num="2" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='265']">
+		<spawn group="SpecialZds" num="2" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='272']">
+		<spawn group="SpecialZds" num="2" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='279']">
+		<spawn group="SpecialZds" num="2" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='285']">
+		<spawn group="SpecialZds" num="2" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='292']">
+		<spawn group="SpecialZds" num="2" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='299']">
+		<spawn group="SpecialZds" num="2" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='306']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='312']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='319']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='326']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='333']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='340']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='347']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='355']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='362']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='369']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='376']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='383']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='391']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='398']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='405']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='413']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='420']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='428']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='435']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='443']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='451']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='458']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='466']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='474']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='481']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='489']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='497']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='505']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='513']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='521']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='529']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='537']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='545']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='553']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='561']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='569']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='577']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='585']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='594']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='602']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='610']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='618']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='627']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='635']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='644']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='652']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='660']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='669']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='677']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='686']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='695']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='703']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='712']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='721']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='729']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='738']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='747']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='756']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='764']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='773']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='782']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='791']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='800']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='809']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='818']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='827']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='836']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='845']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='854']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='863']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='873']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='882']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='891']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='900']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='909']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='919']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='928']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='937']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='947']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='956']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='966']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='975']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='984']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='994']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1004']">
+		<spawn group="SpecialZds" num="3" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1013']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1023']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1032']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1042']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1052']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1061']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1071']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1081']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1090']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1100']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1120']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1130']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1139']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1149']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1159']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1169']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1179']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1189']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1199']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1209']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1219']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1229']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1239']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1250']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1260']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1270']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1280']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1290']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1301']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1311']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1321']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1331']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1342']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1352']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1362']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1373']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1383']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1394']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1404']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1415']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1425']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1436']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1446']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1457']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1467']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1478']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1489']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1499']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1510']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1521']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1531']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1542']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1553']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1564']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1575']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1585']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1596']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1607']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1618']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1629']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1640']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1651']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1662']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1673']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1684']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1695']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1706']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1717']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1784']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1795']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1806']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1817']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1829']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1840']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1851']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1863']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1874']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1885']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1897']">
+		<spawn group="SpecialZds" num="4" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1908']">
+		<spawn group="SpecialZds" num="5" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1919']">
+		<spawn group="SpecialZds" num="5" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1931']">
+		<spawn group="SpecialZds" num="5" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1942']">
+		<spawn group="SpecialZds" num="5" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1954']">
+		<spawn group="SpecialZds" num="5" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1965']">
+		<spawn group="SpecialZds" num="5" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1977']">
+		<spawn group="SpecialZds" num="5" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='1988']">
+		<spawn group="SpecialZds" num="5" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='2000']">
+		<spawn group="SpecialZds" num="5" maxAlive="1" />
+</append>	  
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='2011']">
+		<spawn group="SpecialZds" num="5" maxAlive="1" />
+</append>
+<append xpath="/gamestages/spawner[@name='BloodMoonHorde']/gamestage[@stage='2023']">
+		<spawn group="SpecialZds" num="5" maxAlive="1" />
+</append>	  
+
 </config>
 </configs>
