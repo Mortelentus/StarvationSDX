@@ -411,12 +411,14 @@
 		<item group="AmmoBoxes" />
 		<item name="powerCore" count="1" prob="0.2" />
 		<item group="specialParts" count="1" prob="1" />
+		<item name="lightsword" count="1" prob="0.01" />
 	</lootcontainer>
 	<lootcontainer id="106" count="2,4" size="4,4" destroy_on_close="false" sound_open="UseActions/open_chest" sound_close="UseActions/close_chest" open_time="15" loot_quality_template="radLootTemplate">
 		<item group="nuclearWasteGood" />
 		<item group="specialParts" count="1" prob="0.6" />
 		<item name="powerCore" count="1" prob="0.2" />		
-		<item group="browningStuff" count="1" prob="0.2" />		
+		<item group="browningStuff" count="1" prob="0.2" />
+		<item name="lightsword" count="1" prob="0.1" />
 		<item name="MilitaryScrewer" count="1" prob="0.09" />
 	</lootcontainer>
 </append>
