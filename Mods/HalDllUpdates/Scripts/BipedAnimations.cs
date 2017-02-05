@@ -579,7 +579,7 @@ public class BipedAnimations : MonoBehaviour, IAvatarController
 
     }
 
-    public void StartAnimationSpecialAttack()
+    public void StartAnimationSpecialAttack(bool _b)
     {
 
     }

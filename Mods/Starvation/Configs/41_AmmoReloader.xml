@@ -21,10 +21,20 @@
 		<ingredient name="gunPowder" count="1" />
 		<ingredient name="bulletCasing" count="2" />
 </recipe>
-<recipe name="50cal" count="1" scrapable="True" craft_area="ammoWorkbench" craft_time="1" >
+<recipe name="50cal" count="2" scrapable="True" craft_area="ammoWorkbench" craft_time="1" >
 		<ingredient name="bulletTip" count="4" />
 		<ingredient name="gunPowder" count="6" />
 		<ingredient name="bulletCasing" count="4" />
+</recipe>
+<recipe name="556mmBullet" count="2" scrapable="True" craft_area="ammoWorkbench" craft_time="1" >
+		<ingredient name="bulletTip" count="3" />
+		<ingredient name="gunPowder" count="4" />
+		<ingredient name="bulletCasing" count="3" />
+</recipe>
+<recipe name="compressedFuel" count="1" scrapable="True" craft_area="ammoWorkbench" craft_time="1" >
+		<ingredient name="ductTape" count="1" />
+		<ingredient name="emptyJar" count="1" />
+		<ingredient name="gasCan" count="100" />
 </recipe>
 </append>	  
 </config>

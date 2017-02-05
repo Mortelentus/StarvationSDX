@@ -1,12 +1,4 @@
 <configs>
-<config name="recipes">
-<append xpath="/recipes">
-	<recipe name="762mmBulletPL" count="500" scrapable="True" craft_area="ScienceStation" craft_tool="radiationGloves">
-		<ingredient name="762mmBullet" count="500" />
-		<ingredient name="depletedUranium" count="2" />
-	</recipe>
-</append>	  
-</config>
 <config name="items">
 <append xpath="/items">
 	<item id="" name="plutonium">

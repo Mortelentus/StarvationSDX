@@ -37,5 +37,6 @@
 		<import file="Configs\97_BiomesAndRWG.xml" />
 		<import file="Configs\98_Starvation.xml" />
 		<import file="Configs\99_loot.xml" />
+		<import file="Configs\100_BigWeapons.xml" />
 	</config_mods>
 </mod>

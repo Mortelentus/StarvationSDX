@@ -9,9 +9,9 @@ public static class auxHelper
     {
         if (GameManager.IsDedicatedServer)
         {
-            if (GameManager.Instance.BT.ContainsKey(lootC as TileEntity))
+            if (GameManager.Instance.IB.ContainsKey(lootC as TileEntity))
             {
-                if (GameManager.Instance.World.GetEntity(GameManager.Instance.BT[lootC as TileEntity]) != null)
+                if (GameManager.Instance.World.GetEntity(GameManager.Instance.IB[lootC as TileEntity]) != null)
                     return true;
             }
         }        

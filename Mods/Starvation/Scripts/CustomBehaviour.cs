@@ -4,7 +4,7 @@ using SDX.Payload;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
-
+using System.Linq;
 
 public class ConsoleCmdCustomChat : global::ConsoleCmdAbstract
 {
@@ -51,6 +51,7 @@ public class ConsoleCmdCustomChat : global::ConsoleCmdAbstract
 
 public static class MorteHelpers
 {
+    public static string modVersion = "STARVATION 15.1.9.9";
     private static string whisperColor = "[B536DA]";
     private static string radioColor = "[478896]";
     private static string megaColor = "[E11818]";
@@ -529,6 +530,100 @@ public static class MorteHelpers
             }
         }
     }
+
+    public static string checkSound(string str, EntityAlive entity)
+    {
+        if (entity is EntityPlayerLocal)
+        {
+            // check if it has power armor WITH power
+            EntityPlayerLocal player = (entity as EntityPlayerLocal);
+            foreach (Buff buff in player.Stats.Buffs)
+            {                           
+                if (buff.Name == "Exoskeleton")
+                {
+                    int powerLevel = 0;
+                    MultiBuffVariable multiBuffVariable1;
+                    Dictionary<string, MultiBuffVariable> playerStats = getStats(player);                   
+                    if (playerStats != null)
+                    {
+                        //if (player.Stats.PI.TryGetValue("powerLevel", out multiBuffVariable1))
+                        if (playerStats.TryGetValue("powerLevel",
+                            out multiBuffVariable1))
+                        {
+                            powerLevel = Convert.ToInt32(multiBuffVariable1.Value);
+                        }
+                        else powerLevel = 0;
+                        if (powerLevel > 0) str = "Exo";
+                    }
+                    break;
+                }
+            }
+        }
+        return str;
+    }
+
+    public static Dictionary<string, MultiBuffVariable> getStats(EntityPlayerLocal player)
+    {
+        Dictionary<string, MultiBuffVariable> sts = new Dictionary<string, MultiBuffVariable>();
+        if (!GameManager.IsDedicatedServer)
+        {
+            try
+            {
+                //Debug.Log("LOOKING FOR PLAYER STATS");
+                var playerStats = player.Stats.GetType().GetFields().First(d => d.Name == "PI").GetValue(player.Stats);
+                sts = (playerStats as Dictionary<string, MultiBuffVariable>);
+                //Debug.Log("Found playerStats");
+                return sts;
+            }
+            catch (Exception ex)
+            {
+                Debug.Log(ex.Message);
+            }
+        }
+        else
+        {
+            try
+            {
+                var playerStats = player.Stats.GetType().GetFields().First(d => d.Name == "MB").GetValue(player.Stats);
+                sts = (playerStats as Dictionary<string, MultiBuffVariable>);
+                return sts;
+            }
+            catch (Exception)
+            {
+
+            }
+        }            
+        return null;
+    }
+    public static bool checkPowerOn(EntityAlive entity)
+    {
+        if (entity is EntityPlayerLocal)
+        {
+            EntityPlayerLocal player = (entity as EntityPlayerLocal);
+            foreach (Buff buff in player.Stats.Buffs)
+            {
+                if (buff.Name == "Exoskeleton")
+                {
+                    int powerLevel = 0;
+                    MultiBuffVariable multiBuffVariable1;
+                    Dictionary<string, MultiBuffVariable> playerStats = getStats(player);
+                    if (playerStats != null)
+                    {
+                        //if (player.Stats.PI.TryGetValue("powerLevel", out multiBuffVariable1))
+                        if (playerStats.TryGetValue("powerLevel",
+                            out multiBuffVariable1))
+                        {
+                            powerLevel = Convert.ToInt32(multiBuffVariable1.Value);
+                        }
+                        else powerLevel = 0;
+                        if (powerLevel > 0) return false;
+                    }
+                    break;
+                }
+            }
+        }
+        return true;
+    }
 }
 
 public class Config
@@ -682,6 +777,7 @@ public class BehaviourScript : MonoBehaviour
 
     private bool debug = false;
     DateTime dtaNextTick = DateTime.MinValue;
+    DateTime dtaNextClick = DateTime.MinValue;
     Dictionary<string, string[]> currentSets = new Dictionary<string, string[]>();
     Dictionary<string, string[]> oldSets = new Dictionary<string, string[]>();
     private DateTime dtaNextFoodCheck = DateTime.Now.AddSeconds(30);
@@ -689,13 +785,275 @@ public class BehaviourScript : MonoBehaviour
     private DateTime dtaNextSickCheck = DateTime.MinValue;
     private DateTime dtaNextDiseaseCheck = DateTime.MinValue;
     private ItemStack[] oldBag = null;
-    private bool showAttachGUI = false;
     private float fluModifier = 1.0F;
     private float lastWetValue = 0;
+    private EntityPlayer player = null;
+    // information GUI
+    public Vector2 scrollPosition = Vector2.zero;
+    public static bool exoSuit = false;
+    private static bool exoHud = false;
+    public static int powerLevel = 0;
+    private static int radlevel = 0;
+    private static int fatiguelevel = 0;
+    private static int addiction = 0;
+    private static int sanity = 0;
+    private static Dictionary<string, Texture2D> hudTextures = new Dictionary<string, Texture2D>();
+    private static Dictionary<string, MultiBuffVariable> playerStats = new Dictionary<string, MultiBuffVariable>();
+    //private static Texture2D bgImage;
+    //private static Texture2D fgImage;
+    //private static Texture2D hudWindow;
+    //private static Texture2D hudL;
+    //private static Texture2D hudR;
+    //private static Texture2D hudToolBelt;
+    //private static Texture2D hudRadio;
+    //private static Texture2D hudOverview;
+
+    static int healthBarLength = 292;
+    static int maxPower = 12;
+    static int maxRad = 1000;
+    static int maxAddiction = 60;
+    static int maxSanity = 100;
+    static int maxFatigue = 48;
 
     void Start()
     {
         LogToConsole("BehaviourScript: Start Script");
+        LogToConsole("BehaviourScript: Loading UI elements");
+        string hudPath = global::Utils.GetApplicationPath() + '/' + "Data/Hud";      
+        //bgImage = new Texture2D(healthBarLength, 70);
+        //fgImage = new Texture2D(healthBarLength, 70);
+        //hudWindow = new Texture2D(1920, 1080);
+        //hudL = new Texture2D(312, 366);
+        //hudR = new Texture2D(175, 159);
+        //hudToolBelt = new Texture2D(650, 105);
+        //hudRadio = new Texture2D(175, 205);
+        //hudOverview = new Texture2D(650, 583);
+        Texture2D auxTexture;
+        if (Directory.Exists(hudPath))
+        {
+            string[] files = Directory.GetFiles(hudPath);
+            for (int i = 0; i < files.Length; i++)
+            {
+                string text = files[i];
+                LogToConsole("BehaviourScript: Found file " + text);
+                try
+                {
+                    if (text.ToLower().Contains("bgimage") && text.ToLower().EndsWith("png"))
+                    {
+                        auxTexture = new Texture2D(healthBarLength, 70);
+                        if (!auxTexture.LoadImage(File.ReadAllBytes(text)))
+                        {
+                            LogToConsole("BehaviourScript: Error loading bgImage");                            
+                        }
+                        else
+                        {
+                            hudTextures.Add("bgImage", auxTexture);
+                            LogToConsole("BehaviourScript: Loaded bgImage");                            
+                        }
+                    }
+                    else if (text.ToLower().Contains("fgimage") && text.ToLower().EndsWith("png"))
+                    {
+                        auxTexture = new Texture2D(healthBarLength, 70);
+                        if (!auxTexture.LoadImage(File.ReadAllBytes(text)))
+                        {
+                            LogToConsole("BehaviourScript: Error loading fgImage");
+                        }
+                        else
+                        {
+                            hudTextures.Add("fgImage", auxTexture);
+                            LogToConsole("BehaviourScript: Loaded fgImage");                            
+                        }
+                    }
+                    else if (text.ToLower().Contains("exowindow") && text.ToLower().EndsWith("png"))
+                    {
+                        auxTexture = new Texture2D(1920, 1080);
+                        if (!auxTexture.LoadImage(File.ReadAllBytes(text)))
+                        {
+                            LogToConsole("BehaviourScript: Error loading ExoWindow");
+                        }
+                        else
+                        {
+                            hudTextures.Add("hudWindow", auxTexture);
+                            LogToConsole("BehaviourScript: Loaded ExoWindow");                            
+                        }
+                    }
+                    else if (text.ToLower().Contains("exohudl") && text.ToLower().EndsWith("png"))
+                    {
+                        auxTexture = new Texture2D(312, 366);
+                        if (!auxTexture.LoadImage(File.ReadAllBytes(text)))
+                        {
+                            LogToConsole("BehaviourScript: Error loading ExoHudL");
+                        }
+                        else
+                        {
+                            hudTextures.Add("hudL", auxTexture); 
+                            LogToConsole("BehaviourScript: Loaded ExoHudL");                            
+                        }
+                    }
+                    else if (text.ToLower().Contains("exohudr") && text.ToLower().EndsWith("png"))
+                    {
+                        auxTexture = new Texture2D(175, 159);
+                        if (!auxTexture.LoadImage(File.ReadAllBytes(text)))
+                        {                            
+                            LogToConsole("BehaviourScript: Error loading ExoHudR");
+                        }
+                        else
+                        {
+                            hudTextures.Add("hudR", auxTexture);
+                            LogToConsole("BehaviourScript: Loaded ExoHudR");                            
+                        }
+                    }
+                    else if (text.ToLower().Contains("exoradio") && text.ToLower().EndsWith("png"))
+                    {
+                        auxTexture = new Texture2D(175, 205);
+                        if (!auxTexture.LoadImage(File.ReadAllBytes(text)))
+                        {
+                            LogToConsole("BehaviourScript: Error loading ExoRadio");
+                        }
+                        else
+                        {
+                            hudTextures.Add("hudRadio", auxTexture);
+                            LogToConsole("BehaviourScript: Loaded ExoRadio");                            
+                        }
+                    }
+                    else if (text.ToLower().Contains("exotoolbelt") && text.ToLower().EndsWith("png"))
+                    {
+                        auxTexture = new Texture2D(650, 105);
+                        if (!auxTexture.LoadImage(File.ReadAllBytes(text)))
+                        {                            
+                            LogToConsole("BehaviourScript: Error loading ExoToolbelt");
+                        }
+                        else
+                        {
+                            hudTextures.Add("hudToolBelt", auxTexture);
+                            LogToConsole("BehaviourScript: Loaded ExoToolbelt");                            
+                        }
+                    }
+                    else if (text.ToLower().Contains("exooverview") && text.ToLower().EndsWith("png"))
+                    {
+                        auxTexture = new Texture2D(650, 583);
+                        if (!auxTexture.LoadImage(File.ReadAllBytes(text)))
+                        {
+                            LogToConsole("BehaviourScript: Error loading exoOverview");
+                        }
+                        else
+                        {
+                            hudTextures.Add("hudOverview", auxTexture);
+                            LogToConsole("BehaviourScript: Loaded exoOverview");
+                        }
+                    }
+                    else if (text.Contains("AddictionEmpty") && text.ToLower().EndsWith("png"))
+                    {
+                        auxTexture = new Texture2D(215, 60);
+                        if (!auxTexture.LoadImage(File.ReadAllBytes(text)))
+                        {
+                            LogToConsole("BehaviourScript: Error loading AddictionEmpty");
+                        }
+                        else
+                        {
+                            hudTextures.Add("AddictionEmpty", auxTexture);
+                            LogToConsole("BehaviourScript: Loaded AddictionEmpty");
+                        }
+                    }
+                    else if (text.Contains("AddictionFull") && text.ToLower().EndsWith("png"))
+                    {
+                        auxTexture = new Texture2D(215, 60);
+                        if (!auxTexture.LoadImage(File.ReadAllBytes(text)))
+                        {
+                            LogToConsole("BehaviourScript: Error loading AddictionFull");
+                        }
+                        else
+                        {
+                            hudTextures.Add("AddictionFull", auxTexture);
+                            LogToConsole("BehaviourScript: Loaded AddictionFull");
+                        }
+                    }
+                    else if (text.Contains("FatigueEmpty") && text.ToLower().EndsWith("png"))
+                    {
+                        auxTexture = new Texture2D(215, 60);
+                        if (!auxTexture.LoadImage(File.ReadAllBytes(text)))
+                        {
+                            LogToConsole("BehaviourScript: Error loading FatigueEmpty");
+                        }
+                        else
+                        {
+                            hudTextures.Add("FatigueEmpty", auxTexture);
+                            LogToConsole("BehaviourScript: Loaded FatigueEmpty");
+                        }
+                    }
+                    else if (text.Contains("FatigueFull") && text.ToLower().EndsWith("png"))
+                    {
+                        auxTexture = new Texture2D(215, 60);
+                        if (!auxTexture.LoadImage(File.ReadAllBytes(text)))
+                        {
+                            LogToConsole("BehaviourScript: Error loading FatigueFull");
+                        }
+                        else
+                        {
+                            hudTextures.Add("FatigueFull", auxTexture);
+                            LogToConsole("BehaviourScript: Loaded FatigueFull");
+                        }
+                    }
+                    else if (text.Contains("RadiationEmpty") && text.ToLower().EndsWith("png"))
+                    {
+                        auxTexture = new Texture2D(215, 60);
+                        if (!auxTexture.LoadImage(File.ReadAllBytes(text)))
+                        {
+                            LogToConsole("BehaviourScript: Error loading RadiationEmpty");
+                        }
+                        else
+                        {
+                            hudTextures.Add("RadiationEmpty", auxTexture);
+                            LogToConsole("BehaviourScript: Loaded RadiationEmpty");
+                        }
+                    }
+                    else if (text.Contains("RadiationFull") && text.ToLower().EndsWith("png"))
+                    {
+                        auxTexture = new Texture2D(215, 60);
+                        if (!auxTexture.LoadImage(File.ReadAllBytes(text)))
+                        {
+                            LogToConsole("BehaviourScript: Error loading RadiationFull");
+                        }
+                        else
+                        {
+                            hudTextures.Add("RadiationFull", auxTexture);
+                            LogToConsole("BehaviourScript: Loaded RadiationFull");
+                        }
+                    }
+                    else if (text.Contains("SanityBarEmpty") && text.ToLower().EndsWith("png"))
+                    {
+                        auxTexture = new Texture2D(215, 60);
+                        if (!auxTexture.LoadImage(File.ReadAllBytes(text)))
+                        {
+                            LogToConsole("BehaviourScript: Error loading SanityBarEmpty");
+                        }
+                        else
+                        {
+                            hudTextures.Add("SanityBarEmpty", auxTexture);
+                            LogToConsole("BehaviourScript: Loaded SanityBarEmpty");
+                        }
+                    }
+                    else if (text.Contains("SanityBarFull") && text.ToLower().EndsWith("png"))
+                    {
+                        auxTexture = new Texture2D(215, 60);
+                        if (!auxTexture.LoadImage(File.ReadAllBytes(text)))
+                        {
+                            LogToConsole("BehaviourScript: Error loading SanityBarFull");
+                        }
+                        else
+                        {
+                            hudTextures.Add("SanityBarFull", auxTexture);
+                            LogToConsole("BehaviourScript: Loaded SanityBarFull");
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    LogToConsole("BehaviourScript: Error loading UI elements " + e.Message);
+                }
+            }
+        }
+        else LogToConsole("BehaviourScript: DID NOT FIND FOLDER " + hudPath);
     }
 
     //public void Initiate()
@@ -720,9 +1078,11 @@ public class BehaviourScript : MonoBehaviour
 
     void Update()
     {
-        if (DateTime.Now >= dtaNextTick && GameManager.Instance != null)
+        if (GameManager.Instance == null || GameManager.Instance.World == null) exoSuit = false;
+        if (DateTime.Now >= dtaNextTick && GameManager.Instance != null && GameManager.Instance.gameStateManager.IsGameStarted())
         {
             dtaNextTick = DateTime.Now.AddSeconds(1);
+            string pos = "0";
             try
             {
                 if (GameManager.Instance != null)
@@ -731,7 +1091,7 @@ public class BehaviourScript : MonoBehaviour
                     {
                         //Debug.Log("BehaviourScript: GENERAL TICK");
                         // get localplayer                                        
-                        EntityPlayer player =
+                        player =
                             (GameManager.Instance.World.GetEntity(
                                 GameManager.Instance.GetPersistentLocalPlayer().EntityId)
                                 as EntityPlayer);
@@ -739,8 +1099,20 @@ public class BehaviourScript : MonoBehaviour
                         {
                             if (player.IsAlive())
                             {
-                                if (oldBag == null) oldBag = player.bag.GetSlots();
-
+                                playerStats = MorteHelpers.getStats(player as EntityPlayerLocal);
+                                if (powerLevel > 0)
+                                {
+                                    if (Input.GetKey(KeyCode.PageUp))
+                                    {
+                                        if (DateTime.Now > dtaNextClick)
+                                        {
+                                            exoHud = !exoHud;
+                                            player.PlayOneShot("openHud");
+                                            dtaNextClick = DateTime.Now.AddSeconds(2);
+                                        }
+                                    }
+                                }
+                                if (oldBag == null) oldBag = player.bag.GetSlots();                                
                                 #region armor sets;              
 
                                 //Debug.Log("BehaviourScript: PLAYER WEIGHT = " + player.GetWeight().ToString("#0.##"));
@@ -820,7 +1192,7 @@ public class BehaviourScript : MonoBehaviour
                                 //{
                                 //    Debug.Log("YOU ARE WEARING " + wearing);
                                 //}
-                                //else Debug.Log("YOU ARE WEARING NOTHING!");
+                                //else Debug.Log("YOU ARE WEARING NOTHING!");                                
                                 if (!compareDicts())
                                 {
                                     oldSets = new Dictionary<string, string[]>(currentSets);
@@ -874,7 +1246,7 @@ public class BehaviourScript : MonoBehaviour
                                                                     BuffActions.GetEnumerator())
                                                             {
                                                                 while (enumerator.MoveNext())
-                                                                {
+                                                                {                                                                    
                                                                     //Debug.Log("BehaviourScript: CHECKING buff " + enumerator.Current.Class.Name);
                                                                     bool buffOn = false;
                                                                     foreach (Buff buff in player.Stats.Buffs)
@@ -911,7 +1283,7 @@ public class BehaviourScript : MonoBehaviour
                                                                                     enumerator.Current.Class.Name);
                                                                             player.Stats.Debuff(
                                                                                 enumerator.Current.Class.Id);
-                                                                        }
+                                                                        }                                                                        
                                                                     }
                                                                 }
                                                             }
@@ -932,42 +1304,61 @@ public class BehaviourScript : MonoBehaviour
 
                                 #endregion;
 
+                                bool exoAux = false;
+                                bool exoSpeed = false;
+                                bool exoGun = false;
+                                int fluStage = 0;
+                                int yawnLevel = 0;
+                                bool cigar = false;
+                                bool blunt = false;
+                                bool isresting = false;
+                                bool iswarming = false;
+                                bool wellRested = true;
+                                int lastPowerLevel = powerLevel;                               
+                                //string buffsstr = "";
+                                foreach (Buff buff in player.Stats.Buffs)
+                                {
+                                    // power armors                              
+                                    if (buff.Name == "Exoskeleton")
+                                    {
+                                        exoAux = true;                                        
+                                    }
+                                    else if (buff.Name == "exoSpeed")
+                                    {
+                                        exoSpeed = true;
+                                    }
+                                    else if (buff.Name == "exoGun")
+                                    {
+                                        exoGun = true;
+                                    }
+                                    // diseases
+                                    //if (debug) Debug.Log("BehaviourScript: Has buff " + buff.Name);                                        
+                                    if (buff.Name == "flu")
+                                    {
+                                        fluStage = 1;
+                                    }
+                                    else if (buff.Name == "flu2")
+                                    {
+                                        fluStage = 2;
+                                    }
+                                    if (buff.Name == "sleepy") yawnLevel = 1;
+                                    else if (buff.Name == "fatigued") yawnLevel = 2;
+                                    else if (buff.Name == "sleepDeprived") yawnLevel = 3;
+                                    if (buff.Name == "Cigar") cigar = true;
+                                    else if (buff.Name == "Blunt") blunt = true;
+                                    if (buff.Name == "sleepingBagEffect" || buff.Name == "sleepingBedEffect" ||
+                                        buff.Name == "sleepingBigBedEffect") isresting = true;
+                                    if (buff.Name == "wellrested") wellRested = true;
+                                    if (buff.Name == "warmByFire") iswarming = true;
+                                }
+                                //Debug.Log(buffsstr);)
+                                exoSuit = exoAux;
                                 if (DateTime.Now > dtaNextDiseaseCheck)
                                 {
                                     dtaNextDiseaseCheck = DateTime.Now.AddSeconds(5);
-                                    #region Special diseases;
 
-                                    // check if he has flu or flu2 buffs
-                                    int fluStage = 0;
-                                    int yawnLevel = 0;
-                                    bool cigar = false;
-                                    bool blunt = false;
-                                    bool isresting = false;
-                                    bool iswarming = false;
-                                    bool wellRested = true;
-                                    // check if the player is "resting" or is by a fire
-                                    foreach (Buff buff in player.Stats.Buffs)
-                                    {
-                                        //if (debug) Debug.Log("BehaviourScript: Has buff " + buff.Name);
-                                        if (buff.Name == "flu")
-                                        {
-                                            fluStage = 1;
-                                        }
-                                        else if (buff.Name == "flu2")
-                                        {
-                                            fluStage = 2;
-                                        }
-                                        if (buff.Name == "sleepy") yawnLevel = 1;
-                                        else if (buff.Name == "fatigued") yawnLevel = 2;
-                                        else if (buff.Name == "sleepDeprived") yawnLevel = 3;
-                                        if (buff.Name == "Cigar") cigar = true;
-                                        else if (buff.Name == "Blunt") blunt = true;
-                                        if (buff.Name == "sleepingBagEffect" || buff.Name == "sleepingBedEffect" ||
-                                            buff.Name == "sleepingBigBedEffect") isresting = true;
-                                        if (buff.Name == "wellrested") wellRested = true;
-                                        if (buff.Name == "warmByFire") iswarming = true;
-                                    }
-                                    //Debug.Log("BehaviourScript: FLU STAGE = " + fluStage);
+                                    #region Special diseases;
+                                    
                                     string sound = "";
 
                                     #region Yawning;
@@ -1086,7 +1477,7 @@ public class BehaviourScript : MonoBehaviour
                                                 if (chance <= 0) chance = 2; // never below 2%
                                                 else if (chance > 25)
                                                     chance = 25; // never above 25%  
-                                                chance = chance*fluModifier;                              
+                                                chance = chance*fluModifier;
                                                 //Debug.Log("Flu Chance = " + Math.Round(chance).ToString());
                                                 if (player.GetRandom().Next(0, 100) < Math.Round(chance))
                                                 {
@@ -1098,7 +1489,8 @@ public class BehaviourScript : MonoBehaviour
                                                         BuffActionsD = new List<MultiBuffClassAction>();
                                                     BuffActionsD.Add(multiBuffClassAction);
                                                 }
-                                            }                                                                                        
+                                            }
+
                                             #endregion;
                                         }
                                     }
@@ -1111,14 +1503,17 @@ public class BehaviourScript : MonoBehaviour
                                             //    player.Stats.Wellness.Max));
                                             //Debug.Log(string.Format("Wetness={0}, CoreTempPerc={1}, WellnessPerc={2}", wetness,
                                             //    coreTempPerc, wellNessPerc));
+
                                             #region Chances of healing flu;
+
                                             float chanceToHeal = 0;
                                             if (isresting)
-                                            {   
+                                            {
                                                 // simple math - if you get too hot or too wet, resting wont heal you
                                                 // but since it will decrease your temp, in time it will eventually hit
-                                                chanceToHeal = wellNessPerc - (coreTempPerc/2) - wetness;                                                
-                                                if (fluStage > 1 && chanceToHeal > 3) chanceToHeal = 3; // stage 2 has a residual chance of healing
+                                                chanceToHeal = wellNessPerc - (coreTempPerc/2) - wetness;
+                                                if (fluStage > 1 && chanceToHeal > 3)
+                                                    chanceToHeal = 3; // stage 2 has a residual chance of healing
                                                 if (chanceToHeal > 40) chanceToHeal = 40;
                                                 if (wellRested) chanceToHeal += 5; // 5% bonus for wellrested
                                                 if (coreTempPerc > 45 && !iswarming)
@@ -1134,7 +1529,7 @@ public class BehaviourScript : MonoBehaviour
                                                     {
                                                         //Debug.Log("DECREASING CORETEMP");
                                                         player.Stats.CoreTemp.Value--;
-                                                        if (coreTempPerc>51) player.Stats.CoreTemp.Value--;
+                                                        if (coreTempPerc > 51) player.Stats.CoreTemp.Value--;
                                                         //Debug.Log(string.Format("CORETEMP:{0}, CoreTempBaseMax:{1}",
                                                         //player.Stats.CoreTemp.Value,
                                                         //player.Stats.CoreTemp.Max));
@@ -1143,7 +1538,7 @@ public class BehaviourScript : MonoBehaviour
                                             }
                                             else if (iswarming)
                                             {
-                                                chanceToHeal = wellNessPerc - coreTempPerc - wetness;                                            
+                                                chanceToHeal = wellNessPerc - coreTempPerc - wetness;
                                                 if (fluStage > 1 && chanceToHeal > 1) chanceToHeal = 1;
                                                 if (chanceToHeal > 5) chanceToHeal = 5;
                                             }
@@ -1183,6 +1578,133 @@ public class BehaviourScript : MonoBehaviour
 
                                     #endregion;
                                 }
+                                if (exoSuit)
+                                {
+                                    bool powerUp = false;
+                                    //Debug.Log("has exosuit");
+                                    #region Custom stats;
+                                    MultiBuffVariable multiBuffVariable1;
+                                    //if (player.Stats.PI.TryGetValue("powerLevel", out multiBuffVariable1))
+                                    if (playerStats.TryGetValue("powerLevel", out multiBuffVariable1))
+                                    {
+                                        powerLevel = Convert.ToInt32(multiBuffVariable1.Value);
+                                    }
+                                    else powerLevel = 0;
+                                    if (playerStats.TryGetValue("radlevel", out multiBuffVariable1))
+                                    {
+                                        radlevel = Convert.ToInt32(multiBuffVariable1.Value);
+                                    }
+                                    else radlevel = 0;
+                                    if (playerStats.TryGetValue("fatiguelevel", out multiBuffVariable1))
+                                    {
+                                        fatiguelevel = Convert.ToInt32(multiBuffVariable1.Value);
+                                    }
+                                    else fatiguelevel = 0;
+                                    if (playerStats.TryGetValue("addiction", out multiBuffVariable1))
+                                    {
+                                        addiction = Convert.ToInt32(multiBuffVariable1.Value);
+                                    }
+                                    else addiction = 0;
+                                    #endregion;
+                                    if (powerLevel > 0)
+                                    {
+                                        // buff with exoSpeed or exoGun
+                                        List<MultiBuffClassAction> BuffActionsD = null;
+                                        // checks if its holding a exo gun / tool
+                                        bool removeExogun = true;
+                                        if (player.inventory.holdingItem != null)
+                                        {
+                                            if (player.inventory.holdingItem.Actions != null)
+                                            {
+                                                if (player.inventory.holdingItem.Actions.Length > 0)
+                                                {
+                                                    if (player.inventory.holdingItem.Actions[0] != null)
+                                                    {
+                                                        if (player.inventory.holdingItem.Actions[0].Properties.Contains(
+                                                            "Require"))
+                                                        {
+                                                            if (
+                                                                player.inventory.holdingItem.Actions[0].Properties
+                                                                    .Values[
+                                                                        "Require"] ==
+                                                                "exoGun")
+                                                            {
+                                                                removeExogun = false;
+                                                                if (!exoGun)
+                                                                {
+                                                                    //Debug.Log("BUFFING EXOGUN");
+                                                                    powerUp = true;
+                                                                    string buffName = "exoGun";
+                                                                    // apply buff
+                                                                    MultiBuffClassAction multiBuffClassAction = null;
+                                                                    multiBuffClassAction =
+                                                                        MultiBuffClassAction.NewAction(buffName);
+                                                                    if (BuffActionsD == null)
+                                                                        BuffActionsD = new List<MultiBuffClassAction>();
+                                                                    BuffActionsD.Add(multiBuffClassAction);
+                                                                    if (exoSpeed) player.Stats.Debuff("exoSpeed");
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        if (exoGun && removeExogun)
+                                        {
+                                            player.Stats.Debuff("exoGun");
+                                            exoGun = false;
+                                        }
+                                        if (!exoSpeed && !exoGun)
+                                        {
+                                            powerUp = true;                            
+                                            string buffName = "exoSpeed";
+                                            // apply buff
+                                            MultiBuffClassAction multiBuffClassAction = null;
+                                            multiBuffClassAction = MultiBuffClassAction.NewAction(buffName);
+                                            if (BuffActionsD == null)
+                                                BuffActionsD = new List<MultiBuffClassAction>();
+                                            BuffActionsD.Add(multiBuffClassAction);
+                                        }
+                                        if (BuffActionsD != null)
+                                        {
+                                            if (BuffActionsD.Count > 0)
+                                            {
+                                                using (
+                                                    List<MultiBuffClassAction>.Enumerator enumerator =
+                                                        BuffActionsD.GetEnumerator())
+                                                {
+                                                    while (enumerator.MoveNext())
+                                                        enumerator.Current.Execute(player.entityId, (EntityAlive)player,
+                                                            false,
+                                                            EnumBodyPartHit.None, (string)null);
+                                                }
+                                            }
+                                        }
+                                        if (powerUp && lastPowerLevel == 0) player.PlayOneShot("powerUp");
+                                    }
+                                }
+                                else powerLevel = 0;
+                                if (powerLevel == 0)
+                                {
+                                    bool powerDown = false;
+                                    if (exoSpeed)
+                                    {
+                                        player.Stats.Debuff("exoSpeed");
+                                        powerDown = true;
+                                    }
+                                    if (exoGun)
+                                    {
+                                        player.Stats.Debuff("exoGun");
+                                        powerDown = true;
+                                    }
+                                    if (exoHud) exoHud = false;
+                                    if (powerDown) player.PlayOneShot("powerDown");
+                                }
+                                else
+                                {
+                                    
+                                }                            
                                 if (false)
                                 {
                                     #region Food - UNDER DEVELOPMENT;
@@ -1221,7 +1743,7 @@ public class BehaviourScript : MonoBehaviour
             }
             catch (Exception ex)
             {
-                Debug.Log("BehaviourScript.Update (ERROR): " + ex.Message);
+                Debug.Log("BehaviourScript.Update (ERROR): (" + pos + ") " + ex.ToString());
             }
         }
     }
@@ -1294,8 +1816,142 @@ public class BehaviourScript : MonoBehaviour
         return result;
     }
 
-    public void OnGUI()
+    public static void OnCustomGUI()
     {
+        // modversion
+        //var rightStyle = GUI.skin.GetStyle("Label");
+        //rightStyle.alignment = TextAnchor.MiddleRight;       
+        //GUIStyle versionSkin = new GUIStyle(GUI.skin.label);
+        //versionSkin.font = Font.CreateDynamicFontFromOSFont("Impact", 12);
+        //versionSkin.fontStyle = FontStyle.Bold;
+        //GUI.Label(new Rect(Screen.width - 150, 30, 150, 20), MorteHelpers.modVersion, versionSkin);
+        if (GameManager.Instance.gameStateManager.IsGameStarted() && GUIWindowManager.IsHUDEnabled())
+        {
+            GUIStyle versionSkin = new GUIStyle(GUI.skin.label);
+            versionSkin.normal.textColor = Color.grey;
+            GUI.Label(new Rect(Screen.width - 250, 5, 150, 20), MorteHelpers.modVersion, versionSkin);
+            if (exoSuit)
+            {
+                // if wearing a exosuit, it will show the amount of power left       
+                GUI.depth = 1;
+                Texture2D auxTexture;
+                if (hudTextures.TryGetValue("hudWindow", out auxTexture))
+                    GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), auxTexture,
+                        ScaleMode.StretchToFill, true);
+                if (hudTextures.TryGetValue("hudL", out auxTexture))
+                    GUI.DrawTexture(new Rect(0, Screen.height - auxTexture.height + 4, auxTexture.width, auxTexture.height), auxTexture,
+                        ScaleMode.StretchToFill, true);
+                if (hudTextures.TryGetValue("hudR", out auxTexture))
+                    GUI.DrawTexture(new Rect(Screen.width - auxTexture.width, Screen.height - auxTexture.height, auxTexture.width, auxTexture.height), auxTexture,
+                        ScaleMode.StretchToFill, true);
+                if (hudTextures.TryGetValue("hudToolBelt", out auxTexture))
+                    GUI.DrawTexture(
+                        new Rect((Screen.width/2) - (auxTexture.width/2) - 5, Screen.height - auxTexture.height,
+                            auxTexture.width, auxTexture.height), auxTexture,
+                        ScaleMode.StretchToFill, true);
+                if (hudTextures.TryGetValue("hudRadio", out auxTexture))
+                    GUI.DrawTexture(new Rect(10, 30, auxTexture.width, auxTexture.height), auxTexture,
+                        ScaleMode.StretchToFill, true);
+                //GUI.Label(new Rect(Screen.width - 210 - 50, 55, 50, 20), "POWER:");
+                float powerPerc = (float) ((float) powerLevel/(float) maxPower);
+                if (hudTextures.TryGetValue("bgImage", out auxTexture))
+                {
+                    Rect infoAreaBg = new Rect(Screen.width - healthBarLength - 10, 30, healthBarLength, auxTexture.height);
+                    GUILayout.BeginArea(infoAreaBg);
+                    GUI.DrawTexture(new Rect(0, 0, healthBarLength, auxTexture.height), auxTexture);
+                    if (hudTextures.TryGetValue("fgImage", out auxTexture))
+                        GUI.DrawTextureWithTexCoords(
+                            new Rect(0, 0, (float) powerPerc*(float) (healthBarLength), auxTexture.height), auxTexture,
+                            new Rect(0f, 0f, (float) powerPerc, 1f));
+                    GUILayout.EndArea();
+                }
+                if (exoHud)
+                {
+                    // open a GUI window with the exohud
+                    if (hudTextures.TryGetValue("hudOverview", out auxTexture))
+                    {
+                        Rect overViewRec = new Rect((Screen.width/2) - (auxTexture.width/2),
+                            (Screen.height/2) - (auxTexture.height/2), auxTexture.width, auxTexture.height);
+                        GUILayout.BeginArea(overViewRec);
+                        GUI.DrawTexture(new Rect(0, 0, auxTexture.width, auxTexture.height), auxTexture);
+                        GUIStyle textSkin = new GUIStyle(GUI.skin.label);
+                        textSkin.normal.textColor = Color.red;
+                        textSkin.alignment = TextAnchor.MiddleCenter;
+                        textSkin.fontStyle = FontStyle.Bold;
+                        GUI.Label(new Rect(518, 65, 84, 20), "No upgrade", textSkin);
+                        GUI.Label(new Rect(86, 540, 80, 20), "0 left", textSkin);
+                        // draw the remaining stat bars
+                        if (hudTextures.TryGetValue("RadiationEmpty", out auxTexture))
+                        {
+                            float auxPerc = (float)((float)radlevel / (float)maxRad);
+                            if (auxPerc > 1) auxPerc = 1;
+                            Rect infoAreaBg = new Rect(0, 46, auxTexture.width, auxTexture.height);
+                            GUILayout.BeginArea(infoAreaBg);
+                            GUI.DrawTexture(new Rect(0, 0, auxTexture.width, auxTexture.height), auxTexture);
+                            if (hudTextures.TryGetValue("RadiationFull", out auxTexture))
+                                GUI.DrawTextureWithTexCoords(
+                                    new Rect(0, 0, (float)auxPerc * (float)(auxTexture.width), auxTexture.height), auxTexture,
+                                    new Rect(0f, 0f, (float)auxPerc, 1f));
+                            GUILayout.EndArea();
+                        }
+                        if (hudTextures.TryGetValue("FatigueEmpty", out auxTexture))
+                        {
+                            float auxPerc = (float)((float)fatiguelevel / (float)maxFatigue);
+                            if (auxPerc > 1) auxPerc = 1;
+                            Rect infoAreaBg = new Rect(55, 255, auxTexture.width, auxTexture.height);
+                            GUILayout.BeginArea(infoAreaBg);
+                            GUI.DrawTexture(new Rect(0, 0, auxTexture.width, auxTexture.height), auxTexture);
+                            if (hudTextures.TryGetValue("FatigueFull", out auxTexture))
+                                GUI.DrawTextureWithTexCoords(
+                                    new Rect(0, 0, (float)auxPerc * (float)(auxTexture.width), auxTexture.height), auxTexture,
+                                    new Rect(0f, 0f, (float)auxPerc, 1f));
+                            GUILayout.EndArea();
+                        }
+                        if (hudTextures.TryGetValue("AddictionEmpty", out auxTexture))
+                        {
+                            float auxPerc = (float)((float)addiction / (float)maxAddiction);
+                            if (auxPerc > 1) auxPerc = 1;
+                            Rect infoAreaBg = new Rect(432, 244, auxTexture.width, auxTexture.height);
+                            GUILayout.BeginArea(infoAreaBg);
+                            GUI.DrawTexture(new Rect(0, 0, auxTexture.width, auxTexture.height), auxTexture);
+                            if (hudTextures.TryGetValue("AddictionFull", out auxTexture))
+                                GUI.DrawTextureWithTexCoords(
+                                    new Rect(0, 0, (float)auxPerc * (float)(auxTexture.width), auxTexture.height), auxTexture,
+                                    new Rect(0f, 0f, (float)auxPerc, 1f));
+                            GUILayout.EndArea();
+                        }
+                        if (hudTextures.TryGetValue("SanityBarEmpty", out auxTexture))
+                        {
+                            float auxPerc = (float)((float)sanity / (float)maxSanity);
+                            if (auxPerc > 1) auxPerc = 1;
+                            auxPerc = 1;
+                            Rect infoAreaBg = new Rect(411, 476, auxTexture.width, auxTexture.height);
+                            GUILayout.BeginArea(infoAreaBg);
+                            GUI.DrawTexture(new Rect(0, 0, auxTexture.width, auxTexture.height), auxTexture);
+                            if (hudTextures.TryGetValue("SanityBarFull", out auxTexture))
+                                GUI.DrawTextureWithTexCoords(
+                                    new Rect(0, 0, (float)auxPerc * (float)(auxTexture.width), auxTexture.height), auxTexture,
+                                    new Rect(0f, 0f, (float)auxPerc, 1f));
+                            GUILayout.EndArea();
+                        }
+                        GUILayout.EndArea();
+                    }
+                }
+            }
+        }
+    }
+
+    private Texture2D MakeTex(int width, int height, Color col)
+    {
+        Color[] pix = new Color[width * height];
+        for (int i = 0; i < pix.Length; ++i)
+        {
+            pix[i] = col;
+        }
+        Texture2D result = new Texture2D(width, height);
+        result.SetPixels(pix);
+        result.Apply();
+        return result;
     }
 }
 

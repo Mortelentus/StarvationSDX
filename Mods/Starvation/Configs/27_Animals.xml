@@ -342,9 +342,9 @@
 		<drop event="Harvest" name="rawMeat" tool_category="Butcher" count="1" />
 		<drop event="Harvest" name="rawMeat" tool_category="Butcher" count="1" prob=".5" />
 		<drop event="Harvest" name="rawMeat" tool_category="Butcher" count="1" prob=".5" />
-		<drop event="Harvest" name="animalHide" tool_category="Butcher" count="7" />
-		<drop event="Harvest" name="animalHide" tool_category="Butcher" count="4" prob=".5" />
-		<drop event="Harvest" name="animalFat" tool_category="Butcher" count="1" prob=".4" />
+		<drop event="Harvest" name="CrocoSkin" tool_category="Butcher" count="1" />
+		<drop event="Harvest" name="CrocoSkin" tool_category="Butcher" count="1" prob=".5" />
+		<drop event="Harvest" name="animalFat" tool_category="Butcher" count="4" prob=".4" />
 		<drop event="Harvest" name="animalFat" tool_category="Butcher" count="4" />
 		<!-- Average harvest results:  stag  5 meat  9 hide  4.5 fat,  pig  6m  7h  6f,  bear 7m  14h  7f -->
 	</entity_class>

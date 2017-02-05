@@ -4,6 +4,7 @@
 <remove xpath="/recipes/recipe[@name='gasCan']" />
 <remove xpath="/recipes/recipe[@name='gasCan']" />
 <remove xpath="/recipes/recipe[@name='gasCan']" />
+<remove xpath="/recipes/recipe[@name='gasCan']" />
 <remove xpath="/recipes/recipe[@name='oilBarrel']" />
 <remove xpath="/recipes/recipe[@name='bioFuel']" />
 <remove xpath="/recipes/recipe[@name='grainAlcohol']" />
@@ -106,7 +107,7 @@
 		<ingredient name="bioFuel" count="20" />
 		<ingredient name="grainAlcohol" count="30" />
 	</recipe>
-	<recipe name="gasCan" count="300" scrapable="False" craft_area="moonshine">
+	<recipe name="gasCan" count="500" scrapable="False" craft_area="moonshine">
 		<ingredient name="oilBarrel" count="1" />
 	</recipe>
 	<!-- PLAYER MADE -->
@@ -324,6 +325,14 @@
 		<ingredient name="partsBrowning_barrel" count="1" />
 		<ingredient name="partsBrowning_receiver" count="1" />
 		<ingredient name="partsBrowning_parts" count="1" />
+	</recipe>
+	<recipe name="ElectricalFence" count="1">
+		<ingredient name="scrapIron" count="20" />
+		<ingredient name="electricParts" count="1" />
+	</recipe>
+	<recipe name="RainCoat" count="1" scrapable="False" >
+		<ingredient name="CrocoSkin" count="5" />
+		<ingredient name="cloth" count="10" />
 	</recipe>
 	<!-- STARVATION STUFF -->
 </append>	  
@@ -1965,7 +1974,7 @@
 		<property name="IsDeveloper" value="true" />
 		<property name="Extends" value="schematicMaster" />
 		<property class="Action1">
-			<property name="Recipes_to_learn" value="gunRevolver,mg4,HK416,Ump,smallCrossbow,ACW,MTAR" />
+			<property name="Recipes_to_learn" value="gunRevolver,mg4,HK416,Ump,smallCrossbow,ACW,MTAR,flameThrower,minigun,multiRocketLauncher" />
 			<property name="Skills_to_gain" value="Gun Smithing" />
 		</property>
 	</item>
@@ -2008,6 +2017,20 @@
 		<property name="RepairAmount" value="2000" />
 		<property name="Group" value="Resources,Ammo/Weapons" />
 		<property name="CraftingSkillGroup" value="Gun Smithing"/>
+		<property class="Action1">
+			<property name="Class" value="EatAt, Mods" />
+			<property name="Delay" value="1.0" />
+			<property name="Use_time" value="..." />
+			<property name="Gain_health" value="0" />
+			<property name="Gain_food" value="0" />
+			<property name="Gain_water" value="0" />
+			<property name="Gain_wellness" value="0" />
+			<property name="Sound_start" value="powerUp" />
+			<property name="Buff" value="addpower" />
+			<!-- requires having a special buff -->
+			<property name="Require" value="Exoskeleton" />
+			<property name="RequireText" value="You need to wear a Exoskeleton to use this item" />
+		</property>		
 	</item>	
 	<item id="" name="lightsword">
 		<property name="Meshfile" value="#lightswordnew?Lightsword" />
@@ -2054,6 +2077,145 @@
 		<property name="Group" value="Ammo/Weapons" />
 		<property name="ActionSkillGroup" value="Blade Weapons" />
 		<property name="CraftingSkillGroup" value="Weapon Smithing" />
+	</item>
+	<item id="" name="exoGloves">
+		<!-- armorMasterBanditArmor -->
+		<property name="Insulation" value="0" />
+		<property name="Encumbrance" value="0.1" />
+		<property name="Material" value="metal" />
+		<property name="RepairTools" value="forgedIron" />
+		<property name="DegradationBreaksAfter" value="false" />
+		<property name="EquipSlot" value="Hands" />
+		<property name="Weight" value="100" />
+		<property name="FuelValue" value="12" />
+		<property name="EconomicValue" value="460" />
+		<property name="HoldType" value="45" />
+		<property name="Meshfile" value="Items/Misc/sackPrefab" />
+		<property name="DropMeshfile" value="Items/Misc/sack_droppedPrefab" />
+		<property name="ArmorSet" value="exoSuit" />
+		<property name="SetNum" value="5" />
+		<property name="SetBuff" value="exoSuit" />
+		<property class="Attributes">
+			<property name="ConcussiveProtection" value="0.26,0.65" />
+			<property name="PunctureProtection" value="0.24,0.6" />
+			<property name="FireProtection" value="0.2,0.5" />
+			<property name="RadiationProtection" value="0.16,0.4" />
+			<property name="DegradationMax" value="320,800" />
+		</property>
+		<property class="UMA">
+			<property name="Mesh" value="armor_heavy_bandit_gloves" />
+			<property name="Overlay0" value="bandit_armor" />
+			<property name="Overlay0Tint" value="60,60,60" />
+			<property name="Layer" value="0" />
+			<property name="UISlot" value="Gloves" />
+		</property>
+		<property name="DescriptionKey" value="exoArmorGroupDesc" />
+		<property name="Group" value="Clothing" />
+		<property name="ActionSkillGroup" value="Heavy Armor" />
+		<property name="CraftingSkillGroup" value="Armor Smithing" />
+		<property name="RepairExpMultiplier" value="10.8" />
+	</item>
+	<item id="" name="exoHelmet">
+		<!-- banditArmor -->
+		<property name="Extends" value="exoGloves" />
+		<property name="EquipSlot" value="Face" />
+		<property class="UMA">
+			<property name="Mesh" value="armor_heavy_bandit_gasmask" />
+			<property name="Overlay0" value="bandit_armor" />
+			<property name="Overlay0Tint" value="60,60,60" />
+			<property name="Layer" value="1" />
+			<property name="UISlot" value="Face" />
+			<property name="Mask0" value="Eyes" param1="base" />
+			<property name="Mask1" value="Eyes" param1="inner" />
+			<property name="Mask2" value="Face" param1="base" />
+			<property name="ShowAltHair" value="true" />
+		</property>
+	</item>
+	<item id="" name="exoBoots">
+		<!-- banditArmor -->
+		<property name="Extends" value="exoGloves" />
+		<property name="EquipSlot" value="Feet" />
+		<property class="UMA">
+			<property name="Mesh" value="armor_heavy_bandit_feet" />
+			<property name="Overlay0" value="bandit_armor" />
+			<property name="Overlay0Tint" value="60,60,60" />
+			<property name="Layer" value="0" />
+			<property name="UISlot" value="Footwear" />
+		</property>
+	</item>
+	<item id="" name="exoLegArmor">
+		<!-- banditArmor -->
+		<property name="Extends" value="exoGloves" />
+		<property name="Weight" value="150" />
+		<property name="EconomicValue" value="700" />
+		<property name="EquipSlot" value="Legs" />
+		<property class="UMA">
+			<property name="Mesh" value="armor_heavy_bandit_legarmor" />
+			<property name="Overlay0" value="bandit_armor" />
+			<property name="Overlay0Tint" value="60,60,60" />
+			<property name="Layer" value="3" />
+			<property name="UISlot" value="LegArmor" />
+		</property>
+	</item>
+	<item id="" name="exoChestArmor">
+		<!-- banditArmor -->
+		<property name="Extends" value="exoGloves" />
+		<property name="Weight" value="150" />
+		<property name="EconomicValue" value="700" />
+		<property name="EquipSlot" value="Chest" />
+		<property class="UMA">
+			<property name="Mesh" value="male_armor_heavy_bandit_chest" />
+			<property name="Overlay0" value="bandit_armor" />
+			<property name="Overlay0Tint" value="60,60,60" />
+			<property name="Layer" value="2" />
+			<property name="UISlot" value="ChestArmor" />
+		</property>
+	</item>	
+	<item id="" name="CrocoSkin">		
+		<property name="Stacknumber" value="15" />
+		<property name="Meshfile" value="Items/Misc/sackPrefab" />
+		<property name="DropMeshfile" value="Items/Misc/sack_droppedPrefab" />
+		<property name="Material" value="cloth" />
+		<property name="RepairTools" value="cloth" />
+		<property name="HoldType" value="45" />		
+	 </item>
+	 <item id="" name="RainCoat">
+		<property name="CustomIcon" value="leatherDuster" />
+		<property name="CustomIconTint" value="84,249,2" />		
+		<property name="Insulation" value="30" />
+		<property name="Waterproof" value="1" />
+		<property name="Meshfile" value="Items/Misc/sackPrefab" />
+		<property name="DropMeshfile" value="Items/Misc/sack_droppedPrefab" />
+		<property name="Material" value="cloth" />
+		<property name="RepairTools" value="cloth" />
+		<property name="HoldType" value="45" />
+		<property name="DegradationBreaksAfter" value="false" />
+		<property name="EquipSlot" value="Chest" />
+		<property name="FuelValue" value="80" />
+		<property name="Weight" value="90" />
+		<property name="EconomicValue" value="800" />
+		<property class="Attributes">
+			<!-- hideArmor -->
+			<property name="ConcussiveProtection" value="0.05,0.25" />
+			<property name="PunctureProtection" value="0.04,0.2" />
+			<property name="FireProtection" value="0.02,0.1" />
+			<property name="RadiationProtection" value="0.02,0.1" />
+			<property name="DegradationMax" value="70,200" />
+		</property>
+		<property class="UMA">
+			<property name="Mesh" value="clothes_leather_duster" />
+			<property name="Overlay0" value="clothes_leather_duster" />
+			<property name="Overlay0Tint" value="84,249,2" />
+			<property name="Layer" value="3" />
+			<property name="UISlot" value="Jacket" />
+			<property name="Mask0" value="hands" param1="outer" />
+			<property name="Mask1" value="chest" param1="middle" />
+		</property>
+		<!--property name="DescriptionKey" value="leatherClothesGroupDesc" /-->
+		<property name="Group" value="Clothing" />
+		<property name="ActionSkillGroup" value=" " />
+		<property name="CraftingSkillGroup" value="Tailoring" />
+		<property name="RepairExpMultiplier" value="5.5" />
 	</item>
 	<!-- STARVATION -->
 </append>	  
@@ -2309,6 +2471,48 @@
 	  <drop event="Destroy" name="BrowningTripodBlock" count="1" prob="1" tool_category="Military" />
 	 </block>	
 	<!-- Mortelentus Server -->
+	<block id="2038" name="exoBag">
+		<property name="Class" value="Loot" />
+		<property name="Material" value="organic" />
+		<property name="Shape" value="ModelEntity" />
+		<property name="Model" value="#exobox?exoBox" />
+		<property name="Collide" value="movement,melee,bullet,arrow,rocket" />
+		<property name="LootList" value="107" />
+		<drop event="Destroy" name="cloth" count="5" />
+	</block>
+	<block id="2039" name="ElectricalFence">
+		<!-- this is a powwered trap -->
+		<!-- it will only work if it has enough power -->		
+		<property name="CustomIcon" value="barbedFence" />
+		<property name="Class" value="PowerTrap, Mods" />
+		<property name="Material" value="metal" />
+		<property name="Shape" value="New" />
+		<property name="Mesh" value="cutout" />
+		<property name="Model" value="chainlink_bottom" />
+		<property name="Texture" value="516" />
+		<property name="RotationAllowed" value="pivotOnFloor" />
+		<property name="Place" value="TowardsPlacer" />
+		<property name="Collide" value="movement,rocket,melee" />
+		<property name="FuelValue" value="36" />
+		<property name="UnitsToRequest" value="1" />
+		<property name="powerType" value="Electric" />
+		<!-- Boiler (heat), Gaz -->
+		<property name="DamageDone" value="10" />
+		<property name="Buffs" value="shockSmall" />
+		<!-- until better solution this is just to allow interaction -->
+		<property name="CanPickup" value="false" />
+		<property class="RepairItems">
+			<property name="wood" value="20" />
+			<property name="scrapIron" value="8" />
+		</property>
+		<drop event="Harvest" name="wood" count="8" />
+		<drop event="Harvest" name="scrapIron" count="3" />
+		<drop event="Destroy" count="0" />
+		<property name="CanPlayersSpawnOn" value="false" />
+		<property name="Group" value="Tools/Traps" />
+		<property name="EconomicValue" value="11" />
+		<property name="debug" value="false" />
+	</block>
 	<block id="2040" name="ammobag">
 		<property name="Class" value="Loot" />
 		<property name="Material" value="organic" />
@@ -2738,6 +2942,23 @@
 	<buff id="turret" duration="9000t" type="speedmodifier" icon="ui_game_symbol_turret" name_key="turret" description_key="Maning a turret" tooltip_key="You are maning a turret">
 		<modify id="0" stat="speedmodifier" mulValue="0" />
 	</buff>
+	<!-- this buff, while on, will prevent the player to get sick from radiation -->
+	<!-- it also decreases power in time, until it reaches 0 -->
+	<buff id="exoSuit" duration="0" name_key="Exoskeleton" actions="min(powerLevel, 0);increment(powerLevel, -0.5, 50t, 0, 0)" description_key="exoSuitDesc" tooltip_key="exoSuitDesc" icon="ui_game_symbol_exosuit" />
+	<buff id="addpower" name_key="addpower" duration="1" actions="max(powerLevel, 12);increment(powerLevel, 12, 0, 0, 1)" description_key="addpower" tooltip_key="addpower" icon="ui_game_symbol_exosuit" />
+	<!-- increases speed and stamina regeneration -->
+	<buff id="exoSpeed" duration="0" name_key="exoSpeed" >
+		<modify id="0" stat="stamina" amount="15" rate="1" />
+		<modify id="0" stat="speedmodifier" setValue="1.5" />
+	</buff>
+	<!-- decreases speed -->
+	<buff id="exoGun" duration="0" name_key="exoGun" actions="min(powerLevel, 0);increment(powerLevel, -0.25, 50t, 0, 0)" >
+		<modify id="0" stat="speedmodifier" setValue="0.5" />
+	</buff>
+	<buff id="shockSmall" duration="5" ffcheck="true" actions="attach(#electric?p_lightning, @impact);damage(0,1,0,1)" icon="ui_game_symbol_fire" name_key="shockSmall" description_key="shockSmallDesc"  >
+		<modify id="1" stat="health" amount="-5" rate="1" />
+		<modify id="0" stat="speedmodifier" mulValue="0.1" />
+	</buff>
 	<!-- STARVATION -->
 </append>
 </config>
@@ -2970,6 +3191,54 @@
 		<MaxVoices name="2" />
 		<MaxEntities name="30" />
 		<MaxRepeatRate name="0.001" />
+	</SoundDataNode>
+	<SoundDataNode name="stepExo">
+		<AudioSource name="Sounds/AudioSource_Footsteps" />
+		<Noise range="3" prio="10" time="1" muffled_when_crouched="0.5" />
+		<AudioClip ClipName="#humanSounds?stepRobot" />
+		<LocalCrouchVolumeScale name="0.5" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="1" />
+		<MaxVoices name="2" />
+		<MaxEntities name="10" />
+		<MaxRepeatRate name="0.01" />
+		<runningvolumescale name="2" />
+	</SoundDataNode>
+	<SoundDataNode name="powerUp">
+		<AudioSource name="Sounds/AudioSource_Footsteps" />
+		<Noise range="3" prio="10" time="1" muffled_when_crouched="0.5" />
+		<AudioClip ClipName="#humanSounds?powerUp" />
+		<LocalCrouchVolumeScale name="0.5" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="1" />
+		<MaxVoices name="2" />
+		<MaxEntities name="10" />
+		<MaxRepeatRate name="0.01" />
+		<runningvolumescale name="2" />
+	</SoundDataNode>
+	<SoundDataNode name="powerDown">
+		<AudioSource name="Sounds/AudioSource_Footsteps" />
+		<Noise range="3" prio="10" time="1" muffled_when_crouched="0.5" />
+		<AudioClip ClipName="#humanSounds?powerDown" />
+		<LocalCrouchVolumeScale name="0.5" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="1" />
+		<MaxVoices name="2" />
+		<MaxEntities name="10" />
+		<MaxRepeatRate name="0.01" />
+		<runningvolumescale name="2" />
+	</SoundDataNode>
+	<SoundDataNode name="openHud">
+		<AudioSource name="Sounds/AudioSource_Footsteps" />
+		<Noise range="3" prio="10" time="1" muffled_when_crouched="0.5" />
+		<AudioClip ClipName="#humanSounds?openHud" />
+		<LocalCrouchVolumeScale name="0.5" />
+		<CrouchNoiseScale name="0.5" />
+		<NoiseScale name="1" />
+		<MaxVoices name="2" />
+		<MaxEntities name="10" />
+		<MaxRepeatRate name="0.01" />
+		<runningvolumescale name="2" />
 	</SoundDataNode>
 	<!-- STARVATION -->
 </append>

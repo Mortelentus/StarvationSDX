@@ -246,6 +246,7 @@
 	<item id="" name="hook">
 		<property name="Meshfile" value="#fishes?hook" />
 		<property name="DropMeshfile" value="#fishes?hook" />
+		<property name="EconomicValue" value="2" />
 		<property name="Material" value="lead" />
 		<property name="HoldType" value="23" />		
 		<property name="Group" value="Medicine" />

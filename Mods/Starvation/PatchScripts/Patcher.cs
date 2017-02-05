@@ -22,7 +22,7 @@ public class StarvationPatcher : IPatcherMod
         string path1 = GlobalVariables.Parse("${GameDir}\\data\\Prefabs");
         foreach (string filePath in SDX.Core.ModManager.FindFilesInMods("Prefabs", "*.*", false))
             IOUtils.CopyFileToDir(filePath, path1);
-        Console.WriteLine(" == Mortelentus Finished Copying Prefabs == ");
+        Console.WriteLine(" == Mortelentus Finished Copying Prefabs == ");        
         Console.WriteLine(" == Cheating the System == ");
         string blockFile = Path.Combine(SDX.Core.ModManager.Target.BackupDirectory, "Data/Config/blocks.xml");
         // add a placeover block at position 2047
@@ -56,12 +56,23 @@ public class StarvationPatcher : IPatcherMod
         Console.WriteLine(" == Finished Cheating the System == ");
     }
 
-	public bool Patch(ModuleDefinition module)
+    public static void CopyUI()
+    {
+        Console.WriteLine(" == Mortelentus Copying Custom UI elements == ");
+        string path1 = GlobalVariables.Parse("${GameDir}\\data\\Hud");
+        if (!Directory.Exists(path1))
+            Directory.CreateDirectory(path1);
+        foreach (string filePath in SDX.Core.ModManager.FindFilesInMods("Hud", "*.png", false))
+            IOUtils.CopyFileToDir(filePath, path1);
+        Console.WriteLine(" == Mortelentus Finished Copying Custom UI elements == ");      
+    }
+
+    public bool Patch(ModuleDefinition module)
 	{
 		Console.WriteLine(" == Mortelentus Patch Tasks Running == ");
-
 	    ChangeFieldPermission(module);
 	    CopyPrefabs();
+        CopyUI();
         return true;
 	}
 
@@ -101,21 +112,60 @@ public class StarvationPatcher : IPatcherMod
         linkMethod = module.Import(manager.Methods.First(d => d.Name == "LockAll"));
         pro = worldLoad.Body.GetILProcessor();
         pro.Body.Instructions.Insert(0, Instruction.Create(OpCodes.Call, linkMethod));
+        // inject function to use exosuit sound
+        manager = mod.Types.First(d => d.Name == "MorteHelpers");
+        linkMethod = module.Import(manager.Methods.First(d => d.Name == "checkSound"));
+        worldLoad = module.Types.First(d => d.Name == "EntityAlive").Methods.First(d => d.Name == "internalPlayStepSound");
+        pro = worldLoad.Body.GetILProcessor();
+        pro.Body.Instructions.Insert(198, Instruction.Create(OpCodes.Nop));
+        pro.Body.Instructions.Insert(199, Instruction.Create(OpCodes.Ldloc_2));
+        pro.Body.Instructions.Insert(200, Instruction.Create(OpCodes.Ldarg_0));
+        pro.Body.Instructions.Insert(201, Instruction.Create(OpCodes.Call, linkMethod));
+        pro.Body.Instructions.Insert(202, Instruction.Create(OpCodes.Stloc_2));
+        // inject function to grant radiation imunity with a powered on exo suit
+        linkMethod = module.Import(manager.Methods.First(d => d.Name == "checkPowerOn"));
+        worldLoad = module.Types.First(d => d.Name == "EntityAlive").Methods.First(d => d.Name == "isRadiationSensitive");
+        pro = worldLoad.Body.GetILProcessor();
+        pro.Body.Instructions.Clear();
+        pro.Emit(OpCodes.Ldarg_0);
+        pro.Emit(OpCodes.Call, linkMethod);
+        pro.Emit(OpCodes.Ret);
+        // inject our custom UI functions, since we want to access custom properties
+        manager = mod.Types.First(d => d.Name == "BehaviourScript");
+        linkMethod = module.Import(manager.Methods.First(d => d.Name == "OnCustomGUI"));
+        //worldLoad = module.Types.First(d => d.Name == "GUIWindowManager").Methods.First(d => d.Name == "OnGUI");
+        worldLoad = module.Types.First(d => d.Name == "EntityPlayerLocal").Methods.First(d => d.Name == "OnHUD");
+        pro = worldLoad.Body.GetILProcessor();
+        pro.Body.Instructions.Insert(92, Instruction.Create(OpCodes.Call, linkMethod));
+        //pro.Body.Instructions.Insert(0, Instruction.Create(OpCodes.Call, linkMethod));
     }
 
     private void ChangeFieldPermission(ModuleDefinition module)
     {
-
+        Console.WriteLine(" == Changing ConnectionManager permissions == ");
         var gm = module.Types.First(d => d.Name == "GameManager");
         var field = gm.Fields.First(d => d.FieldType.Name == "ConnectionManager");        
         SetFieldToPublic(field);
-        field = gm.Fields.First(d => d.Name == "BA");
-        SetFieldToPublic(field);
+        Console.WriteLine(" == Changing TyleEntityList permissions == ");
         if (SDX.Core.ModManager.Target.Name.Contains("Server"))
         {
-            field = gm.Fields.First(d => d.Name == "BT");
+            field = gm.Fields.First(d => d.Name == "IB");
             SetFieldToPublic(field);
         }
+        else
+        {
+            field = gm.Fields.First(d => d.Name == "AI");
+            SetFieldToPublic(field);
+        }
+        Console.WriteLine(" == Changing Player Status permissions == ");
+        // player custom stat properties
+        gm = module.Types.First(d => d.Name == "EntityStats");
+        //field = gm.Fields.First(d => d.Name == "PI");
+        //field = gm.Fields.First(d => d.FieldType.Name.Contains("Dictionary"));
+        if (!SDX.Core.ModManager.Target.Name.Contains("Server"))
+            field = gm.Fields.First(d => d.Name == "PI");
+        else field = gm.Fields.First(d => d.Name == "MB");
+        SetFieldToPublic(field);
     }
 
     private void SetFieldToPublic(FieldDefinition field)

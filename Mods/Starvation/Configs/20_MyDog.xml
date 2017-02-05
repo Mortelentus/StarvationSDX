@@ -16,6 +16,11 @@
 		<ingredient name="leather" count="5"/>
 		<ingredient name="ductTape" count="1"/>
 	</recipe>
+	<recipe name="canDogfood" count="2" scrapable="False">
+		<ingredient name="canEmpty" count="2" />
+		<ingredient name="rawMeat" count="1" />
+		<ingredient name="salt" count="2" />
+	</recipe>
 	<recipe name="DogCookie" count="5" scrapable="False">
 		<ingredient name="canDogfood" count="1"/>
 		<ingredient name="cornMeal" count="3"/>

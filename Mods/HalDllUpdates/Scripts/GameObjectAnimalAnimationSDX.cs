@@ -168,7 +168,7 @@ public class GameObjectAnimalAnimationSDX : MonoBehaviour, IAvatarController
         return false;
     }
 
-    public void StartAnimationSpecialAttack()
+    public void StartAnimationSpecialAttack(bool _b)
     {
        // Debug.Log("Method: " + System.Reflection.MethodBase.GetCurrentMethod().Name);
 

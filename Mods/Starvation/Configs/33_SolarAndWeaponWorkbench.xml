@@ -164,6 +164,27 @@
 		<ingredient name="assaultRifleBarrel" count="1" />
 		<ingredient name="mtar_parts" count="1" />
 	</recipe>
+	<recipe name="flameThrower" count="1" craft_area="assembly">
+		<ingredient name="flashlight02" count="0" />
+		<ingredient name="flameThrower_stock" count="1" />
+		<ingredient name="flameThrower_receiver" count="1" />
+		<ingredient name="flameThrower_parts" count="1" />
+		<ingredient name="flameThrower_barrel" count="1" />
+	</recipe>
+	<recipe name="minigun" count="1" craft_area="assembly">
+		<ingredient name="flashlight02" count="0" />
+		<ingredient name="minigun_stock" count="1" />
+		<ingredient name="minigun_receiver" count="1" />
+		<ingredient name="minigun_parts" count="1" />
+		<ingredient name="minigun_barrel" count="1" />
+	</recipe>
+	<recipe name="minigun" count="1" craft_area="assembly">
+		<ingredient name="flashlight02" count="0" />
+		<ingredient name="partsRocketLauncher_stock" count="1" />
+		<ingredient name="multiRocketLauncherReceiver" count="1" />
+		<ingredient name="partsRocketLauncher_parts" count="1" />
+		<ingredient name="partsRocketLauncher_barrel" count="1" />
+	</recipe>
 </append>
 </config>	
 </configs>

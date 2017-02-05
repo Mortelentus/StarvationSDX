@@ -118,7 +118,8 @@
 		<block name="ammobag" prob="0.07" />
 		<block name="ammobag1" prob="0.06" />
 		<block name="nuke" prob="0.05" />
-		<block name="SpiderNest" prob="0.01" />		
+		<block name="exoBag" prob="0.02" />
+		<block name="SpiderNest" prob="0.01" />			
 	</placeholder>
 </insertAfter>
 <!-- ADDING NEW GUNS TO GROUPS -->
@@ -155,7 +156,36 @@
 		<item name="Ump" prob="0.06" />	
 		<item name="MTAR"  prob="0.05" />		
 		<item name="mg4" prob="0.04" />				
-	</lootgroup>	
+	</lootgroup>
+	<lootgroup name="exoArmor">
+		<item name="exoGloves" prob="0.08" />
+		<item name="exoHelmet" prob="0.08" />
+		<item name="exoBoots" prob="0.08" />	
+		<item name="exoLegArmor"  prob="0.08" />		
+		<item name="exoChestArmor" prob="0.08" />
+	</lootgroup>
+	<lootgroup name="exoGunParts">
+		<item name="flameThrower_receiver" />
+		<item name="flameThrower_barrel" />
+		<item name="flameThrower_parts" />
+		<item name="flameThrower_stock" />	
+		<item name="minigun_barrel" />
+		<item name="minigun_receiver" />
+		<item name="minigun_parts" />
+		<item name="minigun_stock" />
+		<item name="multiRocketLauncherReceiver" />
+	</lootgroup>
+	<lootgroup name="exoGuns">
+		<item name="flameThrower" />
+		<item name="minigun" />
+		<item name="multiRocketLauncher" />
+	</lootgroup>
+	<lootgroup name="exoAmmo">
+		<item name="mrlRocket" count="1,10" />
+		<item name="556mmBullet" count="20,150" />
+		<item name="compressedFuel" count="5,20" />
+		<item name="powerCore" count="1" prob="0.1" />
+	</lootgroup>
 </insertAfter>
 <insertAfter xpath="/lootcontainers/lootgroup[@name='sniperRifle+ammo']">
 	<lootgroup name="military">		
@@ -405,21 +435,27 @@
 	</lootcontainer>
 	<lootcontainer id="104" count="2,4" size="4,4" destroy_on_close="false" sound_open="UseActions/open_chest" sound_close="UseActions/close_chest" open_time="15" loot_quality_template="baseTemplate">
 		<item group="AmmoBoxes" />
-		<item name="powerCore" count="1" prob="0.1" />
+		<item name="powerCore" count="1" prob="0.01" />
 	</lootcontainer>
 	<lootcontainer id="105" count="3,5" size="4,4" destroy_on_close="false" sound_open="UseActions/open_chest" sound_close="UseActions/close_chest" open_time="15" loot_quality_template="radLootTemplate">
 		<item group="AmmoBoxes" />
-		<item name="powerCore" count="1" prob="0.2" />
+		<item name="powerCore" count="1" prob="0.02" />
 		<item group="specialParts" count="1" prob="1" />
 		<item name="lightsword" count="1" prob="0.01" />
 	</lootcontainer>
 	<lootcontainer id="106" count="2,4" size="4,4" destroy_on_close="false" sound_open="UseActions/open_chest" sound_close="UseActions/close_chest" open_time="15" loot_quality_template="radLootTemplate">
 		<item group="nuclearWasteGood" />
 		<item group="specialParts" count="1" prob="0.6" />
-		<item name="powerCore" count="1" prob="0.2" />		
+		<item name="powerCore" count="1" prob="0.02" />		
 		<item group="browningStuff" count="1" prob="0.2" />
 		<item name="lightsword" count="1" prob="0.1" />
 		<item name="MilitaryScrewer" count="1" prob="0.09" />
+	</lootcontainer>
+	<lootcontainer id="107" count="2" size="4,4" destroy_on_close="false" sound_open="UseActions/open_chest" sound_close="UseActions/close_chest" open_time="15" loot_quality_template="radLootTemplate">		
+		<item group="exoAmmo" count="1" prob="0.8" />
+		<item group="exoArmor" prob="0.4" />
+		<item group="exoGunParts" prob="0.4" />
+		<item group="exoGuns" count="1" prob="0.02" />
 	</lootcontainer>
 </append>
 </config>

@@ -7,11 +7,92 @@ using UnityEngine.Audio;
 using XInputDotNetPure;
 using Object = UnityEngine.Object;
 
+public class ItemActionEatAt : ItemActionEat
+{
+    private DateTime dtaNextTip = DateTime.MinValue;
+    private string requires = "";
+    private string requireText = "";
+
+    public override void ReadFrom(DynamicProperties _props)
+    {
+        base.ReadFrom(_props);
+        if (_props.Values.ContainsKey("Require")) requires = _props.Values["Require"];
+        if (_props.Values.ContainsKey("RequireText")) requireText = _props.Values["RequireText"];
+    }
+
+    public override void ExecuteAction(ItemActionData _actionData, bool _bReleased)
+    {
+        bool canUse = true;
+        if (requires != "")
+        {
+            if (_actionData.invData.holdingEntity is EntityPlayerLocal)
+            {
+                canUse = false;
+                foreach (Buff buff in (_actionData.invData.holdingEntity as EntityPlayerLocal).Stats.Buffs)
+                {
+                    if (buff.Name == requires) canUse = true;
+                }
+            }
+        }
+        if (!canUse)
+        {
+            if (DateTime.Now > dtaNextTip && requireText != "")
+            {
+                dtaNextTip.AddSeconds(5);
+                GameManager.Instance.ShowTooltip(requireText);
+            }
+            return;
+        }
+        base.ExecuteAction(_actionData, _bReleased);
+    }
+}
+
+public class ItemActionLauncherAt : ItemActionLauncher
+{
+    private DateTime dtaNextTip = DateTime.MinValue;
+    private string requires = "";
+    private string requireText = "";
+
+    public override void ReadFrom(DynamicProperties _props)
+    {
+        base.ReadFrom(_props);
+        if (_props.Values.ContainsKey("Require")) requires = _props.Values["Require"];
+        if (_props.Values.ContainsKey("RequireText")) requireText = _props.Values["RequireText"];
+    }
+
+    public override void ExecuteAction(ItemActionData _actionData, bool _bReleased)
+    {
+        bool canUse = true;
+        if (requires != "")
+        {
+            if (_actionData.invData.holdingEntity is EntityPlayerLocal)
+            {
+                canUse = false;
+                foreach (Buff buff in (_actionData.invData.holdingEntity as EntityPlayerLocal).Stats.Buffs)
+                {
+                    if (buff.Name == requires) canUse = true;
+                }
+            }
+        }
+        if (!canUse)
+        {
+            if (DateTime.Now > dtaNextTip && requireText != "")
+            {
+                dtaNextTip.AddSeconds(5);
+                GameManager.Instance.ShowTooltip(requireText);
+            }
+            return;
+        }
+        base.ExecuteAction(_actionData, _bReleased);
+    }
+}
+
 public class ItemActionRangedAt : ItemActionRanged
 {
     //public new static Dictionary<int, ItemActionRangedAt.WH> F;
     private string SC;
     private DateTime dteNextSoundOff;
+    private DateTime dtaNextTip = DateTime.MinValue;
     private ItemActionFiringState lastState = ItemActionFiringState.Off;
     private int numOff = 10;
 
@@ -28,6 +109,8 @@ public class ItemActionRangedAt : ItemActionRanged
     int BulletsPerMagazineO = 0;
     float reloadingTimeO = 0;
     bool autofireO = false;
+    private string requires = "";
+    private string requireText = "";
     public bool needReload = false;
     private bool doDebug = false;
     private void DoDebug(string str)
@@ -84,6 +167,8 @@ public class ItemActionRangedAt : ItemActionRanged
         reloadingTimeO = this.reloadingTime;
         autofireO = this.AutoFire;
         needReload = true;
+        if (_props.Values.ContainsKey("Require")) requires = _props.Values["Require"];
+        if (_props.Values.ContainsKey("RequireText")) requireText = _props.Values["RequireText"];
         DoDebug("Ranged action Reloaded properties -> needs to apply modifiers");
     }
 
@@ -554,6 +639,27 @@ public class ItemActionRangedAt : ItemActionRanged
     {
         try
         {
+            bool canUse = true;
+            if (requires != "")
+            {
+                if (_actionData.invData.holdingEntity is EntityPlayerLocal)
+                {
+                    canUse = false;
+                    foreach (Buff buff in (_actionData.invData.holdingEntity as EntityPlayerLocal).Stats.Buffs)
+                    {
+                        if (buff.Name == requires) canUse = true;
+                    }
+                }
+            }
+            if (!canUse)
+            {
+                if (DateTime.Now > dtaNextTip && requireText != "")
+                {
+                    dtaNextTip.AddSeconds(5);
+                    GameManager.Instance.ShowTooltip(requireText);
+                }
+                return;
+            }
             bool autofire = this.autofireO;
             float delayMod = this.delayO;
             try
