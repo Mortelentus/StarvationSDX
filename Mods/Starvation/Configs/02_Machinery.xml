@@ -512,7 +512,7 @@
 		<!-- power check ration -->
 		<!-- workstation will look for power at this interval -->
 		<!-- if it is a gas powered station, it might need to consume power -->
-		<property name="TickRate" value="30" />
+		<property name="TickRate" value="120" />
 	</block>
 	<block id="54" name="gasTankEmpty">
 		<property name="CustomIcon" value="gasTank" />

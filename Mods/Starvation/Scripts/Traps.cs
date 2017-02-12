@@ -587,7 +587,11 @@ public class BlockTrapMorte : Block
             // meta3 tells which animal it is...   
             DisplayChatAreaText("Caught " + (_targetEntity as EntityAlive).EntityName);
             if (animalcap[0] == (_targetEntity as EntityAlive).EntityName) result = 1;
-            else if (animalcap[1] == (_targetEntity as EntityAlive).EntityName) result = 2;
+            else
+            {
+                if (animalcap.Length>1)
+                    if (animalcap[1] == (_targetEntity as EntityAlive).EntityName) result = 2;
+            }
             if (result > -1)
             {
                 doDamage = 9999;

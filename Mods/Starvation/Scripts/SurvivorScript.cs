@@ -331,6 +331,8 @@ public class TowerScript : MonoBehaviour
     Light[] luz = null;
     bool hasPower = false;
     private bool debug = false;
+    private int maxLevel = 10;
+    private int valveNumber = 10;
 
     void Start()
     {
@@ -367,11 +369,7 @@ public class TowerScript : MonoBehaviour
                     {
                         nextCheck = DateTime.Now.AddSeconds(5);
                         BlockValue _blockValue = world.GetBlock(cIdx, blockPos);
-                        if (Findorigin(world, cIdx, _blockValue, blockPos, blockPos, 1, "Electric"))
-                        {
-                            hasPower = true;
-                        }
-                        else hasPower = false;
+                        CheckForPower(world, cIdx, blockPos, _blockValue);
                     }
                 }
                 catch (Exception ex)
@@ -568,6 +566,32 @@ public class TowerScript : MonoBehaviour
         return position;
     }
 
+    public void CheckForPower(WorldBase _world, int _clrIdx, Vector3i _blockPos, BlockValue _blockValue)
+    {
+        try
+        {
+            bool needsAction = false;
+            if (Findorigin(_world, _clrIdx, _blockValue, _blockPos, _blockPos, 1, "Electric"))
+            {
+                if (!hasPower)
+                {
+                    hasPower = true;
+                }
+            }
+            else
+            {
+                if (hasPower)
+                {
+                    hasPower = false;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            debugHelper.doDebug(string.Format("TowerScript: ERROR TOWER: {0}", ex.Message), true);
+        }
+    }
+
     // a boiler just needs to be turned on, there's no power consumption
     private bool Findorigin(WorldBase _world, int _cIdx, BlockValue _blockValue, Vector3i _blockPos, Vector3i _blockPosOrigin, int level, string powerType)
     {
@@ -579,7 +603,6 @@ public class TowerScript : MonoBehaviour
         //RetryLabel:
         Block blockAux = Block.list[_world.GetBlock(_cIdx, _blockPos).ToItemValue().type];
         string blockname = blockAux.GetBlockName();
-        //DisplayChatAreaText(string.Format("CHECKING PARENT OF BLOCK {0}", blockname));
         if (_blockValue.meta2 > 0)
         {
             // check if parent exists. If it does, follows that line to the source
@@ -612,14 +635,11 @@ public class TowerScript : MonoBehaviour
     #region Check Generator;   
     private bool CheckBoiler(int level, WorldBase _world, int _cIdx, Vector3i _blockCheck, Vector3i _blockPosOrigin)
     {
-        int maxLevel = 10;
-        int maxValves = 10;
         bool result = false;
         if (level > maxLevel)
         {
-            //DisplayChatAreaText(string.Format("LINE LIMIT REACHED AT ({0},{1},{2}", _blockCheck.x, _blockCheck.y, _blockCheck.z));
             return result; // it goes as far as maxLevel blocks away it stops, so you should plan carefully your lines using heat acumulators
-        }                
+        }
         string blockname = Block.list[_world.GetBlock(_cIdx, _blockCheck).ToItemValue().type].GetBlockName();
         Block blockAux = Block.list[_world.GetBlock(_cIdx, _blockCheck).ToItemValue().type];
         if (blockAux is BlockGenerator)
@@ -628,29 +648,25 @@ public class TowerScript : MonoBehaviour
             BlockValue blockAuxValue = _world.GetBlock(_cIdx, _blockCheck);
             if (BlockGenerator.IsOn(blockAuxValue.meta2))
             {
-                //DisplayChatAreaText(string.Format("FOUND GENERATOR TURNED ON"));
                 return true;
             }
             else
             {
-                //DisplayChatAreaText(string.Format("FOUND GENERATOR TURNED OFF"));
                 return false; // boiler is not on
             }
         }
         else if (blockAux is BlockValve)
-        {            
+        {
             // needs to verify the valve powerType, to make sure.
-            if ((blockAux as BlockValve).GetPowerType() != "Electric") return false;            
+            if ((blockAux as BlockValve).GetPowerType() != "Electric") return false;
+
             // asks valve for power, instead of going all the way to the generator
-            // it will go as deep as 10 valves
-            if ((blockAux as BlockValve).GetPower(_world, _cIdx, _blockCheck, 1, maxValves))
+            if ((blockAux as BlockValve).GetPower(_world, _cIdx, _blockCheck, 1, valveNumber))
             {
-                //DisplayChatAreaText(string.Format("FOUND A VALVE WITH POWER"));
                 return true; // available power
             }
             else
             {
-                //DisplayChatAreaText(string.Format("FOUND A VALVE WITHOUT POWER"));
                 return false; // no power available
             }
         }
@@ -863,7 +879,7 @@ public class CrafterInvScript : MonoBehaviour
                 ItemStack heldItem = (player as EntityPlayerLocal).inventory.holdingItemStack;
                 string heldName = ItemClass.GetForId(heldItem.itemValue.type).Name;
                 //if (lowTier.Contains(heldName) || (medTier.Contains(heldName) && blockValue.meta>=35) || (highTier.Contains(heldName) && blockValue.meta >= 70) || (expertTier.Contains(heldName) && blockValue.meta >= 100))
-                if (lowTier.Contains(heldName) || (medTier.Contains(heldName) && blockValue.meta >= 6) || (highTier.Contains(heldName) && blockValue.meta >= 12) || (expertTier.Contains(heldName) && blockValue.meta >= 100))
+                if (lowTier.Contains(heldName) || (medTier.Contains(heldName) && blockValue.meta >= 6) || (highTier.Contains(heldName) && blockValue.meta >= 12) || (expertTier.Contains(heldName) && blockValue.meta >= 15))
                 {
                     // first checks if he already knows it
                     bool alreadyKnown = false;
@@ -1002,7 +1018,7 @@ public class CrafterInvScript : MonoBehaviour
                         }
                         // if it can already be done shows button, otherwise shows box
                         bool canMake = false;
-                        if (lowTier.Contains(itemName) || (medTier.Contains(itemName) && blockValue.meta >= 6) || (highTier.Contains(itemName) && blockValue.meta >= 12) || (expertTier.Contains(itemName) && blockValue.meta >= 100))
+                        if (lowTier.Contains(itemName) || (medTier.Contains(itemName) && blockValue.meta >= 6) || (highTier.Contains(itemName) && blockValue.meta >= 12) || (expertTier.Contains(itemName) && blockValue.meta >= 15))
                             canMake = true;
                         if (canMake)
                         {
@@ -1163,6 +1179,7 @@ public class CrafterWorkScript : MonoBehaviour
     private ulong HeatMapWorldTime = 0;
     private int HeatInterval = 60;
     private string requirement = "Any";
+    private bool doSleep = true;
     EnumAIDirectorChunkEvent heatType = EnumAIDirectorChunkEvent.Sound;
     // random sounds
     private DateTime nextRandomSound = DateTime.MinValue;
@@ -1515,35 +1532,40 @@ public class CrafterWorkScript : MonoBehaviour
                 // this will only run on the server
                 if (!world.IsRemote())
                 {
-                    #region sleep check;
-                    if (!GameManager.Instance.World.IsDaytime())
+                    if (doSleep)
                     {
-                        if (!svHelper.IsSleeping(blockValue.meta2))
-                            sleepProb = 80; // 80% chance of sleeping during the night
-                        else wakeProb = 5; // 5% chance of waking up during the night                            
+                        #region sleep check;
+
+                        if (!GameManager.Instance.World.IsDaytime())
+                        {
+                            if (!svHelper.IsSleeping(blockValue.meta2))
+                                sleepProb = 80; // 80% chance of sleeping during the night
+                            else wakeProb = 5; // 5% chance of waking up during the night                            
+                        }
+                        else if (GameManager.Instance.World.IsDaytime() && svHelper.IsSleeping(blockValue.meta2))
+                        {
+                            if (!svHelper.IsSleeping(blockValue.meta2))
+                                sleepProb = 5; // 5% chance of sleeping during the day
+                            else wakeProb = 80; // 80% chance of waking up during the day
+                        }
+                        int rndCheck = _rnd.Next(1, 101);
+                        if (rndCheck <= sleepProb && sleepProb > 0)
+                        {
+                            pos = "4";
+                            // fall asleep if not sleeping
+                            pos = svHelper.SleepGeneric(gameObject, pos, blockValue, blockPos, cIdx, world);
+                            nextSleepCheck = DateTime.Now.AddSeconds(30);
+                        }
+                        else if (rndCheck <= wakeProb && wakeProb > 0)
+                        {
+                            pos = "5";
+                            // wakeup if sleeping
+                            pos = svHelper.WakeupGeneric(gameObject, pos, blockValue, blockPos, cIdx, world);
+                            nextSleepCheck = DateTime.Now.AddSeconds(30);
+                        }
+
+                        #endregion;
                     }
-                    else if (GameManager.Instance.World.IsDaytime() && svHelper.IsSleeping(blockValue.meta2))
-                    {
-                        if (!svHelper.IsSleeping(blockValue.meta2))
-                            sleepProb = 5; // 5% chance of sleeping during the day
-                        else wakeProb = 80; // 80% chance of waking up during the day
-                    }
-                    int rndCheck = _rnd.Next(1, 101);
-                    if (rndCheck <= sleepProb && sleepProb > 0)
-                    {
-                        pos = "4";
-                        // fall asleep if not sleeping
-                        pos = svHelper.SleepGeneric(gameObject, pos, blockValue, blockPos, cIdx, world);
-                        nextSleepCheck = DateTime.Now.AddSeconds(30);
-                    }
-                    else if (rndCheck <= wakeProb && wakeProb > 0)
-                    {
-                        pos = "5";
-                        // wakeup if sleeping
-                        pos = svHelper.WakeupGeneric(gameObject, pos, blockValue, blockPos, cIdx, world);
-                        nextSleepCheck = DateTime.Now.AddSeconds(30);
-                    }
-                    #endregion;
                 }
                 if (!GameManager.IsDedicatedServer)
                 {
@@ -1559,91 +1581,104 @@ public class CrafterWorkScript : MonoBehaviour
             }
             if (!world.IsRemote())
             {
-                if (DateTime.Now > nextFoodCheck)
+                // does NOT check for food, if no food container is configured
+                if (foodContainer != "")
                 {
-                    #region food check;
-                    nextFoodCheck = DateTime.Now.AddSeconds(checkInterval);
-                    int currentDmg = blockValue.damage;
-                    int maxDmg = Block.list[blockValue.type].MaxDamage;
-                    if (svHelper.IsSleeping(blockValue.meta2))
+                    if (DateTime.Now > nextFoodCheck)
                     {
-                        // if the survivor is sleeping it will reduce hp each 5 checks, but only by 1
-                        sleepFood++;
-                        if (sleepFood > 10)
+                        #region food check;
+
+                        nextFoodCheck = DateTime.Now.AddSeconds(checkInterval);
+                        int currentDmg = blockValue.damage;
+                        int maxDmg = Block.list[blockValue.type].MaxDamage;
+                        if (svHelper.IsSleeping(blockValue.meta2))
                         {
-                            debugHelper.doDebug(string.Format("CrafterWorkScript: SLEEPING FOR TOO LONG"), debug);
-                            svHelper.DmgBlock(maxDmg, blockValue, 1, world, blockPos, cIdx);
-                        }
-                        else debugHelper.doDebug(string.Format("CrafterWorkScript: SLEEPING SAINLY - NO HUNGER"), debug);
-                    }
-                    else
-                    {
-                        sleepFood = 0;
-                        float hpPerc = 0;
-                        if (currentDmg > 0)
-                            hpPerc = (float)currentDmg / (float)maxDmg * 100;
-                        int hpAdd = 0;
-                        string[] foodItems = null;
-                        // check what is the type of food to check
-                        // For example: if a survivor is BADLY hurt he will ONLY accept high food tiers!
-                        if (hpPerc <= 10)
-                        {
-                            debugHelper.doDebug(string.Format("CrafterWorkScript: LOW tier FOOD"), debug);
-                            // more then 90%HP - low tier  
-                            if (foodLow != "")
+                            // if the survivor is sleeping it will reduce hp each 5 checks, but only by 1
+                            sleepFood++;
+                            if (sleepFood > 10)
                             {
-                                foodItems = foodLow.Split(',');
+                                debugHelper.doDebug(string.Format("CrafterWorkScript: SLEEPING FOR TOO LONG"), debug);
+                                svHelper.DmgBlock(maxDmg, blockValue, 1, world, blockPos, cIdx);
                             }
-                        }
-                        else if (hpPerc <= 70)
-                        {
-                            debugHelper.doDebug(string.Format("CrafterWorkScript: MEDIUM tier FOOD"), debug);
-                            // more then 30%HP - medium tier
-                            if (foodMed != "")
-                            {
-                                foodItems = foodMed.Split(',');
-                            }
+                            else
+                                debugHelper.doDebug(string.Format("CrafterWorkScript: SLEEPING SAINLY - NO HUNGER"),
+                                    debug);
                         }
                         else
                         {
-                            debugHelper.doDebug(string.Format("CrafterWorkScript: HIGH tier FOOD"), debug);
-                            // less then 30%HP - high tier 
-                            if (foodHigh != "")
+                            sleepFood = 0;
+                            float hpPerc = 0;
+                            if (currentDmg > 0)
+                                hpPerc = (float) currentDmg/(float) maxDmg*100;
+                            int hpAdd = 0;
+                            string[] foodItems = null;
+                            // check what is the type of food to check
+                            // For example: if a survivor is BADLY hurt he will ONLY accept high food tiers!
+                            if (hpPerc <= 10)
                             {
-                                foodItems = foodHigh.Split(',');
-                            }
-                        }
-                        if (foodItems.Length > 1 && foodContainer != "")
-                        {
-                            if (int.TryParse(foodItems[0], out hpAdd))
-                            {
-                                bool couldEat = false;
-                                // look for containers in area
-                                foodContainers = svHelper.GetContainers(foodContainer, world, blockPos, cIdx, checkArea);
-                                //GetFoodContainers();
-                                if (foodContainers.Count > 0)
+                                debugHelper.doDebug(string.Format("CrafterWorkScript: LOW tier FOOD"), debug);
+                                // more then 90%HP - low tier  
+                                if (foodLow != "")
                                 {
-                                    // search of 1 valid food item
-                                    if (svHelper.EatFood(foodItems, foodContainers, world, cIdx))
+                                    foodItems = foodLow.Split(',');
+                                }
+                            }
+                            else if (hpPerc <= 70)
+                            {
+                                debugHelper.doDebug(string.Format("CrafterWorkScript: MEDIUM tier FOOD"), debug);
+                                // more then 30%HP - medium tier
+                                if (foodMed != "")
+                                {
+                                    foodItems = foodMed.Split(',');
+                                }
+                            }
+                            else
+                            {
+                                debugHelper.doDebug(string.Format("CrafterWorkScript: HIGH tier FOOD"), debug);
+                                // less then 30%HP - high tier 
+                                if (foodHigh != "")
+                                {
+                                    foodItems = foodHigh.Split(',');
+                                }
+                            }
+                            if (foodItems.Length > 1 && foodContainer != "")
+                            {
+                                if (int.TryParse(foodItems[0], out hpAdd))
+                                {
+                                    bool couldEat = false;
+                                    // look for containers in area
+                                    foodContainers = svHelper.GetContainers(foodContainer, world, blockPos, cIdx,
+                                        checkArea);
+                                    //GetFoodContainers();
+                                    if (foodContainers.Count > 0)
                                     {
-                                        // if exists, consumes it and recover ammount of hp
-                                        debugHelper.doDebug(string.Format("CrafterWorkScript: EAT FOOD AND RECOVERS {0}", hpAdd), debug);
-                                        svHelper.DmgBlock(maxDmg, blockValue, -hpAdd, world, blockPos, cIdx);
-                                        couldEat = true;
+                                        // search of 1 valid food item
+                                        if (svHelper.EatFood(foodItems, foodContainers, world, cIdx))
+                                        {
+                                            // if exists, consumes it and recover ammount of hp
+                                            debugHelper.doDebug(
+                                                string.Format("CrafterWorkScript: EAT FOOD AND RECOVERS {0}", hpAdd),
+                                                debug);
+                                            svHelper.DmgBlock(maxDmg, blockValue, -hpAdd, world, blockPos, cIdx);
+                                            couldEat = true;
+                                        }
+                                    }
+                                    // if doesn't exist looses 2hp -> this means that, as long as there is valid food, they will easly recover.                        
+                                    if (!couldEat)
+                                    {
+                                        debugHelper.doDebug(string.Format("CrafterWorkScript: NO FOOD AVAILABLE"), debug);
+                                        svHelper.DmgBlock(maxDmg, blockValue, 2, world, blockPos, cIdx);
                                     }
                                 }
-                                // if doesn't exist looses 2hp -> this means that, as long as there is valid food, they will easly recover.                        
-                                if (!couldEat)
-                                {
-                                    debugHelper.doDebug(string.Format("CrafterWorkScript: NO FOOD AVAILABLE"), debug);
-                                    svHelper.DmgBlock(maxDmg, blockValue, 2, world, blockPos, cIdx);
-                                }
+                                else
+                                    debugHelper.doDebug(string.Format("CrafterWorkScript: No hp increment configured"),
+                                        true);
                             }
-                            else debugHelper.doDebug(string.Format("CrafterWorkScript: No hp increment configured"), true);
+                            else debugHelper.doDebug(string.Format("CrafterWorkScript: No food tier configured"), true);
                         }
-                        else debugHelper.doDebug(string.Format("CrafterWorkScript: No food tier configured"), true);
+
+                        #endregion;
                     }
-                    #endregion;
                 }
                 if (!svHelper.IsSleeping(blockValue.meta2))
                 {
@@ -1854,37 +1889,40 @@ public class CrafterWorkScript : MonoBehaviour
                 }
             }
             // random sound
-            if (!GameManager.IsDedicatedServer)
+            if (doSleep)
             {
-                if (!svHelper.IsSleeping(blockValue.meta2) && DateTime.Now > nextRandomSound &&
-                    !svHelper.IsCrafting(blockValue.meta2))
+                if (!GameManager.IsDedicatedServer)
                 {
-                    // next random sound will be in random time too
-                    System.Random _rndSound = new System.Random((int) (DateTime.Now.Ticks & 0x7FFFFFFF));
-                    // there are 4 different sound: 1 - burp, 2 - cough, 3 - hickup, 4 - fart
-                    int soundT = _rndSound.Next(0, 100);
-                    string sound = "";
-                    if (soundT < 10)
+                    if (!svHelper.IsSleeping(blockValue.meta2) && DateTime.Now > nextRandomSound &&
+                        !svHelper.IsCrafting(blockValue.meta2))
                     {
-                        sound = "burp_sound";
+                        // next random sound will be in random time too
+                        System.Random _rndSound = new System.Random((int) (DateTime.Now.Ticks & 0x7FFFFFFF));
+                        // there are 4 different sound: 1 - burp, 2 - cough, 3 - hickup, 4 - fart
+                        int soundT = _rndSound.Next(0, 100);
+                        string sound = "";
+                        if (soundT < 10)
+                        {
+                            sound = "burp_sound";
+                        }
+                        else if (soundT < 30)
+                        {
+                            sound = "fart_sound";
+                        }
+                        else if (soundT < 60)
+                        {
+                            sound = "hickup_sound";
+                        }
+                        else if (soundT < 100)
+                        {
+                            sound = "cough_male_sound";
+                            if (requirement != "Male") sound = "cough_female_sound";
+                        }
+                        debugHelper.doDebug(string.Format("CrafterWorkScript: PLAY SOUND {0}", sound), debug);
+                        //AudioManager.AudioManager.Play(blockPos.ToVector3(), sound, 0, false, -1, -1, 0F);
+                        Audio.Manager.BroadcastPlay(blockPos.ToVector3(), sound);
+                        nextRandomSound = DateTime.Now.AddSeconds(_rndSound.Next(30, 120));
                     }
-                    else if (soundT < 30)
-                    {
-                        sound = "fart_sound";
-                    }
-                    else if (soundT < 60)
-                    {
-                        sound = "hickup_sound";
-                    }
-                    else if (soundT < 100)
-                    {
-                        sound = "cough_male_sound";
-                        if (requirement != "Male") sound = "cough_female_sound";
-                    }
-                    debugHelper.doDebug(string.Format("CrafterWorkScript: PLAY SOUND {0}", sound), debug);
-                    //AudioManager.AudioManager.Play(blockPos.ToVector3(), sound, 0, false, -1, -1, 0F);
-                    Audio.Manager.BroadcastPlay(blockPos.ToVector3(), sound);
-                    nextRandomSound = DateTime.Now.AddSeconds(_rndSound.Next(30, 120));
                 }
             }
             oldBlockValue = blockValue;
@@ -4526,33 +4564,34 @@ public class GuardWorkScript : MonoBehaviour
                     hit = Voxel.voxelRayHitInfo.Clone();
                     if (hit.transform != TargetTransform)
                     {
-                        if (hit.tag.StartsWith("T_Mesh"))
-                        {
+                        if (hit.tag.StartsWith("E_BP_")) isInSight = true;
+                        //if (hit.tag.StartsWith("T_Mesh"))
+                        //{
 
-                            ChunkCluster chunkCluster = world.ChunkClusters[hit.hit.clrIdx];
-                            if (chunkCluster == null)
-                                isInSight = true;
-                            else
-                            {
-                                Vector3i vector3i = hit.hit.blockPos;
-                                BlockValue block1 = chunkCluster.GetBlock(vector3i);
-                                Block block2 = Block.list[block1.type];
-                                if (block1.Equals((object)BlockValue.Air))
-                                    isInSight = true;
-                                else
-                                {
-                                    //Block block3 = Block.list[hit.fmcHit.blockValue.type];
-                                    if (!block2.blockMaterial.IsLiquid && !block2.blockMaterial.IsGroundCover && !block2.blockMaterial.IsPlant)
-                                    {                                        
-                                        debugHelper.doDebug(string.Format("Line of Sight blocked by {0}", block2.GetLocalizedBlockName()), debug);
-                                        isInSight = false;
+                        //    ChunkCluster chunkCluster = world.ChunkClusters[hit.hit.clrIdx];
+                        //    if (chunkCluster == null)
+                        //        isInSight = true;
+                        //    else
+                        //    {
+                        //        Vector3i vector3i = hit.hit.blockPos;
+                        //        BlockValue block1 = chunkCluster.GetBlock(vector3i);
+                        //        Block block2 = Block.list[block1.type];
+                        //        if (block1.Equals((object)BlockValue.Air))
+                        //            isInSight = true;
+                        //        else
+                        //        {
+                        //            //Block block3 = Block.list[hit.fmcHit.blockValue.type];
+                        //            if (!block2.blockMaterial.IsLiquid && !block2.blockMaterial.IsGroundCover && !block2.blockMaterial.IsPlant)
+                        //            {                                        
+                        //                debugHelper.doDebug(string.Format("Line of Sight blocked by {0}", block2.GetLocalizedBlockName()), debug);
+                        //                isInSight = false;
 
-                                    }
-                                    else isInSight = true;
-                                }                                
-                            }                            
-                        }
-                        else isInSight = true;
+                        //            }
+                        //            else isInSight = true;
+                        //        }                                
+                        //    }                            
+                        //}
+                        //else isInSight = true;
                         //if it is another entity it WILL shoot! Even if it's the owner...
                         //friendly fire is on, you need to get out of the way
                         //if there is any block different from air there

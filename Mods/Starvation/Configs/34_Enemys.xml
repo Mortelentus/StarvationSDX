@@ -703,7 +703,8 @@
 		  <property name="HasDeathAnim" value="true" />
 		  <property name="ExperienceGain" value="1000" />
 	</entity_class>
-	<entity_class name="ParasiteMinion" extends="WallCrusher">		
+	<entity_class name="ParasiteMinion" extends="WallCrusher">
+		<property name="HandItem" value="handAxeZombie" />
 		<property name="Hability" value="None" />		
 		<property name="MeshScale" value="0.5,0.6" />
 		<property name="MaxHealth" value="250" />		
@@ -724,8 +725,9 @@
 		  <property name="SoundDeath" value="Parasitedeath" />
 		  <property name="SoundAttack" value="Parasiteattack" />	
 	</entity_class>
-	<entity_class name="Parasite" extends="WallCrusher">		
-		<property name="Hability" value="Spawn" />
+	<entity_class name="Parasite" extends="WallCrusher">	
+		<property name="HandItem" value="handAxeZombie" />
+		<property name="Hability" value="Spawn" />		
 		<property name="HabilityChance" value="35" />
 		<property name="HabilityBuff" value="BossSpawn" />
 		<property name="HabilitySound" value="spawningSound" />
@@ -749,7 +751,8 @@
 		  <property name="SoundDeath" value="Parasitedeath" />
 		  <property name="SoundAttack" value="Parasiteattack" />	
 	</entity_class>	
-	<entity_class name="RezBoss" extends="WallCrusher">		
+	<entity_class name="RezBoss" extends="WallCrusher">	
+		<property name="HandItem" value="handDocZombie" />
 		<property name="Hability" value="Rez" />
 		<property name="HabilityChance" value="50" />
 		<property name="HabilityBuff" value="BossRez" />

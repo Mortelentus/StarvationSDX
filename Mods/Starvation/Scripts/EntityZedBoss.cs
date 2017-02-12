@@ -161,14 +161,18 @@ public class EntityZedBoss : EntityZombie
                             {
                                 if ((_other is EntityAnimalClown) || (_other is EntityZedBoss))
                                 {
-                                    debugHelper.doDebug("Rezzing a custom zed!", debug);
-                                    // spawn a new one on its place, and applies the buff
-                                    
-                                    Entity spawnEntity = EntityFactory.CreateEntity(_other.entityClass, _other.position);
-                                    spawnEntity.SetSpawnerSource(EnumSpawnerSource.StaticSpawner);
-                                    _other.MarkToUnload();
-                                    GameManager.Instance.World.SpawnEntityInWorld(spawnEntity);                                    
-                                    return;
+                                    //if it is another rezzer, do NOT rez it
+                                    if (_other.EntityName != this.entityName)
+                                    {
+                                        debugHelper.doDebug("Rezzing a custom zed!", debug);
+                                        // spawn a new one on its place, and applies the buff                                    
+                                        Entity spawnEntity = EntityFactory.CreateEntity(_other.entityClass,
+                                            _other.position);
+                                        spawnEntity.SetSpawnerSource(EnumSpawnerSource.StaticSpawner);
+                                        _other.MarkToUnload();
+                                        GameManager.Instance.World.SpawnEntityInWorld(spawnEntity);
+                                        return;
+                                    }
                                 }
                                 else
                                 {
@@ -186,7 +190,7 @@ public class EntityZedBoss : EntityZombie
                 }
             }
         }
-        else Debug.Log("Hability didn't trigger");
+        else debugHelper.doDebug("Hability didn't trigger", debug);
     }
 
     private void SpawnZedGroup()
@@ -226,6 +230,12 @@ public class EntityZedBoss : EntityZombie
     {
         base.Awake();
         
+    }
+
+    public override void SetMotionMultiplier(float _motionMultiplier)
+    {
+        if (_motionMultiplier < 0.8F) _motionMultiplier = 0.8F;
+        base.SetMotionMultiplier(_motionMultiplier);
     }
 
     public override int DamageEntity(DamageSource _damageSource, int _strength, bool _criticalHit, float impulseScale)

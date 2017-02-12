@@ -183,6 +183,7 @@ public class BlockGasTankSecure : BlockSecureLoot
                         int newPowerValue = block.meta;
                         if (newPowerValue < 0) newPowerValue = 0;
                         newPowerValue = newPowerValue + (numberFuelUnits * 5); // each fuel unit gives 5 power units
+                        if (newPowerValue > 15) newPowerValue = 15;
                         block.meta = (byte)newPowerValue;
                         _world.SetBlockRPC(_cIdx, _blockPos, block);
                         // converts to empty gazcan?

@@ -237,6 +237,14 @@
 	</item>
 	<item id="" name="sunflowerSeed">
 		<property name="Extends" value="appleSeed" />
+		<property class="Action0">
+			<!-- LMB = Exchange to Flour when focusing the Mortar and Pestle -->
+			<property name="Class" value="ExchangeItem" />
+			<property name="Delay" value="1.0" />
+			<property name="Change_item_to" value="sunflowerOil" />
+			<property name="Focused_blockname_1" value="mortarAndPestle" />
+			<property name="Sound_start" value="UseActions/place_cobblestone" />
+		</property>
 		<property class="Action1">
 			<property name="Blockname" value="plantedSunflower" />
 		</property>

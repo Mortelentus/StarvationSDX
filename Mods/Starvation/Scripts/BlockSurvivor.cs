@@ -148,7 +148,6 @@ public class BlockRadioTower : Block
     TowerScript script;
     UnityEngine.GameObject gameObject;
     private bool disableDebug = true;
-    private int maxLevel = 10;
 
     /// <summary>
     /// Stores the date and time the tool tip was last displayed
@@ -606,9 +605,10 @@ public class BlockCrafter : BlockSecureLoot
         result = base.CanPlaceBlockAt(_world, _clrIdx, _blockPos, _blockValue);
         if (result)
         {
-            string requirement = "Any";
+            string requirement = "";
             if (this.Properties.Values.ContainsKey("Requires"))
                 requirement = this.Properties.Values["Requires"];
+            if (requirement == "") return result;
             result = CheckSurvivor(_world, _clrIdx, _blockPos, requirement, false);
             if (requirement == "Any") requirement = " ";
             else requirement = " " + requirement + " ";
@@ -620,10 +620,12 @@ public class BlockCrafter : BlockSecureLoot
     public override void OnBlockPlaceBefore(WorldBase _world, ref BlockPlacement.Result _bpResult, EntityAlive _ea, Random _rnd)
     {
         // it's here that I remove the survivor
-        string requirement = "Any";
+        string requirement = "";
         if (this.Properties.Values.ContainsKey("Requires"))
             requirement = this.Properties.Values["Requires"];
-        bool result = CheckSurvivor(_world, _bpResult.clrIdx, _bpResult.blockPos, requirement, true);
+        bool result = true;
+        if (requirement != "")
+            result = CheckSurvivor(_world, _bpResult.clrIdx, _bpResult.blockPos, requirement, true);
         if (result)
             base.OnBlockPlaceBefore(_world, ref _bpResult, _ea, _rnd);
     }

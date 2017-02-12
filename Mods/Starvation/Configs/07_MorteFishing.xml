@@ -345,6 +345,7 @@
 		<property name="Material" value="organic" />
 		<property name="HoldType" value="27" />
 		<property name="Stacknumber" value="5" />
+		<property name="ModelOffset" value="0,0.2,0" />
 		<!-- STK torch -->
 		<property name="FuelValue" value="16" />
 		<property class="Action1">
@@ -358,7 +359,7 @@
 	<item id="" name="bigFish">
 		<property name="Extends" value="fish" />
 		<property name="Meshfile" value="#fishes?bigFish" />
-		<property name="DropMeshfile" value="#fishes?bigFish" />
+		<property name="DropMeshfile" value="#fishes?bigFish" />		
 		<property class="Action1">
 			<property name="Blockname" value="bigFishWall" />
 		</property>
@@ -438,6 +439,7 @@
 		<property name="Model" value="#fishes?fish" />
 		<property name="Weight" value="10" />
 		<property name="CanPickup" value="false" />
+		<property name="ModelOffset" value="0,0.1,0" />
 		<property name="Place" value="TowardsPlacer" />
 		<property name="Stacknumber" value="5" />
 		<drop event="Destroy" count="0" />
@@ -449,35 +451,41 @@
 		<property name="Extends" value="fishWall" />
 		<property name="Model" value="#fishes?bigFish" />
 		<drop event="Harvest" name="fishFillet" count="2,3" prob="1" />
+		<property name="ModelOffset" value="0,0.2,0" />
 		<property name="IsDeveloper" value="true" />
 	</block>
 	<block id="89" name="rudFishWall">		
 		<property name="Extends" value="fishWall" />
 		<drop event="Harvest" name="fishFillet" count="1" />
+		<property name="ModelOffset" value="0,0.1,0" />
 		<property name="IsDeveloper" value="true" />
 	</block>
 	<block id="90" name="bassWall">
 		<property name="Extends" value="fishWall" />
 		<property name="Model" value="#fishes?bass" />
 		<drop event="Harvest" name="bassMeat" count="1" />
+		<property name="ModelOffset" value="0,0.2,0" />
 		<property name="IsDeveloper" value="true" />
 	</block>
 	<block id="91" name="bigBassWall">
 		<property name="Extends" value="fishWall" />
 		<property name="Model" value="#fishes?bigBass" />
 		<drop event="Harvest" name="bassMeat" count="2,3" prob="1" />
+		<property name="ModelOffset" value="0,0.2,0" />
 		<property name="IsDeveloper" value="true" />
 	</block>
 	<block id="92" name="salmonWall">
 		<property name="Extends" value="fishWall" />
 		<property name="Model" value="#fishes?salmon" />
 		<drop event="Harvest" name="salmonMeat" count="1" />
+		<property name="ModelOffset" value="0,0.2,0" />
 		<property name="IsDeveloper" value="true" />
 	</block>
 	<block id="93" name="bigSalmonWall">
 		<property name="Extends" value="fishWall" />				
 		<property name="Model" value="#fishes?bigSalmon" />
 		<drop event="Harvest" name="salmonMeat" count="2,3" prob="1" />
+		<property name="ModelOffset" value="0,0.2,0" />
 		<property name="IsDeveloper" value="true" />
 	</block>
 	<block id="94" name="plantedBamboo1">

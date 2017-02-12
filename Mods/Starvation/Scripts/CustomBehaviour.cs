@@ -51,7 +51,7 @@ public class ConsoleCmdCustomChat : global::ConsoleCmdAbstract
 
 public static class MorteHelpers
 {
-    public static string modVersion = "STARVATION 15.1.9.9";
+    public static string modVersion = "STARVATION 15.2.9.1";
     private static string whisperColor = "[B536DA]";
     private static string radioColor = "[478896]";
     private static string megaColor = "[E11818]";
@@ -570,7 +570,7 @@ public static class MorteHelpers
             try
             {
                 //Debug.Log("LOOKING FOR PLAYER STATS");
-                var playerStats = player.Stats.GetType().GetFields().First(d => d.Name == "PI").GetValue(player.Stats);
+                var playerStats = player.Stats.GetType().GetFields().First(d => d.Name == "YJ").GetValue(player.Stats);
                 sts = (playerStats as Dictionary<string, MultiBuffVariable>);
                 //Debug.Log("Found playerStats");
                 return sts;
@@ -584,7 +584,7 @@ public static class MorteHelpers
         {
             try
             {
-                var playerStats = player.Stats.GetType().GetFields().First(d => d.Name == "MB").GetValue(player.Stats);
+                var playerStats = player.Stats.GetType().GetFields().First(d => d.Name == "RK").GetValue(player.Stats);
                 sts = (playerStats as Dictionary<string, MultiBuffVariable>);
                 return sts;
             }
@@ -624,6 +624,29 @@ public static class MorteHelpers
         }
         return true;
     }
+}
+
+public static class ItemStackHelper
+{
+    //public static ulong ReadTime(BinaryReader _br)
+    //{
+    //    return _br.ReadUInt64();
+    //}
+    //public static ulong ReadTimeDelta(BinaryReader _br, ItemStack _last)
+    //{
+    //    ulong myTime = _br.ReadUInt64();
+    //    if (myTime < _last.spoilTime) myTime = _last.spoilTime;
+    //    return myTime;
+    //}
+    //public static void WriteTime(BinaryWriter _br, ItemStack stack)
+    //{
+    //    _br.Write(stack.spoilTime);
+    //}
+    //public static void WriteTimeDelta(BinaryWriter _br, ItemStack stack, ItemStack _last)
+    //{
+    //    _br.Write(stack.spoilTime);
+    //    if (_last.spoilTime < stack.spoilTime) _last.spoilTime = stack.spoilTime;
+    //}
 }
 
 public class Config

@@ -3,6 +3,7 @@ using System.IO;
 using UnityEngine;
 using System.Collections.Generic;
 using Object = UnityEngine.Object;
+using SDX.Payload;
 
 // By default, a survivor will run away from zombies, unless its of a specific type
 // Hunters, will track and attack animals -> "entityanimal"
@@ -1027,5 +1028,199 @@ public class LockReceips
             CraftingManager.LockRecipe(recipt, CraftingManager.RecipeLockTypes.None);
             CraftingManager.UnlockedRecipeList.Remove(recipt);
         }        
+    }
+}
+
+public class MorteSpawners
+{
+    public static void SpawnGroupToPos(WorldBase _world, int _clrIdx, Vector3i _blockPos, string entityGroup, int minDistance, int maxDistance, int zone, bool debug)
+    {
+        int x;
+        int y;
+        int z;
+        try
+        {
+            // spreads the rats to about 15 blocks away
+            Vector3 spawnPos = Vector3.zero;
+            if (GameManager.Instance.World.GetRandomSpawnPositionMinMaxToPosition(_blockPos.ToVector3(), minDistance, maxDistance, false,
+                out spawnPos, false))
+            {
+                //GameManager.Instance.World.FindRandomSpawnPointNearPosition(
+                //    _blockPos.ToVector3(), 50, out x, out y, out z,
+                //    new Vector3(area, area, area), true, false);
+                int entityID = EntityGroups.GetRandomFromGroup(entityGroup);
+                //spawnPos = new Vector3((float) x, (float) y, (float) z);
+                Entity spawnEntity = EntityFactory.CreateEntity(entityID,
+                    spawnPos);
+                spawnEntity.SetSpawnerSource(EnumSpawnerSource.StaticSpawner, _clrIdx, entityGroup);
+                GameManager.Instance.World.SpawnEntityInWorld(spawnEntity);
+                debugHelper.doDebug("Spawned from " + entityGroup, debug);
+                if (spawnEntity is EntityAlive)
+                {
+                    EntityAlive ent = (EntityAlive) spawnEntity;
+                    ent.SetInvestigatePosition(_blockPos.ToVector3(), 9999);
+                    ent.getNavigator().clearPathEntity();
+                    Legacy.PathFinderThread.Instance.FindPath(ent, _blockPos.ToVector3(), ent.GetWanderSpeed(),
+                        (EAIBase) null);
+                    ent.setHomeArea(_blockPos, zone);
+                }
+            }
+            else Debug.Log("ERROR SPAWNING: IMPOSSIBLE TO FIND A SPAWN POSITION");
+        }
+        catch (Exception ex)
+        {
+            Debug.Log("ERROR SPAWNING:" + ex.Message);
+        }
+    }
+    public static bool SpreadPlague(WorldBase _world, int _clrIdx, Vector3i _blockPos, int spreadRange, System.Random rnd, out Vector3i plaguePos, bool debug)
+    {
+        //string blocks = "";
+        debugHelper.doDebug("PLAGUE TRYING TO SPREAD", debug);
+        for (int i = _blockPos.x - spreadRange; i <= (_blockPos.x + spreadRange); i++)
+        {
+            for (int j = _blockPos.z - spreadRange; j <= (_blockPos.z + spreadRange); j++)
+            {
+                for (int k = _blockPos.y - spreadRange; k <= (_blockPos.y + spreadRange); k++)
+                {
+                    BlockValue block = _world.GetBlock(_clrIdx, new Vector3i(i, k, j));
+                    //blocks = blocks + block.type + ", ";                    
+                    if (Block.list[block.type] is BlockMortePlantGrowing ||
+                        Block.list[block.type] is BlockMortePlantGrown)
+                    {
+                        if (block.meta != 1) // already infected
+                        {
+                            bool spread = true;
+                            if (block.meta == 0 && Block.list[block.type] is BlockMortePlantGrown) // wild plant
+                            {
+                                //debugHelper.doDebug("WILD PLANT", !debug);
+                                spread = false;
+                            }
+                            else if (block.meta == 2)
+                            {
+                                // plant has pesticide, has a good chance of not getting infected
+                                if (rnd.Next(1, 101) < 50) spread = false;
+                            }
+                            if (spread)
+                            {
+                                debugHelper.doDebug("PLAGUE SPREADING", debug);
+                                plaguePos = new Vector3i(i, k, j);
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        plaguePos = Vector3i.zero;
+        return false;
+    }
+    public static int PlagueChance(WorldBase _world, int _clrIdx, Vector3i _blockPos, BlockValue _blockValue, int baseChance, int checkRange, bool debug)
+    {
+        decimal chance = baseChance;        
+        bool checkForLight = false;
+        if (checkForLight)
+        {
+            for (int i = _blockPos.x - checkRange; i <= (_blockPos.x + checkRange); i++)
+            {
+                for (int j = _blockPos.z - checkRange; j <= (_blockPos.z + checkRange); j++)
+                {
+                    for (int k = _blockPos.y - checkRange; k <= (_blockPos.y + checkRange); k++)
+                    {
+                        BlockValue block = _world.GetBlock(_clrIdx, new Vector3i(i, k, j));
+                        //blocks = blocks + block.type + ", ";
+                        if (block.type == Block.GetBlockValue("MortePlantLight").type)
+                        {
+                            // if block has power
+                            if (block.meta == 1)
+                            {
+                                chance = chance/10;
+                            }
+                            else chance++;
+                        }
+                    }
+                }
+            }
+        }
+        if (_blockValue.meta == 2)
+        {
+            chance = chance/2;
+            debugHelper.doDebug("PLANT IS PESTICIZED", debug);
+        }
+        chance = chance*10;
+        return (int) chance;
+    }
+    public static bool FindTrap(WorldBase _world, int _clrIdx, Vector3i _blockPos, int checkRange, string blockName, bool debug)
+    {
+        for (int i = _blockPos.x - checkRange; i <= (_blockPos.x + checkRange); i++)
+        {
+            for (int j = _blockPos.z - checkRange; j <= (_blockPos.z + checkRange); j++)
+            {
+                for (int k = _blockPos.y - checkRange; k <= (_blockPos.y + checkRange); k++)
+                {
+                    BlockValue block = _world.GetBlock(_clrIdx, new Vector3i(i, k, j));
+                    string[] traps = blockName.Split(',');
+                    bool isTrap = false;
+                    foreach (string trap in traps)
+                    {
+                        if (block.type == Block.GetBlockValue(trap).type)
+                        {
+                            // check if its powered on
+                            if (Block.list[block.type] is BlockElectricDevice)
+                            {
+                                debugHelper.doDebug("FOUND ELECTRIC DEVICE", debug);
+                                if (BlockElectricDevice.IsOn(block.meta))
+                                {
+                                    debugHelper.doDebug("FOUND A POWERED ON DEVICE, REDUCING CHANCE!!!", debug);
+                                    return true;
+                                }
+                            }
+                        }
+                    }                    
+                }
+            }
+        }
+        debugHelper.doDebug("NO POW", debug);
+        return false;
+    }
+}
+
+public class MorteParticleEffect
+{
+    public static void addParticle(BlockValue _blockValue, BlockEntityData _ebcd, Vector3 offSet, string particle, bool disableDebug)
+    {
+        debugHelper.doDebug("LOADING particle " + particle, !disableDebug);
+        if (_ebcd == null)
+        {
+            debugHelper.doDebug("NO ENTITYDATA", !disableDebug);
+            return;
+        }
+        if (_ebcd.transform == null)
+        {
+            debugHelper.doDebug("NO TRANSFORM", !disableDebug);
+            return;
+        }
+        if (_ebcd.transform.FindInChilds(particle))
+        {
+            debugHelper.doDebug("Particle " + particle + "already loaded", !disableDebug);
+        }
+        GameObject original = ResourceWrapper.Load1P(particle) as GameObject;
+        if ((UnityEngine.Object)original == (UnityEngine.Object)null)
+        {
+            Debug.Log("Error loading " + particle);
+            return;
+        }
+        Vector3 localPosition;
+        Vector3 localScale;
+        Quaternion localRotation;
+        GameObject _go;
+        //localPosition = original.transform.localPosition + getParticleOffset(_blockValue);
+        localPosition = original.transform.localPosition + offSet;
+        localScale = original.transform.localScale;
+        localRotation = original.transform.localRotation;
+        _go = UnityEngine.Object.Instantiate<GameObject>(original);
+        _go.transform.parent = _ebcd.transform;
+        _go.transform.localPosition = localPosition;
+        _go.transform.localRotation = localRotation;
+        _go.transform.localScale = localScale;
     }
 }

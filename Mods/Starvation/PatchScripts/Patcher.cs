@@ -13,6 +13,7 @@ using XMLData;
 using FieldAttributes = Mono.Cecil.FieldAttributes;
 using ModManager = SDX.Core.ModManager;
 using ParameterAttributes = Mono.Cecil.ParameterAttributes;
+using TypeAttributes = Mono.Cecil.TypeAttributes;
 
 public class StarvationPatcher : IPatcherMod
 {
@@ -137,7 +138,13 @@ public class StarvationPatcher : IPatcherMod
         worldLoad = module.Types.First(d => d.Name == "EntityPlayerLocal").Methods.First(d => d.Name == "OnHUD");
         pro = worldLoad.Body.GetILProcessor();
         pro.Body.Instructions.Insert(92, Instruction.Create(OpCodes.Call, linkMethod));
-        //pro.Body.Instructions.Insert(0, Instruction.Create(OpCodes.Call, linkMethod));
+        // injecting new filds to ItemStack        
+        //TypeDefinition modinj = module.Types.First(d => d.Name == "ItemStack");
+        //var fieldDef = new FieldDefinition(
+        //    "spoilTime",
+        //    FieldAttributes.Public,
+        //    modinj.Module.Import(typeof (ulong)));
+        //modinj.Fields.Add(fieldDef);
     }
 
     private void ChangeFieldPermission(ModuleDefinition module)
@@ -147,14 +154,14 @@ public class StarvationPatcher : IPatcherMod
         var field = gm.Fields.First(d => d.FieldType.Name == "ConnectionManager");        
         SetFieldToPublic(field);
         Console.WriteLine(" == Changing TyleEntityList permissions == ");
-        if (SDX.Core.ModManager.Target.Name.Contains("Server"))
+        if (SDX.Core.ModManager.Target.Name.Contains("Server")) // public Dictionary<TileEntity, int> 
         {
-            field = gm.Fields.First(d => d.Name == "IB");
+            field = gm.Fields.First(d => d.Name == "BS");
             SetFieldToPublic(field);
         }
         else
         {
-            field = gm.Fields.First(d => d.Name == "AI");
+            field = gm.Fields.First(d => d.Name == "EJ");
             SetFieldToPublic(field);
         }
         Console.WriteLine(" == Changing Player Status permissions == ");
@@ -162,10 +169,12 @@ public class StarvationPatcher : IPatcherMod
         gm = module.Types.First(d => d.Name == "EntityStats");
         //field = gm.Fields.First(d => d.Name == "PI");
         //field = gm.Fields.First(d => d.FieldType.Name.Contains("Dictionary"));
-        if (!SDX.Core.ModManager.Target.Name.Contains("Server"))
-            field = gm.Fields.First(d => d.Name == "PI");
-        else field = gm.Fields.First(d => d.Name == "MB");
+        if (!SDX.Core.ModManager.Target.Name.Contains("Server")) // private Dictionary<string, MultiBuffVariable>
+            field = gm.Fields.First(d => d.Name == "YJ");
+        else field = gm.Fields.First(d => d.Name == "RK");
         SetFieldToPublic(field);
+
+        // ClientHelper.cs, ServerHelper.cs, mortehelpers.getstats in custombehaviours.
     }
 
     private void SetFieldToPublic(FieldDefinition field)

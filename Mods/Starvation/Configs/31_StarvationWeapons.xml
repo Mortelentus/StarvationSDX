@@ -25,13 +25,7 @@
 	<recipe name="partsRevolver_grip" count="1" scrapable="False" craft_area="forgestone">
 		<ingredient name="shortMetalPipe" count="2" />
 		<ingredient name="scrapCopper" count="5" />
-	</recipe>
-	<recipe name="buechse" count="1" scrapable="False" craft_area="forgestone">
-			<ingredient name="forgedIron" count="4" />
-			<ingredient name="shortMetalPipe" count="2" />
-			<ingredient name="wood" count="4" />
-			<ingredient name="spring" count="2" />
-		</recipe>	
+	</recipe>	
 	<recipe name="woodenSpear" count="1" scrapable="False">	
 			<ingredient name="wood" count="8" />		
 		</recipe>
@@ -1066,16 +1060,16 @@
 			<!-- AttackAction -->
 			<property name="Class" value="RangedAt, Mods" />
 			<property name="Delay" value="0.8" />
-			<property name="Range" value="60" />
+			<property name="Range" value="40" />
 			<property name="Crosshair_min_distance" value="30" />
 			<property name="Crosshair_max_distance" value="50" />
-			<property name="DamageEntity" value="45" />
+			<property name="DamageEntity" value="15" />
 			<property name="DamageBlock" value="0.3" />
 			<property name="Magazine_size" value="2" />
 			<property name="Magazine_items" value="blunderbussAmmo" />
-			<property name="Magazine_item_ray_counts" value="10" />
+			<property name="Magazine_item_ray_counts" value="3" />
 			<property name="Magazine_item_ray_spreads" value="0.6" />
-			<property name="Reload_time" value="3.9" />
+			<property name="Reload_time" value="4.9" />
 			<property name="Bullet_icon" value="uzi" />
 			<property name="Sound_start" value="Weapons/Ranged/Blunderbuss/blunderbuss_fire" />
 			<property name="Sound_repeat" value="" />
@@ -1084,13 +1078,13 @@
 			<property name="Sound_reload" value="Weapons/Ranged/Blunderbuss/blunderbuss_reload" />
 			<property name="Particles_muzzle_fire" value="nozzleflash_shotgun" />
 			<property name="Particles_muzzle_smoke" value="nozzlesmokeuzi" />
-			<property name="DamageBonus.head" value="30" />
+			<property name="DamageBonus.head" value="10" />
 			<property name="DamageBonus.wood" value="2.5" />
 			<property name="DamageBonus.plants" value="4" />
 			<property name="DamageBonus.glass" value="25" />
 			<property name="DamageBonus.earth" value=".2" />
 			<property name="Buff" value="shotgunWound" />
-			<property name="Buff_chance" value=".8" />
+			<property name="Buff_chance" value=".6" />
 			<!-- Aditional kickback on top of vanilla kickback for weapon DEFAULT-->
 			<property name="kickbackAim" value="20" />
 			<!-- Aditional kickback on top of vanilla kickback for weapon DEFAULT -->
@@ -1104,10 +1098,10 @@
 		</property>
 		<property name="Group" value="Ammo/Weapons" />
 		<property class="Attributes">
-			<property name="EntityDamage" value="10.4,30" />
+			<property name="EntityDamage" value="10.4,20" />
 			<property name="BlockDamage" value="1.6,5" />
-			<property name="Accuracy" value="0.5,0.1" />
-			<property name="DegradationMax" value="800,3200" />
+			<property name="Accuracy" value="0.8,0.5" />
+			<property name="DegradationMax" value="400,600" />
 			<property name="DegradationRate" value="10,10" />
 		</property>
 	</item>

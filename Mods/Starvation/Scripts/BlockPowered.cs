@@ -3,21 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = System.Random;
 
-/// <summary>
-/// Power Lights
-/// They will work only when connected to a electric source
-/// Inactivity time - if no players are present, it will kill all zombies entering the area
-/// Max spawn area - the zombies will spawn randomly inside that max area, that can be smaller or bigger then the trigger - useful to spread or focus the spawn
-/// Radiation damage - a radiation area that can be set to inflict a configurable radiation damage. It can also apply a buff.
-/// 
-/// </summary>
-public class BlockPowerLight : BlockLight
+public class BlockElectricDevice : Block
 {
+
+    ElectricDeviceScript script;
+    UnityEngine.GameObject gameObject;
     private bool disableDebug = true;
     private int maxLevel = 10;
+    private bool isPowered = true;
     private int valveNumber = 10;
-    PowerLightScript script;
-    UnityEngine.GameObject gameObject;
 
     /// <summary>
     /// Stores the date and time the tool tip was last displayed
@@ -34,13 +28,13 @@ public class BlockPowerLight : BlockLight
     {
         if (!disableDebug)
         {
-            str = "POWER LIGHT: " + str;
-            bool debug = false;
-            if (this.Properties.Values.ContainsKey("debug"))
-            {
-                if (bool.TryParse(this.Properties.Values["debug"], out debug) == false) debug = false;
-            }
-            if (debug)
+            str = "ELECTRICDEVICE: " + str;
+            //bool debug = false;
+            //if (this.Properties.Values.ContainsKey("debug"))
+            //{
+            //    if (bool.TryParse(this.Properties.Values["debug"], out debug) == false) debug = false;
+            //}
+            //if (debug)
             {
                 // Check if the game instance is not null
                 if (GameManager.Instance != null)
@@ -73,70 +67,110 @@ public class BlockPowerLight : BlockLight
         }
     }
 
-    //public override void OnBlockAdded(WorldBase world, Chunk _chunk, Vector3i _blockPos, BlockValue _blockValue)
-    //{
-    //    DisplayChatAreaText(string.Format("TICK random: {0}, TICK rate: {1}, BLOCKID: {2}", this.IsRandomlyTick.ToString(), this.GetTickRate(), this.blockID));       
-    //    base.OnBlockAdded(world, _chunk, _blockPos, _blockValue);
-    //    if (!world.IsRemote())
-    //    {
-    //        DisplayChatAreaText("Add next tick");
-    //        world.GetWBT().AddScheduledBlockUpdate(_chunk.ClrIdx, _blockPos, this.blockID, this.GetTickRate());
-    //    }
-    //}
-
-    public override ulong GetTickRate()
+    public override void Init()
     {
-        ulong result = 10;
-        if (this.Properties.Values.ContainsKey("TickRate"))
+        base.Init();
+        if (this.Properties.Values.ContainsKey("isPowered"))
         {
-            if (ulong.TryParse(this.Properties.Values["TickRate"], out result) == false) result = 10;
+            if (bool.TryParse(this.Properties.Values["isPowered"], out isPowered) == false) isPowered = false;
         }
-        return result;
     }
 
-    //public override bool UpdateTick(WorldBase _world, int _clrIdx, Vector3i _blockPos, BlockValue _blockValue,
-    //    bool _bRandomTick,
-    //    ulong _ticksIfLoaded, Random _rnd)
-    //{
-    //    CheckForPower(_world, _clrIdx, _blockPos, _blockValue);
-    //    return true;
-    //}
+    public static bool IsOn(byte _metadata)
+    {
+        // bit 2
+        return ((int)_metadata & 1 << 2) != 0;
+    }
 
+    public override void OnBlockValueChanged(WorldBase _world, int _clrIdx, Vector3i _blockPos,
+        BlockValue _oldBlockValue,
+        BlockValue _newBlockValue)
+    {
+        base.OnBlockValueChanged(_world, _clrIdx, _blockPos, _oldBlockValue, _newBlockValue);
+        debugHelper.doDebug("BlockElectricDevice: OnBlockValueChanged", !disableDebug);
+        // here I update the animation, if it's not dedicated
+        if (!GameManager.IsDedicatedServer)
+            playAnimation(_world, _clrIdx, _blockPos, _oldBlockValue, _newBlockValue);
+        if (_world.IsRemote()) return; // only the server needs to run the script        
+        // get the transform
+        BlockEntityData _ebcd = _world.ChunkClusters[_clrIdx].GetBlockEntity(_blockPos);
+        if (_ebcd != null)
+        {
+            try
+            {
+                if (_ebcd.transform == null) return;
+                debugHelper.doDebug("BlockElectricDevice: OnBlockValueChanged - CHECKING SCRIPT?", !disableDebug);
+                gameObject = _ebcd.transform.gameObject;
+                if (gameObject == null) return;
+                // adds the script if still not existing.
+                script = gameObject.GetComponent<ElectricDeviceScript>();
+                if (script == null)
+                {
+                    debugHelper.doDebug("BlockElectricDevice: OnBlockValueChanged - ADDING SCRIPT?",
+                        !disableDebug);
+                    AddScriptToObject(_world, _blockPos, _clrIdx, _newBlockValue, _ebcd);
+                }
+                else
+                    debugHelper.doDebug(
+                        "BlockElectricDevice: OnBlockValueChanged - SCRIPT ALREADY EXISTING AND RUNNING?",
+                        !disableDebug);
+            }
+            catch (Exception ex)
+            {
+                debugHelper.doDebug("BlockElectricDevice: Error OnBlockValueChanged - " + ex.Message, false);
+            }
+        }
+    }
+
+    public override void OnBlockEntityTransformAfterActivated(WorldBase _world, Vector3i _blockPos, int _cIdx,
+        BlockValue _blockValue, BlockEntityData _ebcd)
+    {
+        debugHelper.doDebug("BLOCKELECTRICDEVICE: OnBlockEntityTransformAfterActivated with META2 = " + _blockValue.meta2, !disableDebug);
+        // set bit to 1
+        //if (!AddScript(_blockValue.meta))
+        {
+            //_blockValue.meta = (byte)(_blockValue.meta2 | (1 << 1));
+            _world.SetBlockRPC(_cIdx, _blockPos, _blockValue);
+        }
+
+        //AddScriptToObject(_world, _blockPos, _cIdx, _blockValue, _ebcd);
+    }
+
+    private void AddScriptToObject(WorldBase _world, Vector3i _blockPos, int _cIdx, BlockValue _blockValue,
+        BlockEntityData _ebcd)
+    {
+        base.OnBlockEntityTransformAfterActivated(_world, _blockPos, _cIdx, _blockValue, _ebcd);
+        gameObject = _ebcd.transform.gameObject;
+        script = gameObject.AddComponent<ElectricDeviceScript>();
+        script.init(_world, _blockPos, _cIdx, isPowered);
+    }
     public void CheckForPower(WorldBase _world, int _clrIdx, Vector3i _blockPos, BlockValue _blockValue)
     {
         try
-        {
-            DisplayChatAreaText("TICK");
+        {            
             bool needsAction = false;
             if (Findorigin(_world, _clrIdx, _blockValue, _blockPos, _blockPos, 1, "Electric"))
             {
-                if (((int) _blockValue.meta & 2) == 0)
+                if (!IsOn(_blockValue.meta))
                 {
-                    // has power, turns ON the light if needed    
-                    needsAction = true;
+                    debugHelper.doDebug("BLOCKELECTRICDEVICE: TRIGGER TURNING ON", !disableDebug);
+                    _blockValue.meta = (byte)(_blockValue.meta | (1 << 2));
+                    _world.SetBlockRPC(_clrIdx, _blockPos, _blockValue);
                 }
             }
             else
             {
-                if (((int) _blockValue.meta & 2) != 0)
+                if (IsOn(_blockValue.meta))
                 {
-                    // no power, turns OFF the light if needed      
-                    needsAction = true;
+                    debugHelper.doDebug("BLOCKELECTRICDEVICE: TRIGGER TURNING OFF", !disableDebug);
+                    _blockValue.meta = (byte)(_blockValue.meta & ~(1 << 2));
+                    _world.SetBlockRPC(_clrIdx, _blockPos, _blockValue);
                 }
             }
-            if (needsAction)
-            {
-                //((World)_world).bEditorMode = true; - Does not work on dedicated server
-                this.OnBlockActivated(_world, _clrIdx, _blockPos, _blockValue, null);
-                //((World)_world).bEditorMode = false;
-            }
-            DisplayChatAreaText("Add next tick");
-            //_world.GetWBT().AddScheduledBlockUpdate(_clrIdx, _blockPos, this.blockID, this.GetTickRate());
         }
         catch (Exception ex)
         {
             DisplayChatAreaText("Error - " + ex.Message);
-            //_world.GetWBT().AddScheduledBlockUpdate(_clrIdx, _blockPos, this.blockID, this.GetTickRate());
         }
     }
 
@@ -169,8 +203,8 @@ public class BlockPowerLight : BlockLight
                 posCheck = new Vector3i(_blockPos.x, _blockPos.y, _blockPos.z + 1); // parent is forward
             else if (_blockValue.meta2 == 6)
                 posCheck = new Vector3i(_blockPos.x, _blockPos.y, _blockPos.z - 1); // parent is back
-           result = CheckBoiler(level, _world, _cIdx,
-                    posCheck, _blockPos);
+            result = CheckBoiler(level, _world, _cIdx,
+                     posCheck, _blockPos);
         }
         else
         {
@@ -210,7 +244,7 @@ public class BlockPowerLight : BlockLight
         else if (blockAux is BlockValve)
         {
             // needs to verify the valve powerType, to make sure.
-           if ((blockAux as BlockValve).GetPowerType()!="Electric") return false;
+            if ((blockAux as BlockValve).GetPowerType() != "Electric") return false;
 
             // asks valve for power, instead of going all the way to the generator
             if ((blockAux as BlockValve).GetPower(_world, _cIdx, _blockCheck, 1, valveNumber))
@@ -302,202 +336,137 @@ public class BlockPowerLight : BlockLight
         // will check if it has any powerline, generator or accumulator as a neightbor
         // if that block is not a child of this position
         // it will store that block as parent
-        int parentPosition = GetParent(_world, _clrIdx, _blockPos);
-        if (parentPosition > 0)
+       if (isPowered)
         {
-            //parentPos = parentPosition;
-            //_blockValue.meta2 = (byte)parentPosition;            
-            // it just saves the direction of the parent
-            // 1 - UP; 2 - DOWN; 3 - LEFT; 4 - RIGHT; 5 - FORWARD; 6 - BACK
-            // diagonals are not alowed                        
-            result = base.CanPlaceBlockAt(_world, _clrIdx, _blockPos, _blockValue);
+            int parentPosition = GetParent(_world, _clrIdx, _blockPos);
+            if (parentPosition > 0)
+            {
+                //parentPos = parentPosition;
+                //_blockValue.meta2 = (byte)parentPosition;            
+                // it just saves the direction of the parent
+                // 1 - UP; 2 - DOWN; 3 - LEFT; 4 - RIGHT; 5 - FORWARD; 6 - BACK
+                // diagonals are not alowed                        
+                result = base.CanPlaceBlockAt(_world, _clrIdx, _blockPos, _blockValue);
+            }
+            else
+            {
+                DisplayToolTipText("This block can only be placed next to an electric line or generator");
+            }
         }
-        else
-        {
-            DisplayToolTipText("This block can only be placed next to an electric line or generator");
-        }
+        else result = base.CanPlaceBlockAt(_world, _clrIdx, _blockPos, _blockValue);
         return result;
     }
 
     public override void OnBlockPlaceBefore(WorldBase _world, ref BlockPlacement.Result _bpResult, EntityAlive _ea, Random _rnd)
     {
-        if (_bpResult.blockValue.meta2 <= 0) // no parent, but MUST have one!
+        if (isPowered)
         {
-            int parentPosition = GetParent(_world, _bpResult.clrIdx, _bpResult.blockPos);
-            _bpResult.blockValue.meta2 = (byte)parentPosition;
-            DisplayChatAreaText(string.Format("parent defined to {0}", _bpResult.blockValue.meta2));
+            if (_bpResult.blockValue.meta2 <= 0) // no parent, but MUST have one!
+            {
+                int parentPosition = GetParent(_world, _bpResult.clrIdx, _bpResult.blockPos);
+                _bpResult.blockValue.meta2 = (byte) parentPosition;
+                DisplayChatAreaText(string.Format("parent defined to {0}", _bpResult.blockValue.meta2));
+            }
         }
         base.OnBlockPlaceBefore(_world, ref _bpResult, _ea, _rnd);
     }
 
-    public override bool OnBlockActivated(WorldBase _world, int _cIdx, Vector3i _blockPos, BlockValue _blockValue, EntityAlive _player)
+    private void playAnimation(WorldBase _world, int _clrIdx, Vector3i _blockPos, BlockValue _oldBlockValue,
+        BlockValue _blockValue)
     {
-        ChunkCluster chunkCluster = _world.ChunkClusters[_cIdx];
-        if (chunkCluster == null)
-            return false;
-        IChunk chunkSync = chunkCluster.GetChunkSync(World.toChunkXZ(_blockPos.x), World.toChunkY(_blockPos.y), World.toChunkXZ(_blockPos.z));
-        if (chunkSync == null)
-            return false;
-        BlockEntityData blockEntity = chunkSync.GetBlockEntity(_blockPos);
-        if (blockEntity == null || !blockEntity.bHasTransform)
-            return false;
-        byte num = (byte)(1 - (((int)_blockValue.meta & 2) >> 1));
-        _blockValue.meta &= (byte)253;
-        _blockValue.meta |= (byte)((uint)num << 1);
-        //playAnimation(_world, _cIdx, _blockPos, _blockValue);
-        _world.SetBlockRPC(_cIdx, _blockPos, _blockValue);
-        return true;
-    }
-
-    private static void playAnimation(BlockValue _blockValue, BlockEntityData blockEntity)
-    {
-        if (blockEntity == null || !blockEntity.bHasTransform)
+        BlockEntityData _ebcd = _world.ChunkClusters[_clrIdx].GetBlockEntity(_blockPos);
+        Animator[] componentsInChildren;
+        if (_ebcd == null || !_ebcd.bHasTransform ||
+            (componentsInChildren = _ebcd.transform.GetComponentsInChildren<Animator>(false)) == null)
             return;
-        Transform transform1 = blockEntity.transform.Find("MainLight");
-        if ((UnityEngine.Object) transform1 != (UnityEngine.Object) null)
+        DisplayChatAreaText("FOUND ANIMATOR with BLOCKVALUE = " + _blockValue.ToString());
+        foreach (Animator animator in componentsInChildren)
         {
-            LightLOD component = transform1.GetComponent<LightLOD>();
-            if ((UnityEngine.Object) component != (UnityEngine.Object) null)
-                component.SwitchOnOff(((int) _blockValue.meta & 2) != 0);
-        }
-        Transform transform2 = blockEntity.transform.Find("SeparatedLensFlare");
-        if ((UnityEngine.Object) transform2 != (UnityEngine.Object) null)
-        {
-            LightLOD component = transform2.GetComponent<LightLOD>();
-            if ((UnityEngine.Object) component != (UnityEngine.Object) null)
-                component.SwitchOnOff(((int) _blockValue.meta & 2) != 0);
-        }
-        Transform transform3 = blockEntity.transform.Find("BulbGlow");
-        if ((UnityEngine.Object) transform3 != (UnityEngine.Object) null)
-        {
-            MeshRenderer component = transform3.GetComponent<MeshRenderer>();
-            if ((UnityEngine.Object) component != (UnityEngine.Object) null)
-                component.enabled = ((int) _blockValue.meta & 2) != 0;
-        }
-        Transform transform4 = blockEntity.transform.Find("ExtraPointLight");
-        if ((UnityEngine.Object) transform4 != (UnityEngine.Object) null)
-        {
-            LightLOD component = transform4.GetComponent<LightLOD>();
-            if ((UnityEngine.Object) component != (UnityEngine.Object) null)
-                component.SwitchOnOff(((int) _blockValue.meta & 2) != 0);
-        }
-    }
-
-    public override void OnBlockValueChanged(WorldBase _world, int _clrIdx, Vector3i _blockPos,
-        BlockValue _oldBlockValue,
-        BlockValue _newBlockValue)
-    {
-        // the animations need to be triggered here so that they are shown to all players
-        base.OnBlockValueChanged(_world, _clrIdx, _blockPos, _oldBlockValue, _newBlockValue);
-        // checks if the script should be added
-        if (!_world.IsRemote()) // only runs on server        
-        {
-            BlockEntityData _ebcd = _world.ChunkClusters[_clrIdx].GetBlockEntity(_blockPos);
-            if (_ebcd != null)
+            if (IsOn(_blockValue.meta))
             {
-                try
-                {
-                    gameObject = _ebcd.transform.gameObject;
-                    // adds the script if still not existing.
-                    script = gameObject.GetComponent<PowerLightScript>();
-                    if (script == null)
-                    {
-                        if (!disableDebug) Debug.Log("LIGHTS: ADDING SCRIPT");
-                        script = gameObject.AddComponent<PowerLightScript>();
-                        script.initialize(_world, _blockPos, _clrIdx);
-                    }
-                    else if (!disableDebug)
-                        Debug.Log("LIGHTS: OnBlockValueChanged - SCRIPT ALREADY EXISTING AND RUNNING?");
-                }
-                catch (Exception ex)
-                {
-                    if (!disableDebug) Debug.Log("LIGHTS: Error OnBlockValueChanged - " + ex.Message);
-                }
+                // play open animation
+                DisplayChatAreaText("Turn On");
+                animator.CrossFade("LampOn", 0.0f);
+                //animator.ResetTrigger("IsOff");
+                //animator.SetTrigger("IsOn");
+            }
+            else
+            {
+                // play close animation
+                DisplayChatAreaText("Turn Off");
+                animator.CrossFade("LampOff", 0.0f);
+                //animator.ResetTrigger("IsOn");
+                //animator.SetTrigger("IsOff");
             }
         }
-        if (((int)_oldBlockValue.meta & 2) == ((int)_newBlockValue.meta & 2)) return;
-        // trigger light change
-        ChunkCluster chunkCluster = _world.ChunkClusters[_clrIdx];
-        if (chunkCluster == null)
-            return;
-        IChunk chunkSync = chunkCluster.GetChunkSync(World.toChunkXZ(_blockPos.x), World.toChunkY(_blockPos.y), World.toChunkXZ(_blockPos.z));
-        if (chunkSync == null)
-            return;
-        BlockEntityData blockEntity = chunkSync.GetBlockEntity(_blockPos);
-        playAnimation(_newBlockValue, blockEntity);
     }
-
-    //public override void OnBlockLoaded(WorldBase _world, int _clrIdx, Vector3i _blockPos, BlockValue _blockValue)
-    //{
-    //    DisplayChatAreaText("ON BLOCK LOADED");
-    //    base.OnBlockLoaded(_world, _clrIdx, _blockPos, _blockValue);
-    //    // every time the block is "reloaded" i try to readd it to the ticks, just in case it has stopped running
-    //    if (!_world.IsRemote())
-    //        _world.GetWBT().AddScheduledBlockUpdate(_clrIdx, _blockPos, this.blockID, this.GetTickRate());
-    //}
 
     public override void ForceAnimationState(BlockValue _blockValue, BlockEntityData _ebcd)
     {
-        playAnimation(_blockValue, _ebcd);
+        Animator[] componentsInChildren;
+        if (_ebcd == null || !_ebcd.bHasTransform ||
+            (componentsInChildren = _ebcd.transform.GetComponentsInChildren<Animator>(false)) == null)
+            return;
+        bool _isOn = IsOn(_blockValue.meta);
+        foreach (Animator animator in componentsInChildren)
+        {
+            if (!_isOn)
+                animator.CrossFade("LampOff", 0.0f);
+            else animator.CrossFade("LampOn", 0.0f);
+        }
     }
 
-    public override void OnBlockEntityTransformAfterActivated(WorldBase _world, Vector3i _blockPos, int _cIdx,
-            BlockValue _blockValue, BlockEntityData _ebcd)
-    {
-        DisplayChatAreaText("LIGHTS: OnBlockEntityTransformAfterActivated");
-        base.OnBlockEntityTransformAfterActivated(_world, _blockPos, _cIdx, _blockValue, _ebcd);
-        // triggers a blockvaluechanged to add script on server?
-        _world.SetBlockRPC(_cIdx, _blockPos, _blockValue);
-    }
 }
 
-// checks if there is available electricity
-public class PowerLightScript : MonoBehaviour
+public class ElectricDeviceScript : MonoBehaviour
 {
+    private float SecondsPassed = 0.0F;
+    private bool isPowered = true;
     private WorldBase world;
     private Vector3i blockPos;
-    BlockValue blockValue = BlockValue.Air;
     private int cIdx;
-    DateTime dtaNextCheck = DateTime.MinValue;
-    ulong tickRate = 5; //in seconds
+    DateTime nextCheck = DateTime.MinValue;
+    private DateTime nextSpawn = DateTime.MinValue;
+    bool hasPower = false;
     private bool debug = false;
 
     void Start()
     {
-
     }
 
-    public void initialize(WorldBase _world, Vector3i _blockPos,
-        int _cIdx)
+    public void init(WorldBase _world, Vector3i _blockPos, int _cIdx, bool _isPowered)
     {
+        world = _world;
         blockPos = _blockPos;
         cIdx = _cIdx;
-        // fill properties
-        blockValue = _world.GetBlock(cIdx, blockPos);
-        tickRate = 5;
+        isPowered = _isPowered;
+        if (!isPowered) hasPower = true; // the light ALWAYS blinks and it ALWAYS spawns
+        BlockValue blockValue = world.GetBlock(cIdx, blockPos);
         if (Block.list[blockValue.type].Properties.Values.ContainsKey("debug"))
         {
             if (bool.TryParse(Block.list[blockValue.type].Properties.Values["debug"], out debug) == false) debug = false;
         }
-        world = _world;
     }
-
     void Update()
     {
         if (world != null)
         {
-            if (DateTime.Now > dtaNextCheck)
+            // check for power      
+            if (true)
             {
-                dtaNextCheck = DateTime.Now.AddSeconds(tickRate);
                 try
                 {
-                    blockValue = world.GetBlock(cIdx, blockPos);
-                    (Block.list[blockValue.type] as BlockPowerLight).CheckForPower(world, cIdx, blockPos, blockValue);
+                    if (DateTime.Now >= nextCheck && isPowered)
+                    {
+                        nextCheck = DateTime.Now.AddSeconds(5);
+                        BlockValue _blockValue = world.GetBlock(cIdx, blockPos);
+                        (Block.list[_blockValue.type] as BlockElectricDevice).CheckForPower(world, cIdx, blockPos, _blockValue);
+                    }
                 }
                 catch (Exception ex)
                 {
-                    //Debug.Log("POWERLIGHT: Error OnBlockValueChanged - " + ex.Message);
-                }                
+                    debugHelper.doDebug(string.Format("ElectricDeviceScript: ERROR: {0}", ex.Message), true);
+                }                              
             }
         }
     }

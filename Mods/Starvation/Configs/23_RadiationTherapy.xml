@@ -534,7 +534,7 @@
 		<property name="Shape" value="Terrain" />
 		<property name="Mesh" value="terrain" />
 		<property name="Texture" value="10" />
-		<property name="Weight" value="50" />
+		<property name="Weight" value="1" />
 		<drop event="Harvest" name="iodineOre" count="10" prob="1.0" />
 		<drop event="Destroy" name="iodineOre" count="5" prob="1.0" />
 		<drop event="Fall" name="iodineOre" count="0" />

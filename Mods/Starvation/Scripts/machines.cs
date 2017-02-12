@@ -93,8 +93,8 @@ public class BlockMachine : BlockWorkstation
         // check if any block on its side is a generator AND if it's turned on
         // it checks for powerlines, generator OR valve classes
         // if it finds a generator/valve within 10 blocks, checks if it has power or can get power.
-        bool canOperate = CanOperate(_world, _cIdx, _blockPos, _blockValue);
-
+        bool canOperate = CanOperate(_world, _cIdx, _blockPos, _blockValue, false);
+        _blockValue = _world.GetBlock(_cIdx, _blockPos);
         if (canOperate)
             return base.OnBlockActivated(_indexInBlockActivationCommands, _world, _cIdx, _blockPos, _blockValue, _player);
         else
@@ -114,7 +114,7 @@ public class BlockMachine : BlockWorkstation
         return powerType;
     }
 
-    private bool CanOperate(WorldBase _world, int _cIdx, Vector3i _blockPos, BlockValue _blockValue)
+    private bool CanOperate(WorldBase _world, int _cIdx, Vector3i _blockPos, BlockValue _blockValue, bool consume)
     {
         bool canOperate = false;
         int level = 1;
@@ -128,8 +128,16 @@ public class BlockMachine : BlockWorkstation
             {
                 DisplayChatAreaText("still have power, no need to request");
                 canOperate = true;
-                // removes 1 power unit to self
-                AddPowerLevel(_world, _cIdx, _blockPos, -1);
+                if (consume)
+                {
+                    // removes 1 power unit to self
+                    AddPowerLevel(_world, _cIdx, _blockPos, -1);
+                }
+                else
+                {
+                    // removes 1 power unit to self
+                    AddPowerLevel(_world, _cIdx, _blockPos, 0);
+                }
             }
             else
             {
@@ -415,7 +423,7 @@ public class BlockMachine : BlockWorkstation
     {
         int newPowerValue = block.meta;
         // removes 1 power unit - ONCE it gets to 0 the generator has to check for more fuel                
-        newPowerValue = newPowerValue - 5;
+        newPowerValue = newPowerValue - 1;
         block.meta = (byte)newPowerValue;
         _world.SetBlockRPC(_cIdx, _blockCheck, block);
         // adds 4 power unit to self (1 is consumed with this operation)
@@ -522,7 +530,7 @@ public class BlockMachine : BlockWorkstation
             // check if it still has power
             if (checkPowerNeeded)
             {
-                bool canOperate = CanOperate(_world, _clrIdx, _blockPos, _blockValue);
+                bool canOperate = CanOperate(_world, _clrIdx, _blockPos, _blockValue, true);
                 if (canOperate) DisplayChatAreaText("TICK WITH POWER");
                 else
                 {
@@ -668,7 +676,7 @@ public class MachineScript : MonoBehaviour
     BlockValue blockValue = BlockValue.Air;
     private int cIdx;
     DateTime dtaNextCheck = DateTime.MinValue;
-    ulong tickRate = 10; //in seconds
+    ulong tickRate = 120; //once every 2 minutes
     private bool debug = false;
 
     void Start()
